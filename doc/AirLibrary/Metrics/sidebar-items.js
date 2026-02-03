@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetMetrics","InitializeMetrics"],"struct":["MetricsCollector","MetricsData"]};

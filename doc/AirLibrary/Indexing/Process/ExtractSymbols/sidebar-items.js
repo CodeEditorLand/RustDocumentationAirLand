@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CreateSymbolIndex","DeduplicateLists","DeduplicateSymbols","ExtractSymbols","FilterSymbolsByName","FindSymbolAtLine","FindSymbolsInRange","FindSymbolsMatching","GetSymbolStatistics","GetSymbolsByKind","GroupSymbolsByKind","MergeSymbolLists","SortSymbolsByLine","ValidateSymbol"],"struct":["SymbolStatistics"]};

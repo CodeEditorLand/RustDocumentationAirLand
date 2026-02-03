@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SEARCH_RESULTS_DEFAULT"],"enum":["SearchMode"],"fn":["MatchesFilters","QueryIndexSearch","SanitizeSearchQuery"],"struct":["PaginatedSearchResults","SearchMatch","SearchQuery","SearchResult"]};

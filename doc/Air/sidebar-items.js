@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["HandleCommand","HandleMetricsRequest","InitializeLogging","Main","ParseArguments","WaitForShutdownSignal","attempt_daemon_connection","main","validate_command","validate_configuration","validate_environment"],"macro":["Trace"]};

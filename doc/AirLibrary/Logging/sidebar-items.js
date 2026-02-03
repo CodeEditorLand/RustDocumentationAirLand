@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LogRotation"],"fn":["ClearLogContext","GetLogContext","GetLogger","InitializeLogger","InitializeLoggerWithRotation","SetLogContext"],"struct":["ContextLogger","LogContext","LogManager","LogRotationConfig","SensitiveDataConfig","SensitiveDataFilter","StructuredLogEntry"]};

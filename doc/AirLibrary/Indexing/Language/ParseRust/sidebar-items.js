@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ExtractRustSymbols","ExtractVisibilityModifier","IsRustFunction","IsRustImpl","IsRustStruct"]};

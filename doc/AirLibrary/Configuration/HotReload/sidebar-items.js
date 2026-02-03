@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReloadRequest"],"struct":["AuthConfigValidator","ConfigChange","ConfigChangeEvent","ConfigChangeRecord","ConfigHotReload","DownloadConfigValidator","GrpcConfigValidator","IndexingConfigValidator","LoggingConfigValidator","PerformanceConfigValidator","UpdateConfigValidator"],"trait":["ConfigValidator"]};

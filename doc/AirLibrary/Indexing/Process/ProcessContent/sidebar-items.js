@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ContentToString","DetectEncoding","DetectLanguage","DetectMimeType","GetCharCount","GetLineCount","IsBinaryContent","SanitizeContent","TokenizeContent","TruncateContent"]};
