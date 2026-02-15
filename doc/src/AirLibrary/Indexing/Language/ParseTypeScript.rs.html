@@ -209,7 +209,7 @@
 <a href=#209 id=209 data-nosnippet>209</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(rest) = line_content.strip_prefix(kw) {
 <a href=#210 id=210 data-nosnippet>210</a>			<span class="kw">let </span>name = rest.split(|c| c == <span class="string">'=' </span>|| c == <span class="string">':' </span>|| c == <span class="string">';'</span>).next().unwrap_or(<span class="string">""</span>).trim();
 <a href=#211 id=211 data-nosnippet>211</a>			<span class="comment">// Check if it's a function assignment: const myFunc = () =&gt; {}
-<a href=#212 id=212 data-nosnippet>212</a>			</span><span class="kw">let </span>is_function_assignment = !line_content.contains(<span class="string">"=&gt;"</span>)
+<a href=#212 id=212 data-nosnippet>212</a>			</span><span class="kw">let </span>_is_function_assignment = !line_content.contains(<span class="string">"=&gt;"</span>)
 <a href=#213 id=213 data-nosnippet>213</a>				&amp;&amp; !line_content.contains(<span class="string">"function"</span>)
 <a href=#214 id=214 data-nosnippet>214</a>				&amp;&amp; (line_content.contains(<span class="string">"=&gt;"</span>) || rest.to_lowercase().contains(<span class="string">"function"</span>));
 <a href=#215 id=215 data-nosnippet>215</a>

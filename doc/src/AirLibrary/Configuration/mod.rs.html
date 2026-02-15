@@ -116,7 +116,7 @@
 <a href=#116 id=116 data-nosnippet>116</a>	</span><span class="kw">pub </span>Profile:String,
 <a href=#117 id=117 data-nosnippet>117</a>
 <a href=#118 id=118 data-nosnippet>118</a>	<span class="doccomment">/// gRPC server configuration
-<a href=#119 id=119 data-nosnippet>119</a>	</span><span class="kw">pub </span>Grpc:GrpcConfig,
+<a href=#119 id=119 data-nosnippet>119</a>	</span><span class="kw">pub </span>gRPC:gRPCConfig,
 <a href=#120 id=120 data-nosnippet>120</a>
 <a href=#121 id=121 data-nosnippet>121</a>	<span class="doccomment">/// Authentication configuration
 <a href=#122 id=122 data-nosnippet>122</a>	</span><span class="kw">pub </span>Authentication:AuthConfig,
@@ -143,7 +143,7 @@
 <a href=#143 id=143 data-nosnippet>143</a>
 <a href=#144 id=144 data-nosnippet>144</a><span class="doccomment">/// gRPC server configuration
 <a href=#145 id=145 data-nosnippet>145</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#146 id=146 data-nosnippet>146</a></span><span class="kw">pub struct </span>GrpcConfig {
+<a href=#146 id=146 data-nosnippet>146</a></span><span class="kw">pub struct </span>gRPCConfig {
 <a href=#147 id=147 data-nosnippet>147</a>	<span class="doccomment">/// Bind address for gRPC server
 <a href=#148 id=148 data-nosnippet>148</a>	/// Validation: Must be a valid IP:port or hostname:port combination
 <a href=#149 id=149 data-nosnippet>149</a>	/// Format: [IPv6]:port or IPv4:port or hostname:port
@@ -438,7 +438,7 @@
 <a href=#438 id=438 data-nosnippet>438</a>		<span class="self">Self </span>{
 <a href=#439 id=439 data-nosnippet>439</a>			SchemaVersion:default_schema_version(),
 <a href=#440 id=440 data-nosnippet>440</a>			Profile:default_profile(),
-<a href=#441 id=441 data-nosnippet>441</a>			Grpc:GrpcConfig {
+<a href=#441 id=441 data-nosnippet>441</a>			gRPC:gRPCConfig {
 <a href=#442 id=442 data-nosnippet>442</a>				BindAddress:default_grpc_bind_address(),
 <a href=#443 id=443 data-nosnippet>443</a>				MaxConnections:default_grpc_max_connections(),
 <a href=#444 id=444 data-nosnippet>444</a>				RequestTimeoutSecs:default_grpc_request_timeout(),
@@ -850,7 +850,7 @@
 <a href=#850 id=850 data-nosnippet>850</a>		</span><span class="self">self</span>.ValidateProfile(<span class="kw-2">&amp;</span>config.Profile)<span class="question-mark">?</span>;
 <a href=#851 id=851 data-nosnippet>851</a>
 <a href=#852 id=852 data-nosnippet>852</a>		<span class="comment">// gRPC configuration validation
-<a href=#853 id=853 data-nosnippet>853</a>		</span><span class="self">self</span>.ValidateGrpcConfig(<span class="kw-2">&amp;</span>config.Grpc)<span class="question-mark">?</span>;
+<a href=#853 id=853 data-nosnippet>853</a>		</span><span class="self">self</span>.ValidategRPCConfig(<span class="kw-2">&amp;</span>config.gRPC)<span class="question-mark">?</span>;
 <a href=#854 id=854 data-nosnippet>854</a>
 <a href=#855 id=855 data-nosnippet>855</a>		<span class="comment">// Authentication configuration validation
 <a href=#856 id=856 data-nosnippet>856</a>		</span><span class="self">self</span>.ValidateAuthConfig(<span class="kw-2">&amp;</span>config.Authentication)<span class="question-mark">?</span>;
@@ -920,7 +920,7 @@
 <a href=#920 id=920 data-nosnippet>920</a>	}
 <a href=#921 id=921 data-nosnippet>921</a>
 <a href=#922 id=922 data-nosnippet>922</a>	<span class="doccomment">/// Validate gRPC configuration with range checking
-<a href=#923 id=923 data-nosnippet>923</a>	</span><span class="kw">fn </span>ValidateGrpcConfig(<span class="kw-2">&amp;</span><span class="self">self</span>, grpc:<span class="kw-2">&amp;</span>GrpcConfig) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#923 id=923 data-nosnippet>923</a>	</span><span class="kw">fn </span>ValidategRPCConfig(<span class="kw-2">&amp;</span><span class="self">self</span>, grpc:<span class="kw-2">&amp;</span>gRPCConfig) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#924 id=924 data-nosnippet>924</a>		<span class="comment">// Validate bind address
 <a href=#925 id=925 data-nosnippet>925</a>		</span><span class="kw">if </span>grpc.BindAddress.is_empty() {
 <a href=#926 id=926 data-nosnippet>926</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(AirError::Configuration(<span class="string">"gRPC bind address cannot be empty"</span>.to_string()));
@@ -1388,12 +1388,12 @@
 <a href=#1388 id=1388 data-nosnippet>1388</a>
 <a href=#1389 id=1389 data-nosnippet>1389</a>		<span class="comment">// gRPC overrides
 <a href=#1390 id=1390 data-nosnippet>1390</a>		</span><span class="kw">if let </span><span class="prelude-val">Ok</span>(val) = env::var(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"{}GRPC_BIND_ADDRESS"</span>, <span class="self">self</span>.EnvPrefix)) {
-<a href=#1391 id=1391 data-nosnippet>1391</a>			config.Grpc.BindAddress = val;
+<a href=#1391 id=1391 data-nosnippet>1391</a>			config.gRPC.BindAddress = val;
 <a href=#1392 id=1392 data-nosnippet>1392</a>			override_count += <span class="number">1</span>;
 <a href=#1393 id=1393 data-nosnippet>1393</a>		}
 <a href=#1394 id=1394 data-nosnippet>1394</a>
 <a href=#1395 id=1395 data-nosnippet>1395</a>		<span class="kw">if let </span><span class="prelude-val">Ok</span>(val) = env::var(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"{}GRPC_MAX_CONNECTIONS"</span>, <span class="self">self</span>.EnvPrefix)) {
-<a href=#1396 id=1396 data-nosnippet>1396</a>			config.Grpc.MaxConnections = val
+<a href=#1396 id=1396 data-nosnippet>1396</a>			config.gRPC.MaxConnections = val
 <a href=#1397 id=1397 data-nosnippet>1397</a>				.parse()
 <a href=#1398 id=1398 data-nosnippet>1398</a>				.map_err(|e| AirError::Configuration(<span class="macro">format!</span>(<span class="string">"Invalid GRPC_MAX_CONNECTIONS value: {}"</span>, e)))<span class="question-mark">?</span>;
 <a href=#1399 id=1399 data-nosnippet>1399</a>			override_count += <span class="number">1</span>;
@@ -1768,7 +1768,7 @@
 <a href=#1768 id=1768 data-nosnippet>1768</a>		<span class="kw">let </span>imported = ConfigurationManager::ImportFromJson(<span class="kw-2">&amp;</span>json_str).unwrap();
 <a href=#1769 id=1769 data-nosnippet>1769</a>		<span class="macro">assert_eq!</span>(imported.SchemaVersion, config.SchemaVersion);
 <a href=#1770 id=1770 data-nosnippet>1770</a>		<span class="macro">assert_eq!</span>(imported.Profile, config.Profile);
-<a href=#1771 id=1771 data-nosnippet>1771</a>		<span class="macro">assert_eq!</span>(imported.Grpc.BindAddress, config.Grpc.BindAddress);
+<a href=#1771 id=1771 data-nosnippet>1771</a>		<span class="macro">assert_eq!</span>(imported.gRPC.BindAddress, config.gRPC.BindAddress);
 <a href=#1772 id=1772 data-nosnippet>1772</a>	}
 <a href=#1773 id=1773 data-nosnippet>1773</a>
 <a href=#1774 id=1774 data-nosnippet>1774</a>	<span class="attr">#[test]
@@ -1779,7 +1779,7 @@
 <a href=#1779 id=1779 data-nosnippet>1779</a>		<span class="macro">assert_eq!</span>(hash1, hash2);
 <a href=#1780 id=1780 data-nosnippet>1780</a>
 <a href=#1781 id=1781 data-nosnippet>1781</a>		<span class="kw">let </span><span class="kw-2">mut </span>modified = config;
-<a href=#1782 id=1782 data-nosnippet>1782</a>		modified.Grpc.BindAddress = <span class="string">"[::1]:50054"</span>.to_string();
+<a href=#1782 id=1782 data-nosnippet>1782</a>		modified.gRPC.BindAddress = <span class="string">"[::1]:50054"</span>.to_string();
 <a href=#1783 id=1783 data-nosnippet>1783</a>		<span class="kw">let </span>hash3 = ConfigurationManager::ComputeHash(<span class="kw-2">&amp;</span>modified).unwrap();
 <a href=#1784 id=1784 data-nosnippet>1784</a>		<span class="macro">assert_ne!</span>(hash1, hash3);
 <a href=#1785 id=1785 data-nosnippet>1785</a>	}

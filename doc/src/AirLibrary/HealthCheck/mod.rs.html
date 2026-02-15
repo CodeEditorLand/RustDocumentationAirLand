@@ -291,7 +291,7 @@
 <a href=#291 id=291 data-nosnippet>291</a>				<span class="string">"updates" </span>=&gt; <span class="self">self</span>.CheckUpdatesService().<span class="kw">await</span>,
 <a href=#292 id=292 data-nosnippet>292</a>				<span class="string">"downloader" </span>=&gt; <span class="self">self</span>.CheckDownloaderService().<span class="kw">await</span>,
 <a href=#293 id=293 data-nosnippet>293</a>				<span class="string">"indexing" </span>=&gt; <span class="self">self</span>.CheckIndexingService().<span class="kw">await</span>,
-<a href=#294 id=294 data-nosnippet>294</a>				<span class="string">"grpc" </span>=&gt; <span class="self">self</span>.CheckGrpcService().<span class="kw">await</span>,
+<a href=#294 id=294 data-nosnippet>294</a>				<span class="string">"grpc" </span>=&gt; <span class="self">self</span>.CheckgRPCService().<span class="kw">await</span>,
 <a href=#295 id=295 data-nosnippet>295</a>				<span class="string">"connections" </span>=&gt; <span class="self">self</span>.CheckConnectionsService().<span class="kw">await</span>,
 <a href=#296 id=296 data-nosnippet>296</a>				<span class="kw">_ </span>=&gt; {
 <a href=#297 id=297 data-nosnippet>297</a>					<span class="macro">warn!</span>(<span class="string">"[HealthCheck] Unknown service: {}"</span>, ServiceName);
@@ -463,7 +463,7 @@
 <a href=#463 id=463 data-nosnippet>463</a>	}
 <a href=#464 id=464 data-nosnippet>464</a>
 <a href=#465 id=465 data-nosnippet>465</a>	<span class="doccomment">/// Check gRPC service health
-<a href=#466 id=466 data-nosnippet>466</a>	</span><span class="kw">async fn </span>CheckGrpcService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (HealthStatus, <span class="prelude-ty">Option</span>&lt;String&gt;) {
+<a href=#466 id=466 data-nosnippet>466</a>	</span><span class="kw">async fn </span>CheckgRPCService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (HealthStatus, <span class="prelude-ty">Option</span>&lt;String&gt;) {
 <a href=#467 id=467 data-nosnippet>467</a>		<span class="macro">debug!</span>(<span class="string">"[HealthCheck] Checking gRPC service health"</span>);
 <a href=#468 id=468 data-nosnippet>468</a>
 <a href=#469 id=469 data-nosnippet>469</a>		<span class="kw">let </span>start = std::time::Instant::now();
@@ -683,7 +683,7 @@
 <a href=#683 id=683 data-nosnippet>683</a>				<span class="string">"updates" </span>=&gt; <span class="self">self</span>.RestartUpdatesService().<span class="kw">await</span>,
 <a href=#684 id=684 data-nosnippet>684</a>				<span class="string">"downloader" </span>=&gt; <span class="self">self</span>.RestartDownloaderService().<span class="kw">await</span>,
 <a href=#685 id=685 data-nosnippet>685</a>				<span class="string">"indexing" </span>=&gt; <span class="self">self</span>.RestartIndexingService().<span class="kw">await</span>,
-<a href=#686 id=686 data-nosnippet>686</a>				<span class="string">"grpc" </span>=&gt; <span class="self">self</span>.RestartGrpcService().<span class="kw">await</span>,
+<a href=#686 id=686 data-nosnippet>686</a>				<span class="string">"grpc" </span>=&gt; <span class="self">self</span>.RestartgRPCService().<span class="kw">await</span>,
 <a href=#687 id=687 data-nosnippet>687</a>				<span class="string">"connections" </span>=&gt; <span class="self">self</span>.ResetConnectionsService().<span class="kw">await</span>,
 <a href=#688 id=688 data-nosnippet>688</a>				<span class="kw">_ </span>=&gt; {
 <a href=#689 id=689 data-nosnippet>689</a>					<span class="macro">warn!</span>(<span class="string">"[HealthCheck] No specific recovery action for {}"</span>, ServiceName);
@@ -735,7 +735,7 @@
 <a href=#735 id=735 data-nosnippet>735</a>	}
 <a href=#736 id=736 data-nosnippet>736</a>
 <a href=#737 id=737 data-nosnippet>737</a>	<span class="doccomment">/// Restart gRPC service
-<a href=#738 id=738 data-nosnippet>738</a>	</span><span class="kw">async fn </span>RestartGrpcService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#738 id=738 data-nosnippet>738</a>	</span><span class="kw">async fn </span>RestartgRPCService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#739 id=739 data-nosnippet>739</a>		<span class="macro">warn!</span>(<span class="string">"[HealthCheck] Recovery: Restarting gRPC server"</span>);
 <a href=#740 id=740 data-nosnippet>740</a>		<span class="comment">// In production, this would gracefully restart the gRPC server
 <a href=#741 id=741 data-nosnippet>741</a>		</span><span class="prelude-val">Ok</span>(())

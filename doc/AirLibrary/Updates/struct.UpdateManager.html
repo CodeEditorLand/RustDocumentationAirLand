@@ -40,7 +40,7 @@ metadata</li>
 </ul>
 <h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
 <p>Result&lt;()&gt; indicating success or failure (with automatic rollback)</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.RollbackToBackup" class="method"><a class="src rightside" href="../../src/AirLibrary/Updates/mod.rs.html#1433-1476">Source</a><h4 class="code-header">pub async fn <a href="#method.RollbackToBackup" class="fn">RollbackToBackup</a>(&amp;self, backup_info: &amp;RollbackState) -&gt; <a class="type" href="../type.Result.html" title="type AirLibrary::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;</h4></section></summary><div class="docblock"><p>Rollback to a previous version using backup</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.RollbackToBackup" class="method"><a class="src rightside" href="../../src/AirLibrary/Updates/mod.rs.html#1433-1476">Source</a><h4 class="code-header">pub async fn <a href="#method.RollbackToBackup" class="fn">RollbackToBackup</a>(&amp;self, backup_info: &amp;<a class="struct" href="struct.RollbackState.html" title="struct AirLibrary::Updates::RollbackState">RollbackState</a>) -&gt; <a class="type" href="../type.Result.html" title="type AirLibrary::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;</h4></section></summary><div class="docblock"><p>Rollback to a previous version using backup</p>
 <p>This method:</p>
 <ul>
 <li>Verifies backup integrity using checksum</li>

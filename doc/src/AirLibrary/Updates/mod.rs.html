@@ -150,7 +150,7 @@
 <a href=#150 id=150 data-nosnippet>150</a>}
 <a href=#151 id=151 data-nosnippet>151</a>
 <a href=#152 id=152 data-nosnippet>152</a><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#153 id=153 data-nosnippet>153</a></span><span class="kw">struct </span>RollbackState {
+<a href=#153 id=153 data-nosnippet>153</a></span><span class="kw">pub struct </span>RollbackState {
 <a href=#154 id=154 data-nosnippet>154</a>	version:String,
 <a href=#155 id=155 data-nosnippet>155</a>	backup_path:PathBuf,
 <a href=#156 id=156 data-nosnippet>156</a>	timestamp:chrono::DateTime&lt;chrono::Utc&gt;,
@@ -1353,7 +1353,7 @@
 <a href=#1353 id=1353 data-nosnippet>1353</a>	///
 <a href=#1354 id=1354 data-nosnippet>1354</a>	/// # Returns
 <a href=#1355 id=1355 data-nosnippet>1355</a>	/// Result&lt;()&gt; indicating success or failure
-<a href=#1356 id=1356 data-nosnippet>1356</a>	</span><span class="kw">async fn </span>VerifySignature(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>Path, signature:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#1356 id=1356 data-nosnippet>1356</a>	</span><span class="kw">async fn </span>VerifySignature(<span class="kw-2">&amp;</span><span class="self">self</span>, _file_path:<span class="kw-2">&amp;</span>Path, _signature:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#1357 id=1357 data-nosnippet>1357</a>		<span class="comment">// TODO: Implement actual signature verification
 <a href=#1358 id=1358 data-nosnippet>1358</a>		// This would require:
 <a href=#1359 id=1359 data-nosnippet>1359</a>		// 1. A public key embedded in the application

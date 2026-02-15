@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["generate_schema"],"mod":["HotReload"],"struct":["AirConfiguration","AuthConfig","ConfigurationManager","DownloadConfig","GrpcConfig","IndexingConfig","LoggingConfig","PerformanceConfig","UpdateConfig"]};
+window.SIDEBAR_ITEMS = {"fn":["generate_schema"],"mod":["HotReload"],"struct":["AirConfiguration","AuthConfig","ConfigurationManager","DownloadConfig","IndexingConfig","LoggingConfig","PerformanceConfig","UpdateConfig","gRPCConfig"]};
