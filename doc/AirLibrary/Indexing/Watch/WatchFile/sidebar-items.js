@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["FileChangeType","ProcessedChangeResult"],"fn":["EventKindToChangeType","GetDefaultIgnoredPatterns","HandleFileEvent","ShouldWatchPath","ValidateWatchPath"],"struct":["DebouncedEventHandler","ProcessedChange"]};
+window.SIDEBAR_ITEMS = {"enum":["FileChangeType","ProcessedChangeResult"],"fn":["EventKindToChangeType","GetDefaultIgnoredPatterns","HandleFileEvent","ShouldWatchPath","ValidateWatchPath"],"struct":["DebouncedEventHandler","FileChangeInfo","ProcessedChange"]};

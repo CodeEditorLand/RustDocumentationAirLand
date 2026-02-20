@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["GetWatcherStatus","StartAll","StartBackgroundTasks","StartDebounceProcessor","StartFileWatcher","StopAll","StopBackgroundTasks","StopFileWatcher"],"struct":["BackgroundIndexerContext","WatcherStatus"]};
+window.SIDEBAR_ITEMS = {"constant":["MAX_WATCH_PROCESSORS"],"fn":["BackgroundTask","GetWatcherStatus","StartAll","StartBackgroundTasks","StartDebounceProcessor","StartFileWatcher","StopAll","StopBackgroundTasks","StopFileWatcher","config_watch_enabled"],"struct":["BackgroundIndexerContext","WatcherStatus"]};

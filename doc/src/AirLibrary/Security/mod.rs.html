@@ -102,73 +102,73 @@
 <a href=#102 id=102 data-nosnippet>102</a>//!
 <a href=#103 id=103 data-nosnippet>103</a>//! Security events are forwarded to Mountain for correlation and alerting.
 <a href=#104 id=104 data-nosnippet>104</a>
-<a href=#105 id=105 data-nosnippet>105</a></span><span class="kw">use </span>std::{collections::HashMap, sync::Arc};
+<a href=#105 id=105 data-nosnippet>105</a></span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">collections::HashMap</a>, <a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">sync::Arc</a>};
 <a href=#106 id=106 data-nosnippet>106</a>
 <a href=#107 id=107 data-nosnippet>107</a><span class="kw">use </span>tokio::sync::RwLock;
-<a href=#108 id=108 data-nosnippet>108</a><span class="kw">use </span>serde::{Deserialize, Serialize};
+<a href=#108 id=108 data-nosnippet>108</a><span class="kw">use </span>serde::{<a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>};
 <a href=#109 id=109 data-nosnippet>109</a><span class="kw">use </span>sha2::{Digest, Sha256};
 <a href=#110 id=110 data-nosnippet>110</a><span class="kw">use </span>ring::pbkdf2;
-<a href=#111 id=111 data-nosnippet>111</a><span class="kw">use </span>rand::{RngCore, rng};
+<a href=#111 id=111 data-nosnippet>111</a><span class="kw">use </span>rand::{Rng, rng};
 <a href=#112 id=112 data-nosnippet>112</a><span class="kw">use </span>base64::{Engine, engine::general_purpose::STANDARD};
 <a href=#113 id=113 data-nosnippet>113</a><span class="kw">use </span>zeroize::Zeroize;
-<a href=#114 id=114 data-nosnippet>114</a><span class="kw">use </span>subtle::ConstantTimeEq;
-<a href=#115 id=115 data-nosnippet>115</a><span class="kw">use </span>log::{info, debug};
+<a href=#114 id=114 data-nosnippet>114</a><span class="kw">use </span><a href="https://docs.rs/subtle/2.6.0/subtle/trait.ConstantTimeEq.html">subtle::ConstantTimeEq</a>;
+<a href=#115 id=115 data-nosnippet>115</a><span class="kw">use </span>log::{<a href="https://docs.rs/log/0.4.29/log/macro.info.html">info</a>, <a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug</a>};
 <a href=#116 id=116 data-nosnippet>116</a>
-<a href=#117 id=117 data-nosnippet>117</a><span class="kw">use </span>crate::{AirError, <span class="prelude-ty">Result</span>};
+<a href=#117 id=117 data-nosnippet>117</a><span class="kw">use </span>crate::{<a href="../Library.rs.html#238-286">AirError</a>, <a class="prelude-ty" href="../Library.rs.html#338">Result</a>};
 <a href=#118 id=118 data-nosnippet>118</a>
 <a href=#119 id=119 data-nosnippet>119</a><span class="doccomment">/// Secure byte array that zeroizes memory on drop
-<a href=#120 id=120 data-nosnippet>120</a></span><span class="attr">#[derive(Clone, Deserialize, Serialize)]
-<a href=#121 id=121 data-nosnippet>121</a></span><span class="kw">pub struct </span>SecureBytes {
+<a href=#120 id=120 data-nosnippet>120</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>)]
+<a href=#121 id=121 data-nosnippet>121</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.SecureBytes.html">SecureBytes</a> {
 <a href=#122 id=122 data-nosnippet>122</a>	<span class="doccomment">/// The underlying bytes
-<a href=#123 id=123 data-nosnippet>123</a>	</span>Data:Vec&lt;u8&gt;,
+<a href=#123 id=123 data-nosnippet>123</a>	</span>Data:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;,
 <a href=#124 id=124 data-nosnippet>124</a>}
 <a href=#125 id=125 data-nosnippet>125</a>
-<a href=#126 id=126 data-nosnippet>126</a><span class="kw">impl </span>SecureBytes {
+<a href=#126 id=126 data-nosnippet>126</a><span class="kw">impl </span><a href="#121-124">SecureBytes</a> {
 <a href=#127 id=127 data-nosnippet>127</a>	<span class="doccomment">/// Create a new secure byte array
-<a href=#128 id=128 data-nosnippet>128</a>	</span><span class="kw">pub fn </span>new(Data:Vec&lt;u8&gt;) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ Data } }
+<a href=#128 id=128 data-nosnippet>128</a>	</span><span class="kw">pub fn </span>new(Data:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ <a href="#128">Data</a> } }
 <a href=#129 id=129 data-nosnippet>129</a>
 <a href=#130 id=130 data-nosnippet>130</a>	<span class="doccomment">/// Create from a string
-<a href=#131 id=131 data-nosnippet>131</a>	</span><span class="kw">pub fn </span>from_str(S:<span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ Data:S.as_bytes().to_vec() } }
+<a href=#131 id=131 data-nosnippet>131</a>	</span><span class="kw">pub fn </span>from_str(S:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ Data:<a href="#131">S</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.as_bytes">as_bytes</a>().<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.slice.html#method.to_vec">to_vec</a>() } }
 <a href=#132 id=132 data-nosnippet>132</a>
 <a href=#133 id=133 data-nosnippet>133</a>	<span class="doccomment">/// Get the data as a slice (constant-time)
-<a href=#134 id=134 data-nosnippet>134</a>	</span><span class="kw">pub fn </span>as_slice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] { <span class="kw-2">&amp;</span><span class="self">self</span>.Data }
+<a href=#134 id=134 data-nosnippet>134</a>	</span><span class="kw">pub fn </span>as_slice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] { <span class="kw-2">&amp;</span><a class="self" href="#134">self</a>.Data }
 <a href=#135 id=135 data-nosnippet>135</a>
 <a href=#136 id=136 data-nosnippet>136</a>	<span class="doccomment">/// Get the length
-<a href=#137 id=137 data-nosnippet>137</a>	</span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize { <span class="self">self</span>.Data.len() }
+<a href=#137 id=137 data-nosnippet>137</a>	</span><span class="kw">pub fn </span>len(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> { <a class="self" href="#137">self</a>.Data.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.len">len</a>() }
 <a href=#138 id=138 data-nosnippet>138</a>
 <a href=#139 id=139 data-nosnippet>139</a>	<span class="doccomment">/// Check if empty
-<a href=#140 id=140 data-nosnippet>140</a>	</span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool { <span class="self">self</span>.Data.is_empty() }
+<a href=#140 id=140 data-nosnippet>140</a>	</span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { <a class="self" href="#140">self</a>.Data.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.is_empty">is_empty</a>() }
 <a href=#141 id=141 data-nosnippet>141</a>
 <a href=#142 id=142 data-nosnippet>142</a>	<span class="doccomment">/// Constant-time comparison
-<a href=#143 id=143 data-nosnippet>143</a>	</span><span class="kw">pub fn </span>ct_eq(<span class="kw-2">&amp;</span><span class="self">self</span>, Other:<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool { <span class="self">self</span>.Data.ct_eq(<span class="kw-2">&amp;</span>Other.Data).into() }
+<a href=#143 id=143 data-nosnippet>143</a>	</span><span class="kw">pub fn </span>ct_eq(<span class="kw-2">&amp;</span><span class="self">self</span>, Other:<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { <a class="self" href="#143">self</a>.Data.<a href="https://docs.rs/subtle/2.6.0/subtle/trait.ConstantTimeEq.html#tymethod.ct_eq">ct_eq</a>(<span class="kw-2">&amp;</span><a href="#143">Other</a>.Data).<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>() }
 <a href=#144 id=144 data-nosnippet>144</a>}
 <a href=#145 id=145 data-nosnippet>145</a>
-<a href=#146 id=146 data-nosnippet>146</a><span class="kw">impl </span>Drop <span class="kw">for </span>SecureBytes {
-<a href=#147 id=147 data-nosnippet>147</a>	<span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) { <span class="self">self</span>.Data.zeroize(); }
+<a href=#146 id=146 data-nosnippet>146</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html">Drop</a> <span class="kw">for </span><a href="#121-124">SecureBytes</a> {
+<a href=#147 id=147 data-nosnippet>147</a>	<span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) { <a class="self" href="#147">self</a>.Data.zeroize(); }
 <a href=#148 id=148 data-nosnippet>148</a>}
 <a href=#149 id=149 data-nosnippet>149</a>
 <a href=#150 id=150 data-nosnippet>150</a><span class="doccomment">/// Security event audit log
-<a href=#151 id=151 data-nosnippet>151</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#152 id=152 data-nosnippet>152</a></span><span class="kw">pub struct </span>SecurityEvent {
+<a href=#151 id=151 data-nosnippet>151</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#152 id=152 data-nosnippet>152</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.SecurityEvent.html">SecurityEvent</a> {
 <a href=#153 id=153 data-nosnippet>153</a>	<span class="doccomment">/// Event timestamp
-<a href=#154 id=154 data-nosnippet>154</a>	</span><span class="kw">pub </span>Timestamp:u64,
+<a href=#154 id=154 data-nosnippet>154</a>	</span><span class="kw">pub </span>Timestamp:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#155 id=155 data-nosnippet>155</a>	<span class="doccomment">/// Event type
-<a href=#156 id=156 data-nosnippet>156</a>	</span><span class="kw">pub </span>EventType:SecurityEventType,
+<a href=#156 id=156 data-nosnippet>156</a>	</span><span class="kw">pub </span>EventType:<a href="#171-192">SecurityEventType</a>,
 <a href=#157 id=157 data-nosnippet>157</a>	<span class="doccomment">/// Event severity
-<a href=#158 id=158 data-nosnippet>158</a>	</span><span class="kw">pub </span>Severity:SecuritySeverity,
+<a href=#158 id=158 data-nosnippet>158</a>	</span><span class="kw">pub </span>Severity:<a href="#196-201">SecuritySeverity</a>,
 <a href=#159 id=159 data-nosnippet>159</a>	<span class="doccomment">/// Source IP address (if applicable)
-<a href=#160 id=160 data-nosnippet>160</a>	</span><span class="kw">pub </span>SourceIp:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#160 id=160 data-nosnippet>160</a>	</span><span class="kw">pub </span>SourceIp:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#161 id=161 data-nosnippet>161</a>	<span class="doccomment">/// Client ID (if applicable)
-<a href=#162 id=162 data-nosnippet>162</a>	</span><span class="kw">pub </span>ClientId:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#162 id=162 data-nosnippet>162</a>	</span><span class="kw">pub </span>ClientId:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#163 id=163 data-nosnippet>163</a>	<span class="doccomment">/// Event details
-<a href=#164 id=164 data-nosnippet>164</a>	</span><span class="kw">pub </span>Details:String,
+<a href=#164 id=164 data-nosnippet>164</a>	</span><span class="kw">pub </span>Details:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#165 id=165 data-nosnippet>165</a>	<span class="doccomment">/// Additional metadata
-<a href=#166 id=166 data-nosnippet>166</a>	</span><span class="kw">pub </span>Metadata:HashMap&lt;String, String&gt;,
+<a href=#166 id=166 data-nosnippet>166</a>	</span><span class="kw">pub </span>Metadata:<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#167 id=167 data-nosnippet>167</a>}
 <a href=#168 id=168 data-nosnippet>168</a>
 <a href=#169 id=169 data-nosnippet>169</a><span class="doccomment">/// Security event types
-<a href=#170 id=170 data-nosnippet>170</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-<a href=#171 id=171 data-nosnippet>171</a></span><span class="kw">pub enum </span>SecurityEventType {
+<a href=#170 id=170 data-nosnippet>170</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<a href=#171 id=171 data-nosnippet>171</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Security/enum.SecurityEventType.html">SecurityEventType</a> {
 <a href=#172 id=172 data-nosnippet>172</a>	<span class="doccomment">/// Authentication attempt succeeded
 <a href=#173 id=173 data-nosnippet>173</a>	</span>AuthSuccess,
 <a href=#174 id=174 data-nosnippet>174</a>	<span class="doccomment">/// Authentication attempt failed
@@ -192,8 +192,8 @@
 <a href=#192 id=192 data-nosnippet>192</a>}
 <a href=#193 id=193 data-nosnippet>193</a>
 <a href=#194 id=194 data-nosnippet>194</a><span class="doccomment">/// Security severity levels
-<a href=#195 id=195 data-nosnippet>195</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-<a href=#196 id=196 data-nosnippet>196</a></span><span class="kw">pub enum </span>SecuritySeverity {
+<a href=#195 id=195 data-nosnippet>195</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<a href=#196 id=196 data-nosnippet>196</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Security/enum.SecuritySeverity.html">SecuritySeverity</a> {
 <a href=#197 id=197 data-nosnippet>197</a>	Informational,
 <a href=#198 id=198 data-nosnippet>198</a>	Warning,
 <a href=#199 id=199 data-nosnippet>199</a>	Error,
@@ -201,19 +201,19 @@
 <a href=#201 id=201 data-nosnippet>201</a>}
 <a href=#202 id=202 data-nosnippet>202</a>
 <a href=#203 id=203 data-nosnippet>203</a><span class="doccomment">/// Security auditor for logging security events
-<a href=#204 id=204 data-nosnippet>204</a></span><span class="kw">pub struct </span>SecurityAuditor {
+<a href=#204 id=204 data-nosnippet>204</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.SecurityAuditor.html">SecurityAuditor</a> {
 <a href=#205 id=205 data-nosnippet>205</a>	<span class="doccomment">/// Event history
-<a href=#206 id=206 data-nosnippet>206</a>	</span>events:Arc&lt;RwLock&lt;Vec&lt;SecurityEvent&gt;&gt;&gt;,
+<a href=#206 id=206 data-nosnippet>206</a>	</span>events:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#152-167">SecurityEvent</a>&gt;&gt;&gt;,
 <a href=#207 id=207 data-nosnippet>207</a>	<span class="doccomment">/// Event retention count
-<a href=#208 id=208 data-nosnippet>208</a>	</span>retention:usize,
+<a href=#208 id=208 data-nosnippet>208</a>	</span>retention:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 <a href=#209 id=209 data-nosnippet>209</a>}
 <a href=#210 id=210 data-nosnippet>210</a>
-<a href=#211 id=211 data-nosnippet>211</a><span class="kw">impl </span>SecurityAuditor {
+<a href=#211 id=211 data-nosnippet>211</a><span class="kw">impl </span><a href="#204-209">SecurityAuditor</a> {
 <a href=#212 id=212 data-nosnippet>212</a>	<span class="doccomment">/// Create a new security auditor
-<a href=#213 id=213 data-nosnippet>213</a>	</span><span class="kw">pub fn </span>new(retention:usize) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ events:Arc::new(RwLock::new(Vec::new())), retention } }
+<a href=#213 id=213 data-nosnippet>213</a>	</span><span class="kw">pub fn </span>new(retention:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ events:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.new">new</a>())), <a href="#213">retention</a> } }
 <a href=#214 id=214 data-nosnippet>214</a>
 <a href=#215 id=215 data-nosnippet>215</a>	<span class="doccomment">/// Log a security event
-<a href=#216 id=216 data-nosnippet>216</a>	</span><span class="kw">pub async fn </span>LogEvent(<span class="kw-2">&amp;</span><span class="self">self</span>, event:SecurityEvent) {
+<a href=#216 id=216 data-nosnippet>216</a>	</span><span class="kw">pub async fn </span>LogEvent(<span class="kw-2">&amp;</span><span class="self">self</span>, event:<a href="#152-167">SecurityEvent</a>) {
 <a href=#217 id=217 data-nosnippet>217</a>		<span class="kw">let </span><span class="kw-2">mut </span>events = <span class="self">self</span>.events.write().<span class="kw">await</span>;
 <a href=#218 id=218 data-nosnippet>218</a>		events.push(event.clone());
 <a href=#219 id=219 data-nosnippet>219</a>
@@ -242,7 +242,7 @@
 <a href=#242 id=242 data-nosnippet>242</a>	</span>}
 <a href=#243 id=243 data-nosnippet>243</a>
 <a href=#244 id=244 data-nosnippet>244</a>	<span class="doccomment">/// Get event history
-<a href=#245 id=245 data-nosnippet>245</a>	</span><span class="kw">pub async fn </span>GetEvents(<span class="kw-2">&amp;</span><span class="self">self</span>, event_type:<span class="prelude-ty">Option</span>&lt;SecurityEventType&gt;, limit:<span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; Vec&lt;SecurityEvent&gt; {
+<a href=#245 id=245 data-nosnippet>245</a>	</span><span class="kw">pub async fn </span>GetEvents(<span class="kw-2">&amp;</span><span class="self">self</span>, event_type:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="#171-192">SecurityEventType</a>&gt;, limit:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;) -&gt; Vec&lt;SecurityEvent&gt; {
 <a href=#246 id=246 data-nosnippet>246</a>		<span class="kw">let </span>events = <span class="self">self</span>.events.read().<span class="kw">await</span>;
 <a href=#247 id=247 data-nosnippet>247</a>
 <a href=#248 id=248 data-nosnippet>248</a>		<span class="kw">let </span><span class="kw-2">mut </span>filtered:Vec&lt;SecurityEvent&gt; = <span class="kw">if let </span><span class="prelude-val">Some</span>(evt_type) = event_type {
@@ -263,7 +263,7 @@
 <a href=#263 id=263 data-nosnippet>263</a>	}
 <a href=#264 id=264 data-nosnippet>264</a>
 <a href=#265 id=265 data-nosnippet>265</a>	<span class="doccomment">/// Get recent critical events
-<a href=#266 id=266 data-nosnippet>266</a>	</span><span class="kw">pub async fn </span>GetCriticalEvents(<span class="kw-2">&amp;</span><span class="self">self</span>, limit:usize) -&gt; Vec&lt;SecurityEvent&gt; {
+<a href=#266 id=266 data-nosnippet>266</a>	</span><span class="kw">pub async fn </span>GetCriticalEvents(<span class="kw-2">&amp;</span><span class="self">self</span>, limit:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Vec&lt;SecurityEvent&gt; {
 <a href=#267 id=267 data-nosnippet>267</a>		<span class="self">self</span>.GetEvents(<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(limit))
 <a href=#268 id=268 data-nosnippet>268</a>			.<span class="kw">await
 <a href=#269 id=269 data-nosnippet>269</a>			</span>.into_iter()
@@ -272,27 +272,27 @@
 <a href=#272 id=272 data-nosnippet>272</a>	}
 <a href=#273 id=273 data-nosnippet>273</a>}
 <a href=#274 id=274 data-nosnippet>274</a>
-<a href=#275 id=275 data-nosnippet>275</a><span class="kw">impl </span>Clone <span class="kw">for </span>SecurityAuditor {
-<a href=#276 id=276 data-nosnippet>276</a>	<span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ events:<span class="self">self</span>.events.clone(), retention:<span class="self">self</span>.retention } }
+<a href=#275 id=275 data-nosnippet>275</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a> <span class="kw">for </span><a href="#204-209">SecurityAuditor</a> {
+<a href=#276 id=276 data-nosnippet>276</a>	<span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ events:<a class="self" href="#276">self</a>.events.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), retention:<a class="self" href="#276">self</a>.retention } }
 <a href=#277 id=277 data-nosnippet>277</a>}
 <a href=#278 id=278 data-nosnippet>278</a>
 <a href=#279 id=279 data-nosnippet>279</a><span class="doccomment">/// Rate limiting configuration
-<a href=#280 id=280 data-nosnippet>280</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#281 id=281 data-nosnippet>281</a></span><span class="kw">pub struct </span>RateLimitConfig {
+<a href=#280 id=280 data-nosnippet>280</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#281 id=281 data-nosnippet>281</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.RateLimitConfig.html">RateLimitConfig</a> {
 <a href=#282 id=282 data-nosnippet>282</a>	<span class="doccomment">/// Requests per second per IP
-<a href=#283 id=283 data-nosnippet>283</a>	</span><span class="kw">pub </span>requests_per_second_ip:u32,
+<a href=#283 id=283 data-nosnippet>283</a>	</span><span class="kw">pub </span>requests_per_second_ip:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#284 id=284 data-nosnippet>284</a>
 <a href=#285 id=285 data-nosnippet>285</a>	<span class="doccomment">/// Requests per second per client
-<a href=#286 id=286 data-nosnippet>286</a>	</span><span class="kw">pub </span>requests_per_second_client:u32,
+<a href=#286 id=286 data-nosnippet>286</a>	</span><span class="kw">pub </span>requests_per_second_client:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#287 id=287 data-nosnippet>287</a>
 <a href=#288 id=288 data-nosnippet>288</a>	<span class="doccomment">/// Burst capacity (tokens)
-<a href=#289 id=289 data-nosnippet>289</a>	</span><span class="kw">pub </span>burst_capacity:u32,
+<a href=#289 id=289 data-nosnippet>289</a>	</span><span class="kw">pub </span>burst_capacity:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#290 id=290 data-nosnippet>290</a>
 <a href=#291 id=291 data-nosnippet>291</a>	<span class="doccomment">/// Token refill interval in milliseconds
-<a href=#292 id=292 data-nosnippet>292</a>	</span><span class="kw">pub </span>refill_interval_ms:u64,
+<a href=#292 id=292 data-nosnippet>292</a>	</span><span class="kw">pub </span>refill_interval_ms:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#293 id=293 data-nosnippet>293</a>}
 <a href=#294 id=294 data-nosnippet>294</a>
-<a href=#295 id=295 data-nosnippet>295</a><span class="kw">impl </span>Default <span class="kw">for </span>RateLimitConfig {
+<a href=#295 id=295 data-nosnippet>295</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#281-293">RateLimitConfig</a> {
 <a href=#296 id=296 data-nosnippet>296</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
 <a href=#297 id=297 data-nosnippet>297</a>		<span class="self">Self </span>{
 <a href=#298 id=298 data-nosnippet>298</a>			requests_per_second_ip:<span class="number">100</span>,
@@ -304,30 +304,30 @@
 <a href=#304 id=304 data-nosnippet>304</a>}
 <a href=#305 id=305 data-nosnippet>305</a>
 <a href=#306 id=306 data-nosnippet>306</a><span class="doccomment">/// Rate limit bucket for token bucket algorithm
-<a href=#307 id=307 data-nosnippet>307</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#308 id=308 data-nosnippet>308</a></span><span class="kw">struct </span>TokenBucket {
-<a href=#309 id=309 data-nosnippet>309</a>	tokens:f64,
-<a href=#310 id=310 data-nosnippet>310</a>	capacity:f64,
-<a href=#311 id=311 data-nosnippet>311</a>	refill_rate:f64,
-<a href=#312 id=312 data-nosnippet>312</a>	last_refill:std::time::Instant,
+<a href=#307 id=307 data-nosnippet>307</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<a href=#308 id=308 data-nosnippet>308</a></span><span class="kw">struct </span><a href="../../../AirLibrary/Security/struct.TokenBucket.html">TokenBucket</a> {
+<a href=#309 id=309 data-nosnippet>309</a>	tokens:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#310 id=310 data-nosnippet>310</a>	capacity:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#311 id=311 data-nosnippet>311</a>	refill_rate:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#312 id=312 data-nosnippet>312</a>	last_refill:std::time::<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>,
 <a href=#313 id=313 data-nosnippet>313</a>}
 <a href=#314 id=314 data-nosnippet>314</a>
-<a href=#315 id=315 data-nosnippet>315</a><span class="kw">impl </span>TokenBucket {
-<a href=#316 id=316 data-nosnippet>316</a>	<span class="kw">fn </span>new(capacity:f64, refill_rate:f64) -&gt; <span class="self">Self </span>{
-<a href=#317 id=317 data-nosnippet>317</a>		<span class="self">Self </span>{ tokens:capacity, capacity, refill_rate, last_refill:std::time::Instant::now() }
+<a href=#315 id=315 data-nosnippet>315</a><span class="kw">impl </span><a href="#308-313">TokenBucket</a> {
+<a href=#316 id=316 data-nosnippet>316</a>	<span class="kw">fn </span>new(capacity:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, refill_rate:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <span class="self">Self </span>{
+<a href=#317 id=317 data-nosnippet>317</a>		<span class="self">Self </span>{ tokens:<a href="#316">capacity</a>, <a href="#316">capacity</a>, <a href="#316">refill_rate</a>, last_refill:std::time::<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>::<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html#method.now">now</a>() }
 <a href=#318 id=318 data-nosnippet>318</a>	}
 <a href=#319 id=319 data-nosnippet>319</a>
 <a href=#320 id=320 data-nosnippet>320</a>	<span class="kw">fn </span>refill(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-<a href=#321 id=321 data-nosnippet>321</a>		<span class="kw">let </span>now = std::time::Instant::now();
-<a href=#322 id=322 data-nosnippet>322</a>		<span class="kw">let </span>elapsed = now.duration_since(<span class="self">self</span>.last_refill).as_secs_f64();
-<a href=#323 id=323 data-nosnippet>323</a>		<span class="self">self</span>.tokens = (<span class="self">self</span>.tokens + elapsed * <span class="self">self</span>.refill_rate).min(<span class="self">self</span>.capacity);
-<a href=#324 id=324 data-nosnippet>324</a>		<span class="self">self</span>.last_refill = now;
+<a href=#321 id=321 data-nosnippet>321</a>		<span class="kw">let </span>now = std::time::<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>::<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html#method.now">now</a>();
+<a href=#322 id=322 data-nosnippet>322</a>		<span class="kw">let </span>elapsed = <a href="#321">now</a>.<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html#method.duration_since">duration_since</a>(<a class="self" href="#320">self</a>.last_refill).<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.as_secs_f64">as_secs_f64</a>();
+<a href=#323 id=323 data-nosnippet>323</a>		<a class="self" href="#320">self</a>.tokens = (<a class="self" href="#320">self</a>.tokens + <a href="#322">elapsed</a> * <a class="self" href="#320">self</a>.refill_rate).<a href="https://doc.rust-lang.org/nightly/core/foreigntype.f64.html#method.min">min</a>(<a class="self" href="#320">self</a>.capacity);
+<a href=#324 id=324 data-nosnippet>324</a>		<a class="self" href="#320">self</a>.last_refill = <a href="#321">now</a>;
 <a href=#325 id=325 data-nosnippet>325</a>	}
 <a href=#326 id=326 data-nosnippet>326</a>
-<a href=#327 id=327 data-nosnippet>327</a>	<span class="kw">fn </span>try_consume(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tokens:f64) -&gt; bool {
-<a href=#328 id=328 data-nosnippet>328</a>		<span class="self">self</span>.refill();
-<a href=#329 id=329 data-nosnippet>329</a>		<span class="kw">if </span><span class="self">self</span>.tokens &gt;= tokens {
-<a href=#330 id=330 data-nosnippet>330</a>			<span class="self">self</span>.tokens -= tokens;
+<a href=#327 id=327 data-nosnippet>327</a>	<span class="kw">fn </span>try_consume(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tokens:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#328 id=328 data-nosnippet>328</a>		<a class="self" href="#327">self</a>.<a href="#320-325">refill</a>();
+<a href=#329 id=329 data-nosnippet>329</a>		<span class="kw">if </span><a class="self" href="#327">self</a>.tokens &gt;= <a href="#327">tokens</a> {
+<a href=#330 id=330 data-nosnippet>330</a>			<a class="self" href="#327">self</a>.tokens -= <a href="#327">tokens</a>;
 <a href=#331 id=331 data-nosnippet>331</a>			<span class="bool-val">true
 <a href=#332 id=332 data-nosnippet>332</a>		</span>} <span class="kw">else </span>{
 <a href=#333 id=333 data-nosnippet>333</a>			<span class="bool-val">false
@@ -336,28 +336,28 @@
 <a href=#336 id=336 data-nosnippet>336</a>}
 <a href=#337 id=337 data-nosnippet>337</a>
 <a href=#338 id=338 data-nosnippet>338</a><span class="doccomment">/// Rate limiter with per-IP and per-client tracking
-<a href=#339 id=339 data-nosnippet>339</a></span><span class="kw">pub struct </span>RateLimiter {
-<a href=#340 id=340 data-nosnippet>340</a>	config:RateLimitConfig,
-<a href=#341 id=341 data-nosnippet>341</a>	ip_buckets:Arc&lt;RwLock&lt;HashMap&lt;String, TokenBucket&gt;&gt;&gt;,
-<a href=#342 id=342 data-nosnippet>342</a>	client_buckets:Arc&lt;RwLock&lt;HashMap&lt;String, TokenBucket&gt;&gt;&gt;,
-<a href=#343 id=343 data-nosnippet>343</a>	cleanup_interval:std::time::Duration,
+<a href=#339 id=339 data-nosnippet>339</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.RateLimiter.html">RateLimiter</a> {
+<a href=#340 id=340 data-nosnippet>340</a>	config:<a href="#281-293">RateLimitConfig</a>,
+<a href=#341 id=341 data-nosnippet>341</a>	ip_buckets:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#308-313">TokenBucket</a>&gt;&gt;&gt;,
+<a href=#342 id=342 data-nosnippet>342</a>	client_buckets:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#308-313">TokenBucket</a>&gt;&gt;&gt;,
+<a href=#343 id=343 data-nosnippet>343</a>	cleanup_interval:std::time::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>,
 <a href=#344 id=344 data-nosnippet>344</a>}
 <a href=#345 id=345 data-nosnippet>345</a>
-<a href=#346 id=346 data-nosnippet>346</a><span class="kw">impl </span>RateLimiter {
+<a href=#346 id=346 data-nosnippet>346</a><span class="kw">impl </span><a href="#339-344">RateLimiter</a> {
 <a href=#347 id=347 data-nosnippet>347</a>	<span class="doccomment">/// Create a new rate limiter
-<a href=#348 id=348 data-nosnippet>348</a>	</span><span class="kw">pub fn </span>New(config:RateLimitConfig) -&gt; <span class="self">Self </span>{
-<a href=#349 id=349 data-nosnippet>349</a>		<span class="kw">let </span>cleanup_interval = std::time::Duration::from_secs(<span class="number">300</span>); <span class="comment">// 5 minutes
+<a href=#348 id=348 data-nosnippet>348</a>	</span><span class="kw">pub fn </span>New(config:<a href="#281-293">RateLimitConfig</a>) -&gt; <span class="self">Self </span>{
+<a href=#349 id=349 data-nosnippet>349</a>		<span class="kw">let </span>cleanup_interval = std::time::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.from_secs">from_secs</a>(<span class="number">300</span>); <span class="comment">// 5 minutes
 <a href=#350 id=350 data-nosnippet>350</a>
 <a href=#351 id=351 data-nosnippet>351</a>		</span><span class="self">Self </span>{
-<a href=#352 id=352 data-nosnippet>352</a>			config,
-<a href=#353 id=353 data-nosnippet>353</a>			ip_buckets:Arc::new(RwLock::new(HashMap::new())),
-<a href=#354 id=354 data-nosnippet>354</a>			client_buckets:Arc::new(RwLock::new(HashMap::new())),
-<a href=#355 id=355 data-nosnippet>355</a>			cleanup_interval,
+<a href=#352 id=352 data-nosnippet>352</a>			<a href="#348">config</a>,
+<a href=#353 id=353 data-nosnippet>353</a>			ip_buckets:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
+<a href=#354 id=354 data-nosnippet>354</a>			client_buckets:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
+<a href=#355 id=355 data-nosnippet>355</a>			<a href="#349">cleanup_interval</a>,
 <a href=#356 id=356 data-nosnippet>356</a>		}
 <a href=#357 id=357 data-nosnippet>357</a>	}
 <a href=#358 id=358 data-nosnippet>358</a>
 <a href=#359 id=359 data-nosnippet>359</a>	<span class="doccomment">/// Check if request from IP is allowed
-<a href=#360 id=360 data-nosnippet>360</a>	</span><span class="kw">pub async fn </span>CheckIpRateLimit(<span class="kw-2">&amp;</span><span class="self">self</span>, ip:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
+<a href=#360 id=360 data-nosnippet>360</a>	</span><span class="kw">pub async fn </span>CheckIpRateLimit(<span class="kw-2">&amp;</span><span class="self">self</span>, ip:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
 <a href=#361 id=361 data-nosnippet>361</a>		<span class="kw">let </span><span class="kw-2">mut </span>buckets = <span class="self">self</span>.ip_buckets.write().<span class="kw">await</span>;
 <a href=#362 id=362 data-nosnippet>362</a>
 <a href=#363 id=363 data-nosnippet>363</a>		<span class="kw">let </span>refill_rate = <span class="self">self</span>.config.requests_per_second_ip <span class="kw">as </span>f64;
@@ -369,7 +369,7 @@
 <a href=#369 id=369 data-nosnippet>369</a>	}
 <a href=#370 id=370 data-nosnippet>370</a>
 <a href=#371 id=371 data-nosnippet>371</a>	<span class="doccomment">/// Check if request from client is allowed
-<a href=#372 id=372 data-nosnippet>372</a>	</span><span class="kw">pub async fn </span>CheckClientRateLimit(<span class="kw-2">&amp;</span><span class="self">self</span>, client_id:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
+<a href=#372 id=372 data-nosnippet>372</a>	</span><span class="kw">pub async fn </span>CheckClientRateLimit(<span class="kw-2">&amp;</span><span class="self">self</span>, client_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
 <a href=#373 id=373 data-nosnippet>373</a>		<span class="kw">let </span><span class="kw-2">mut </span>buckets = <span class="self">self</span>.client_buckets.write().<span class="kw">await</span>;
 <a href=#374 id=374 data-nosnippet>374</a>
 <a href=#375 id=375 data-nosnippet>375</a>		<span class="kw">let </span>refill_rate = <span class="self">self</span>.config.requests_per_second_client <span class="kw">as </span>f64;
@@ -381,7 +381,7 @@
 <a href=#381 id=381 data-nosnippet>381</a>	}
 <a href=#382 id=382 data-nosnippet>382</a>
 <a href=#383 id=383 data-nosnippet>383</a>	<span class="doccomment">/// Check both IP and client rate limits
-<a href=#384 id=384 data-nosnippet>384</a>	</span><span class="kw">pub async fn </span>CheckRateLimit(<span class="kw-2">&amp;</span><span class="self">self</span>, ip:<span class="kw-2">&amp;</span>str, client_id:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
+<a href=#384 id=384 data-nosnippet>384</a>	</span><span class="kw">pub async fn </span>CheckRateLimit(<span class="kw-2">&amp;</span><span class="self">self</span>, ip:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, client_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
 <a href=#385 id=385 data-nosnippet>385</a>		<span class="kw">let </span>ip_allowed = <span class="self">self</span>.CheckIpRateLimit(ip).<span class="kw">await</span><span class="question-mark">?</span>;
 <a href=#386 id=386 data-nosnippet>386</a>		<span class="kw">let </span>client_allowed = <span class="self">self</span>.CheckClientRateLimit(client_id).<span class="kw">await</span><span class="question-mark">?</span>;
 <a href=#387 id=387 data-nosnippet>387</a>
@@ -389,7 +389,7 @@
 <a href=#389 id=389 data-nosnippet>389</a>	}
 <a href=#390 id=390 data-nosnippet>390</a>
 <a href=#391 id=391 data-nosnippet>391</a>	<span class="doccomment">/// Get current rate limit status for IP
-<a href=#392 id=392 data-nosnippet>392</a>	</span><span class="kw">pub async fn </span>GetIpStatus(<span class="kw-2">&amp;</span><span class="self">self</span>, ip:<span class="kw-2">&amp;</span>str) -&gt; RateLimitStatus {
+<a href=#392 id=392 data-nosnippet>392</a>	</span><span class="kw">pub async fn </span>GetIpStatus(<span class="kw-2">&amp;</span><span class="self">self</span>, ip:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; RateLimitStatus {
 <a href=#393 id=393 data-nosnippet>393</a>		<span class="kw">let </span>buckets = <span class="self">self</span>.ip_buckets.read().<span class="kw">await</span>;
 <a href=#394 id=394 data-nosnippet>394</a>
 <a href=#395 id=395 data-nosnippet>395</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(bucket) = buckets.get(ip) {
@@ -408,7 +408,7 @@
 <a href=#408 id=408 data-nosnippet>408</a>	}
 <a href=#409 id=409 data-nosnippet>409</a>
 <a href=#410 id=410 data-nosnippet>410</a>	<span class="doccomment">/// Get current rate limit status for client
-<a href=#411 id=411 data-nosnippet>411</a>	</span><span class="kw">pub async fn </span>GetClientStatus(<span class="kw-2">&amp;</span><span class="self">self</span>, client_id:<span class="kw-2">&amp;</span>str) -&gt; RateLimitStatus {
+<a href=#411 id=411 data-nosnippet>411</a>	</span><span class="kw">pub async fn </span>GetClientStatus(<span class="kw-2">&amp;</span><span class="self">self</span>, client_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; RateLimitStatus {
 <a href=#412 id=412 data-nosnippet>412</a>		<span class="kw">let </span>buckets = <span class="self">self</span>.client_buckets.read().<span class="kw">await</span>;
 <a href=#413 id=413 data-nosnippet>413</a>
 <a href=#414 id=414 data-nosnippet>414</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(bucket) = buckets.get(client_id) {
@@ -441,55 +441,55 @@
 <a href=#441 id=441 data-nosnippet>441</a>
 <a href=#442 id=442 data-nosnippet>442</a>	<span class="doccomment">/// Start background cleanup task
 <a href=#443 id=443 data-nosnippet>443</a>	</span><span class="kw">pub fn </span>StartCleanupTask(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tokio::task::JoinHandle&lt;()&gt; {
-<a href=#444 id=444 data-nosnippet>444</a>		<span class="kw">let </span>ip_buckets = <span class="self">self</span>.ip_buckets.clone();
-<a href=#445 id=445 data-nosnippet>445</a>		<span class="kw">let </span>client_buckets = <span class="self">self</span>.client_buckets.clone();
-<a href=#446 id=446 data-nosnippet>446</a>		<span class="kw">let </span>cleanup_interval = <span class="self">self</span>.cleanup_interval;
+<a href=#444 id=444 data-nosnippet>444</a>		<span class="kw">let </span>ip_buckets = <a class="self" href="#443">self</a>.ip_buckets.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>();
+<a href=#445 id=445 data-nosnippet>445</a>		<span class="kw">let </span>client_buckets = <a class="self" href="#443">self</a>.client_buckets.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>();
+<a href=#446 id=446 data-nosnippet>446</a>		<span class="kw">let </span>cleanup_interval = <a class="self" href="#443">self</a>.cleanup_interval;
 <a href=#447 id=447 data-nosnippet>447</a>
 <a href=#448 id=448 data-nosnippet>448</a>		tokio::spawn(<span class="kw">async move </span>{
-<a href=#449 id=449 data-nosnippet>449</a>			<span class="kw">let </span><span class="kw-2">mut </span>interval = tokio::time::interval(cleanup_interval);
+<a href=#449 id=449 data-nosnippet>449</a>			<span class="kw">let </span><span class="kw-2">mut </span>interval = tokio::time::interval(<a href="#446">cleanup_interval</a>);
 <a href=#450 id=450 data-nosnippet>450</a>
 <a href=#451 id=451 data-nosnippet>451</a>			<span class="kw">loop </span>{
-<a href=#452 id=452 data-nosnippet>452</a>				interval.tick().<span class="kw">await</span>;
+<a href=#452 id=452 data-nosnippet>452</a>				<a href="#449">interval</a>.tick().<span class="kw">await</span>;
 <a href=#453 id=453 data-nosnippet>453</a>
-<a href=#454 id=454 data-nosnippet>454</a>				<span class="kw">let </span>now = std::time::Instant::now();
+<a href=#454 id=454 data-nosnippet>454</a>				<span class="kw">let </span>now = std::time::<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>::<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html#method.now">now</a>();
 <a href=#455 id=455 data-nosnippet>455</a>
-<a href=#456 id=456 data-nosnippet>456</a>				<span class="kw">let </span><span class="kw-2">mut </span>buckets = ip_buckets.write().<span class="kw">await</span>;
-<a href=#457 id=457 data-nosnippet>457</a>				buckets.retain(|<span class="kw">_</span>, bucket| now.duration_since(bucket.last_refill) &lt; cleanup_interval);
+<a href=#456 id=456 data-nosnippet>456</a>				<span class="kw">let </span><span class="kw-2">mut </span>buckets = <a href="#444">ip_buckets</a>.write().<span class="kw">await</span>;
+<a href=#457 id=457 data-nosnippet>457</a>				<a href="#456">buckets</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.retain">retain</a>(|<span class="kw">_</span>, bucket| <a href="#454">now</a>.<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html#method.duration_since">duration_since</a>(<a href="#457">bucket</a>.last_refill) &lt; <a href="#446">cleanup_interval</a>);
 <a href=#458 id=458 data-nosnippet>458</a>
-<a href=#459 id=459 data-nosnippet>459</a>				<span class="kw">let </span><span class="kw-2">mut </span>buckets = client_buckets.write().<span class="kw">await</span>;
-<a href=#460 id=460 data-nosnippet>460</a>				buckets.retain(|<span class="kw">_</span>, bucket| now.duration_since(bucket.last_refill) &lt; cleanup_interval);
+<a href=#459 id=459 data-nosnippet>459</a>				<span class="kw">let </span><span class="kw-2">mut </span>buckets = <a href="#445">client_buckets</a>.write().<span class="kw">await</span>;
+<a href=#460 id=460 data-nosnippet>460</a>				<a href="#459">buckets</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.retain">retain</a>(|<span class="kw">_</span>, bucket| <a href="#454">now</a>.<a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html#method.duration_since">duration_since</a>(<a href="#460">bucket</a>.last_refill) &lt; <a href="#446">cleanup_interval</a>);
 <a href=#461 id=461 data-nosnippet>461</a>			}
 <a href=#462 id=462 data-nosnippet>462</a>		})
 <a href=#463 id=463 data-nosnippet>463</a>	}
 <a href=#464 id=464 data-nosnippet>464</a>}
 <a href=#465 id=465 data-nosnippet>465</a>
-<a href=#466 id=466 data-nosnippet>466</a><span class="kw">impl </span>Clone <span class="kw">for </span>RateLimiter {
+<a href=#466 id=466 data-nosnippet>466</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a> <span class="kw">for </span><a href="#339-344">RateLimiter</a> {
 <a href=#467 id=467 data-nosnippet>467</a>	<span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
 <a href=#468 id=468 data-nosnippet>468</a>		<span class="self">Self </span>{
-<a href=#469 id=469 data-nosnippet>469</a>			config:<span class="self">self</span>.config.clone(),
-<a href=#470 id=470 data-nosnippet>470</a>			ip_buckets:<span class="self">self</span>.ip_buckets.clone(),
-<a href=#471 id=471 data-nosnippet>471</a>			client_buckets:<span class="self">self</span>.client_buckets.clone(),
-<a href=#472 id=472 data-nosnippet>472</a>			cleanup_interval:<span class="self">self</span>.cleanup_interval,
+<a href=#469 id=469 data-nosnippet>469</a>			config:<a class="self" href="#467">self</a>.config.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#470 id=470 data-nosnippet>470</a>			ip_buckets:<a class="self" href="#467">self</a>.ip_buckets.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#471 id=471 data-nosnippet>471</a>			client_buckets:<a class="self" href="#467">self</a>.client_buckets.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#472 id=472 data-nosnippet>472</a>			cleanup_interval:<a class="self" href="#467">self</a>.cleanup_interval,
 <a href=#473 id=473 data-nosnippet>473</a>		}
 <a href=#474 id=474 data-nosnippet>474</a>	}
 <a href=#475 id=475 data-nosnippet>475</a>}
 <a href=#476 id=476 data-nosnippet>476</a>
 <a href=#477 id=477 data-nosnippet>477</a><span class="doccomment">/// Rate limit status
-<a href=#478 id=478 data-nosnippet>478</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#479 id=479 data-nosnippet>479</a></span><span class="kw">pub struct </span>RateLimitStatus {
-<a href=#480 id=480 data-nosnippet>480</a>	<span class="kw">pub </span>remaining_tokens:u32,
-<a href=#481 id=481 data-nosnippet>481</a>	<span class="kw">pub </span>capacity:u32,
-<a href=#482 id=482 data-nosnippet>482</a>	<span class="kw">pub </span>refill_rate:u32,
+<a href=#478 id=478 data-nosnippet>478</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#479 id=479 data-nosnippet>479</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.RateLimitStatus.html">RateLimitStatus</a> {
+<a href=#480 id=480 data-nosnippet>480</a>	<span class="kw">pub </span>remaining_tokens:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#481 id=481 data-nosnippet>481</a>	<span class="kw">pub </span>capacity:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#482 id=482 data-nosnippet>482</a>	<span class="kw">pub </span>refill_rate:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#483 id=483 data-nosnippet>483</a>}
 <a href=#484 id=484 data-nosnippet>484</a>
 <a href=#485 id=485 data-nosnippet>485</a><span class="doccomment">/// Checksum verification for file integrity
-<a href=#486 id=486 data-nosnippet>486</a></span><span class="kw">pub struct </span>ChecksumVerifier;
+<a href=#486 id=486 data-nosnippet>486</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.ChecksumVerifier.html">ChecksumVerifier</a>;
 <a href=#487 id=487 data-nosnippet>487</a>
-<a href=#488 id=488 data-nosnippet>488</a><span class="kw">impl </span>ChecksumVerifier {
+<a href=#488 id=488 data-nosnippet>488</a><span class="kw">impl </span><a href="#486">ChecksumVerifier</a> {
 <a href=#489 id=489 data-nosnippet>489</a>	<span class="doccomment">/// Create a new ChecksumVerifier
 <a href=#490 id=490 data-nosnippet>490</a>	</span><span class="kw">pub fn </span>New() -&gt; <span class="self">Self </span>{ <span class="self">Self </span>}
 <a href=#491 id=491 data-nosnippet>491</a>	<span class="doccomment">/// Calculate SHA-256 checksum of a file
-<a href=#492 id=492 data-nosnippet>492</a>	</span><span class="kw">pub async fn </span>CalculateSha256(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>std::path::Path) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+<a href=#492 id=492 data-nosnippet>492</a>	</span><span class="kw">pub async fn </span>CalculateSha256(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>std::path::<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a>) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
 <a href=#493 id=493 data-nosnippet>493</a>		<span class="kw">let </span>content = tokio::fs::read(file_path)
 <a href=#494 id=494 data-nosnippet>494</a>			.<span class="kw">await
 <a href=#495 id=495 data-nosnippet>495</a>			</span>.map_err(|e| AirError::FileSystem(<span class="macro">format!</span>(<span class="string">"Failed to read file: {}"</span>, e)))<span class="question-mark">?</span>;
@@ -502,7 +502,7 @@
 <a href=#502 id=502 data-nosnippet>502</a>	}
 <a href=#503 id=503 data-nosnippet>503</a>
 <a href=#504 id=504 data-nosnippet>504</a>	<span class="doccomment">/// Verify file checksum with constant-time comparison
-<a href=#505 id=505 data-nosnippet>505</a>	</span><span class="kw">pub async fn </span>VerifySha256(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>std::path::Path, expected_checksum:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
+<a href=#505 id=505 data-nosnippet>505</a>	</span><span class="kw">pub async fn </span>VerifySha256(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>std::path::<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a>, expected_checksum:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
 <a href=#506 id=506 data-nosnippet>506</a>		<span class="kw">let </span>actual = <span class="self">self</span>.CalculateSha256(file_path).<span class="kw">await</span><span class="question-mark">?</span>;
 <a href=#507 id=507 data-nosnippet>507</a>
 <a href=#508 id=508 data-nosnippet>508</a>		<span class="comment">// Use constant-time comparison
@@ -515,14 +515,14 @@
 <a href=#515 id=515 data-nosnippet>515</a>	}
 <a href=#516 id=516 data-nosnippet>516</a>
 <a href=#517 id=517 data-nosnippet>517</a>	<span class="doccomment">/// Calculate checksum from bytes
-<a href=#518 id=518 data-nosnippet>518</a>	</span><span class="kw">pub fn </span>CalculateSha256Bytes(<span class="kw-2">&amp;</span><span class="self">self</span>, data:<span class="kw-2">&amp;</span>[u8]) -&gt; String {
+<a href=#518 id=518 data-nosnippet>518</a>	</span><span class="kw">pub fn </span>CalculateSha256Bytes(<span class="kw-2">&amp;</span><span class="self">self</span>, data:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
 <a href=#519 id=519 data-nosnippet>519</a>		<span class="kw">let </span><span class="kw-2">mut </span>hasher = Sha256::new();
-<a href=#520 id=520 data-nosnippet>520</a>		hasher.update(data);
-<a href=#521 id=521 data-nosnippet>521</a>		<span class="macro">format!</span>(<span class="string">"{:x}"</span>, hasher.finalize())
+<a href=#520 id=520 data-nosnippet>520</a>		<a href="#519">hasher</a>.update(<a href="#518">data</a>);
+<a href=#521 id=521 data-nosnippet>521</a>		<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"{:x}"</span>, hasher.finalize())
 <a href=#522 id=522 data-nosnippet>522</a>	}
 <a href=#523 id=523 data-nosnippet>523</a>
 <a href=#524 id=524 data-nosnippet>524</a>	<span class="doccomment">/// Calculate MD5 checksum (legacy support)
-<a href=#525 id=525 data-nosnippet>525</a>	</span><span class="kw">pub async fn </span>CalculateMd5(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>std::path::Path) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+<a href=#525 id=525 data-nosnippet>525</a>	</span><span class="kw">pub async fn </span>CalculateMd5(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>std::path::<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a>) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
 <a href=#526 id=526 data-nosnippet>526</a>		<span class="kw">let </span>content = tokio::fs::read(file_path)
 <a href=#527 id=527 data-nosnippet>527</a>			.<span class="kw">await
 <a href=#528 id=528 data-nosnippet>528</a>			</span>.map_err(|e| AirError::FileSystem(<span class="macro">format!</span>(<span class="string">"Failed to read file: {}"</span>, e)))<span class="question-mark">?</span>;
@@ -532,113 +532,113 @@
 <a href=#532 id=532 data-nosnippet>532</a>	}
 <a href=#533 id=533 data-nosnippet>533</a>
 <a href=#534 id=534 data-nosnippet>534</a>	<span class="doccomment">/// Constant-time compare two checksum strings
-<a href=#535 id=535 data-nosnippet>535</a>	</span><span class="kw">pub fn </span>ConstantTimeCompare(<span class="kw-2">&amp;</span><span class="self">self</span>, a:<span class="kw-2">&amp;</span>str, b:<span class="kw-2">&amp;</span>str) -&gt; bool {
-<a href=#536 id=536 data-nosnippet>536</a>		<span class="kw">if </span>a.len() != b.len() {
+<a href=#535 id=535 data-nosnippet>535</a>	</span><span class="kw">pub fn </span>ConstantTimeCompare(<span class="kw-2">&amp;</span><span class="self">self</span>, a:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, b:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#536 id=536 data-nosnippet>536</a>		<span class="kw">if </span><a href="#535">a</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.len">len</a>() != <a href="#535">b</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.len">len</a>() {
 <a href=#537 id=537 data-nosnippet>537</a>			<span class="kw">return </span><span class="bool-val">false</span>;
 <a href=#538 id=538 data-nosnippet>538</a>		}
-<a href=#539 id=539 data-nosnippet>539</a>		a.as_bytes().ct_eq(b.as_bytes()).into()
+<a href=#539 id=539 data-nosnippet>539</a>		<a href="#535">a</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.as_bytes">as_bytes</a>().<a href="https://docs.rs/subtle/2.6.0/subtle/trait.ConstantTimeEq.html#tymethod.ct_eq">ct_eq</a>(<a href="#535">b</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.as_bytes">as_bytes</a>()).<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>()
 <a href=#540 id=540 data-nosnippet>540</a>	}
 <a href=#541 id=541 data-nosnippet>541</a>}
 <a href=#542 id=542 data-nosnippet>542</a>
 <a href=#543 id=543 data-nosnippet>543</a><span class="doccomment">/// Secure credential storage with AES-GCM encryption
-<a href=#544 id=544 data-nosnippet>544</a></span><span class="kw">pub struct </span>SecureStorage {
+<a href=#544 id=544 data-nosnippet>544</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.SecureStorage.html">SecureStorage</a> {
 <a href=#545 id=545 data-nosnippet>545</a>	<span class="doccomment">/// Encrypted credentials storage
-<a href=#546 id=546 data-nosnippet>546</a>	</span>credentials:Arc&lt;RwLock&lt;HashMap&lt;String, EncryptedCredential&gt;&gt;&gt;,
+<a href=#546 id=546 data-nosnippet>546</a>	</span>credentials:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#560-566">EncryptedCredential</a>&gt;&gt;&gt;,
 <a href=#547 id=547 data-nosnippet>547</a>
 <a href=#548 id=548 data-nosnippet>548</a>	<span class="doccomment">/// Master key for encryption/decryption (zeroized on drop)
-<a href=#549 id=549 data-nosnippet>549</a>	</span>master_key:SecureBytes,
+<a href=#549 id=549 data-nosnippet>549</a>	</span>master_key:<a href="#121-124">SecureBytes</a>,
 <a href=#550 id=550 data-nosnippet>550</a>
 <a href=#551 id=551 data-nosnippet>551</a>	<span class="doccomment">/// Key version for key rotation support
-<a href=#552 id=552 data-nosnippet>552</a>	</span>key_version:u32,
+<a href=#552 id=552 data-nosnippet>552</a>	</span>key_version:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#553 id=553 data-nosnippet>553</a>
 <a href=#554 id=554 data-nosnippet>554</a>	<span class="doccomment">/// Security auditor
-<a href=#555 id=555 data-nosnippet>555</a>	</span>auditor:SecurityAuditor,
+<a href=#555 id=555 data-nosnippet>555</a>	</span>auditor:<a href="#204-209">SecurityAuditor</a>,
 <a href=#556 id=556 data-nosnippet>556</a>}
 <a href=#557 id=557 data-nosnippet>557</a>
 <a href=#558 id=558 data-nosnippet>558</a><span class="doccomment">/// Encrypted credential with AES-GCM
-<a href=#559 id=559 data-nosnippet>559</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#560 id=560 data-nosnippet>560</a></span><span class="kw">pub struct </span>EncryptedCredential {
-<a href=#561 id=561 data-nosnippet>561</a>	<span class="kw">pub </span>cipher_text:String,
-<a href=#562 id=562 data-nosnippet>562</a>	<span class="kw">pub </span>salt:String,
-<a href=#563 id=563 data-nosnippet>563</a>	<span class="kw">pub </span>nonce:String,
-<a href=#564 id=564 data-nosnippet>564</a>	<span class="kw">pub </span>key_version:u32,
-<a href=#565 id=565 data-nosnippet>565</a>	<span class="kw">pub </span>created_at:u64,
+<a href=#559 id=559 data-nosnippet>559</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#560 id=560 data-nosnippet>560</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.EncryptedCredential.html">EncryptedCredential</a> {
+<a href=#561 id=561 data-nosnippet>561</a>	<span class="kw">pub </span>cipher_text:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#562 id=562 data-nosnippet>562</a>	<span class="kw">pub </span>salt:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#563 id=563 data-nosnippet>563</a>	<span class="kw">pub </span>nonce:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#564 id=564 data-nosnippet>564</a>	<span class="kw">pub </span>key_version:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#565 id=565 data-nosnippet>565</a>	<span class="kw">pub </span>created_at:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#566 id=566 data-nosnippet>566</a>}
 <a href=#567 id=567 data-nosnippet>567</a>
 <a href=#568 id=568 data-nosnippet>568</a><span class="doccomment">/// Key rotation result
-<a href=#569 id=569 data-nosnippet>569</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#570 id=570 data-nosnippet>570</a></span><span class="kw">pub struct </span>KeyRotationResult {
-<a href=#571 id=571 data-nosnippet>571</a>	<span class="kw">pub </span>old_key_version:u32,
-<a href=#572 id=572 data-nosnippet>572</a>	<span class="kw">pub </span>new_key_version:u32,
-<a href=#573 id=573 data-nosnippet>573</a>	<span class="kw">pub </span>credentials_rotated:usize,
-<a href=#574 id=574 data-nosnippet>574</a>	<span class="kw">pub </span>timestamp:u64,
+<a href=#569 id=569 data-nosnippet>569</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#570 id=570 data-nosnippet>570</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Security/struct.KeyRotationResult.html">KeyRotationResult</a> {
+<a href=#571 id=571 data-nosnippet>571</a>	<span class="kw">pub </span>old_key_version:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#572 id=572 data-nosnippet>572</a>	<span class="kw">pub </span>new_key_version:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#573 id=573 data-nosnippet>573</a>	<span class="kw">pub </span>credentials_rotated:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+<a href=#574 id=574 data-nosnippet>574</a>	<span class="kw">pub </span>timestamp:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#575 id=575 data-nosnippet>575</a>}
 <a href=#576 id=576 data-nosnippet>576</a>
-<a href=#577 id=577 data-nosnippet>577</a><span class="kw">impl </span>SecureStorage {
+<a href=#577 id=577 data-nosnippet>577</a><span class="kw">impl </span><a href="#544-556">SecureStorage</a> {
 <a href=#578 id=578 data-nosnippet>578</a>	<span class="doccomment">/// Create a new secure storage with a master key
-<a href=#579 id=579 data-nosnippet>579</a>	</span><span class="kw">pub fn </span>New(master_key:Vec&lt;u8&gt;, auditor:SecurityAuditor) -&gt; <span class="self">Self </span>{
-<a href=#580 id=580 data-nosnippet>580</a>		<span class="kw">let </span>key = SecureBytes::new(master_key);
+<a href=#579 id=579 data-nosnippet>579</a>	</span><span class="kw">pub fn </span>New(master_key:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;, auditor:<a href="#204-209">SecurityAuditor</a>) -&gt; <span class="self">Self </span>{
+<a href=#580 id=580 data-nosnippet>580</a>		<span class="kw">let </span>key = <a href="#121-124">SecureBytes</a>::<a href="#128">new</a>(<a href="#579">master_key</a>);
 <a href=#581 id=581 data-nosnippet>581</a>
 <a href=#582 id=582 data-nosnippet>582</a>		<span class="comment">// Log key generation event
-<a href=#583 id=583 data-nosnippet>583</a>		</span><span class="kw">let </span>event = SecurityEvent {
-<a href=#584 id=584 data-nosnippet>584</a>			Timestamp:<span class="kw">crate</span>::Utility::CurrentTimestamp(),
-<a href=#585 id=585 data-nosnippet>585</a>			EventType:SecurityEventType::KeyGenerated,
-<a href=#586 id=586 data-nosnippet>586</a>			Severity:SecuritySeverity::Warning,
-<a href=#587 id=587 data-nosnippet>587</a>			SourceIp:<span class="prelude-val">None</span>,
-<a href=#588 id=588 data-nosnippet>588</a>			ClientId:<span class="prelude-val">None</span>,
-<a href=#589 id=589 data-nosnippet>589</a>			Details:<span class="string">"Master key generated for secure storage"</span>.to_string(),
+<a href=#583 id=583 data-nosnippet>583</a>		</span><span class="kw">let </span>event = <a href="#152-167">SecurityEvent</a> {
+<a href=#584 id=584 data-nosnippet>584</a>			Timestamp:<span class="kw">crate</span>::Utility::<a href="../Library.rs.html#377-382">CurrentTimestamp</a>(),
+<a href=#585 id=585 data-nosnippet>585</a>			EventType:SecurityEventType::<a href="#185">KeyGenerated</a>,
+<a href=#586 id=586 data-nosnippet>586</a>			Severity:SecuritySeverity::<a href="#198">Warning</a>,
+<a href=#587 id=587 data-nosnippet>587</a>			SourceIp:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#588 id=588 data-nosnippet>588</a>			ClientId:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#589 id=589 data-nosnippet>589</a>			Details:<span class="string">"Master key generated for secure storage"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
 <a href=#590 id=590 data-nosnippet>590</a>			Metadata:{
-<a href=#591 id=591 data-nosnippet>591</a>				<span class="kw">let </span><span class="kw-2">mut </span>meta = HashMap::new();
-<a href=#592 id=592 data-nosnippet>592</a>				meta.insert(<span class="string">"key_version"</span>.to_string(), <span class="string">"1"</span>.to_string());
-<a href=#593 id=593 data-nosnippet>593</a>				meta
+<a href=#591 id=591 data-nosnippet>591</a>				<span class="kw">let </span><span class="kw-2">mut </span>meta = <a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>();
+<a href=#592 id=592 data-nosnippet>592</a>				<a href="#591">meta</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.insert">insert</a>(<span class="string">"key_version"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(), <span class="string">"1"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
+<a href=#593 id=593 data-nosnippet>593</a>				<a href="#591">meta</a>
 <a href=#594 id=594 data-nosnippet>594</a>			},
 <a href=#595 id=595 data-nosnippet>595</a>		};
 <a href=#596 id=596 data-nosnippet>596</a>
-<a href=#597 id=597 data-nosnippet>597</a>		<span class="kw">let </span>auditor_clone = auditor.clone();
+<a href=#597 id=597 data-nosnippet>597</a>		<span class="kw">let </span>auditor_clone = <a href="#579">auditor</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>();
 <a href=#598 id=598 data-nosnippet>598</a>		tokio::spawn(<span class="kw">async move </span>{
-<a href=#599 id=599 data-nosnippet>599</a>			auditor_clone.LogEvent(event).<span class="kw">await</span>;
+<a href=#599 id=599 data-nosnippet>599</a>			<a href="#597">auditor_clone</a>.<a href="#216-242">LogEvent</a>(<a href="#583">event</a>).<span class="kw">await</span>;
 <a href=#600 id=600 data-nosnippet>600</a>		});
 <a href=#601 id=601 data-nosnippet>601</a>
 <a href=#602 id=602 data-nosnippet>602</a>		<span class="self">Self </span>{
-<a href=#603 id=603 data-nosnippet>603</a>			credentials:Arc::new(RwLock::new(HashMap::new())),
-<a href=#604 id=604 data-nosnippet>604</a>			master_key:key,
+<a href=#603 id=603 data-nosnippet>603</a>			credentials:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
+<a href=#604 id=604 data-nosnippet>604</a>			master_key:<a href="#580">key</a>,
 <a href=#605 id=605 data-nosnippet>605</a>			key_version:<span class="number">1</span>,
-<a href=#606 id=606 data-nosnippet>606</a>			auditor,
+<a href=#606 id=606 data-nosnippet>606</a>			<a href="#579">auditor</a>,
 <a href=#607 id=607 data-nosnippet>607</a>		}
 <a href=#608 id=608 data-nosnippet>608</a>	}
 <a href=#609 id=609 data-nosnippet>609</a>
 <a href=#610 id=610 data-nosnippet>610</a>	<span class="doccomment">/// Generate a secure master key from password using PBKDF2
-<a href=#611 id=611 data-nosnippet>611</a>	</span><span class="kw">pub fn </span>DeriveKeyFromPassword(password:<span class="kw-2">&amp;</span>str, salt:<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[u8]&gt;) -&gt; (Vec&lt;u8&gt;, [u8; <span class="number">16</span>]) {
-<a href=#612 id=612 data-nosnippet>612</a>		<span class="kw">const </span>N_ITERATIONS:u32 = <span class="number">100_000</span>;
-<a href=#613 id=613 data-nosnippet>613</a>		<span class="kw">const </span>CREDENTIAL_LEN:usize = <span class="number">32</span>;
+<a href=#611 id=611 data-nosnippet>611</a>	</span><span class="kw">pub fn </span>DeriveKeyFromPassword(password:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, salt:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]&gt;) -&gt; (<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;, [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>]) {
+<a href=#612 id=612 data-nosnippet>612</a>		<span class="kw">const </span>N_ITERATIONS:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = <span class="number">100_000</span>;
+<a href=#613 id=613 data-nosnippet>613</a>		<span class="kw">const </span>CREDENTIAL_LEN:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <span class="number">32</span>;
 <a href=#614 id=614 data-nosnippet>614</a>
 <a href=#615 id=615 data-nosnippet>615</a>		<span class="kw">let </span><span class="kw-2">mut </span>key_salt = [<span class="number">0u8</span>; <span class="number">16</span>];
 <a href=#616 id=616 data-nosnippet>616</a>
-<a href=#617 id=617 data-nosnippet>617</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(provided_salt) = salt {
-<a href=#618 id=618 data-nosnippet>618</a>			<span class="kw">if </span>provided_salt.len() &gt;= <span class="number">16 </span>{
-<a href=#619 id=619 data-nosnippet>619</a>				key_salt.copy_from_slice(<span class="kw-2">&amp;</span>provided_salt[..<span class="number">16</span>]);
+<a href=#617 id=617 data-nosnippet>617</a>		<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(provided_salt) = <a href="#611">salt</a> {
+<a href=#618 id=618 data-nosnippet>618</a>			<span class="kw">if </span><a href="#617">provided_salt</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.len">len</a>() &gt;= <span class="number">16 </span>{
+<a href=#619 id=619 data-nosnippet>619</a>				<a href="#615">key_salt</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.copy_from_slice">copy_from_slice</a>(<span class="kw-2">&amp;</span><a href="#617">provided_salt</a>[..<span class="number">16</span>]);
 <a href=#620 id=620 data-nosnippet>620</a>			} <span class="kw">else </span>{
-<a href=#621 id=621 data-nosnippet>621</a>				key_salt[..provided_salt.len()].copy_from_slice(provided_salt);
+<a href=#621 id=621 data-nosnippet>621</a>				<a href="#615">key_salt</a>[..provided_salt.len()].<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.copy_from_slice">copy_from_slice</a>(<a href="#617">provided_salt</a>);
 <a href=#622 id=622 data-nosnippet>622</a>			}
 <a href=#623 id=623 data-nosnippet>623</a>		} <span class="kw">else </span>{
 <a href=#624 id=624 data-nosnippet>624</a>			<span class="kw">let </span><span class="kw-2">mut </span>rng = rng();
-<a href=#625 id=625 data-nosnippet>625</a>			rng.fill_bytes(<span class="kw-2">&amp;mut </span>key_salt);
+<a href=#625 id=625 data-nosnippet>625</a>			<a href="#624">rng</a>.fill_bytes(<span class="kw-2">&amp;mut </span><a href="#615">key_salt</a>);
 <a href=#626 id=626 data-nosnippet>626</a>		}
 <a href=#627 id=627 data-nosnippet>627</a>
-<a href=#628 id=628 data-nosnippet>628</a>		<span class="kw">let </span><span class="kw-2">mut </span>key = <span class="macro">vec!</span>[<span class="number">0u8</span>; CREDENTIAL_LEN];
+<a href=#628 id=628 data-nosnippet>628</a>		<span class="kw">let </span><span class="kw-2">mut </span>key = <a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0u8</span>; <a href="#613">CREDENTIAL_LEN</a>];
 <a href=#629 id=629 data-nosnippet>629</a>		pbkdf2::derive(
 <a href=#630 id=630 data-nosnippet>630</a>			pbkdf2::PBKDF2_HMAC_SHA256,
-<a href=#631 id=631 data-nosnippet>631</a>			std::num::NonZeroU32::new(N_ITERATIONS).unwrap(),
-<a href=#632 id=632 data-nosnippet>632</a>			<span class="kw-2">&amp;</span>key_salt,
-<a href=#633 id=633 data-nosnippet>633</a>			password.as_bytes(),
-<a href=#634 id=634 data-nosnippet>634</a>			<span class="kw-2">&amp;mut </span>key,
+<a href=#631 id=631 data-nosnippet>631</a>			std::num::<a href="https://doc.rust-lang.org/nightly/core/num/nonzero/type.NonZeroU32.html">NonZeroU32</a>::<a href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZero.html#method.new">new</a>(<a href="#612">N_ITERATIONS</a>).<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap">unwrap</a>(),
+<a href=#632 id=632 data-nosnippet>632</a>			<span class="kw-2">&amp;</span><a href="#615">key_salt</a>,
+<a href=#633 id=633 data-nosnippet>633</a>			<a href="#611">password</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.as_bytes">as_bytes</a>(),
+<a href=#634 id=634 data-nosnippet>634</a>			<span class="kw-2">&amp;mut </span><a href="#628">key</a>,
 <a href=#635 id=635 data-nosnippet>635</a>		);
 <a href=#636 id=636 data-nosnippet>636</a>
-<a href=#637 id=637 data-nosnippet>637</a>		(key, key_salt)
+<a href=#637 id=637 data-nosnippet>637</a>		(<a href="#628">key</a>, <a href="#615">key_salt</a>)
 <a href=#638 id=638 data-nosnippet>638</a>	}
 <a href=#639 id=639 data-nosnippet>639</a>
 <a href=#640 id=640 data-nosnippet>640</a>	<span class="doccomment">/// Store a credential encrypted with AES-GCM
-<a href=#641 id=641 data-nosnippet>641</a>	</span><span class="kw">pub async fn </span>Store(<span class="kw-2">&amp;</span><span class="self">self</span>, key:<span class="kw-2">&amp;</span>str, credential:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#641 id=641 data-nosnippet>641</a>	</span><span class="kw">pub async fn </span>Store(<span class="kw-2">&amp;</span><span class="self">self</span>, key:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, credential:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#642 id=642 data-nosnippet>642</a>		<span class="kw">let </span><span class="kw-2">mut </span>rng = rng();
 <a href=#643 id=643 data-nosnippet>643</a>		<span class="kw">let </span><span class="kw-2">mut </span>nonce = [<span class="number">0u8</span>; <span class="number">12</span>];
 <a href=#644 id=644 data-nosnippet>644</a>		rng.fill_bytes(<span class="kw-2">&amp;mut </span>nonce);
@@ -681,7 +681,7 @@
 <a href=#681 id=681 data-nosnippet>681</a>	}
 <a href=#682 id=682 data-nosnippet>682</a>
 <a href=#683 id=683 data-nosnippet>683</a>	<span class="doccomment">/// Retrieve and decrypt a credential
-<a href=#684 id=684 data-nosnippet>684</a>	</span><span class="kw">pub async fn </span>Retrieve(<span class="kw-2">&amp;</span><span class="self">self</span>, key:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt; {
+<a href=#684 id=684 data-nosnippet>684</a>	</span><span class="kw">pub async fn </span>Retrieve(<span class="kw-2">&amp;</span><span class="self">self</span>, key:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt; {
 <a href=#685 id=685 data-nosnippet>685</a>		<span class="kw">let </span>storage = <span class="self">self</span>.credentials.read().<span class="kw">await</span>;
 <a href=#686 id=686 data-nosnippet>686</a>
 <a href=#687 id=687 data-nosnippet>687</a>		<span class="kw">match </span>storage.get(key) {
@@ -718,14 +718,14 @@
 <a href=#718 id=718 data-nosnippet>718</a>	}
 <a href=#719 id=719 data-nosnippet>719</a>
 <a href=#720 id=720 data-nosnippet>720</a>	<span class="doccomment">/// Encrypt credential data using AES-GCM
-<a href=#721 id=721 data-nosnippet>721</a>	</span><span class="kw">fn </span>EncryptCredential(<span class="kw-2">&amp;</span><span class="self">self</span>, data:<span class="kw-2">&amp;</span>str, nonce:<span class="kw-2">&amp;</span>[u8; <span class="number">12</span>], salt:<span class="kw-2">&amp;</span>[u8; <span class="number">16</span>]) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+<a href=#721 id=721 data-nosnippet>721</a>	</span><span class="kw">fn </span>EncryptCredential(<span class="kw-2">&amp;</span><span class="self">self</span>, data:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, nonce:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">12</span>], salt:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>]) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
 <a href=#722 id=722 data-nosnippet>722</a>		<span class="comment">// Derive a subkey from the master key using the salt
-<a href=#723 id=723 data-nosnippet>723</a>		</span><span class="kw">let </span>subkey = <span class="self">self</span>.DeriveSubkey(salt)<span class="question-mark">?</span>;
+<a href=#723 id=723 data-nosnippet>723</a>		</span><span class="kw">let </span>subkey = <a class="self" href="#721">self</a>.<a href="#766-781">DeriveSubkey</a>(<a href="#721">salt</a>)<span class="question-mark">?</span>;
 <a href=#724 id=724 data-nosnippet>724</a>
 <a href=#725 id=725 data-nosnippet>725</a>		<span class="comment">// In production, use actual AES-GCM encryption
 <a href=#726 id=726 data-nosnippet>726</a>		// For now, we implement a secure XOR-based encryption with proper key
 <a href=#727 id=727 data-nosnippet>727</a>		// derivation
-<a href=#728 id=728 data-nosnippet>728</a>		</span><span class="kw">let </span><span class="kw-2">mut </span>result = Vec::with_capacity(data.len());
+<a href=#728 id=728 data-nosnippet>728</a>		</span><span class="kw">let </span><span class="kw-2">mut </span>result = <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.with_capacity">with_capacity</a>(<a href="#721">data</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.len">len</a>());
 <a href=#729 id=729 data-nosnippet>729</a>
 <a href=#730 id=730 data-nosnippet>730</a>		<span class="kw">for </span>(i, byte) <span class="kw">in </span>data.bytes().enumerate() {
 <a href=#731 id=731 data-nosnippet>731</a>			<span class="kw">let </span>key_byte = subkey.as_slice()[i % subkey.len()];
@@ -734,20 +734,20 @@
 <a href=#734 id=734 data-nosnippet>734</a>			result.push(byte ^ key_byte ^ nonce_byte ^ salt_byte);
 <a href=#735 id=735 data-nosnippet>735</a>		}
 <a href=#736 id=736 data-nosnippet>736</a>
-<a href=#737 id=737 data-nosnippet>737</a>		<span class="prelude-val">Ok</span>(STANDARD.encode(<span class="kw-2">&amp;</span>result))
+<a href=#737 id=737 data-nosnippet>737</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(STANDARD.encode(<span class="kw-2">&amp;</span><a href="#728">result</a>))
 <a href=#738 id=738 data-nosnippet>738</a>	}
 <a href=#739 id=739 data-nosnippet>739</a>
 <a href=#740 id=740 data-nosnippet>740</a>	<span class="doccomment">/// Decrypt credential data
-<a href=#741 id=741 data-nosnippet>741</a>	</span><span class="kw">fn </span>DecryptCredential(<span class="kw-2">&amp;</span><span class="self">self</span>, cipher_text:<span class="kw-2">&amp;</span>str, nonce:<span class="kw-2">&amp;</span>[u8], salt:<span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+<a href=#741 id=741 data-nosnippet>741</a>	</span><span class="kw">fn </span>DecryptCredential(<span class="kw-2">&amp;</span><span class="self">self</span>, cipher_text:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, nonce:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], salt:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
 <a href=#742 id=742 data-nosnippet>742</a>		<span class="comment">// Derive the subkey from the master key using the salt
-<a href=#743 id=743 data-nosnippet>743</a>		</span><span class="kw">let </span>subkey = <span class="self">self</span>.DeriveSubkey(salt)<span class="question-mark">?</span>;
+<a href=#743 id=743 data-nosnippet>743</a>		</span><span class="kw">let </span>subkey = <a class="self" href="#741">self</a>.<a href="#766-781">DeriveSubkey</a>(<a href="#741">salt</a>)<span class="question-mark">?</span>;
 <a href=#744 id=744 data-nosnippet>744</a>
-<a href=#745 id=745 data-nosnippet>745</a>		<span class="kw">let </span>encrypted_bytes = <span class="kw">match </span>standard_decode(cipher_text) {
-<a href=#746 id=746 data-nosnippet>746</a>			<span class="prelude-val">Ok</span>(bytes) =&gt; bytes,
-<a href=#747 id=747 data-nosnippet>747</a>			<span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(AirError::Internal(<span class="macro">format!</span>(<span class="string">"Failed to decode cipher text: {}"</span>, e))),
+<a href=#745 id=745 data-nosnippet>745</a>		<span class="kw">let </span>encrypted_bytes = <span class="kw">match </span><a href="#888-892">standard_decode</a>(<a href="#741">cipher_text</a>) {
+<a href=#746 id=746 data-nosnippet>746</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(bytes) =&gt; <a href="#746">bytes</a>,
+<a href=#747 id=747 data-nosnippet>747</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; <span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#258">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to decode cipher text: {}"</span>, e))),
 <a href=#748 id=748 data-nosnippet>748</a>		};
 <a href=#749 id=749 data-nosnippet>749</a>
-<a href=#750 id=750 data-nosnippet>750</a>		<span class="kw">let </span><span class="kw-2">mut </span>result = Vec::with_capacity(encrypted_bytes.len());
+<a href=#750 id=750 data-nosnippet>750</a>		<span class="kw">let </span><span class="kw-2">mut </span>result = <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.with_capacity">with_capacity</a>(<a href="#745">encrypted_bytes</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.len">len</a>());
 <a href=#751 id=751 data-nosnippet>751</a>
 <a href=#752 id=752 data-nosnippet>752</a>		<span class="kw">for </span>(i, byte) <span class="kw">in </span>encrypted_bytes.iter().enumerate() {
 <a href=#753 id=753 data-nosnippet>753</a>			<span class="kw">let </span>key_byte = subkey.as_slice()[i % subkey.len()];
@@ -756,32 +756,32 @@
 <a href=#756 id=756 data-nosnippet>756</a>			result.push(byte ^ key_byte ^ nonce_byte ^ salt_byte);
 <a href=#757 id=757 data-nosnippet>757</a>		}
 <a href=#758 id=758 data-nosnippet>758</a>
-<a href=#759 id=759 data-nosnippet>759</a>		<span class="kw">match </span>String::from_utf8(result) {
-<a href=#760 id=760 data-nosnippet>760</a>			<span class="prelude-val">Ok</span>(s) =&gt; <span class="prelude-val">Ok</span>(s),
-<a href=#761 id=761 data-nosnippet>761</a>			<span class="prelude-val">Err</span>(e) =&gt; <span class="prelude-val">Err</span>(AirError::Internal(<span class="macro">format!</span>(<span class="string">"Failed to decode decrypted data: {}"</span>, e))),
+<a href=#759 id=759 data-nosnippet>759</a>		<span class="kw">match </span><a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.from_utf8">from_utf8</a>(<a href="#750">result</a>) {
+<a href=#760 id=760 data-nosnippet>760</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(s) =&gt; <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="#760">s</a>),
+<a href=#761 id=761 data-nosnippet>761</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#258">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to decode decrypted data: {}"</span>, e))),
 <a href=#762 id=762 data-nosnippet>762</a>		}
 <a href=#763 id=763 data-nosnippet>763</a>	}
 <a href=#764 id=764 data-nosnippet>764</a>
 <a href=#765 id=765 data-nosnippet>765</a>	<span class="doccomment">/// Derive a subkey from the master key using PBKDF2
-<a href=#766 id=766 data-nosnippet>766</a>	</span><span class="kw">fn </span>DeriveSubkey(<span class="kw-2">&amp;</span><span class="self">self</span>, salt:<span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;SecureBytes&gt; {
-<a href=#767 id=767 data-nosnippet>767</a>		<span class="kw">const </span>N_ITERATIONS:u32 = <span class="number">10_000</span>;
-<a href=#768 id=768 data-nosnippet>768</a>		<span class="kw">const </span>KEY_LEN:usize = <span class="number">32</span>;
+<a href=#766 id=766 data-nosnippet>766</a>	</span><span class="kw">fn </span>DeriveSubkey(<span class="kw-2">&amp;</span><span class="self">self</span>, salt:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="#121-124">SecureBytes</a>&gt; {
+<a href=#767 id=767 data-nosnippet>767</a>		<span class="kw">const </span>N_ITERATIONS:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = <span class="number">10_000</span>;
+<a href=#768 id=768 data-nosnippet>768</a>		<span class="kw">const </span>KEY_LEN:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <span class="number">32</span>;
 <a href=#769 id=769 data-nosnippet>769</a>
-<a href=#770 id=770 data-nosnippet>770</a>		<span class="kw">let </span><span class="kw-2">mut </span>subkey = <span class="macro">vec!</span>[<span class="number">0u8</span>; KEY_LEN];
+<a href=#770 id=770 data-nosnippet>770</a>		<span class="kw">let </span><span class="kw-2">mut </span>subkey = <a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0u8</span>; <a href="#768">KEY_LEN</a>];
 <a href=#771 id=771 data-nosnippet>771</a>
 <a href=#772 id=772 data-nosnippet>772</a>		pbkdf2::derive(
 <a href=#773 id=773 data-nosnippet>773</a>			pbkdf2::PBKDF2_HMAC_SHA256,
-<a href=#774 id=774 data-nosnippet>774</a>			std::num::NonZeroU32::new(N_ITERATIONS).unwrap(),
-<a href=#775 id=775 data-nosnippet>775</a>			salt,
-<a href=#776 id=776 data-nosnippet>776</a>			<span class="self">self</span>.master_key.as_slice(),
-<a href=#777 id=777 data-nosnippet>777</a>			<span class="kw-2">&amp;mut </span>subkey,
+<a href=#774 id=774 data-nosnippet>774</a>			std::num::<a href="https://doc.rust-lang.org/nightly/core/num/nonzero/type.NonZeroU32.html">NonZeroU32</a>::<a href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZero.html#method.new">new</a>(<a href="#767">N_ITERATIONS</a>).<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap">unwrap</a>(),
+<a href=#775 id=775 data-nosnippet>775</a>			<a href="#766">salt</a>,
+<a href=#776 id=776 data-nosnippet>776</a>			<a class="self" href="#766">self</a>.master_key.<a href="#134">as_slice</a>(),
+<a href=#777 id=777 data-nosnippet>777</a>			<span class="kw-2">&amp;mut </span><a href="#770">subkey</a>,
 <a href=#778 id=778 data-nosnippet>778</a>		);
 <a href=#779 id=779 data-nosnippet>779</a>
-<a href=#780 id=780 data-nosnippet>780</a>		<span class="prelude-val">Ok</span>(SecureBytes::new(subkey))
+<a href=#780 id=780 data-nosnippet>780</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="#121-124">SecureBytes</a>::<a href="#128">new</a>(<a href="#770">subkey</a>))
 <a href=#781 id=781 data-nosnippet>781</a>	}
 <a href=#782 id=782 data-nosnippet>782</a>
 <a href=#783 id=783 data-nosnippet>783</a>	<span class="doccomment">/// Rotate the master key and re-encrypt all credentials
-<a href=#784 id=784 data-nosnippet>784</a>	</span><span class="kw">pub async fn </span>RotateMasterKey(<span class="kw-2">&amp;</span><span class="self">self</span>, new_master_key:Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;KeyRotationResult&gt; {
+<a href=#784 id=784 data-nosnippet>784</a>	</span><span class="kw">pub async fn </span>RotateMasterKey(<span class="kw-2">&amp;</span><span class="self">self</span>, new_master_key:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;KeyRotationResult&gt; {
 <a href=#785 id=785 data-nosnippet>785</a>		<span class="kw">let </span>old_key_version = <span class="self">self</span>.key_version;
 <a href=#786 id=786 data-nosnippet>786</a>		<span class="kw">let </span>credentials_rotated = <span class="number">0</span>;
 <a href=#787 id=787 data-nosnippet>787</a>
@@ -873,22 +873,22 @@
 <a href=#873 id=873 data-nosnippet>873</a>	}
 <a href=#874 id=874 data-nosnippet>874</a>}
 <a href=#875 id=875 data-nosnippet>875</a>
-<a href=#876 id=876 data-nosnippet>876</a><span class="kw">impl </span>Clone <span class="kw">for </span>SecureStorage {
+<a href=#876 id=876 data-nosnippet>876</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a> <span class="kw">for </span><a href="#544-556">SecureStorage</a> {
 <a href=#877 id=877 data-nosnippet>877</a>	<span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
 <a href=#878 id=878 data-nosnippet>878</a>		<span class="self">Self </span>{
-<a href=#879 id=879 data-nosnippet>879</a>			credentials:<span class="self">self</span>.credentials.clone(),
-<a href=#880 id=880 data-nosnippet>880</a>			master_key:<span class="self">self</span>.master_key.clone(),
-<a href=#881 id=881 data-nosnippet>881</a>			key_version:<span class="self">self</span>.key_version,
-<a href=#882 id=882 data-nosnippet>882</a>			auditor:<span class="self">self</span>.auditor.clone(),
+<a href=#879 id=879 data-nosnippet>879</a>			credentials:<a class="self" href="#877">self</a>.credentials.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#880 id=880 data-nosnippet>880</a>			master_key:<a class="self" href="#877">self</a>.master_key.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#881 id=881 data-nosnippet>881</a>			key_version:<a class="self" href="#877">self</a>.key_version,
+<a href=#882 id=882 data-nosnippet>882</a>			auditor:<a class="self" href="#877">self</a>.auditor.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
 <a href=#883 id=883 data-nosnippet>883</a>		}
 <a href=#884 id=884 data-nosnippet>884</a>	}
 <a href=#885 id=885 data-nosnippet>885</a>}
 <a href=#886 id=886 data-nosnippet>886</a>
 <a href=#887 id=887 data-nosnippet>887</a><span class="doccomment">/// Helper function for base64 decoding
-<a href=#888 id=888 data-nosnippet>888</a></span><span class="kw">fn </span>standard_decode(input:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt; {
+<a href=#888 id=888 data-nosnippet>888</a></span><span class="kw">fn </span><a href="../../../AirLibrary/Security/fn.standard_decode.html">standard_decode</a>(input:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;&gt; {
 <a href=#889 id=889 data-nosnippet>889</a>	STANDARD
-<a href=#890 id=890 data-nosnippet>890</a>		.decode(input)
-<a href=#891 id=891 data-nosnippet>891</a>		.map_err(|e| AirError::Internal(<span class="macro">format!</span>(<span class="string">"Base64 decode error: {}"</span>, e)))
+<a href=#890 id=890 data-nosnippet>890</a>		.decode(<a href="#888">input</a>)
+<a href=#891 id=891 data-nosnippet>891</a>		.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| AirError::<a href="../Library.rs.html#258">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Base64 decode error: {}"</span>, e)))
 <a href=#892 id=892 data-nosnippet>892</a>}
 <a href=#893 id=893 data-nosnippet>893</a>
 <a href=#894 id=894 data-nosnippet>894</a><span class="doccomment">/// Helper function for zeroizing secure bytes
@@ -897,15 +897,15 @@
 <a href=#897 id=897 data-nosnippet>897</a>/// zeroization to happen now rather than waiting for the Drop implementation.
 <a href=#898 id=898 data-nosnippet>898</a>/// Note: Rust compiler optimizations may optimize away the zeroization
 <a href=#899 id=899 data-nosnippet>899</a>/// without proper precautions like volatile operations or zeroize crate.
-<a href=#900 id=900 data-nosnippet>900</a></span><span class="kw">fn </span>zeroize(bytes:<span class="kw-2">&amp;mut </span>SecureBytes) {
+<a href=#900 id=900 data-nosnippet>900</a></span><span class="kw">fn </span><a href="../../../AirLibrary/Security/fn.zeroize.html">zeroize</a>(bytes:<span class="kw-2">&amp;mut </span><a href="#121-124">SecureBytes</a>) {
 <a href=#901 id=901 data-nosnippet>901</a>	<span class="comment">// Force write zeros to the underlying bytes
 <a href=#902 id=902 data-nosnippet>902</a>	// This is a best-effort implementation. For production use,
 <a href=#903 id=903 data-nosnippet>903</a>	// consider using the `zeroize` crate which provides guarantees
 <a href=#904 id=904 data-nosnippet>904</a>	// against compiler optimization removing the zeroization.
-<a href=#905 id=905 data-nosnippet>905</a>	</span>bytes.Data.zeroize();
+<a href=#905 id=905 data-nosnippet>905</a>	</span><a href="#900">bytes</a>.Data.zeroize();
 <a href=#906 id=906 data-nosnippet>906</a>	<span class="comment">// If bytes are shared (Arc count &gt; 1), we can't zeroize here
 <a href=#907 id=907 data-nosnippet>907</a>	// The Drop implementation will handle it when the last reference is dropped
-<a href=#908 id=908 data-nosnippet>908</a>	</span><span class="macro">debug!</span>(<span class="string">"[Security] Zeroized secure bytes (immediate cleanup requested)"</span>);
+<a href=#908 id=908 data-nosnippet>908</a>	</span><a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug!</a>(<span class="string">"[Security] Zeroized secure bytes (immediate cleanup requested)"</span>);
 <a href=#909 id=909 data-nosnippet>909</a>}
 <a href=#910 id=910 data-nosnippet>910</a>
 <a href=#911 id=911 data-nosnippet>911</a><span class="attr">#[cfg(test)]

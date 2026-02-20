@@ -88,51 +88,51 @@
 <a href=#88 id=88 data-nosnippet>88</a>//! - `enable_auto_recovery`: Enable/disable automatic recovery
 <a href=#89 id=89 data-nosnippet>89</a>//! - `recovery_timeout_sec`: Maximum time for recovery actions
 <a href=#90 id=90 data-nosnippet>90</a>
-<a href=#91 id=91 data-nosnippet>91</a></span><span class="kw">use </span>std::{collections::HashMap, sync::Arc};
+<a href=#91 id=91 data-nosnippet>91</a></span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">collections::HashMap</a>, <a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">sync::Arc</a>};
 <a href=#92 id=92 data-nosnippet>92</a>
-<a href=#93 id=93 data-nosnippet>93</a><span class="kw">use </span>log::{debug, info, warn};
-<a href=#94 id=94 data-nosnippet>94</a><span class="kw">use </span>serde::{Deserialize, Serialize};
+<a href=#93 id=93 data-nosnippet>93</a><span class="kw">use </span>log::{<a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug</a>, <a href="https://docs.rs/log/0.4.29/log/macro.info.html">info</a>, <a href="https://docs.rs/log/0.4.29/log/macro.warn.html">warn</a>};
+<a href=#94 id=94 data-nosnippet>94</a><span class="kw">use </span>serde::{<a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>};
 <a href=#95 id=95 data-nosnippet>95</a><span class="kw">use </span>tokio::sync::RwLock;
 <a href=#96 id=96 data-nosnippet>96</a>
-<a href=#97 id=97 data-nosnippet>97</a><span class="kw">use </span>crate::{AirError, <span class="prelude-ty">Result</span>, Utility};
+<a href=#97 id=97 data-nosnippet>97</a><span class="kw">use </span>crate::{<a href="../Library.rs.html#238-286">AirError</a>, <a class="prelude-ty" href="../Library.rs.html#338">Result</a>, <a href="../Library.rs.html#345-726">Utility</a>};
 <a href=#98 id=98 data-nosnippet>98</a>
 <a href=#99 id=99 data-nosnippet>99</a><span class="doccomment">/// Health check manager
-<a href=#100 id=100 data-nosnippet>100</a></span><span class="attr">#[derive(Debug)]
-<a href=#101 id=101 data-nosnippet>101</a></span><span class="kw">pub struct </span>HealthCheckManager {
+<a href=#100 id=100 data-nosnippet>100</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>)]
+<a href=#101 id=101 data-nosnippet>101</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.HealthCheckManager.html">HealthCheckManager</a> {
 <a href=#102 id=102 data-nosnippet>102</a>	<span class="doccomment">/// Service health status
-<a href=#103 id=103 data-nosnippet>103</a>	</span>ServiceHealth:Arc&lt;RwLock&lt;HashMap&lt;String, ServiceHealth&gt;&gt;&gt;,
+<a href=#103 id=103 data-nosnippet>103</a>	</span>ServiceHealth:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#114-131">ServiceHealth</a>&gt;&gt;&gt;,
 <a href=#104 id=104 data-nosnippet>104</a>	<span class="doccomment">/// Health check history
-<a href=#105 id=105 data-nosnippet>105</a>	</span>HealthHistory:Arc&lt;RwLock&lt;Vec&lt;HealthCheckRecord&gt;&gt;&gt;,
+<a href=#105 id=105 data-nosnippet>105</a>	</span>HealthHistory:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#159-170">HealthCheckRecord</a>&gt;&gt;&gt;,
 <a href=#106 id=106 data-nosnippet>106</a>	<span class="doccomment">/// Recovery actions
-<a href=#107 id=107 data-nosnippet>107</a>	</span>RecoveryActions:Arc&lt;RwLock&lt;HashMap&lt;String, RecoveryAction&gt;&gt;&gt;,
+<a href=#107 id=107 data-nosnippet>107</a>	</span>RecoveryActions:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#174-187">RecoveryAction</a>&gt;&gt;&gt;,
 <a href=#108 id=108 data-nosnippet>108</a>	<span class="doccomment">/// Health check configuration
-<a href=#109 id=109 data-nosnippet>109</a>	</span>config:HealthCheckConfig,
+<a href=#109 id=109 data-nosnippet>109</a>	</span>config:<a href="#217-230">HealthCheckConfig</a>,
 <a href=#110 id=110 data-nosnippet>110</a>}
 <a href=#111 id=111 data-nosnippet>111</a>
 <a href=#112 id=112 data-nosnippet>112</a><span class="doccomment">/// Service health information
-<a href=#113 id=113 data-nosnippet>113</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#114 id=114 data-nosnippet>114</a></span><span class="kw">pub struct </span>ServiceHealth {
+<a href=#113 id=113 data-nosnippet>113</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#114 id=114 data-nosnippet>114</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.ServiceHealth.html">ServiceHealth</a> {
 <a href=#115 id=115 data-nosnippet>115</a>	<span class="doccomment">/// Service name
-<a href=#116 id=116 data-nosnippet>116</a>	</span><span class="kw">pub </span>ServiceName:String,
+<a href=#116 id=116 data-nosnippet>116</a>	</span><span class="kw">pub </span>ServiceName:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#117 id=117 data-nosnippet>117</a>	<span class="doccomment">/// Current health status
-<a href=#118 id=118 data-nosnippet>118</a>	</span><span class="kw">pub </span>Status:HealthStatus,
+<a href=#118 id=118 data-nosnippet>118</a>	</span><span class="kw">pub </span>Status:<a href="#135-144">HealthStatus</a>,
 <a href=#119 id=119 data-nosnippet>119</a>	<span class="doccomment">/// Last check timestamp
-<a href=#120 id=120 data-nosnippet>120</a>	</span><span class="kw">pub </span>LastCheck:u64,
+<a href=#120 id=120 data-nosnippet>120</a>	</span><span class="kw">pub </span>LastCheck:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#121 id=121 data-nosnippet>121</a>	<span class="doccomment">/// Last successful check timestamp
-<a href=#122 id=122 data-nosnippet>122</a>	</span><span class="kw">pub </span>LastSuccess:<span class="prelude-ty">Option</span>&lt;u64&gt;,
+<a href=#122 id=122 data-nosnippet>122</a>	</span><span class="kw">pub </span>LastSuccess:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
 <a href=#123 id=123 data-nosnippet>123</a>	<span class="doccomment">/// Failure count
-<a href=#124 id=124 data-nosnippet>124</a>	</span><span class="kw">pub </span>FailureCount:u32,
+<a href=#124 id=124 data-nosnippet>124</a>	</span><span class="kw">pub </span>FailureCount:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#125 id=125 data-nosnippet>125</a>	<span class="doccomment">/// Error message (if any)
-<a href=#126 id=126 data-nosnippet>126</a>	</span><span class="kw">pub </span>ErrorMessage:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#126 id=126 data-nosnippet>126</a>	</span><span class="kw">pub </span>ErrorMessage:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#127 id=127 data-nosnippet>127</a>	<span class="doccomment">/// Response time in milliseconds
-<a href=#128 id=128 data-nosnippet>128</a>	</span><span class="kw">pub </span>ResponseTimeMs:<span class="prelude-ty">Option</span>&lt;u64&gt;,
+<a href=#128 id=128 data-nosnippet>128</a>	</span><span class="kw">pub </span>ResponseTimeMs:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
 <a href=#129 id=129 data-nosnippet>129</a>	<span class="doccomment">/// Health check level
-<a href=#130 id=130 data-nosnippet>130</a>	</span><span class="kw">pub </span>CheckLevel:HealthCheckLevel,
+<a href=#130 id=130 data-nosnippet>130</a>	</span><span class="kw">pub </span>CheckLevel:<a href="#148-155">HealthCheckLevel</a>,
 <a href=#131 id=131 data-nosnippet>131</a>}
 <a href=#132 id=132 data-nosnippet>132</a>
 <a href=#133 id=133 data-nosnippet>133</a><span class="doccomment">/// Health status enum
-<a href=#134 id=134 data-nosnippet>134</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-<a href=#135 id=135 data-nosnippet>135</a></span><span class="kw">pub enum </span>HealthStatus {
+<a href=#134 id=134 data-nosnippet>134</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<a href=#135 id=135 data-nosnippet>135</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/HealthCheck/enum.HealthStatus.html">HealthStatus</a> {
 <a href=#136 id=136 data-nosnippet>136</a>	<span class="doccomment">/// Service is healthy
 <a href=#137 id=137 data-nosnippet>137</a>	</span>Healthy,
 <a href=#138 id=138 data-nosnippet>138</a>	<span class="doccomment">/// Service is degraded but functional
@@ -144,8 +144,8 @@
 <a href=#144 id=144 data-nosnippet>144</a>}
 <a href=#145 id=145 data-nosnippet>145</a>
 <a href=#146 id=146 data-nosnippet>146</a><span class="doccomment">/// Health check level
-<a href=#147 id=147 data-nosnippet>147</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#148 id=148 data-nosnippet>148</a></span><span class="kw">pub enum </span>HealthCheckLevel {
+<a href=#147 id=147 data-nosnippet>147</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#148 id=148 data-nosnippet>148</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/HealthCheck/enum.HealthCheckLevel.html">HealthCheckLevel</a> {
 <a href=#149 id=149 data-nosnippet>149</a>	<span class="doccomment">/// Basic liveness check
 <a href=#150 id=150 data-nosnippet>150</a>	</span>Alive,
 <a href=#151 id=151 data-nosnippet>151</a>	<span class="doccomment">/// Service responds to requests
@@ -155,51 +155,51 @@
 <a href=#155 id=155 data-nosnippet>155</a>}
 <a href=#156 id=156 data-nosnippet>156</a>
 <a href=#157 id=157 data-nosnippet>157</a><span class="doccomment">/// Health check record for history tracking
-<a href=#158 id=158 data-nosnippet>158</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#159 id=159 data-nosnippet>159</a></span><span class="kw">pub struct </span>HealthCheckRecord {
+<a href=#158 id=158 data-nosnippet>158</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#159 id=159 data-nosnippet>159</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.HealthCheckRecord.html">HealthCheckRecord</a> {
 <a href=#160 id=160 data-nosnippet>160</a>	<span class="doccomment">/// Timestamp
-<a href=#161 id=161 data-nosnippet>161</a>	</span><span class="kw">pub </span>Timestamp:u64,
+<a href=#161 id=161 data-nosnippet>161</a>	</span><span class="kw">pub </span>Timestamp:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#162 id=162 data-nosnippet>162</a>	<span class="doccomment">/// Service name
-<a href=#163 id=163 data-nosnippet>163</a>	</span><span class="kw">pub </span>ServiceName:String,
+<a href=#163 id=163 data-nosnippet>163</a>	</span><span class="kw">pub </span>ServiceName:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#164 id=164 data-nosnippet>164</a>	<span class="doccomment">/// Health status
-<a href=#165 id=165 data-nosnippet>165</a>	</span><span class="kw">pub </span>Status:HealthStatus,
+<a href=#165 id=165 data-nosnippet>165</a>	</span><span class="kw">pub </span>Status:<a href="#135-144">HealthStatus</a>,
 <a href=#166 id=166 data-nosnippet>166</a>	<span class="doccomment">/// Response time in milliseconds
-<a href=#167 id=167 data-nosnippet>167</a>	</span><span class="kw">pub </span>ResponseTimeMs:<span class="prelude-ty">Option</span>&lt;u64&gt;,
+<a href=#167 id=167 data-nosnippet>167</a>	</span><span class="kw">pub </span>ResponseTimeMs:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
 <a href=#168 id=168 data-nosnippet>168</a>	<span class="doccomment">/// Error message (if any)
-<a href=#169 id=169 data-nosnippet>169</a>	</span><span class="kw">pub </span>ErrorMessage:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#169 id=169 data-nosnippet>169</a>	</span><span class="kw">pub </span>ErrorMessage:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#170 id=170 data-nosnippet>170</a>}
 <a href=#171 id=171 data-nosnippet>171</a>
 <a href=#172 id=172 data-nosnippet>172</a><span class="doccomment">/// Recovery action configuration
-<a href=#173 id=173 data-nosnippet>173</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#174 id=174 data-nosnippet>174</a></span><span class="kw">pub struct </span>RecoveryAction {
+<a href=#173 id=173 data-nosnippet>173</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#174 id=174 data-nosnippet>174</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.RecoveryAction.html">RecoveryAction</a> {
 <a href=#175 id=175 data-nosnippet>175</a>	<span class="doccomment">/// Action name
-<a href=#176 id=176 data-nosnippet>176</a>	</span><span class="kw">pub </span>Name:String,
+<a href=#176 id=176 data-nosnippet>176</a>	</span><span class="kw">pub </span>Name:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#177 id=177 data-nosnippet>177</a>	<span class="doccomment">/// Service name
-<a href=#178 id=178 data-nosnippet>178</a>	</span><span class="kw">pub </span>ServiceName:String,
+<a href=#178 id=178 data-nosnippet>178</a>	</span><span class="kw">pub </span>ServiceName:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#179 id=179 data-nosnippet>179</a>	<span class="doccomment">/// Trigger condition
-<a href=#180 id=180 data-nosnippet>180</a>	</span><span class="kw">pub </span>Trigger:RecoveryTrigger,
+<a href=#180 id=180 data-nosnippet>180</a>	</span><span class="kw">pub </span>Trigger:<a href="#191-198">RecoveryTrigger</a>,
 <a href=#181 id=181 data-nosnippet>181</a>	<span class="doccomment">/// Action to take
-<a href=#182 id=182 data-nosnippet>182</a>	</span><span class="kw">pub </span>Action:RecoveryActionType,
+<a href=#182 id=182 data-nosnippet>182</a>	</span><span class="kw">pub </span>Action:<a href="#202-213">RecoveryActionType</a>,
 <a href=#183 id=183 data-nosnippet>183</a>	<span class="doccomment">/// Maximum retry attempts
-<a href=#184 id=184 data-nosnippet>184</a>	</span><span class="kw">pub </span>MaxRetries:u32,
+<a href=#184 id=184 data-nosnippet>184</a>	</span><span class="kw">pub </span>MaxRetries:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#185 id=185 data-nosnippet>185</a>	<span class="doccomment">/// Current retry count
-<a href=#186 id=186 data-nosnippet>186</a>	</span><span class="kw">pub </span>RetryCount:u32,
+<a href=#186 id=186 data-nosnippet>186</a>	</span><span class="kw">pub </span>RetryCount:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#187 id=187 data-nosnippet>187</a>}
 <a href=#188 id=188 data-nosnippet>188</a>
 <a href=#189 id=189 data-nosnippet>189</a><span class="doccomment">/// Recovery trigger conditions
-<a href=#190 id=190 data-nosnippet>190</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#191 id=191 data-nosnippet>191</a></span><span class="kw">pub enum </span>RecoveryTrigger {
+<a href=#190 id=190 data-nosnippet>190</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#191 id=191 data-nosnippet>191</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/HealthCheck/enum.RecoveryTrigger.html">RecoveryTrigger</a> {
 <a href=#192 id=192 data-nosnippet>192</a>	<span class="doccomment">/// Trigger after N consecutive failures
-<a href=#193 id=193 data-nosnippet>193</a>	</span>ConsecutiveFailures(u32),
+<a href=#193 id=193 data-nosnippet>193</a>	</span>ConsecutiveFailures(<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>),
 <a href=#194 id=194 data-nosnippet>194</a>	<span class="doccomment">/// Trigger when response time exceeds threshold
-<a href=#195 id=195 data-nosnippet>195</a>	</span>ResponseTimeExceeds(u64),
+<a href=#195 id=195 data-nosnippet>195</a>	</span>ResponseTimeExceeds(<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>),
 <a href=#196 id=196 data-nosnippet>196</a>	<span class="doccomment">/// Trigger when service becomes unresponsive
 <a href=#197 id=197 data-nosnippet>197</a>	</span>ServiceUnresponsive,
 <a href=#198 id=198 data-nosnippet>198</a>}
 <a href=#199 id=199 data-nosnippet>199</a>
 <a href=#200 id=200 data-nosnippet>200</a><span class="doccomment">/// Recovery action types
-<a href=#201 id=201 data-nosnippet>201</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#202 id=202 data-nosnippet>202</a></span><span class="kw">pub enum </span>RecoveryActionType {
+<a href=#201 id=201 data-nosnippet>201</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#202 id=202 data-nosnippet>202</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/HealthCheck/enum.RecoveryActionType.html">RecoveryActionType</a> {
 <a href=#203 id=203 data-nosnippet>203</a>	<span class="doccomment">/// Restart the service
 <a href=#204 id=204 data-nosnippet>204</a>	</span>RestartService,
 <a href=#205 id=205 data-nosnippet>205</a>	<span class="doccomment">/// Reset connection
@@ -213,23 +213,23 @@
 <a href=#213 id=213 data-nosnippet>213</a>}
 <a href=#214 id=214 data-nosnippet>214</a>
 <a href=#215 id=215 data-nosnippet>215</a><span class="doccomment">/// Health check configuration
-<a href=#216 id=216 data-nosnippet>216</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#217 id=217 data-nosnippet>217</a></span><span class="kw">pub struct </span>HealthCheckConfig {
+<a href=#216 id=216 data-nosnippet>216</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#217 id=217 data-nosnippet>217</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.HealthCheckConfig.html">HealthCheckConfig</a> {
 <a href=#218 id=218 data-nosnippet>218</a>	<span class="doccomment">/// Default check interval in seconds
-<a href=#219 id=219 data-nosnippet>219</a>	</span><span class="kw">pub </span>DefaultCheckInterval:u64,
+<a href=#219 id=219 data-nosnippet>219</a>	</span><span class="kw">pub </span>DefaultCheckInterval:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#220 id=220 data-nosnippet>220</a>	<span class="doccomment">/// Health history retention (number of records)
-<a href=#221 id=221 data-nosnippet>221</a>	</span><span class="kw">pub </span>HistoryRetention:usize,
+<a href=#221 id=221 data-nosnippet>221</a>	</span><span class="kw">pub </span>HistoryRetention:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 <a href=#222 id=222 data-nosnippet>222</a>	<span class="doccomment">/// Consecutive failures threshold
-<a href=#223 id=223 data-nosnippet>223</a>	</span><span class="kw">pub </span>ConsecutiveFailuresThreshold:u32,
+<a href=#223 id=223 data-nosnippet>223</a>	</span><span class="kw">pub </span>ConsecutiveFailuresThreshold:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#224 id=224 data-nosnippet>224</a>	<span class="doccomment">/// Response time threshold in milliseconds
-<a href=#225 id=225 data-nosnippet>225</a>	</span><span class="kw">pub </span>ResponseTimeThresholdMs:u64,
+<a href=#225 id=225 data-nosnippet>225</a>	</span><span class="kw">pub </span>ResponseTimeThresholdMs:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#226 id=226 data-nosnippet>226</a>	<span class="doccomment">/// Enable automatic recovery
-<a href=#227 id=227 data-nosnippet>227</a>	</span><span class="kw">pub </span>EnableAutoRecovery:bool,
+<a href=#227 id=227 data-nosnippet>227</a>	</span><span class="kw">pub </span>EnableAutoRecovery:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#228 id=228 data-nosnippet>228</a>	<span class="doccomment">/// Recovery timeout in seconds
-<a href=#229 id=229 data-nosnippet>229</a>	</span><span class="kw">pub </span>RecoveryTimeoutSec:u64,
+<a href=#229 id=229 data-nosnippet>229</a>	</span><span class="kw">pub </span>RecoveryTimeoutSec:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#230 id=230 data-nosnippet>230</a>}
 <a href=#231 id=231 data-nosnippet>231</a>
-<a href=#232 id=232 data-nosnippet>232</a><span class="kw">impl </span>Default <span class="kw">for </span>HealthCheckConfig {
+<a href=#232 id=232 data-nosnippet>232</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#217-230">HealthCheckConfig</a> {
 <a href=#233 id=233 data-nosnippet>233</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
 <a href=#234 id=234 data-nosnippet>234</a>		<span class="self">Self </span>{
 <a href=#235 id=235 data-nosnippet>235</a>			DefaultCheckInterval:<span class="number">30</span>,
@@ -242,19 +242,19 @@
 <a href=#242 id=242 data-nosnippet>242</a>	}
 <a href=#243 id=243 data-nosnippet>243</a>}
 <a href=#244 id=244 data-nosnippet>244</a>
-<a href=#245 id=245 data-nosnippet>245</a><span class="kw">impl </span>HealthCheckManager {
+<a href=#245 id=245 data-nosnippet>245</a><span class="kw">impl </span><a href="#101-110">HealthCheckManager</a> {
 <a href=#246 id=246 data-nosnippet>246</a>	<span class="doccomment">/// Create a new HealthCheckManager instance
-<a href=#247 id=247 data-nosnippet>247</a>	</span><span class="kw">pub fn </span>new(config:<span class="prelude-ty">Option</span>&lt;HealthCheckConfig&gt;) -&gt; <span class="self">Self </span>{
+<a href=#247 id=247 data-nosnippet>247</a>	</span><span class="kw">pub fn </span>new(config:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="#217-230">HealthCheckConfig</a>&gt;) -&gt; <span class="self">Self </span>{
 <a href=#248 id=248 data-nosnippet>248</a>		<span class="self">Self </span>{
-<a href=#249 id=249 data-nosnippet>249</a>			ServiceHealth:Arc::new(RwLock::new(HashMap::new())),
-<a href=#250 id=250 data-nosnippet>250</a>			HealthHistory:Arc::new(RwLock::new(Vec::new())),
-<a href=#251 id=251 data-nosnippet>251</a>			RecoveryActions:Arc::new(RwLock::new(HashMap::new())),
-<a href=#252 id=252 data-nosnippet>252</a>			config:config.unwrap_or_default(),
+<a href=#249 id=249 data-nosnippet>249</a>			ServiceHealth:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
+<a href=#250 id=250 data-nosnippet>250</a>			HealthHistory:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.new">new</a>())),
+<a href=#251 id=251 data-nosnippet>251</a>			RecoveryActions:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
+<a href=#252 id=252 data-nosnippet>252</a>			config:<a href="#247">config</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or_default">unwrap_or_default</a>(),
 <a href=#253 id=253 data-nosnippet>253</a>		}
 <a href=#254 id=254 data-nosnippet>254</a>	}
 <a href=#255 id=255 data-nosnippet>255</a>
 <a href=#256 id=256 data-nosnippet>256</a>	<span class="doccomment">/// Register a service for health monitoring
-<a href=#257 id=257 data-nosnippet>257</a>	</span><span class="kw">pub async fn </span>RegisterService(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:String, CheckLevel:HealthCheckLevel) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#257 id=257 data-nosnippet>257</a>	</span><span class="kw">pub async fn </span>RegisterService(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, CheckLevel:<a href="#148-155">HealthCheckLevel</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#258 id=258 data-nosnippet>258</a>		<span class="kw">let </span><span class="kw-2">mut </span>HealthMap = <span class="self">self</span>.ServiceHealth.write().<span class="kw">await</span>;
 <a href=#259 id=259 data-nosnippet>259</a>
 <a href=#260 id=260 data-nosnippet>260</a>		HealthMap.insert(
@@ -279,7 +279,7 @@
 <a href=#279 id=279 data-nosnippet>279</a>	}
 <a href=#280 id=280 data-nosnippet>280</a>
 <a href=#281 id=281 data-nosnippet>281</a>	<span class="doccomment">/// Perform health check for a service
-<a href=#282 id=282 data-nosnippet>282</a>	</span><span class="kw">pub async fn </span>CheckService(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;HealthStatus&gt; {
+<a href=#282 id=282 data-nosnippet>282</a>	</span><span class="kw">pub async fn </span>CheckService(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;HealthStatus&gt; {
 <a href=#283 id=283 data-nosnippet>283</a>		<span class="kw">let </span>StartTime = Utility::CurrentTimestamp();
 <a href=#284 id=284 data-nosnippet>284</a>
 <a href=#285 id=285 data-nosnippet>285</a>		<span class="comment">// Perform service-specific health check with timeout
@@ -529,10 +529,10 @@
 <a href=#529 id=529 data-nosnippet>529</a>	<span class="doccomment">/// Update service health status
 <a href=#530 id=530 data-nosnippet>530</a>	</span><span class="kw">async fn </span>UpdateServiceHealth(
 <a href=#531 id=531 data-nosnippet>531</a>		<span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#532 id=532 data-nosnippet>532</a>		ServiceName:<span class="kw-2">&amp;</span>str,
-<a href=#533 id=533 data-nosnippet>533</a>		status:HealthStatus,
-<a href=#534 id=534 data-nosnippet>534</a>		ErrorMessage:<span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;,
-<a href=#535 id=535 data-nosnippet>535</a>		ResponseTime:u64,
+<a href=#532 id=532 data-nosnippet>532</a>		ServiceName:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+<a href=#533 id=533 data-nosnippet>533</a>		status:<a href="#135-144">HealthStatus</a>,
+<a href=#534 id=534 data-nosnippet>534</a>		ErrorMessage:<span class="kw-2">&amp;</span><a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#535 id=535 data-nosnippet>535</a>		ResponseTime:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#536 id=536 data-nosnippet>536</a>	) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#537 id=537 data-nosnippet>537</a>		<span class="kw">let </span><span class="kw-2">mut </span>HealthMap = <span class="self">self</span>.ServiceHealth.write().<span class="kw">await</span>;
 <a href=#538 id=538 data-nosnippet>538</a>
@@ -569,10 +569,10 @@
 <a href=#569 id=569 data-nosnippet>569</a>	<span class="doccomment">/// Record health check in history
 <a href=#570 id=570 data-nosnippet>570</a>	</span><span class="kw">async fn </span>RecordHealthCheck(
 <a href=#571 id=571 data-nosnippet>571</a>		<span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#572 id=572 data-nosnippet>572</a>		ServiceName:<span class="kw-2">&amp;</span>str,
-<a href=#573 id=573 data-nosnippet>573</a>		status:HealthStatus,
-<a href=#574 id=574 data-nosnippet>574</a>		ResponseTime:u64,
-<a href=#575 id=575 data-nosnippet>575</a>		ErrorMessage:<span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#572 id=572 data-nosnippet>572</a>		ServiceName:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+<a href=#573 id=573 data-nosnippet>573</a>		status:<a href="#135-144">HealthStatus</a>,
+<a href=#574 id=574 data-nosnippet>574</a>		ResponseTime:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+<a href=#575 id=575 data-nosnippet>575</a>		ErrorMessage:<span class="kw-2">&amp;</span><a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#576 id=576 data-nosnippet>576</a>	) {
 <a href=#577 id=577 data-nosnippet>577</a>		<span class="kw">let </span><span class="kw-2">mut </span>history = <span class="self">self</span>.HealthHistory.write().<span class="kw">await</span>;
 <a href=#578 id=578 data-nosnippet>578</a>
@@ -593,7 +593,7 @@
 <a href=#593 id=593 data-nosnippet>593</a>	}
 <a href=#594 id=594 data-nosnippet>594</a>
 <a href=#595 id=595 data-nosnippet>595</a>	<span class="doccomment">/// Trigger recovery actions if needed
-<a href=#596 id=596 data-nosnippet>596</a>	</span><span class="kw">async fn </span>TriggerRecoveryIfNeeded(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span>str) {
+<a href=#596 id=596 data-nosnippet>596</a>	</span><span class="kw">async fn </span>TriggerRecoveryIfNeeded(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
 <a href=#597 id=597 data-nosnippet>597</a>		<span class="kw">let </span>HealthMap = <span class="self">self</span>.ServiceHealth.read().<span class="kw">await</span>;
 <a href=#598 id=598 data-nosnippet>598</a>
 <a href=#599 id=599 data-nosnippet>599</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(ServiceHealth) = HealthMap.get(ServiceName) {
@@ -622,7 +622,7 @@
 <a href=#622 id=622 data-nosnippet>622</a>	}
 <a href=#623 id=623 data-nosnippet>623</a>
 <a href=#624 id=624 data-nosnippet>624</a>	<span class="doccomment">/// Handle response time-based recovery
-<a href=#625 id=625 data-nosnippet>625</a>	</span><span class="kw">async fn </span>HandleResponseTimeRecovery(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span>str, ResponseTime:u64) {
+<a href=#625 id=625 data-nosnippet>625</a>	</span><span class="kw">async fn </span>HandleResponseTimeRecovery(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, ResponseTime:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) {
 <a href=#626 id=626 data-nosnippet>626</a>		<span class="macro">info!</span>(
 <a href=#627 id=627 data-nosnippet>627</a>			<span class="string">"[HealthCheck] Handling response time recovery for {}: {}ms"</span>,
 <a href=#628 id=628 data-nosnippet>628</a>			ServiceName, ResponseTime
@@ -656,7 +656,7 @@
 <a href=#656 id=656 data-nosnippet>656</a>	}
 <a href=#657 id=657 data-nosnippet>657</a>
 <a href=#658 id=658 data-nosnippet>658</a>	<span class="doccomment">/// Handle critical health alerts
-<a href=#659 id=659 data-nosnippet>659</a>	</span><span class="kw">async fn </span>HandleCriticalAlerts(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span>str, status:<span class="kw-2">&amp;</span>HealthStatus) {
+<a href=#659 id=659 data-nosnippet>659</a>	</span><span class="kw">async fn </span>HandleCriticalAlerts(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, status:<span class="kw-2">&amp;</span><a href="#135-144">HealthStatus</a>) {
 <a href=#660 id=660 data-nosnippet>660</a>		<span class="kw">if </span><span class="kw-2">*</span>status == HealthStatus::Unhealthy {
 <a href=#661 id=661 data-nosnippet>661</a>			<span class="macro">warn!</span>(
 <a href=#662 id=662 data-nosnippet>662</a>				<span class="string">"[HealthCheck] CRITICAL: Service {} is UNHEALTHY - immediate attention required"</span>,
@@ -672,7 +672,7 @@
 <a href=#672 id=672 data-nosnippet>672</a>	}
 <a href=#673 id=673 data-nosnippet>673</a>
 <a href=#674 id=674 data-nosnippet>674</a>	<span class="doccomment">/// Perform recovery action for a service
-<a href=#675 id=675 data-nosnippet>675</a>	</span><span class="kw">async fn </span>PerformRecoveryAction(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span>str) {
+<a href=#675 id=675 data-nosnippet>675</a>	</span><span class="kw">async fn </span>PerformRecoveryAction(<span class="kw-2">&amp;</span><span class="self">self</span>, ServiceName:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
 <a href=#676 id=676 data-nosnippet>676</a>		<span class="macro">info!</span>(<span class="string">"[HealthCheck] Performing recovery action for {}"</span>, ServiceName);
 <a href=#677 id=677 data-nosnippet>677</a>
 <a href=#678 id=678 data-nosnippet>678</a>		<span class="kw">let </span>RecoveryTimeout = tokio::time::Duration::from_secs(<span class="self">self</span>.config.RecoveryTimeoutSec);
@@ -777,13 +777,13 @@
 <a href=#777 id=777 data-nosnippet>777</a>	}
 <a href=#778 id=778 data-nosnippet>778</a>
 <a href=#779 id=779 data-nosnippet>779</a>	<span class="doccomment">/// Get service health status
-<a href=#780 id=780 data-nosnippet>780</a>	</span><span class="kw">pub async fn </span>GetServiceHealth(<span class="kw-2">&amp;</span><span class="self">self</span>, service_name:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;ServiceHealth&gt; {
+<a href=#780 id=780 data-nosnippet>780</a>	</span><span class="kw">pub async fn </span>GetServiceHealth(<span class="kw-2">&amp;</span><span class="self">self</span>, service_name:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;ServiceHealth&gt; {
 <a href=#781 id=781 data-nosnippet>781</a>		<span class="kw">let </span>HealthMap = <span class="self">self</span>.ServiceHealth.read().<span class="kw">await</span>;
 <a href=#782 id=782 data-nosnippet>782</a>		HealthMap.get(service_name).cloned()
 <a href=#783 id=783 data-nosnippet>783</a>	}
 <a href=#784 id=784 data-nosnippet>784</a>
 <a href=#785 id=785 data-nosnippet>785</a>	<span class="doccomment">/// Get health check history
-<a href=#786 id=786 data-nosnippet>786</a>	</span><span class="kw">pub async fn </span>GetHealthHistory(<span class="kw-2">&amp;</span><span class="self">self</span>, service_name:<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, limit:<span class="prelude-ty">Option</span>&lt;usize&gt;) -&gt; Vec&lt;HealthCheckRecord&gt; {
+<a href=#786 id=786 data-nosnippet>786</a>	</span><span class="kw">pub async fn </span>GetHealthHistory(<span class="kw-2">&amp;</span><span class="self">self</span>, service_name:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, limit:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;) -&gt; Vec&lt;HealthCheckRecord&gt; {
 <a href=#787 id=787 data-nosnippet>787</a>		<span class="kw">let </span>History = <span class="self">self</span>.HealthHistory.read().<span class="kw">await</span>;
 <a href=#788 id=788 data-nosnippet>788</a>
 <a href=#789 id=789 data-nosnippet>789</a>		<span class="kw">let </span><span class="kw-2">mut </span>FilteredHistory:Vec&lt;HealthCheckRecord&gt; = <span class="kw">if let </span><span class="prelude-val">Some</span>(service) = service_name {
@@ -804,7 +804,7 @@
 <a href=#804 id=804 data-nosnippet>804</a>	}
 <a href=#805 id=805 data-nosnippet>805</a>
 <a href=#806 id=806 data-nosnippet>806</a>	<span class="doccomment">/// Register a recovery action
-<a href=#807 id=807 data-nosnippet>807</a>	</span><span class="kw">pub async fn </span>RegisterRecoveryAction(<span class="kw-2">&amp;</span><span class="self">self</span>, action:RecoveryAction) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#807 id=807 data-nosnippet>807</a>	</span><span class="kw">pub async fn </span>RegisterRecoveryAction(<span class="kw-2">&amp;</span><span class="self">self</span>, action:<a href="#174-187">RecoveryAction</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#808 id=808 data-nosnippet>808</a>		<span class="kw">let </span><span class="kw-2">mut </span>actions = <span class="self">self</span>.RecoveryActions.write().<span class="kw">await</span>;
 <a href=#809 id=809 data-nosnippet>809</a>		actions.insert(action.Name.clone(), action);
 <a href=#810 id=810 data-nosnippet>810</a>		<span class="prelude-val">Ok</span>(())
@@ -863,96 +863,96 @@
 <a href=#863 id=863 data-nosnippet>863</a>}
 <a href=#864 id=864 data-nosnippet>864</a>
 <a href=#865 id=865 data-nosnippet>865</a><span class="doccomment">/// Health statistics
-<a href=#866 id=866 data-nosnippet>866</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#867 id=867 data-nosnippet>867</a></span><span class="kw">pub struct </span>HealthStatistics {
-<a href=#868 id=868 data-nosnippet>868</a>	<span class="kw">pub </span>TotalServices:usize,
-<a href=#869 id=869 data-nosnippet>869</a>	<span class="kw">pub </span>HealthyServices:usize,
-<a href=#870 id=870 data-nosnippet>870</a>	<span class="kw">pub </span>DegradedServices:usize,
-<a href=#871 id=871 data-nosnippet>871</a>	<span class="kw">pub </span>UnhealthyServices:usize,
-<a href=#872 id=872 data-nosnippet>872</a>	<span class="kw">pub </span>TotalChecks:usize,
-<a href=#873 id=873 data-nosnippet>873</a>	<span class="kw">pub </span>AverageResponseTimeMs:f64,
-<a href=#874 id=874 data-nosnippet>874</a>	<span class="kw">pub </span>SuccessRate:f64,
+<a href=#866 id=866 data-nosnippet>866</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#867 id=867 data-nosnippet>867</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.HealthStatistics.html">HealthStatistics</a> {
+<a href=#868 id=868 data-nosnippet>868</a>	<span class="kw">pub </span>TotalServices:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+<a href=#869 id=869 data-nosnippet>869</a>	<span class="kw">pub </span>HealthyServices:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+<a href=#870 id=870 data-nosnippet>870</a>	<span class="kw">pub </span>DegradedServices:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+<a href=#871 id=871 data-nosnippet>871</a>	<span class="kw">pub </span>UnhealthyServices:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+<a href=#872 id=872 data-nosnippet>872</a>	<span class="kw">pub </span>TotalChecks:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+<a href=#873 id=873 data-nosnippet>873</a>	<span class="kw">pub </span>AverageResponseTimeMs:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#874 id=874 data-nosnippet>874</a>	<span class="kw">pub </span>SuccessRate:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 <a href=#875 id=875 data-nosnippet>875</a>}
 <a href=#876 id=876 data-nosnippet>876</a>
-<a href=#877 id=877 data-nosnippet>877</a><span class="kw">impl </span>HealthStatistics {
+<a href=#877 id=877 data-nosnippet>877</a><span class="kw">impl </span><a href="#867-875">HealthStatistics</a> {
 <a href=#878 id=878 data-nosnippet>878</a>	<span class="doccomment">/// Get overall health percentage
-<a href=#879 id=879 data-nosnippet>879</a>	</span><span class="kw">pub fn </span>OverallHealthPercentage(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-<a href=#880 id=880 data-nosnippet>880</a>		<span class="kw">if </span><span class="self">self</span>.TotalServices == <span class="number">0 </span>{
+<a href=#879 id=879 data-nosnippet>879</a>	</span><span class="kw">pub fn </span>OverallHealthPercentage(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+<a href=#880 id=880 data-nosnippet>880</a>		<span class="kw">if </span><a class="self" href="#879">self</a>.TotalServices == <span class="number">0 </span>{
 <a href=#881 id=881 data-nosnippet>881</a>			<span class="kw">return </span><span class="number">0.0</span>;
 <a href=#882 id=882 data-nosnippet>882</a>		}
 <a href=#883 id=883 data-nosnippet>883</a>
-<a href=#884 id=884 data-nosnippet>884</a>		(<span class="self">self</span>.HealthyServices <span class="kw">as </span>f64 / <span class="self">self</span>.TotalServices <span class="kw">as </span>f64) * <span class="number">100.0
+<a href=#884 id=884 data-nosnippet>884</a>		(<a class="self" href="#879">self</a>.HealthyServices <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> / <a class="self" href="#879">self</a>.TotalServices <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) * <span class="number">100.0
 <a href=#885 id=885 data-nosnippet>885</a>	</span>}
 <a href=#886 id=886 data-nosnippet>886</a>}
 <a href=#887 id=887 data-nosnippet>887</a>
 <a href=#888 id=888 data-nosnippet>888</a><span class="doccomment">/// Health check response for gRPC
-<a href=#889 id=889 data-nosnippet>889</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#890 id=890 data-nosnippet>890</a></span><span class="kw">pub struct </span>HealthCheckResponse {
-<a href=#891 id=891 data-nosnippet>891</a>	<span class="kw">pub </span>OverallStatus:HealthStatus,
-<a href=#892 id=892 data-nosnippet>892</a>	<span class="kw">pub </span>ServiceHealth:HashMap&lt;String, ServiceHealth&gt;,
-<a href=#893 id=893 data-nosnippet>893</a>	<span class="kw">pub </span>Statistics:HealthStatistics,
-<a href=#894 id=894 data-nosnippet>894</a>	<span class="kw">pub </span>PerformanceIndicators:PerformanceIndicators,
-<a href=#895 id=895 data-nosnippet>895</a>	<span class="kw">pub </span>ResourceWarnings:Vec&lt;ResourceWarning&gt;,
-<a href=#896 id=896 data-nosnippet>896</a>	<span class="kw">pub </span>Timestamp:u64,
+<a href=#889 id=889 data-nosnippet>889</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#890 id=890 data-nosnippet>890</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.HealthCheckResponse.html">HealthCheckResponse</a> {
+<a href=#891 id=891 data-nosnippet>891</a>	<span class="kw">pub </span>OverallStatus:<a href="#135-144">HealthStatus</a>,
+<a href=#892 id=892 data-nosnippet>892</a>	<span class="kw">pub </span>ServiceHealth:<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#114-131">ServiceHealth</a>&gt;,
+<a href=#893 id=893 data-nosnippet>893</a>	<span class="kw">pub </span>Statistics:<a href="#867-875">HealthStatistics</a>,
+<a href=#894 id=894 data-nosnippet>894</a>	<span class="kw">pub </span>PerformanceIndicators:<a href="#931-938">PerformanceIndicators</a>,
+<a href=#895 id=895 data-nosnippet>895</a>	<span class="kw">pub </span>ResourceWarnings:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#964-971">ResourceWarning</a>&gt;,
+<a href=#896 id=896 data-nosnippet>896</a>	<span class="kw">pub </span>Timestamp:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#897 id=897 data-nosnippet>897</a>}
 <a href=#898 id=898 data-nosnippet>898</a>
-<a href=#899 id=899 data-nosnippet>899</a><span class="kw">impl </span>HealthCheckResponse {
+<a href=#899 id=899 data-nosnippet>899</a><span class="kw">impl </span><a href="#890-897">HealthCheckResponse</a> {
 <a href=#900 id=900 data-nosnippet>900</a>	<span class="doccomment">/// Create a new health check response
 <a href=#901 id=901 data-nosnippet>901</a>	</span><span class="kw">pub fn </span>new(
-<a href=#902 id=902 data-nosnippet>902</a>		OverallStatus:HealthStatus,
-<a href=#903 id=903 data-nosnippet>903</a>		ServiceHealth:HashMap&lt;String, ServiceHealth&gt;,
-<a href=#904 id=904 data-nosnippet>904</a>		Statistics:HealthStatistics,
+<a href=#902 id=902 data-nosnippet>902</a>		OverallStatus:<a href="#135-144">HealthStatus</a>,
+<a href=#903 id=903 data-nosnippet>903</a>		ServiceHealth:<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#114-131">ServiceHealth</a>&gt;,
+<a href=#904 id=904 data-nosnippet>904</a>		Statistics:<a href="#867-875">HealthStatistics</a>,
 <a href=#905 id=905 data-nosnippet>905</a>	) -&gt; <span class="self">Self </span>{
 <a href=#906 id=906 data-nosnippet>906</a>		<span class="self">Self </span>{
-<a href=#907 id=907 data-nosnippet>907</a>			OverallStatus,
-<a href=#908 id=908 data-nosnippet>908</a>			ServiceHealth,
-<a href=#909 id=909 data-nosnippet>909</a>			Statistics,
-<a href=#910 id=910 data-nosnippet>910</a>			PerformanceIndicators:PerformanceIndicators::default(),
-<a href=#911 id=911 data-nosnippet>911</a>			ResourceWarnings:Vec::new(),
-<a href=#912 id=912 data-nosnippet>912</a>			Timestamp:Utility::CurrentTimestamp(),
+<a href=#907 id=907 data-nosnippet>907</a>			<a href="#902">OverallStatus</a>,
+<a href=#908 id=908 data-nosnippet>908</a>			<a href="#903">ServiceHealth</a>,
+<a href=#909 id=909 data-nosnippet>909</a>			<a href="#904">Statistics</a>,
+<a href=#910 id=910 data-nosnippet>910</a>			PerformanceIndicators:<a href="#931-938">PerformanceIndicators</a>::<a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">default</a>(),
+<a href=#911 id=911 data-nosnippet>911</a>			ResourceWarnings:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.new">new</a>(),
+<a href=#912 id=912 data-nosnippet>912</a>			Timestamp:Utility::<a href="../Library.rs.html#377-382">CurrentTimestamp</a>(),
 <a href=#913 id=913 data-nosnippet>913</a>		}
 <a href=#914 id=914 data-nosnippet>914</a>	}
 <a href=#915 id=915 data-nosnippet>915</a>
 <a href=#916 id=916 data-nosnippet>916</a>	<span class="doccomment">/// Create with performance indicators
-<a href=#917 id=917 data-nosnippet>917</a>	</span><span class="kw">pub fn </span>with_performance_indicators(<span class="kw-2">mut </span><span class="self">self</span>, indicators:PerformanceIndicators) -&gt; <span class="self">Self </span>{
-<a href=#918 id=918 data-nosnippet>918</a>		<span class="self">self</span>.PerformanceIndicators = indicators;
-<a href=#919 id=919 data-nosnippet>919</a>		<span class="self">self
-<a href=#920 id=920 data-nosnippet>920</a>	</span>}
+<a href=#917 id=917 data-nosnippet>917</a>	</span><span class="kw">pub fn </span>with_performance_indicators(<span class="kw-2">mut </span><span class="self">self</span>, indicators:<a href="#931-938">PerformanceIndicators</a>) -&gt; <span class="self">Self </span>{
+<a href=#918 id=918 data-nosnippet>918</a>		<a class="self" href="#917">self</a>.PerformanceIndicators = <a href="#917">indicators</a>;
+<a href=#919 id=919 data-nosnippet>919</a>		<a class="self" href="#917">self</a>
+<a href=#920 id=920 data-nosnippet>920</a>	}
 <a href=#921 id=921 data-nosnippet>921</a>
 <a href=#922 id=922 data-nosnippet>922</a>	<span class="doccomment">/// Create with resource warnings
-<a href=#923 id=923 data-nosnippet>923</a>	</span><span class="kw">pub fn </span>with_resource_warnings(<span class="kw-2">mut </span><span class="self">self</span>, warnings:Vec&lt;ResourceWarning&gt;) -&gt; <span class="self">Self </span>{
-<a href=#924 id=924 data-nosnippet>924</a>		<span class="self">self</span>.ResourceWarnings = warnings;
-<a href=#925 id=925 data-nosnippet>925</a>		<span class="self">self
-<a href=#926 id=926 data-nosnippet>926</a>	</span>}
+<a href=#923 id=923 data-nosnippet>923</a>	</span><span class="kw">pub fn </span>with_resource_warnings(<span class="kw-2">mut </span><span class="self">self</span>, warnings:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#964-971">ResourceWarning</a>&gt;) -&gt; <span class="self">Self </span>{
+<a href=#924 id=924 data-nosnippet>924</a>		<a class="self" href="#923">self</a>.ResourceWarnings = <a href="#923">warnings</a>;
+<a href=#925 id=925 data-nosnippet>925</a>		<a class="self" href="#923">self</a>
+<a href=#926 id=926 data-nosnippet>926</a>	}
 <a href=#927 id=927 data-nosnippet>927</a>}
 <a href=#928 id=928 data-nosnippet>928</a>
 <a href=#929 id=929 data-nosnippet>929</a><span class="doccomment">/// Performance degradation indicators
-<a href=#930 id=930 data-nosnippet>930</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#931 id=931 data-nosnippet>931</a></span><span class="kw">pub struct </span>PerformanceIndicators {
-<a href=#932 id=932 data-nosnippet>932</a>	<span class="kw">pub </span>ResponseTimeP99Ms:f64,
-<a href=#933 id=933 data-nosnippet>933</a>	<span class="kw">pub </span>ResponseTimeP95Ms:f64,
-<a href=#934 id=934 data-nosnippet>934</a>	<span class="kw">pub </span>RequestThroughputPerSec:f64,
-<a href=#935 id=935 data-nosnippet>935</a>	<span class="kw">pub </span>ErrorRatePercent:f64,
-<a href=#936 id=936 data-nosnippet>936</a>	<span class="kw">pub </span>DegradationLevel:DegradationLevel,
-<a href=#937 id=937 data-nosnippet>937</a>	<span class="kw">pub </span>BottleneckService:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#930 id=930 data-nosnippet>930</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#931 id=931 data-nosnippet>931</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.PerformanceIndicators.html">PerformanceIndicators</a> {
+<a href=#932 id=932 data-nosnippet>932</a>	<span class="kw">pub </span>ResponseTimeP99Ms:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#933 id=933 data-nosnippet>933</a>	<span class="kw">pub </span>ResponseTimeP95Ms:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#934 id=934 data-nosnippet>934</a>	<span class="kw">pub </span>RequestThroughputPerSec:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#935 id=935 data-nosnippet>935</a>	<span class="kw">pub </span>ErrorRatePercent:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#936 id=936 data-nosnippet>936</a>	<span class="kw">pub </span>DegradationLevel:<a href="#955-960">DegradationLevel</a>,
+<a href=#937 id=937 data-nosnippet>937</a>	<span class="kw">pub </span>BottleneckService:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#938 id=938 data-nosnippet>938</a>}
 <a href=#939 id=939 data-nosnippet>939</a>
-<a href=#940 id=940 data-nosnippet>940</a><span class="kw">impl </span>Default <span class="kw">for </span>PerformanceIndicators {
+<a href=#940 id=940 data-nosnippet>940</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#931-938">PerformanceIndicators</a> {
 <a href=#941 id=941 data-nosnippet>941</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
 <a href=#942 id=942 data-nosnippet>942</a>		<span class="self">Self </span>{
 <a href=#943 id=943 data-nosnippet>943</a>			ResponseTimeP99Ms:<span class="number">0.0</span>,
 <a href=#944 id=944 data-nosnippet>944</a>			ResponseTimeP95Ms:<span class="number">0.0</span>,
 <a href=#945 id=945 data-nosnippet>945</a>			RequestThroughputPerSec:<span class="number">0.0</span>,
 <a href=#946 id=946 data-nosnippet>946</a>			ErrorRatePercent:<span class="number">0.0</span>,
-<a href=#947 id=947 data-nosnippet>947</a>			DegradationLevel:DegradationLevel::Optimal,
-<a href=#948 id=948 data-nosnippet>948</a>			BottleneckService:<span class="prelude-val">None</span>,
+<a href=#947 id=947 data-nosnippet>947</a>			DegradationLevel:DegradationLevel::<a href="#956">Optimal</a>,
+<a href=#948 id=948 data-nosnippet>948</a>			BottleneckService:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
 <a href=#949 id=949 data-nosnippet>949</a>		}
 <a href=#950 id=950 data-nosnippet>950</a>	}
 <a href=#951 id=951 data-nosnippet>951</a>}
 <a href=#952 id=952 data-nosnippet>952</a>
 <a href=#953 id=953 data-nosnippet>953</a><span class="doccomment">/// Degradation levels
-<a href=#954 id=954 data-nosnippet>954</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-<a href=#955 id=955 data-nosnippet>955</a></span><span class="kw">pub enum </span>DegradationLevel {
+<a href=#954 id=954 data-nosnippet>954</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<a href=#955 id=955 data-nosnippet>955</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/HealthCheck/enum.DegradationLevel.html">DegradationLevel</a> {
 <a href=#956 id=956 data-nosnippet>956</a>	Optimal,
 <a href=#957 id=957 data-nosnippet>957</a>	Acceptable,
 <a href=#958 id=958 data-nosnippet>958</a>	Degraded,
@@ -960,19 +960,19 @@
 <a href=#960 id=960 data-nosnippet>960</a>}
 <a href=#961 id=961 data-nosnippet>961</a>
 <a href=#962 id=962 data-nosnippet>962</a><span class="doccomment">/// Resource warning types
-<a href=#963 id=963 data-nosnippet>963</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#964 id=964 data-nosnippet>964</a></span><span class="kw">pub struct </span>ResourceWarning {
-<a href=#965 id=965 data-nosnippet>965</a>	<span class="kw">pub </span>WarningType:ResourceWarningType,
-<a href=#966 id=966 data-nosnippet>966</a>	<span class="kw">pub </span>ServiceName:<span class="prelude-ty">Option</span>&lt;String&gt;,
-<a href=#967 id=967 data-nosnippet>967</a>	<span class="kw">pub </span>CurrentValue:f64,
-<a href=#968 id=968 data-nosnippet>968</a>	<span class="kw">pub </span>Threshold:f64,
-<a href=#969 id=969 data-nosnippet>969</a>	<span class="kw">pub </span>Severity:WarningSeverity,
-<a href=#970 id=970 data-nosnippet>970</a>	<span class="kw">pub </span>Timestamp:u64,
+<a href=#963 id=963 data-nosnippet>963</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#964 id=964 data-nosnippet>964</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/HealthCheck/struct.ResourceWarning.html">ResourceWarning</a> {
+<a href=#965 id=965 data-nosnippet>965</a>	<span class="kw">pub </span>WarningType:<a href="#975-984">ResourceWarningType</a>,
+<a href=#966 id=966 data-nosnippet>966</a>	<span class="kw">pub </span>ServiceName:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#967 id=967 data-nosnippet>967</a>	<span class="kw">pub </span>CurrentValue:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#968 id=968 data-nosnippet>968</a>	<span class="kw">pub </span>Threshold:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+<a href=#969 id=969 data-nosnippet>969</a>	<span class="kw">pub </span>Severity:<a href="#988-993">WarningSeverity</a>,
+<a href=#970 id=970 data-nosnippet>970</a>	<span class="kw">pub </span>Timestamp:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#971 id=971 data-nosnippet>971</a>}
 <a href=#972 id=972 data-nosnippet>972</a>
 <a href=#973 id=973 data-nosnippet>973</a><span class="doccomment">/// Resource warning types
-<a href=#974 id=974 data-nosnippet>974</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#975 id=975 data-nosnippet>975</a></span><span class="kw">pub enum </span>ResourceWarningType {
+<a href=#974 id=974 data-nosnippet>974</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#975 id=975 data-nosnippet>975</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/HealthCheck/enum.ResourceWarningType.html">ResourceWarningType</a> {
 <a href=#976 id=976 data-nosnippet>976</a>	HighMemoryUsage,
 <a href=#977 id=977 data-nosnippet>977</a>	HighCPUUsage,
 <a href=#978 id=978 data-nosnippet>978</a>	LowDiskSpace,
@@ -984,8 +984,8 @@
 <a href=#984 id=984 data-nosnippet>984</a>}
 <a href=#985 id=985 data-nosnippet>985</a>
 <a href=#986 id=986 data-nosnippet>986</a><span class="doccomment">/// Warning severity levels
-<a href=#987 id=987 data-nosnippet>987</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-<a href=#988 id=988 data-nosnippet>988</a></span><span class="kw">pub enum </span>WarningSeverity {
+<a href=#987 id=987 data-nosnippet>987</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<a href=#988 id=988 data-nosnippet>988</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/HealthCheck/enum.WarningSeverity.html">WarningSeverity</a> {
 <a href=#989 id=989 data-nosnippet>989</a>	Low,
 <a href=#990 id=990 data-nosnippet>990</a>	Medium,
 <a href=#991 id=991 data-nosnippet>991</a>	High,

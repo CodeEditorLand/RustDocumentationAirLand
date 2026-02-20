@@ -89,45 +89,45 @@
 <a href=#89 id=89 data-nosnippet>89</a>//! - `FileSystem`: PID file or directory operations failed
 <a href=#90 id=90 data-nosnippet>90</a>//! - `PermissionDenied`: Insufficient privileges for service operations
 <a href=#91 id=91 data-nosnippet>91</a>
-<a href=#92 id=92 data-nosnippet>92</a></span><span class="kw">use </span>std::{fs, path::PathBuf, sync::Arc, time::Duration};
+<a href=#92 id=92 data-nosnippet>92</a></span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/std/fs/index.html">fs</a>, <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">path::PathBuf</a>, <a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">sync::Arc</a>, <a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">time::Duration</a>};
 <a href=#93 id=93 data-nosnippet>93</a>
-<a href=#94 id=94 data-nosnippet>94</a><span class="kw">use </span>log::{debug, error, info, warn};
+<a href=#94 id=94 data-nosnippet>94</a><span class="kw">use </span>log::{<a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug</a>, <a href="https://docs.rs/log/0.4.29/log/macro.error.html">error</a>, <a href="https://docs.rs/log/0.4.29/log/macro.info.html">info</a>, <a href="https://docs.rs/log/0.4.29/log/macro.warn.html">warn</a>};
 <a href=#95 id=95 data-nosnippet>95</a><span class="kw">use </span>tokio::sync::{Mutex, RwLock};
 <a href=#96 id=96 data-nosnippet>96</a><span class="kw">use </span>sha2::{Digest, Sha256};
 <a href=#97 id=97 data-nosnippet>97</a>
-<a href=#98 id=98 data-nosnippet>98</a><span class="kw">use </span>crate::{AirError, <span class="prelude-ty">Result</span>};
+<a href=#98 id=98 data-nosnippet>98</a><span class="kw">use </span>crate::{<a href="../Library.rs.html#238-286">AirError</a>, <a class="prelude-ty" href="../Library.rs.html#338">Result</a>};
 <a href=#99 id=99 data-nosnippet>99</a>
 <a href=#100 id=100 data-nosnippet>100</a><span class="doccomment">/// Daemon lifecycle manager
-<a href=#101 id=101 data-nosnippet>101</a></span><span class="attr">#[derive(Debug)]
-<a href=#102 id=102 data-nosnippet>102</a></span><span class="kw">pub struct </span>DaemonManager {
+<a href=#101 id=101 data-nosnippet>101</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>)]
+<a href=#102 id=102 data-nosnippet>102</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Daemon/struct.DaemonManager.html">DaemonManager</a> {
 <a href=#103 id=103 data-nosnippet>103</a>	<span class="doccomment">/// PID file path
-<a href=#104 id=104 data-nosnippet>104</a>	</span>PidFilePath:PathBuf,
+<a href=#104 id=104 data-nosnippet>104</a>	</span>PidFilePath:<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>,
 <a href=#105 id=105 data-nosnippet>105</a>	<span class="doccomment">/// Whether daemon is running
-<a href=#106 id=106 data-nosnippet>106</a>	</span>IsRunning:Arc&lt;RwLock&lt;bool&gt;&gt;,
+<a href=#106 id=106 data-nosnippet>106</a>	</span>IsRunning:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;&gt;,
 <a href=#107 id=107 data-nosnippet>107</a>	<span class="doccomment">/// Platform-specific daemon info
-<a href=#108 id=108 data-nosnippet>108</a>	</span>PlatformInfo:PlatformInfo,
+<a href=#108 id=108 data-nosnippet>108</a>	</span>PlatformInfo:<a href="#119-126">PlatformInfo</a>,
 <a href=#109 id=109 data-nosnippet>109</a>	<span class="doccomment">/// Lock for atomic PID file operations (prevents race conditions)
-<a href=#110 id=110 data-nosnippet>110</a>	</span>PidLock:Arc&lt;Mutex&lt;()&gt;&gt;,
+<a href=#110 id=110 data-nosnippet>110</a>	</span>PidLock:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;Mutex&lt;()&gt;&gt;,
 <a href=#111 id=111 data-nosnippet>111</a>	<span class="doccomment">/// Checksum for PID file integrity verification
-<a href=#112 id=112 data-nosnippet>112</a>	</span>PidChecksum:Arc&lt;Mutex&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;&gt;,
+<a href=#112 id=112 data-nosnippet>112</a>	</span>PidChecksum:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;Mutex&lt;<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;&gt;&gt;,
 <a href=#113 id=113 data-nosnippet>113</a>	<span class="doccomment">/// Graceful shutdown flag
-<a href=#114 id=114 data-nosnippet>114</a>	</span>ShutdownRequested:Arc&lt;RwLock&lt;bool&gt;&gt;,
+<a href=#114 id=114 data-nosnippet>114</a>	</span>ShutdownRequested:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;&gt;,
 <a href=#115 id=115 data-nosnippet>115</a>}
 <a href=#116 id=116 data-nosnippet>116</a>
 <a href=#117 id=117 data-nosnippet>117</a><span class="doccomment">/// Platform-specific daemon information
-<a href=#118 id=118 data-nosnippet>118</a></span><span class="attr">#[derive(Debug)]
-<a href=#119 id=119 data-nosnippet>119</a></span><span class="kw">pub struct </span>PlatformInfo {
+<a href=#118 id=118 data-nosnippet>118</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>)]
+<a href=#119 id=119 data-nosnippet>119</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Daemon/struct.PlatformInfo.html">PlatformInfo</a> {
 <a href=#120 id=120 data-nosnippet>120</a>	<span class="doccomment">/// Platform type
-<a href=#121 id=121 data-nosnippet>121</a>	</span><span class="kw">pub </span>Platform:Platform,
+<a href=#121 id=121 data-nosnippet>121</a>	</span><span class="kw">pub </span>Platform:<a href="#130-135">Platform</a>,
 <a href=#122 id=122 data-nosnippet>122</a>	<span class="doccomment">/// Service name for system integration
-<a href=#123 id=123 data-nosnippet>123</a>	</span><span class="kw">pub </span>ServiceName:String,
+<a href=#123 id=123 data-nosnippet>123</a>	</span><span class="kw">pub </span>ServiceName:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#124 id=124 data-nosnippet>124</a>	<span class="doccomment">/// User under which daemon runs
-<a href=#125 id=125 data-nosnippet>125</a>	</span><span class="kw">pub </span>RunAsUser:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#125 id=125 data-nosnippet>125</a>	</span><span class="kw">pub </span>RunAsUser:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#126 id=126 data-nosnippet>126</a>}
 <a href=#127 id=127 data-nosnippet>127</a>
 <a href=#128 id=128 data-nosnippet>128</a><span class="doccomment">/// Platform enum
-<a href=#129 id=129 data-nosnippet>129</a></span><span class="attr">#[derive(Debug, Clone, PartialEq)]
-<a href=#130 id=130 data-nosnippet>130</a></span><span class="kw">pub enum </span>Platform {
+<a href=#129 id=129 data-nosnippet>129</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<a href=#130 id=130 data-nosnippet>130</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Daemon/enum.Platform.html">Platform</a> {
 <a href=#131 id=131 data-nosnippet>131</a>	Linux,
 <a href=#132 id=132 data-nosnippet>132</a>	MacOS,
 <a href=#133 id=133 data-nosnippet>133</a>	Windows,
@@ -135,8 +135,8 @@
 <a href=#135 id=135 data-nosnippet>135</a>}
 <a href=#136 id=136 data-nosnippet>136</a>
 <a href=#137 id=137 data-nosnippet>137</a><span class="doccomment">/// Exit codes for daemon operations
-<a href=#138 id=138 data-nosnippet>138</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#139 id=139 data-nosnippet>139</a></span><span class="kw">pub enum </span>ExitCode {
+<a href=#138 id=138 data-nosnippet>138</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<a href=#139 id=139 data-nosnippet>139</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Daemon/enum.ExitCode.html">ExitCode</a> {
 <a href=#140 id=140 data-nosnippet>140</a>	Success = <span class="number">0</span>,
 <a href=#141 id=141 data-nosnippet>141</a>	ConfigurationError = <span class="number">1</span>,
 <a href=#142 id=142 data-nosnippet>142</a>	AlreadyRunning = <span class="number">2</span>,
@@ -150,55 +150,55 @@
 <a href=#150 id=150 data-nosnippet>150</a>	UnknownError = <span class="number">10</span>,
 <a href=#151 id=151 data-nosnippet>151</a>}
 <a href=#152 id=152 data-nosnippet>152</a>
-<a href=#153 id=153 data-nosnippet>153</a><span class="kw">impl </span>DaemonManager {
+<a href=#153 id=153 data-nosnippet>153</a><span class="kw">impl </span><a href="#102-115">DaemonManager</a> {
 <a href=#154 id=154 data-nosnippet>154</a>	<span class="doccomment">/// Create a new DaemonManager instance
-<a href=#155 id=155 data-nosnippet>155</a>	</span><span class="kw">pub fn </span>New(PidFilePath:<span class="prelude-ty">Option</span>&lt;PathBuf&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
-<a href=#156 id=156 data-nosnippet>156</a>		<span class="kw">let </span>PidFilePath = PidFilePath.unwrap_or_else(|| <span class="self">Self</span>::DefaultPidFilePath());
-<a href=#157 id=157 data-nosnippet>157</a>		<span class="kw">let </span>PlatformInfo = <span class="self">Self</span>::DetectPlatformInfo();
+<a href=#155 id=155 data-nosnippet>155</a>	</span><span class="kw">pub fn </span>New(PidFilePath:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>&gt;) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<span class="self">Self</span>&gt; {
+<a href=#156 id=156 data-nosnippet>156</a>		<span class="kw">let </span>PidFilePath = <a href="#155">PidFilePath</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or_else">unwrap_or_else</a>(|| <span class="self">Self</span>::<a href="#170-178">DefaultPidFilePath</a>());
+<a href=#157 id=157 data-nosnippet>157</a>		<span class="kw">let </span>PlatformInfo = <span class="self">Self</span>::<a href="#194-202">DetectPlatformInfo</a>();
 <a href=#158 id=158 data-nosnippet>158</a>
-<a href=#159 id=159 data-nosnippet>159</a>		<span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-<a href=#160 id=160 data-nosnippet>160</a>			PidFilePath,
-<a href=#161 id=161 data-nosnippet>161</a>			IsRunning:Arc::new(RwLock::new(<span class="bool-val">false</span>)),
-<a href=#162 id=162 data-nosnippet>162</a>			PlatformInfo,
-<a href=#163 id=163 data-nosnippet>163</a>			PidLock:Arc::new(Mutex::new(())),
-<a href=#164 id=164 data-nosnippet>164</a>			PidChecksum:Arc::new(Mutex::new(<span class="prelude-val">None</span>)),
-<a href=#165 id=165 data-nosnippet>165</a>			ShutdownRequested:Arc::new(RwLock::new(<span class="bool-val">false</span>)),
+<a href=#159 id=159 data-nosnippet>159</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="self">Self </span>{
+<a href=#160 id=160 data-nosnippet>160</a>			<a href="#156">PidFilePath</a>,
+<a href=#161 id=161 data-nosnippet>161</a>			IsRunning:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<span class="bool-val">false</span>)),
+<a href=#162 id=162 data-nosnippet>162</a>			<a href="#157">PlatformInfo</a>,
+<a href=#163 id=163 data-nosnippet>163</a>			PidLock:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(Mutex::new(())),
+<a href=#164 id=164 data-nosnippet>164</a>			PidChecksum:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(Mutex::new(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>)),
+<a href=#165 id=165 data-nosnippet>165</a>			ShutdownRequested:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<span class="bool-val">false</span>)),
 <a href=#166 id=166 data-nosnippet>166</a>		})
 <a href=#167 id=167 data-nosnippet>167</a>	}
 <a href=#168 id=168 data-nosnippet>168</a>
 <a href=#169 id=169 data-nosnippet>169</a>	<span class="doccomment">/// Get default PID file path based on platform
-<a href=#170 id=170 data-nosnippet>170</a>	</span><span class="kw">fn </span>DefaultPidFilePath() -&gt; PathBuf {
-<a href=#171 id=171 data-nosnippet>171</a>		<span class="kw">let </span>platform = <span class="self">Self</span>::DetectPlatform();
-<a href=#172 id=172 data-nosnippet>172</a>		<span class="kw">match </span>platform {
-<a href=#173 id=173 data-nosnippet>173</a>			Platform::Linux =&gt; PathBuf::from(<span class="string">"/var/run/Air.pid"</span>),
-<a href=#174 id=174 data-nosnippet>174</a>			Platform::MacOS =&gt; PathBuf::from(<span class="string">"/tmp/Air.pid"</span>),
-<a href=#175 id=175 data-nosnippet>175</a>			Platform::Windows =&gt; PathBuf::from(<span class="string">"C:\\ProgramData\\Air\\Air.pid"</span>),
-<a href=#176 id=176 data-nosnippet>176</a>			Platform::Unknown =&gt; PathBuf::from(<span class="string">"./Air.pid"</span>),
+<a href=#170 id=170 data-nosnippet>170</a>	</span><span class="kw">fn </span>DefaultPidFilePath() -&gt; <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a> {
+<a href=#171 id=171 data-nosnippet>171</a>		<span class="kw">let </span>platform = <span class="self">Self</span>::<a href="#181-191">DetectPlatform</a>();
+<a href=#172 id=172 data-nosnippet>172</a>		<span class="kw">match </span><a href="#171">platform</a> {
+<a href=#173 id=173 data-nosnippet>173</a>			Platform::<a href="#131">Linux</a> =&gt; <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from">from</a>(<span class="string">"/var/run/Air.pid"</span>),
+<a href=#174 id=174 data-nosnippet>174</a>			Platform::<a href="#132">MacOS</a> =&gt; <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from">from</a>(<span class="string">"/tmp/Air.pid"</span>),
+<a href=#175 id=175 data-nosnippet>175</a>			Platform::<a href="#133">Windows</a> =&gt; <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from">from</a>(<span class="string">"C:\\ProgramData\\Air\\Air.pid"</span>),
+<a href=#176 id=176 data-nosnippet>176</a>			Platform::<a href="#134">Unknown</a> =&gt; <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from">from</a>(<span class="string">"./Air.pid"</span>),
 <a href=#177 id=177 data-nosnippet>177</a>		}
 <a href=#178 id=178 data-nosnippet>178</a>	}
 <a href=#179 id=179 data-nosnippet>179</a>
 <a href=#180 id=180 data-nosnippet>180</a>	<span class="doccomment">/// Detect current platform
-<a href=#181 id=181 data-nosnippet>181</a>	</span><span class="kw">fn </span>DetectPlatform() -&gt; Platform {
-<a href=#182 id=182 data-nosnippet>182</a>		<span class="kw">if </span><span class="macro">cfg!</span>(target_os = <span class="string">"linux"</span>) {
-<a href=#183 id=183 data-nosnippet>183</a>			Platform::Linux
-<a href=#184 id=184 data-nosnippet>184</a>		} <span class="kw">else if </span><span class="macro">cfg!</span>(target_os = <span class="string">"macos"</span>) {
-<a href=#185 id=185 data-nosnippet>185</a>			Platform::MacOS
-<a href=#186 id=186 data-nosnippet>186</a>		} <span class="kw">else if </span><span class="macro">cfg!</span>(target_os = <span class="string">"windows"</span>) {
-<a href=#187 id=187 data-nosnippet>187</a>			Platform::Windows
+<a href=#181 id=181 data-nosnippet>181</a>	</span><span class="kw">fn </span>DetectPlatform() -&gt; <a href="#130-135">Platform</a> {
+<a href=#182 id=182 data-nosnippet>182</a>		<span class="kw">if </span><a href="https://doc.rust-lang.org/nightly/core/macro.cfg.html">cfg!</a>(target_os = <span class="string">"linux"</span>) {
+<a href=#183 id=183 data-nosnippet>183</a>			Platform::<a href="#131">Linux</a>
+<a href=#184 id=184 data-nosnippet>184</a>		} <span class="kw">else if </span><a href="https://doc.rust-lang.org/nightly/core/macro.cfg.html">cfg!</a>(target_os = <span class="string">"macos"</span>) {
+<a href=#185 id=185 data-nosnippet>185</a>			Platform::<a href="#132">MacOS</a>
+<a href=#186 id=186 data-nosnippet>186</a>		} <span class="kw">else if </span><a href="https://doc.rust-lang.org/nightly/core/macro.cfg.html">cfg!</a>(target_os = <span class="string">"windows"</span>) {
+<a href=#187 id=187 data-nosnippet>187</a>			Platform::<a href="#133">Windows</a>
 <a href=#188 id=188 data-nosnippet>188</a>		} <span class="kw">else </span>{
-<a href=#189 id=189 data-nosnippet>189</a>			Platform::Unknown
+<a href=#189 id=189 data-nosnippet>189</a>			Platform::<a href="#134">Unknown</a>
 <a href=#190 id=190 data-nosnippet>190</a>		}
 <a href=#191 id=191 data-nosnippet>191</a>	}
 <a href=#192 id=192 data-nosnippet>192</a>
 <a href=#193 id=193 data-nosnippet>193</a>	<span class="doccomment">/// Detect platform-specific information
-<a href=#194 id=194 data-nosnippet>194</a>	</span><span class="kw">fn </span>DetectPlatformInfo() -&gt; PlatformInfo {
-<a href=#195 id=195 data-nosnippet>195</a>		<span class="kw">let </span>platform = <span class="self">Self</span>::DetectPlatform();
-<a href=#196 id=196 data-nosnippet>196</a>		<span class="kw">let </span>ServiceName = <span class="string">"Air-daemon"</span>.to_string();
+<a href=#194 id=194 data-nosnippet>194</a>	</span><span class="kw">fn </span>DetectPlatformInfo() -&gt; <a href="#119-126">PlatformInfo</a> {
+<a href=#195 id=195 data-nosnippet>195</a>		<span class="kw">let </span>platform = <span class="self">Self</span>::<a href="#181-191">DetectPlatform</a>();
+<a href=#196 id=196 data-nosnippet>196</a>		<span class="kw">let </span>ServiceName = <span class="string">"Air-daemon"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>();
 <a href=#197 id=197 data-nosnippet>197</a>
 <a href=#198 id=198 data-nosnippet>198</a>		<span class="comment">// Get current user
-<a href=#199 id=199 data-nosnippet>199</a>		</span><span class="kw">let </span>RunAsUser = std::env::var(<span class="string">"USER"</span>).ok().or_else(|| std::env::var(<span class="string">"USERNAME"</span>).ok());
+<a href=#199 id=199 data-nosnippet>199</a>		</span><span class="kw">let </span>RunAsUser = std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.var.html">var</a>(<span class="string">"USER"</span>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>().<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.or_else">or_else</a>(|| std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.var.html">var</a>(<span class="string">"USERNAME"</span>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>());
 <a href=#200 id=200 data-nosnippet>200</a>
-<a href=#201 id=201 data-nosnippet>201</a>		PlatformInfo { Platform:platform, ServiceName, RunAsUser }
+<a href=#201 id=201 data-nosnippet>201</a>		<a href="#119-126">PlatformInfo</a> { Platform:<a href="#195">platform</a>, <a href="#196">ServiceName</a>, <a href="#199">RunAsUser</a> }
 <a href=#202 id=202 data-nosnippet>202</a>	}
 <a href=#203 id=203 data-nosnippet>203</a>
 <a href=#204 id=204 data-nosnippet>204</a>	<span class="doccomment">/// Acquire daemon lock to ensure single instance
@@ -362,27 +362,27 @@
 <a href=#362 id=362 data-nosnippet>362</a>
 <a href=#363 id=363 data-nosnippet>363</a>	<span class="doccomment">/// Validate that a process with the given PID is running
 <a href=#364 id=364 data-nosnippet>364</a>	/// Performs thorough process validation and existence checks
-<a href=#365 id=365 data-nosnippet>365</a>	</span><span class="kw">fn </span>ValidateProcess(pid:u32) -&gt; bool {
+<a href=#365 id=365 data-nosnippet>365</a>	</span><span class="kw">fn </span>ValidateProcess(pid:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#366 id=366 data-nosnippet>366</a>		<span class="attr">#[cfg(unix)]
 <a href=#367 id=367 data-nosnippet>367</a>		</span>{
-<a href=#368 id=368 data-nosnippet>368</a>			<span class="kw">use </span>std::process::Command;
-<a href=#369 id=369 data-nosnippet>369</a>			<span class="kw">let </span>output = Command::new(<span class="string">"ps"</span>).arg(<span class="string">"-p"</span>).arg(pid.to_string()).output();
+<a href=#368 id=368 data-nosnippet>368</a>			<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/std/process/struct.Command.html">std::process::Command</a>;
+<a href=#369 id=369 data-nosnippet>369</a>			<span class="kw">let </span>output = <a href="https://doc.rust-lang.org/nightly/std/process/struct.Command.html">Command</a>::<a href="https://doc.rust-lang.org/nightly/std/process/struct.Command.html#method.new">new</a>(<span class="string">"ps"</span>).<a href="https://doc.rust-lang.org/nightly/std/process/struct.Command.html#method.arg">arg</a>(<span class="string">"-p"</span>).<a href="https://doc.rust-lang.org/nightly/std/process/struct.Command.html#method.arg">arg</a>(<a href="#365">pid</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()).<a href="https://doc.rust-lang.org/nightly/std/process/struct.Command.html#method.output">output</a>();
 <a href=#370 id=370 data-nosnippet>370</a>
-<a href=#371 id=371 data-nosnippet>371</a>			<span class="kw">match </span>output {
-<a href=#372 id=372 data-nosnippet>372</a>				<span class="prelude-val">Ok</span>(output) =&gt; {
-<a href=#373 id=373 data-nosnippet>373</a>					<span class="kw">if </span>output.status.success() {
-<a href=#374 id=374 data-nosnippet>374</a>						<span class="kw">let </span>stdout = String::from_utf8_lossy(<span class="kw-2">&amp;</span>output.stdout);
+<a href=#371 id=371 data-nosnippet>371</a>			<span class="kw">match </span><a href="#369">output</a> {
+<a href=#372 id=372 data-nosnippet>372</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(output) =&gt; {
+<a href=#373 id=373 data-nosnippet>373</a>					<span class="kw">if </span><a href="#372">output</a>.status.<a href="https://doc.rust-lang.org/nightly/std/process/struct.ExitStatus.html#method.success">success</a>() {
+<a href=#374 id=374 data-nosnippet>374</a>						<span class="kw">let </span>stdout = <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.from_utf8_lossy">from_utf8_lossy</a>(<span class="kw-2">&amp;</span><a href="#372">output</a>.stdout);
 <a href=#375 id=375 data-nosnippet>375</a>						<span class="comment">// Validate it's actually an Air daemon process
-<a href=#376 id=376 data-nosnippet>376</a>						</span>stdout
-<a href=#377 id=377 data-nosnippet>377</a>							.lines()
-<a href=#378 id=378 data-nosnippet>378</a>							.skip(<span class="number">1</span>)
-<a href=#379 id=379 data-nosnippet>379</a>							.any(|line| line.contains(<span class="string">"Air"</span>) || line.contains(<span class="string">"daemon"</span>))
+<a href=#376 id=376 data-nosnippet>376</a>						</span><a href="#374">stdout</a>
+<a href=#377 id=377 data-nosnippet>377</a>							.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.lines">lines</a>()
+<a href=#378 id=378 data-nosnippet>378</a>							.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.skip">skip</a>(<span class="number">1</span>)
+<a href=#379 id=379 data-nosnippet>379</a>							.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.any">any</a>(|line| <a href="#379">line</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.contains">contains</a>(<span class="string">"Air"</span>) || <a href="#379">line</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.contains">contains</a>(<span class="string">"daemon"</span>))
 <a href=#380 id=380 data-nosnippet>380</a>					} <span class="kw">else </span>{
 <a href=#381 id=381 data-nosnippet>381</a>						<span class="bool-val">false
 <a href=#382 id=382 data-nosnippet>382</a>					</span>}
 <a href=#383 id=383 data-nosnippet>383</a>				},
-<a href=#384 id=384 data-nosnippet>384</a>				<span class="prelude-val">Err</span>(e) =&gt; {
-<a href=#385 id=385 data-nosnippet>385</a>					<span class="macro">error!</span>(<span class="string">"[Daemon] Failed to check process status: {}"</span>, e);
+<a href=#384 id=384 data-nosnippet>384</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
+<a href=#385 id=385 data-nosnippet>385</a>					<a href="https://docs.rs/log/0.4.29/log/macro.error.html">error!</a>(<span class="string">"[Daemon] Failed to check process status: {}"</span>, e);
 <a href=#386 id=386 data-nosnippet>386</a>					<span class="bool-val">false
 <a href=#387 id=387 data-nosnippet>387</a>				</span>},
 <a href=#388 id=388 data-nosnippet>388</a>			}
@@ -527,28 +527,28 @@
 <a href=#527 id=527 data-nosnippet>527</a>	}
 <a href=#528 id=528 data-nosnippet>528</a>
 <a href=#529 id=529 data-nosnippet>529</a>	<span class="doccomment">/// Generate system service file for installation
-<a href=#530 id=530 data-nosnippet>530</a>	</span><span class="kw">pub fn </span>GenerateServiceFile(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
-<a href=#531 id=531 data-nosnippet>531</a>		<span class="kw">match </span><span class="self">self</span>.PlatformInfo.Platform {
-<a href=#532 id=532 data-nosnippet>532</a>			Platform::Linux =&gt; <span class="self">self</span>.GenerateSystemdService(),
-<a href=#533 id=533 data-nosnippet>533</a>			Platform::MacOS =&gt; <span class="self">self</span>.GenerateLaunchdService(),
-<a href=#534 id=534 data-nosnippet>534</a>			Platform::Windows =&gt; <span class="self">self</span>.GenerateWindowsService(),
-<a href=#535 id=535 data-nosnippet>535</a>			Platform::Unknown =&gt; {
-<a href=#536 id=536 data-nosnippet>536</a>				<span class="prelude-val">Err</span>(AirError::ServiceUnavailable(
-<a href=#537 id=537 data-nosnippet>537</a>					<span class="string">"Unknown platform, cannot generate service file"</span>.to_string(),
+<a href=#530 id=530 data-nosnippet>530</a>	</span><span class="kw">pub fn </span>GenerateServiceFile(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#531 id=531 data-nosnippet>531</a>		<span class="kw">match </span><a class="self" href="#530">self</a>.PlatformInfo.Platform {
+<a href=#532 id=532 data-nosnippet>532</a>			Platform::<a href="#131">Linux</a> =&gt; <a class="self" href="#530">self</a>.<a href="#544-593">GenerateSystemdService</a>(),
+<a href=#533 id=533 data-nosnippet>533</a>			Platform::<a href="#132">MacOS</a> =&gt; <a class="self" href="#530">self</a>.<a href="#596-677">GenerateLaunchdService</a>(),
+<a href=#534 id=534 data-nosnippet>534</a>			Platform::<a href="#133">Windows</a> =&gt; <a class="self" href="#530">self</a>.<a href="#682-735">GenerateWindowsService</a>(),
+<a href=#535 id=535 data-nosnippet>535</a>			Platform::<a href="#134">Unknown</a> =&gt; {
+<a href=#536 id=536 data-nosnippet>536</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#264">ServiceUnavailable</a>(
+<a href=#537 id=537 data-nosnippet>537</a>					<span class="string">"Unknown platform, cannot generate service file"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
 <a href=#538 id=538 data-nosnippet>538</a>				))
 <a href=#539 id=539 data-nosnippet>539</a>			},
 <a href=#540 id=540 data-nosnippet>540</a>		}
 <a href=#541 id=541 data-nosnippet>541</a>	}
 <a href=#542 id=542 data-nosnippet>542</a>
 <a href=#543 id=543 data-nosnippet>543</a>	<span class="doccomment">/// Generate systemd service file with comprehensive configuration
-<a href=#544 id=544 data-nosnippet>544</a>	</span><span class="kw">fn </span>GenerateSystemdService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
-<a href=#545 id=545 data-nosnippet>545</a>		<span class="kw">let </span>ExePath = std::env::current_exe()
-<a href=#546 id=546 data-nosnippet>546</a>			.map_err(|e| AirError::FileSystem(<span class="macro">format!</span>(<span class="string">"Failed to get executable path: {}"</span>, e)))<span class="question-mark">?</span>;
+<a href=#544 id=544 data-nosnippet>544</a>	</span><span class="kw">fn </span>GenerateSystemdService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#545 id=545 data-nosnippet>545</a>		<span class="kw">let </span>ExePath = std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.current_exe.html">current_exe</a>()
+<a href=#546 id=546 data-nosnippet>546</a>			.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| AirError::<a href="../Library.rs.html#249">FileSystem</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to get executable path: {}"</span>, e)))<span class="question-mark">?</span>;
 <a href=#547 id=547 data-nosnippet>547</a>
-<a href=#548 id=548 data-nosnippet>548</a>		<span class="kw">let </span>user = <span class="self">self</span>.PlatformInfo.RunAsUser.as_deref().unwrap_or(<span class="string">"root"</span>);
-<a href=#549 id=549 data-nosnippet>549</a>		<span class="kw">let </span>group = <span class="self">self</span>.PlatformInfo.RunAsUser.as_deref().unwrap_or(<span class="string">"root"</span>);
+<a href=#548 id=548 data-nosnippet>548</a>		<span class="kw">let </span>user = <a class="self" href="#544">self</a>.PlatformInfo.RunAsUser.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.as_deref">as_deref</a>().<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="string">"root"</span>);
+<a href=#549 id=549 data-nosnippet>549</a>		<span class="kw">let </span>group = <a class="self" href="#544">self</a>.PlatformInfo.RunAsUser.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.as_deref">as_deref</a>().<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="string">"root"</span>);
 <a href=#550 id=550 data-nosnippet>550</a>
-<a href=#551 id=551 data-nosnippet>551</a>		<span class="kw">let </span>ServiceContent = <span class="macro">format!</span>(
+<a href=#551 id=551 data-nosnippet>551</a>		<span class="kw">let </span>ServiceContent = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#552 id=552 data-nosnippet>552</a>			<span class="string">r#"[Unit]
 <a href=#553 id=553 data-nosnippet>553</a>Description=Air Daemon - Background service for Land code editor
 <a href=#554 id=554 data-nosnippet>554</a>Documentation=man:Air(1)
@@ -589,19 +589,19 @@
 <a href=#589 id=589 data-nosnippet>589</a>			group
 <a href=#590 id=590 data-nosnippet>590</a>		);
 <a href=#591 id=591 data-nosnippet>591</a>
-<a href=#592 id=592 data-nosnippet>592</a>		<span class="prelude-val">Ok</span>(ServiceContent)
+<a href=#592 id=592 data-nosnippet>592</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="#551">ServiceContent</a>)
 <a href=#593 id=593 data-nosnippet>593</a>	}
 <a href=#594 id=594 data-nosnippet>594</a>
 <a href=#595 id=595 data-nosnippet>595</a>	<span class="doccomment">/// Generate launchd service file with comprehensive configuration
-<a href=#596 id=596 data-nosnippet>596</a>	</span><span class="kw">fn </span>GenerateLaunchdService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
-<a href=#597 id=597 data-nosnippet>597</a>		<span class="kw">let </span>ExePath = std::env::current_exe()
-<a href=#598 id=598 data-nosnippet>598</a>			.map(|p| p.display().to_string())
-<a href=#599 id=599 data-nosnippet>599</a>			.unwrap_or_else(|<span class="kw">_</span>| <span class="string">"/usr/local/bin/Air"</span>.to_string());
+<a href=#596 id=596 data-nosnippet>596</a>	</span><span class="kw">fn </span>GenerateLaunchdService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#597 id=597 data-nosnippet>597</a>		<span class="kw">let </span>ExePath = std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.current_exe.html">current_exe</a>()
+<a href=#598 id=598 data-nosnippet>598</a>			.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map">map</a>(|p| <a href="#598">p</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.display">display</a>().<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#599 id=599 data-nosnippet>599</a>			.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.unwrap_or_else">unwrap_or_else</a>(|<span class="kw">_</span>| <span class="string">"/usr/local/bin/Air"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#600 id=600 data-nosnippet>600</a>
-<a href=#601 id=601 data-nosnippet>601</a>		<span class="kw">let </span>ServiceName = <span class="kw-2">&amp;</span><span class="self">self</span>.PlatformInfo.ServiceName;
-<a href=#602 id=602 data-nosnippet>602</a>		<span class="kw">let </span>user = <span class="self">self</span>.PlatformInfo.RunAsUser.as_deref().unwrap_or(<span class="string">"root"</span>);
+<a href=#601 id=601 data-nosnippet>601</a>		<span class="kw">let </span>ServiceName = <span class="kw-2">&amp;</span><a class="self" href="#596">self</a>.PlatformInfo.ServiceName;
+<a href=#602 id=602 data-nosnippet>602</a>		<span class="kw">let </span>user = <a class="self" href="#596">self</a>.PlatformInfo.RunAsUser.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.as_deref">as_deref</a>().<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="string">"root"</span>);
 <a href=#603 id=603 data-nosnippet>603</a>
-<a href=#604 id=604 data-nosnippet>604</a>		<span class="kw">let </span>ServiceContent = <span class="macro">format!</span>(
+<a href=#604 id=604 data-nosnippet>604</a>		<span class="kw">let </span>ServiceContent = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#605 id=605 data-nosnippet>605</a>			<span class="string">r#"&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 <a href=#606 id=606 data-nosnippet>606</a>&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
 <a href=#607 id=607 data-nosnippet>607</a>&lt;plist version="1.0"&gt;
@@ -673,23 +673,23 @@
 <a href=#673 id=673 data-nosnippet>673</a>			ServiceName, ExePath, user
 <a href=#674 id=674 data-nosnippet>674</a>		);
 <a href=#675 id=675 data-nosnippet>675</a>
-<a href=#676 id=676 data-nosnippet>676</a>		<span class="prelude-val">Ok</span>(ServiceContent)
+<a href=#676 id=676 data-nosnippet>676</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="#604">ServiceContent</a>)
 <a href=#677 id=677 data-nosnippet>677</a>	}
 <a href=#678 id=678 data-nosnippet>678</a>
 <a href=#679 id=679 data-nosnippet>679</a>	<span class="doccomment">/// Generate Windows service configuration file
 <a href=#680 id=680 data-nosnippet>680</a>	/// TODO: Integrate with winsvc crate for actual Windows Service
 <a href=#681 id=681 data-nosnippet>681</a>	/// registration
-<a href=#682 id=682 data-nosnippet>682</a>	</span><span class="kw">fn </span>GenerateWindowsService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
-<a href=#683 id=683 data-nosnippet>683</a>		<span class="kw">let </span>ExePath = std::env::current_exe()
-<a href=#684 id=684 data-nosnippet>684</a>			.map(|p| p.display().to_string())
-<a href=#685 id=685 data-nosnippet>685</a>			.unwrap_or_else(|<span class="kw">_</span>| <span class="string">"C:\\Program Files\\Air\\Air.exe"</span>.to_string());
+<a href=#682 id=682 data-nosnippet>682</a>	</span><span class="kw">fn </span>GenerateWindowsService(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#683 id=683 data-nosnippet>683</a>		<span class="kw">let </span>ExePath = std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.current_exe.html">current_exe</a>()
+<a href=#684 id=684 data-nosnippet>684</a>			.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map">map</a>(|p| <a href="#684">p</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.display">display</a>().<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#685 id=685 data-nosnippet>685</a>			.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.unwrap_or_else">unwrap_or_else</a>(|<span class="kw">_</span>| <span class="string">"C:\\Program Files\\Air\\Air.exe"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#686 id=686 data-nosnippet>686</a>
-<a href=#687 id=687 data-nosnippet>687</a>		<span class="kw">let </span>ServiceName = <span class="kw-2">&amp;</span><span class="self">self</span>.PlatformInfo.ServiceName;
+<a href=#687 id=687 data-nosnippet>687</a>		<span class="kw">let </span>ServiceName = <span class="kw-2">&amp;</span><a class="self" href="#682">self</a>.PlatformInfo.ServiceName;
 <a href=#688 id=688 data-nosnippet>688</a>		<span class="kw">let </span>DisplayName = <span class="string">"Air Daemon Service"</span>;
 <a href=#689 id=689 data-nosnippet>689</a>		<span class="kw">let </span>Description = <span class="string">"Background service for Land code editor"</span>;
 <a href=#690 id=690 data-nosnippet>690</a>
 <a href=#691 id=691 data-nosnippet>691</a>		<span class="comment">// Generate winsvc-compatible XML configuration
-<a href=#692 id=692 data-nosnippet>692</a>		</span><span class="kw">let </span>ServiceContent = <span class="macro">format!</span>(
+<a href=#692 id=692 data-nosnippet>692</a>		</span><span class="kw">let </span>ServiceContent = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#693 id=693 data-nosnippet>693</a>			<span class="string">r#"&lt;service&gt;
 <a href=#694 id=694 data-nosnippet>694</a>		  &lt;id&gt;{}&lt;/id&gt;
 <a href=#695 id=695 data-nosnippet>695</a>		  &lt;name&gt;{}&lt;/name&gt;
@@ -731,7 +731,7 @@
 <a href=#731 id=731 data-nosnippet>731</a>			ServiceName, DisplayName, Description, ExePath
 <a href=#732 id=732 data-nosnippet>732</a>		);
 <a href=#733 id=733 data-nosnippet>733</a>
-<a href=#734 id=734 data-nosnippet>734</a>		<span class="prelude-val">Ok</span>(ServiceContent)
+<a href=#734 id=734 data-nosnippet>734</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="#692">ServiceContent</a>)
 <a href=#735 id=735 data-nosnippet>735</a>	}
 <a href=#736 id=736 data-nosnippet>736</a>
 <a href=#737 id=737 data-nosnippet>737</a>	<span class="doccomment">/// Install daemon as system service with validation
@@ -973,30 +973,30 @@
 <a href=#973 id=973 data-nosnippet>973</a>}
 <a href=#974 id=974 data-nosnippet>974</a>
 <a href=#975 id=975 data-nosnippet>975</a><span class="doccomment">/// Daemon status information
-<a href=#976 id=976 data-nosnippet>976</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#977 id=977 data-nosnippet>977</a></span><span class="kw">pub struct </span>DaemonStatus {
-<a href=#978 id=978 data-nosnippet>978</a>	<span class="kw">pub </span>IsRunning:bool,
-<a href=#979 id=979 data-nosnippet>979</a>	<span class="kw">pub </span>PidFileExists:bool,
-<a href=#980 id=980 data-nosnippet>980</a>	<span class="kw">pub </span>Pid:<span class="prelude-ty">Option</span>&lt;u32&gt;,
-<a href=#981 id=981 data-nosnippet>981</a>	<span class="kw">pub </span>Platform:Platform,
-<a href=#982 id=982 data-nosnippet>982</a>	<span class="kw">pub </span>ServiceName:String,
-<a href=#983 id=983 data-nosnippet>983</a>	<span class="kw">pub </span>ShutdownRequested:bool,
+<a href=#976 id=976 data-nosnippet>976</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<a href=#977 id=977 data-nosnippet>977</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Daemon/struct.DaemonStatus.html">DaemonStatus</a> {
+<a href=#978 id=978 data-nosnippet>978</a>	<span class="kw">pub </span>IsRunning:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<a href=#979 id=979 data-nosnippet>979</a>	<span class="kw">pub </span>PidFileExists:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<a href=#980 id=980 data-nosnippet>980</a>	<span class="kw">pub </span>Pid:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,
+<a href=#981 id=981 data-nosnippet>981</a>	<span class="kw">pub </span>Platform:<a href="#130-135">Platform</a>,
+<a href=#982 id=982 data-nosnippet>982</a>	<span class="kw">pub </span>ServiceName:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#983 id=983 data-nosnippet>983</a>	<span class="kw">pub </span>ShutdownRequested:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#984 id=984 data-nosnippet>984</a>}
 <a href=#985 id=985 data-nosnippet>985</a>
-<a href=#986 id=986 data-nosnippet>986</a><span class="kw">impl </span>DaemonStatus {
+<a href=#986 id=986 data-nosnippet>986</a><span class="kw">impl </span><a href="#977-984">DaemonStatus</a> {
 <a href=#987 id=987 data-nosnippet>987</a>	<span class="doccomment">/// Get human-readable status description
-<a href=#988 id=988 data-nosnippet>988</a>	</span><span class="kw">pub fn </span>status_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
-<a href=#989 id=989 data-nosnippet>989</a>		<span class="kw">if </span><span class="self">self</span>.IsRunning {
-<a href=#990 id=990 data-nosnippet>990</a>			<span class="macro">format!</span>(<span class="string">"Running (PID: {})"</span>, <span class="self">self</span>.Pid.unwrap_or(<span class="number">0</span>))
-<a href=#991 id=991 data-nosnippet>991</a>		} <span class="kw">else if </span><span class="self">self</span>.PidFileExists {
-<a href=#992 id=992 data-nosnippet>992</a>			<span class="string">"Stale PID file exists"</span>.to_string()
+<a href=#988 id=988 data-nosnippet>988</a>	</span><span class="kw">pub fn </span>status_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
+<a href=#989 id=989 data-nosnippet>989</a>		<span class="kw">if </span><a class="self" href="#988">self</a>.IsRunning {
+<a href=#990 id=990 data-nosnippet>990</a>			<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Running (PID: {})"</span>, <span class="self">self</span>.Pid.unwrap_or(<span class="number">0</span>))
+<a href=#991 id=991 data-nosnippet>991</a>		} <span class="kw">else if </span><a class="self" href="#988">self</a>.PidFileExists {
+<a href=#992 id=992 data-nosnippet>992</a>			<span class="string">"Stale PID file exists"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
 <a href=#993 id=993 data-nosnippet>993</a>		} <span class="kw">else </span>{
-<a href=#994 id=994 data-nosnippet>994</a>			<span class="string">"Not running"</span>.to_string()
+<a href=#994 id=994 data-nosnippet>994</a>			<span class="string">"Not running"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
 <a href=#995 id=995 data-nosnippet>995</a>		}
 <a href=#996 id=996 data-nosnippet>996</a>	}
 <a href=#997 id=997 data-nosnippet>997</a>}
 <a href=#998 id=998 data-nosnippet>998</a>
-<a href=#999 id=999 data-nosnippet>999</a><span class="kw">impl </span>From&lt;ExitCode&gt; <span class="kw">for </span>i32 {
-<a href=#1000 id=1000 data-nosnippet>1000</a>	<span class="kw">fn </span>from(code:ExitCode) -&gt; i32 { code <span class="kw">as </span>i32 }
+<a href=#999 id=999 data-nosnippet>999</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html">From</a>&lt;<a href="#139-151">ExitCode</a>&gt; <span class="kw">for </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+<a href=#1000 id=1000 data-nosnippet>1000</a>	<span class="kw">fn </span>from(code:<a href="#139-151">ExitCode</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { <a href="#1000">code</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> }
 <a href=#1001 id=1001 data-nosnippet>1001</a>}
 </code></pre></div></section></main></body></html>

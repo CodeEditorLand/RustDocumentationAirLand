@@ -63,67 +63,67 @@
 <a href=#63 id=63 data-nosnippet>63</a>//! - [ ] Implement parallel indexing for large directories
 <a href=#64 id=64 data-nosnippet>64</a>
 <a href=#65 id=65 data-nosnippet>65</a></span><span class="comment">// Modules - file-based (no inline definitions)
-<a href=#66 id=66 data-nosnippet>66</a></span><span class="kw">pub mod </span>State;
-<a href=#67 id=67 data-nosnippet>67</a><span class="kw">pub mod </span>Scan;
-<a href=#68 id=68 data-nosnippet>68</a><span class="kw">pub mod </span>Process;
-<a href=#69 id=69 data-nosnippet>69</a><span class="kw">pub mod </span>Language;
-<a href=#70 id=70 data-nosnippet>70</a><span class="kw">pub mod </span>Store;
-<a href=#71 id=71 data-nosnippet>71</a><span class="kw">pub mod </span>Watch;
-<a href=#72 id=72 data-nosnippet>72</a><span class="kw">pub mod </span>Background;
+<a href=#66 id=66 data-nosnippet>66</a></span><span class="kw">pub mod </span><a href="State/mod.rs.html#1-16">State</a>;
+<a href=#67 id=67 data-nosnippet>67</a><span class="kw">pub mod </span><a href="Scan/mod.rs.html#1-4">Scan</a>;
+<a href=#68 id=68 data-nosnippet>68</a><span class="kw">pub mod </span><a href="Process/mod.rs.html#1-10">Process</a>;
+<a href=#69 id=69 data-nosnippet>69</a><span class="kw">pub mod </span><a href="Language/mod.rs.html#1-4">Language</a>;
+<a href=#70 id=70 data-nosnippet>70</a><span class="kw">pub mod </span><a href="Store/mod.rs.html#1-5">Store</a>;
+<a href=#71 id=71 data-nosnippet>71</a><span class="kw">pub mod </span><a href="Watch/mod.rs.html#1-3">Watch</a>;
+<a href=#72 id=72 data-nosnippet>72</a><span class="kw">pub mod </span><a href="Background/mod.rs.html#1-3">Background</a>;
 <a href=#73 id=73 data-nosnippet>73</a>
 <a href=#74 id=74 data-nosnippet>74</a><span class="comment">// Import types and functions needed for the FileIndexer implementation
-<a href=#75 id=75 data-nosnippet>75</a></span><span class="kw">use </span>std::{collections::HashMap, path::PathBuf, sync::Arc};
+<a href=#75 id=75 data-nosnippet>75</a></span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">collections::HashMap</a>, <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">path::PathBuf</a>, <a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">sync::Arc</a>};
 <a href=#76 id=76 data-nosnippet>76</a>
 <a href=#77 id=77 data-nosnippet>77</a><span class="kw">use </span>tokio::sync::{Mutex, RwLock};
 <a href=#78 id=78 data-nosnippet>78</a>
 <a href=#79 id=79 data-nosnippet>79</a><span class="kw">use </span>crate::{
-<a href=#80 id=80 data-nosnippet>80</a>	AirError,
-<a href=#81 id=81 data-nosnippet>81</a>	ApplicationState::ApplicationState,
-<a href=#82 id=82 data-nosnippet>82</a>	Configuration::ConfigurationManager,
+<a href=#80 id=80 data-nosnippet>80</a>	<a href="../Library.rs.html#238-286">AirError</a>,
+<a href=#81 id=81 data-nosnippet>81</a>	<a href="../ApplicationState/mod.rs.html#103-124">ApplicationState::ApplicationState</a>,
+<a href=#82 id=82 data-nosnippet>82</a>	<a href="../Configuration/mod.rs.html#674-686">Configuration::ConfigurationManager</a>,
 <a href=#83 id=83 data-nosnippet>83</a>	Indexing::{
 <a href=#84 id=84 data-nosnippet>84</a>		Scan::{
-<a href=#85 id=85 data-nosnippet>85</a>			ScanDirectory::{ScanAndRemoveDeleted, ScanDirectoriesParallel},
-<a href=#86 id=86 data-nosnippet>86</a>			ScanFile::IndexFileInternal,
+<a href=#85 id=85 data-nosnippet>85</a>			ScanDirectory::{<a href="Scan/ScanDirectory.rs.html#212-239">ScanAndRemoveDeleted</a>, <a href="Scan/ScanDirectory.rs.html#308-355">ScanDirectoriesParallel</a>},
+<a href=#86 id=86 data-nosnippet>86</a>			<a href="Scan/ScanFile.rs.html#101-193">ScanFile::IndexFileInternal</a>,
 <a href=#87 id=87 data-nosnippet>87</a>		},
-<a href=#88 id=88 data-nosnippet>88</a>		State::UpdateState::{UpdateIndexMetadata, ValidateIndexConsistency},
+<a href=#88 id=88 data-nosnippet>88</a>		State::UpdateState::{<a href="State/UpdateState.rs.html#139-147">UpdateIndexMetadata</a>, <a href="State/UpdateState.rs.html#289-325">ValidateIndexConsistency</a>},
 <a href=#89 id=89 data-nosnippet>89</a>		Store::{
-<a href=#90 id=90 data-nosnippet>90</a>			QueryIndex::{PaginatedSearchResults, QueryIndexSearch, SearchQuery},
-<a href=#91 id=91 data-nosnippet>91</a>			StoreEntry::{BackupCorruptedIndex, EnsureIndexDirectory, LoadOrCreateIndex, SaveIndex},
-<a href=#92 id=92 data-nosnippet>92</a>			UpdateIndex::UpdateFileContent,
+<a href=#90 id=90 data-nosnippet>90</a>			QueryIndex::{<a href="Store/QueryIndex.rs.html#143-154">PaginatedSearchResults</a>, <a href="Store/QueryIndex.rs.html#181-286">QueryIndexSearch</a>, <a href="Store/QueryIndex.rs.html#79-94">SearchQuery</a>},
+<a href=#91 id=91 data-nosnippet>91</a>			StoreEntry::{<a href="Store/StoreEntry.rs.html#179-195">BackupCorruptedIndex</a>, <a href="Store/StoreEntry.rs.html#171-176">EnsureIndexDirectory</a>, <a href="Store/StoreEntry.rs.html#138-162">LoadOrCreateIndex</a>, <a href="Store/StoreEntry.rs.html#74-99">SaveIndex</a>},
+<a href=#92 id=92 data-nosnippet>92</a>			<a href="Store/UpdateIndex.rs.html#157-187">UpdateIndex::UpdateFileContent</a>,
 <a href=#93 id=93 data-nosnippet>93</a>		},
 <a href=#94 id=94 data-nosnippet>94</a>	},
-<a href=#95 id=95 data-nosnippet>95</a>	<span class="prelude-ty">Result</span>,
+<a href=#95 id=95 data-nosnippet>95</a>	<a class="prelude-ty" href="../Library.rs.html#338">Result</a>,
 <a href=#96 id=96 data-nosnippet>96</a>};
 <a href=#97 id=97 data-nosnippet>97</a><span class="comment">// Import types from submodules with explicit full paths
-<a href=#98 id=98 data-nosnippet>98</a></span><span class="kw">use </span><span class="kw">crate</span>::Indexing::State::CreateState::{CreateNewIndex, FileIndex, FileMetadata, SymbolInfo, SymbolLocation};
+<a href=#98 id=98 data-nosnippet>98</a></span><span class="kw">use </span><span class="kw">crate</span>::Indexing::State::CreateState::{<a href="State/CreateState.rs.html#190-200">CreateNewIndex</a>, <a href="State/CreateState.rs.html#170-187">FileIndex</a>, <a href="State/CreateState.rs.html#141-166">FileMetadata</a>, <a href="State/CreateState.rs.html#84-95">SymbolInfo</a>, <a href="State/CreateState.rs.html#130-137">SymbolLocation</a>};
 <a href=#99 id=99 data-nosnippet>99</a>
 <a href=#100 id=100 data-nosnippet>100</a><span class="doccomment">/// Maximum number of parallel indexing operations
-<a href=#101 id=101 data-nosnippet>101</a></span><span class="kw">const </span>MAX_PARALLEL_INDEXING:usize = <span class="number">10</span>;
+<a href=#101 id=101 data-nosnippet>101</a></span><span class="kw">const </span><a href="../../../AirLibrary/Indexing/constant.MAX_PARALLEL_INDEXING.html">MAX_PARALLEL_INDEXING</a>:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <span class="number">10</span>;
 <a href=#102 id=102 data-nosnippet>102</a>
 <a href=#103 id=103 data-nosnippet>103</a><span class="doccomment">/// Indexing result with statistics
-<a href=#104 id=104 data-nosnippet>104</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#105 id=105 data-nosnippet>105</a></span><span class="kw">pub struct </span>IndexResult {
+<a href=#104 id=104 data-nosnippet>104</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<a href=#105 id=105 data-nosnippet>105</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Indexing/struct.IndexResult.html">IndexResult</a> {
 <a href=#106 id=106 data-nosnippet>106</a>	<span class="doccomment">/// Number of files successfully indexed
-<a href=#107 id=107 data-nosnippet>107</a>	</span><span class="kw">pub </span>files_indexed:u32,
+<a href=#107 id=107 data-nosnippet>107</a>	</span><span class="kw">pub </span>files_indexed:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#108 id=108 data-nosnippet>108</a>	<span class="doccomment">/// Total size of indexed files in bytes
-<a href=#109 id=109 data-nosnippet>109</a>	</span><span class="kw">pub </span>total_size:u64,
+<a href=#109 id=109 data-nosnippet>109</a>	</span><span class="kw">pub </span>total_size:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#110 id=110 data-nosnippet>110</a>	<span class="doccomment">/// Time taken in seconds
-<a href=#111 id=111 data-nosnippet>111</a>	</span><span class="kw">pub </span>duration_seconds:f64,
+<a href=#111 id=111 data-nosnippet>111</a>	</span><span class="kw">pub </span>duration_seconds:<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 <a href=#112 id=112 data-nosnippet>112</a>	<span class="doccomment">/// Number of symbols extracted
-<a href=#113 id=113 data-nosnippet>113</a>	</span><span class="kw">pub </span>symbols_extracted:u32,
+<a href=#113 id=113 data-nosnippet>113</a>	</span><span class="kw">pub </span>symbols_extracted:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#114 id=114 data-nosnippet>114</a>	<span class="doccomment">/// Number of files with errors
-<a href=#115 id=115 data-nosnippet>115</a>	</span><span class="kw">pub </span>files_with_errors:u32,
+<a href=#115 id=115 data-nosnippet>115</a>	</span><span class="kw">pub </span>files_with_errors:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#116 id=116 data-nosnippet>116</a>}
 <a href=#117 id=117 data-nosnippet>117</a>
 <a href=#118 id=118 data-nosnippet>118</a><span class="doccomment">/// Index statistics
-<a href=#119 id=119 data-nosnippet>119</a></span><span class="attr">#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-<a href=#120 id=120 data-nosnippet>120</a></span><span class="kw">pub struct </span>IndexStatistics {
-<a href=#121 id=121 data-nosnippet>121</a>	<span class="kw">pub </span>file_count:u32,
-<a href=#122 id=122 data-nosnippet>122</a>	<span class="kw">pub </span>total_size:u64,
-<a href=#123 id=123 data-nosnippet>123</a>	<span class="kw">pub </span>total_symbols:u32,
-<a href=#124 id=124 data-nosnippet>124</a>	<span class="kw">pub </span>language_counts:HashMap&lt;String, u32&gt;,
-<a href=#125 id=125 data-nosnippet>125</a>	<span class="kw">pub </span>last_updated:chrono::DateTime&lt;chrono::Utc&gt;,
-<a href=#126 id=126 data-nosnippet>126</a>	<span class="kw">pub </span>index_version:String,
+<a href=#119 id=119 data-nosnippet>119</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">serde::Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">serde::Deserialize</a>)]
+<a href=#120 id=120 data-nosnippet>120</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Indexing/struct.IndexStatistics.html">IndexStatistics</a> {
+<a href=#121 id=121 data-nosnippet>121</a>	<span class="kw">pub </span>file_count:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#122 id=122 data-nosnippet>122</a>	<span class="kw">pub </span>total_size:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+<a href=#123 id=123 data-nosnippet>123</a>	<span class="kw">pub </span>total_symbols:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#124 id=124 data-nosnippet>124</a>	<span class="kw">pub </span>language_counts:<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,
+<a href=#125 id=125 data-nosnippet>125</a>	<span class="kw">pub </span>last_updated:chrono::<a href="https://docs.rs/chrono/latest/chrono/datetime/struct.DateTime.html">DateTime</a>&lt;chrono::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>&gt;,
+<a href=#126 id=126 data-nosnippet>126</a>	<span class="kw">pub </span>index_version:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#127 id=127 data-nosnippet>127</a>}
 <a href=#128 id=128 data-nosnippet>128</a>
 <a href=#129 id=129 data-nosnippet>129</a><span class="doccomment">/// File indexer implementation with comprehensive search capabilities
@@ -135,27 +135,27 @@
 <a href=#135 id=135 data-nosnippet>135</a>/// - Language detection for syntax highlighting
 <a href=#136 id=136 data-nosnippet>136</a>/// - Index corruption detection and recovery
 <a href=#137 id=137 data-nosnippet>137</a>/// - Parallel indexing with resource limits
-<a href=#138 id=138 data-nosnippet>138</a></span><span class="kw">pub struct </span>FileIndexer {
+<a href=#138 id=138 data-nosnippet>138</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Indexing/struct.FileIndexer.html">FileIndexer</a> {
 <a href=#139 id=139 data-nosnippet>139</a>	<span class="doccomment">/// Application state
-<a href=#140 id=140 data-nosnippet>140</a>	</span>AppState:Arc&lt;ApplicationState&gt;,
+<a href=#140 id=140 data-nosnippet>140</a>	</span>AppState:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../ApplicationState/mod.rs.html#103-124">ApplicationState</a>&gt;,
 <a href=#141 id=141 data-nosnippet>141</a>
 <a href=#142 id=142 data-nosnippet>142</a>	<span class="doccomment">/// File index with metadata and symbols
-<a href=#143 id=143 data-nosnippet>143</a>	</span>file_index:Arc&lt;RwLock&lt;FileIndex&gt;&gt;,
+<a href=#143 id=143 data-nosnippet>143</a>	</span>file_index:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="State/CreateState.rs.html#170-187">FileIndex</a>&gt;&gt;,
 <a href=#144 id=144 data-nosnippet>144</a>
 <a href=#145 id=145 data-nosnippet>145</a>	<span class="doccomment">/// Index storage directory
-<a href=#146 id=146 data-nosnippet>146</a>	</span>index_directory:PathBuf,
+<a href=#146 id=146 data-nosnippet>146</a>	</span>index_directory:<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>,
 <a href=#147 id=147 data-nosnippet>147</a>
 <a href=#148 id=148 data-nosnippet>148</a>	<span class="doccomment">/// File watcher for incremental updates
-<a href=#149 id=149 data-nosnippet>149</a>	</span>file_watcher:Arc&lt;Mutex&lt;<span class="prelude-ty">Option</span>&lt;notify::RecommendedWatcher&gt;&gt;&gt;,
+<a href=#149 id=149 data-nosnippet>149</a>	</span>file_watcher:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;Mutex&lt;<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;notify::RecommendedWatcher&gt;&gt;&gt;,
 <a href=#150 id=150 data-nosnippet>150</a>
 <a href=#151 id=151 data-nosnippet>151</a>	<span class="doccomment">/// Semaphore for limiting parallel indexing operations
-<a href=#152 id=152 data-nosnippet>152</a>	</span>indexing_semaphore:Arc&lt;tokio::sync::Semaphore&gt;,
+<a href=#152 id=152 data-nosnippet>152</a>	</span>indexing_semaphore:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;tokio::sync::Semaphore&gt;,
 <a href=#153 id=153 data-nosnippet>153</a>
 <a href=#154 id=154 data-nosnippet>154</a>	<span class="doccomment">/// Index corruption detection state
-<a href=#155 id=155 data-nosnippet>155</a>	</span>corruption_detected:Arc&lt;Mutex&lt;bool&gt;&gt;,
+<a href=#155 id=155 data-nosnippet>155</a>	</span>corruption_detected:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;Mutex&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;&gt;,
 <a href=#156 id=156 data-nosnippet>156</a>}
 <a href=#157 id=157 data-nosnippet>157</a>
-<a href=#158 id=158 data-nosnippet>158</a><span class="kw">impl </span>FileIndexer {
+<a href=#158 id=158 data-nosnippet>158</a><span class="kw">impl </span><a href="#138-156">FileIndexer</a> {
 <a href=#159 id=159 data-nosnippet>159</a>	<span class="doccomment">/// Create a new file indexer with comprehensive setup
 <a href=#160 id=160 data-nosnippet>160</a>	///
 <a href=#161 id=161 data-nosnippet>161</a>	/// Initializes the indexer with:
@@ -163,7 +163,7 @@
 <a href=#163 id=163 data-nosnippet>163</a>	/// - Existing index loading or fresh creation
 <a href=#164 id=164 data-nosnippet>164</a>	/// - Index corruption detection
 <a href=#165 id=165 data-nosnippet>165</a>	/// - Service status initialization
-<a href=#166 id=166 data-nosnippet>166</a>	</span><span class="kw">pub async fn </span>new(AppState:Arc&lt;ApplicationState&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+<a href=#166 id=166 data-nosnippet>166</a>	</span><span class="kw">pub async fn </span>new(AppState:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../ApplicationState/mod.rs.html#103-124">ApplicationState</a>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
 <a href=#167 id=167 data-nosnippet>167</a>		<span class="kw">let </span>config = <span class="kw-2">&amp;</span>AppState.Configuration.Indexing;
 <a href=#168 id=168 data-nosnippet>168</a>
 <a href=#169 id=169 data-nosnippet>169</a>		<span class="comment">// Expand index directory path with validation
@@ -200,16 +200,16 @@
 <a href=#200 id=200 data-nosnippet>200</a>	}
 <a href=#201 id=201 data-nosnippet>201</a>
 <a href=#202 id=202 data-nosnippet>202</a>	<span class="doccomment">/// Validate and expand path with traversal protection
-<a href=#203 id=203 data-nosnippet>203</a>	</span><span class="kw">fn </span>ValidateAndExpandPath(path:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;PathBuf&gt; {
-<a href=#204 id=204 data-nosnippet>204</a>		<span class="kw">let </span>expanded = ConfigurationManager::ExpandPath(path)<span class="question-mark">?</span>;
+<a href=#203 id=203 data-nosnippet>203</a>	</span><span class="kw">fn </span>ValidateAndExpandPath(path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>&gt; {
+<a href=#204 id=204 data-nosnippet>204</a>		<span class="kw">let </span>expanded = <a href="../Configuration/mod.rs.html#674-686">ConfigurationManager</a>::<a href="../Configuration/mod.rs.html#1595-1613">ExpandPath</a>(<a href="#203">path</a>)<span class="question-mark">?</span>;
 <a href=#205 id=205 data-nosnippet>205</a>
 <a href=#206 id=206 data-nosnippet>206</a>		<span class="comment">// Prevent path traversal attacks
-<a href=#207 id=207 data-nosnippet>207</a>		</span><span class="kw">let </span>path_str = expanded.to_string_lossy();
-<a href=#208 id=208 data-nosnippet>208</a>		<span class="kw">if </span>path_str.contains(<span class="string">".."</span>) {
-<a href=#209 id=209 data-nosnippet>209</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(AirError::FileSystem(<span class="string">"Path contains invalid traversal sequence"</span>.to_string()));
+<a href=#207 id=207 data-nosnippet>207</a>		</span><span class="kw">let </span>path_str = <a href="#204">expanded</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.to_string_lossy">to_string_lossy</a>();
+<a href=#208 id=208 data-nosnippet>208</a>		<span class="kw">if </span><a href="#207">path_str</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.contains">contains</a>(<span class="string">".."</span>) {
+<a href=#209 id=209 data-nosnippet>209</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#249">FileSystem</a>(<span class="string">"Path contains invalid traversal sequence"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#210 id=210 data-nosnippet>210</a>		}
 <a href=#211 id=211 data-nosnippet>211</a>
-<a href=#212 id=212 data-nosnippet>212</a>		<span class="prelude-val">Ok</span>(expanded)
+<a href=#212 id=212 data-nosnippet>212</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="#204">expanded</a>)
 <a href=#213 id=213 data-nosnippet>213</a>	}
 <a href=#214 id=214 data-nosnippet>214</a>
 <a href=#215 id=215 data-nosnippet>215</a>	<span class="doccomment">/// Verify index integrity and detect corruption
@@ -237,7 +237,7 @@
 <a href=#237 id=237 data-nosnippet>237</a>	}
 <a href=#238 id=238 data-nosnippet>238</a>
 <a href=#239 id=239 data-nosnippet>239</a>	<span class="doccomment">/// Index a directory with comprehensive validation and parallel processing
-<a href=#240 id=240 data-nosnippet>240</a>	</span><span class="kw">pub async fn </span>IndexDirectory(<span class="kw-2">&amp;</span><span class="self">self</span>, path:String, patterns:Vec&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;IndexResult&gt; {
+<a href=#240 id=240 data-nosnippet>240</a>	</span><span class="kw">pub async fn </span>IndexDirectory(<span class="kw-2">&amp;</span><span class="self">self</span>, path:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, patterns:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;IndexResult&gt; {
 <a href=#241 id=241 data-nosnippet>241</a>		<span class="kw">let </span>start_time = std::time::Instant::now();
 <a href=#242 id=242 data-nosnippet>242</a>
 <a href=#243 id=243 data-nosnippet>243</a>		<span class="macro">log::info!</span>(<span class="string">"[FileIndexer] Starting directory index: {}"</span>, path);
@@ -245,12 +245,12 @@
 <a href=#245 id=245 data-nosnippet>245</a>		<span class="kw">let </span>config = <span class="kw-2">&amp;</span><span class="self">self</span>.AppState.Configuration.Indexing;
 <a href=#246 id=246 data-nosnippet>246</a>
 <a href=#247 id=247 data-nosnippet>247</a>		<span class="comment">// Scan directory
-<a href=#248 id=248 data-nosnippet>248</a>		</span><span class="kw">let </span>(files_to_index, scan_result) =
+<a href=#248 id=248 data-nosnippet>248</a>		</span><span class="kw">let </span>(files_to_index, _scan_result) =
 <a href=#249 id=249 data-nosnippet>249</a>			ScanDirectoriesParallel(<span class="macro">vec!</span>[path.clone()], patterns.clone(), config, MAX_PARALLEL_INDEXING).<span class="kw">await</span><span class="question-mark">?</span>;
 <a href=#250 id=250 data-nosnippet>250</a>
 <a href=#251 id=251 data-nosnippet>251</a>		<span class="comment">// Index files in parallel
 <a href=#252 id=252 data-nosnippet>252</a>		// Variables cloned for use in async task
-<a href=#253 id=253 data-nosnippet>253</a>		</span><span class="kw">let </span>index_arc = <span class="self">self</span>.file_index.clone();
+<a href=#253 id=253 data-nosnippet>253</a>		</span><span class="kw">let </span>_index_arc = <span class="self">self</span>.file_index.clone();
 <a href=#254 id=254 data-nosnippet>254</a>		<span class="kw">let </span>semaphore = <span class="self">self</span>.indexing_semaphore.clone();
 <a href=#255 id=255 data-nosnippet>255</a>		<span class="kw">let </span>config_clone = config.clone();
 <a href=#256 id=256 data-nosnippet>256</a>		<span class="kw">let </span><span class="kw-2">mut </span>index_tasks = Vec::new();
@@ -346,16 +346,16 @@
 <a href=#346 id=346 data-nosnippet>346</a>	<span class="doccomment">/// Search files with multiple modes
 <a href=#347 id=347 data-nosnippet>347</a>	</span><span class="kw">pub async fn </span>SearchFiles(
 <a href=#348 id=348 data-nosnippet>348</a>		<span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#349 id=349 data-nosnippet>349</a>		query:SearchQuery,
-<a href=#350 id=350 data-nosnippet>350</a>		path:<span class="prelude-ty">Option</span>&lt;String&gt;,
-<a href=#351 id=351 data-nosnippet>351</a>		language:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#349 id=349 data-nosnippet>349</a>		query:<a href="Store/QueryIndex.rs.html#79-94">SearchQuery</a>,
+<a href=#350 id=350 data-nosnippet>350</a>		path:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#351 id=351 data-nosnippet>351</a>		language:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#352 id=352 data-nosnippet>352</a>	) -&gt; <span class="prelude-ty">Result</span>&lt;PaginatedSearchResults&gt; {
 <a href=#353 id=353 data-nosnippet>353</a>		<span class="kw">let </span>index = <span class="self">self</span>.file_index.read().<span class="kw">await</span>;
 <a href=#354 id=354 data-nosnippet>354</a>		QueryIndexSearch(<span class="kw-2">&amp;</span>index, query, path, language).<span class="kw">await
 <a href=#355 id=355 data-nosnippet>355</a>	</span>}
 <a href=#356 id=356 data-nosnippet>356</a>
 <a href=#357 id=357 data-nosnippet>357</a>	<span class="doccomment">/// Search symbols across all files (for VSCode Go to Symbol)
-<a href=#358 id=358 data-nosnippet>358</a>	</span><span class="kw">pub async fn </span>SearchSymbols(<span class="kw-2">&amp;</span><span class="self">self</span>, query:<span class="kw-2">&amp;</span>str, max_results:u32) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;SymbolInfo&gt;&gt; {
+<a href=#358 id=358 data-nosnippet>358</a>	</span><span class="kw">pub async fn </span>SearchSymbols(<span class="kw-2">&amp;</span><span class="self">self</span>, query:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, max_results:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;SymbolInfo&gt;&gt; {
 <a href=#359 id=359 data-nosnippet>359</a>		<span class="kw">let </span>index = <span class="self">self</span>.file_index.read().<span class="kw">await</span>;
 <a href=#360 id=360 data-nosnippet>360</a>		<span class="kw">let </span>query_lower = query.to_lowercase();
 <a href=#361 id=361 data-nosnippet>361</a>		<span class="kw">let </span><span class="kw-2">mut </span>results = Vec::new();
@@ -375,13 +375,13 @@
 <a href=#375 id=375 data-nosnippet>375</a>	}
 <a href=#376 id=376 data-nosnippet>376</a>
 <a href=#377 id=377 data-nosnippet>377</a>	<span class="doccomment">/// Get symbols for a specific file (for VSCode Outline View)
-<a href=#378 id=378 data-nosnippet>378</a>	</span><span class="kw">pub async fn </span>GetFileSymbols(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span>PathBuf) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;SymbolInfo&gt;&gt; {
+<a href=#378 id=378 data-nosnippet>378</a>	</span><span class="kw">pub async fn </span>GetFileSymbols(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;SymbolInfo&gt;&gt; {
 <a href=#379 id=379 data-nosnippet>379</a>		<span class="kw">let </span>index = <span class="self">self</span>.file_index.read().<span class="kw">await</span>;
 <a href=#380 id=380 data-nosnippet>380</a>		<span class="prelude-val">Ok</span>(index.file_symbols.get(file_path).cloned().unwrap_or_default())
 <a href=#381 id=381 data-nosnippet>381</a>	}
 <a href=#382 id=382 data-nosnippet>382</a>
 <a href=#383 id=383 data-nosnippet>383</a>	<span class="doccomment">/// Get file information
-<a href=#384 id=384 data-nosnippet>384</a>	</span><span class="kw">pub async fn </span>GetFileInfo(<span class="kw-2">&amp;</span><span class="self">self</span>, path:String) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;FileMetadata&gt;&gt; {
+<a href=#384 id=384 data-nosnippet>384</a>	</span><span class="kw">pub async fn </span>GetFileInfo(<span class="kw-2">&amp;</span><span class="self">self</span>, path:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;FileMetadata&gt;&gt; {
 <a href=#385 id=385 data-nosnippet>385</a>		<span class="kw">let </span>file_path = <span class="self">Self</span>::ValidateAndExpandPath(<span class="kw-2">&amp;</span>path)<span class="question-mark">?</span>;
 <a href=#386 id=386 data-nosnippet>386</a>		<span class="kw">let </span>index = <span class="self">self</span>.file_index.read().<span class="kw">await</span>;
 <a href=#387 id=387 data-nosnippet>387</a>
@@ -432,15 +432,15 @@
 <a href=#432 id=432 data-nosnippet>432</a>	}
 <a href=#433 id=433 data-nosnippet>433</a>}
 <a href=#434 id=434 data-nosnippet>434</a>
-<a href=#435 id=435 data-nosnippet>435</a><span class="kw">impl </span>Clone <span class="kw">for </span>FileIndexer {
+<a href=#435 id=435 data-nosnippet>435</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a> <span class="kw">for </span><a href="#138-156">FileIndexer</a> {
 <a href=#436 id=436 data-nosnippet>436</a>	<span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
 <a href=#437 id=437 data-nosnippet>437</a>		<span class="self">Self </span>{
-<a href=#438 id=438 data-nosnippet>438</a>			AppState:<span class="self">self</span>.AppState.clone(),
-<a href=#439 id=439 data-nosnippet>439</a>			file_index:<span class="self">self</span>.file_index.clone(),
-<a href=#440 id=440 data-nosnippet>440</a>			index_directory:<span class="self">self</span>.index_directory.clone(),
-<a href=#441 id=441 data-nosnippet>441</a>			file_watcher:<span class="self">self</span>.file_watcher.clone(),
-<a href=#442 id=442 data-nosnippet>442</a>			indexing_semaphore:<span class="self">self</span>.indexing_semaphore.clone(),
-<a href=#443 id=443 data-nosnippet>443</a>			corruption_detected:<span class="self">self</span>.corruption_detected.clone(),
+<a href=#438 id=438 data-nosnippet>438</a>			AppState:<a class="self" href="#436">self</a>.AppState.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#439 id=439 data-nosnippet>439</a>			file_index:<a class="self" href="#436">self</a>.file_index.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#440 id=440 data-nosnippet>440</a>			index_directory:<a class="self" href="#436">self</a>.index_directory.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#441 id=441 data-nosnippet>441</a>			file_watcher:<a class="self" href="#436">self</a>.file_watcher.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#442 id=442 data-nosnippet>442</a>			indexing_semaphore:<a class="self" href="#436">self</a>.indexing_semaphore.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#443 id=443 data-nosnippet>443</a>			corruption_detected:<a class="self" href="#436">self</a>.corruption_detected.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
 <a href=#444 id=444 data-nosnippet>444</a>		}
 <a href=#445 id=445 data-nosnippet>445</a>	}
 <a href=#446 id=446 data-nosnippet>446</a>}

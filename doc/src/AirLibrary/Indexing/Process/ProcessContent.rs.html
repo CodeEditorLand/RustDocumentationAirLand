@@ -59,142 +59,142 @@
 <a href=#59 id=59 data-nosnippet>59</a>//! Content processing functions are pure and safe to call from
 <a href=#60 id=60 data-nosnippet>60</a>//! parallel indexing tasks.
 <a href=#61 id=61 data-nosnippet>61</a>
-<a href=#62 id=62 data-nosnippet>62</a></span><span class="kw">use </span>std::path::PathBuf;
+<a href=#62 id=62 data-nosnippet>62</a></span><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">std::path::PathBuf</a>;
 <a href=#63 id=63 data-nosnippet>63</a>
-<a href=#64 id=64 data-nosnippet>64</a><span class="kw">use </span><span class="kw">crate</span>::Result;
+<a href=#64 id=64 data-nosnippet>64</a><span class="kw">use </span><a href="../../Library.rs.html#338"><span class="kw">crate</span>::Result</a>;
 <a href=#65 id=65 data-nosnippet>65</a>
 <a href=#66 id=66 data-nosnippet>66</a><span class="doccomment">/// Detect file encoding (simplified detection)
-<a href=#67 id=67 data-nosnippet>67</a></span><span class="kw">pub fn </span>DetectEncoding(content:<span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
-<a href=#68 id=68 data-nosnippet>68</a>	<span class="kw">if </span>content.is_empty() {
-<a href=#69 id=69 data-nosnippet>69</a>		<span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#67 id=67 data-nosnippet>67</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.DetectEncoding.html">DetectEncoding</a>(content:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#68 id=68 data-nosnippet>68</a>	<span class="kw">if </span><a href="#67">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.is_empty">is_empty</a>() {
+<a href=#69 id=69 data-nosnippet>69</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
 <a href=#70 id=70 data-nosnippet>70</a>	}
 <a href=#71 id=71 data-nosnippet>71</a>
 <a href=#72 id=72 data-nosnippet>72</a>	<span class="comment">// Check for BOM markers
-<a href=#73 id=73 data-nosnippet>73</a>	</span><span class="kw">if </span>content.starts_with(<span class="kw-2">&amp;</span>[<span class="number">0xEF</span>, <span class="number">0xBB</span>, <span class="number">0xBF</span>]) {
-<a href=#74 id=74 data-nosnippet>74</a>		<span class="kw">return </span><span class="prelude-val">Some</span>(<span class="string">"UTF-8 (BOM)"</span>.to_string());
+<a href=#73 id=73 data-nosnippet>73</a>	</span><span class="kw">if </span><a href="#67">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="kw-2">&amp;</span>[<span class="number">0xEF</span>, <span class="number">0xBB</span>, <span class="number">0xBF</span>]) {
+<a href=#74 id=74 data-nosnippet>74</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="string">"UTF-8 (BOM)"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#75 id=75 data-nosnippet>75</a>	}
 <a href=#76 id=76 data-nosnippet>76</a>
-<a href=#77 id=77 data-nosnippet>77</a>	<span class="kw">if </span>content.starts_with(<span class="kw-2">&amp;</span>[<span class="number">0xFE</span>, <span class="number">0xFF</span>]) {
-<a href=#78 id=78 data-nosnippet>78</a>		<span class="kw">return </span><span class="prelude-val">Some</span>(<span class="string">"UTF-16 (BE)"</span>.to_string());
+<a href=#77 id=77 data-nosnippet>77</a>	<span class="kw">if </span><a href="#67">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="kw-2">&amp;</span>[<span class="number">0xFE</span>, <span class="number">0xFF</span>]) {
+<a href=#78 id=78 data-nosnippet>78</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="string">"UTF-16 (BE)"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#79 id=79 data-nosnippet>79</a>	}
 <a href=#80 id=80 data-nosnippet>80</a>
-<a href=#81 id=81 data-nosnippet>81</a>	<span class="kw">if </span>content.starts_with(<span class="kw-2">&amp;</span>[<span class="number">0xFF</span>, <span class="number">0xFE</span>]) {
-<a href=#82 id=82 data-nosnippet>82</a>		<span class="kw">return </span><span class="prelude-val">Some</span>(<span class="string">"UTF-16 (LE)"</span>.to_string());
+<a href=#81 id=81 data-nosnippet>81</a>	<span class="kw">if </span><a href="#67">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="kw-2">&amp;</span>[<span class="number">0xFF</span>, <span class="number">0xFE</span>]) {
+<a href=#82 id=82 data-nosnippet>82</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="string">"UTF-16 (LE)"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#83 id=83 data-nosnippet>83</a>	}
 <a href=#84 id=84 data-nosnippet>84</a>
-<a href=#85 id=85 data-nosnippet>85</a>	<span class="kw">if </span>content.starts_with(<span class="kw-2">&amp;</span>[<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xFE</span>, <span class="number">0xFF</span>]) {
-<a href=#86 id=86 data-nosnippet>86</a>		<span class="kw">return </span><span class="prelude-val">Some</span>(<span class="string">"UTF-32 (BE)"</span>.to_string());
+<a href=#85 id=85 data-nosnippet>85</a>	<span class="kw">if </span><a href="#67">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="kw-2">&amp;</span>[<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xFE</span>, <span class="number">0xFF</span>]) {
+<a href=#86 id=86 data-nosnippet>86</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="string">"UTF-32 (BE)"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#87 id=87 data-nosnippet>87</a>	}
 <a href=#88 id=88 data-nosnippet>88</a>
-<a href=#89 id=89 data-nosnippet>89</a>	<span class="kw">if </span>content.starts_with(<span class="kw-2">&amp;</span>[<span class="number">0xFF</span>, <span class="number">0xFE</span>, <span class="number">0x00</span>, <span class="number">0x00</span>]) {
-<a href=#90 id=90 data-nosnippet>90</a>		<span class="kw">return </span><span class="prelude-val">Some</span>(<span class="string">"UTF-32 (LE)"</span>.to_string());
+<a href=#89 id=89 data-nosnippet>89</a>	<span class="kw">if </span><a href="#67">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="kw-2">&amp;</span>[<span class="number">0xFF</span>, <span class="number">0xFE</span>, <span class="number">0x00</span>, <span class="number">0x00</span>]) {
+<a href=#90 id=90 data-nosnippet>90</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="string">"UTF-32 (LE)"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#91 id=91 data-nosnippet>91</a>	}
 <a href=#92 id=92 data-nosnippet>92</a>
 <a href=#93 id=93 data-nosnippet>93</a>	<span class="comment">// Check if all bytes are ASCII
-<a href=#94 id=94 data-nosnippet>94</a>	</span><span class="kw">if </span>content.iter().all(|<span class="kw-2">&amp;</span>b| b.is_ascii()) {
-<a href=#95 id=95 data-nosnippet>95</a>		<span class="kw">return </span><span class="prelude-val">Some</span>(<span class="string">"ASCII"</span>.to_string());
+<a href=#94 id=94 data-nosnippet>94</a>	</span><span class="kw">if </span><a href="#67">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.all">all</a>(|<span class="kw-2">&amp;</span>b| <a href="#94">b</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.num.html#method.is_ascii">is_ascii</a>()) {
+<a href=#95 id=95 data-nosnippet>95</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="string">"ASCII"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#96 id=96 data-nosnippet>96</a>	}
 <a href=#97 id=97 data-nosnippet>97</a>
 <a href=#98 id=98 data-nosnippet>98</a>	<span class="comment">// Assume UTF-8 for other cases
-<a href=#99 id=99 data-nosnippet>99</a>	</span><span class="prelude-val">Some</span>(<span class="string">"UTF-8"</span>.to_string())
+<a href=#99 id=99 data-nosnippet>99</a>	</span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="string">"UTF-8"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
 <a href=#100 id=100 data-nosnippet>100</a>}
 <a href=#101 id=101 data-nosnippet>101</a>
 <a href=#102 id=102 data-nosnippet>102</a><span class="doccomment">/// Detect MIME type with comprehensive file type detection
-<a href=#103 id=103 data-nosnippet>103</a></span><span class="kw">pub fn </span>DetectMimeType(file_path:<span class="kw-2">&amp;</span>PathBuf, content:<span class="kw-2">&amp;</span>[u8]) -&gt; String {
-<a href=#104 id=104 data-nosnippet>104</a>	<span class="kw">if let </span><span class="prelude-val">Some</span>(extension) = file_path.extension() {
-<a href=#105 id=105 data-nosnippet>105</a>		<span class="kw">match </span>extension.to_string_lossy().to_lowercase().as_str() {
-<a href=#106 id=106 data-nosnippet>106</a>			<span class="string">"rs" </span>=&gt; <span class="string">"text/x-rust"</span>.to_string(),
-<a href=#107 id=107 data-nosnippet>107</a>			<span class="string">"ts" </span>=&gt; <span class="string">"text/x-typescript"</span>.to_string(),
-<a href=#108 id=108 data-nosnippet>108</a>			<span class="string">"tsx" </span>=&gt; <span class="string">"text/typescript-jsx"</span>.to_string(),
-<a href=#109 id=109 data-nosnippet>109</a>			<span class="string">"js" </span>=&gt; <span class="string">"text/javascript"</span>.to_string(),
-<a href=#110 id=110 data-nosnippet>110</a>			<span class="string">"jsx" </span>=&gt; <span class="string">"text/javascript-jsx"</span>.to_string(),
-<a href=#111 id=111 data-nosnippet>111</a>			<span class="string">"mjs" </span>=&gt; <span class="string">"text/javascript"</span>.to_string(),
-<a href=#112 id=112 data-nosnippet>112</a>			<span class="string">"cjs" </span>=&gt; <span class="string">"text/javascript"</span>.to_string(),
-<a href=#113 id=113 data-nosnippet>113</a>			<span class="string">"json" </span>=&gt; <span class="string">"application/json"</span>.to_string(),
-<a href=#114 id=114 data-nosnippet>114</a>			<span class="string">"jsonc" </span>=&gt; <span class="string">"application/json+comments"</span>.to_string(),
-<a href=#115 id=115 data-nosnippet>115</a>			<span class="string">"toml" </span>=&gt; <span class="string">"text/x-toml"</span>.to_string(),
-<a href=#116 id=116 data-nosnippet>116</a>			<span class="string">"yaml" </span>| <span class="string">"yml" </span>=&gt; <span class="string">"text/x-yaml"</span>.to_string(),
-<a href=#117 id=117 data-nosnippet>117</a>			<span class="string">"md" </span>=&gt; <span class="string">"text/markdown"</span>.to_string(),
-<a href=#118 id=118 data-nosnippet>118</a>			<span class="string">"mdx" </span>=&gt; <span class="string">"text/markdown-jsx"</span>.to_string(),
-<a href=#119 id=119 data-nosnippet>119</a>			<span class="string">"txt" </span>=&gt; <span class="string">"text/plain"</span>.to_string(),
-<a href=#120 id=120 data-nosnippet>120</a>			<span class="string">"html" </span>| <span class="string">"htm" </span>=&gt; <span class="string">"text/html"</span>.to_string(),
-<a href=#121 id=121 data-nosnippet>121</a>			<span class="string">"css" </span>=&gt; <span class="string">"text/css"</span>.to_string(),
-<a href=#122 id=122 data-nosnippet>122</a>			<span class="string">"scss" </span>=&gt; <span class="string">"text/x-scss"</span>.to_string(),
-<a href=#123 id=123 data-nosnippet>123</a>			<span class="string">"sass" </span>=&gt; <span class="string">"text/x-sass"</span>.to_string(),
-<a href=#124 id=124 data-nosnippet>124</a>			<span class="string">"less" </span>=&gt; <span class="string">"text/x-less"</span>.to_string(),
-<a href=#125 id=125 data-nosnippet>125</a>			<span class="string">"xml" </span>=&gt; <span class="string">"application/xml"</span>.to_string(),
-<a href=#126 id=126 data-nosnippet>126</a>			<span class="string">"py" </span>=&gt; <span class="string">"text/x-python"</span>.to_string(),
-<a href=#127 id=127 data-nosnippet>127</a>			<span class="string">"java" </span>=&gt; <span class="string">"text/x-java"</span>.to_string(),
-<a href=#128 id=128 data-nosnippet>128</a>			<span class="string">"go" </span>=&gt; <span class="string">"text/x-go"</span>.to_string(),
-<a href=#129 id=129 data-nosnippet>129</a>			<span class="string">"sh" </span>=&gt; <span class="string">"text/x-shellscript"</span>.to_string(),
-<a href=#130 id=130 data-nosnippet>130</a>			<span class="string">"bash" </span>=&gt; <span class="string">"text/x-shellscript"</span>.to_string(),
-<a href=#131 id=131 data-nosnippet>131</a>			<span class="string">"zsh" </span>=&gt; <span class="string">"text/x-shellscript"</span>.to_string(),
-<a href=#132 id=132 data-nosnippet>132</a>			<span class="string">"fish" </span>=&gt; <span class="string">"text/x-shellscript"</span>.to_string(),
-<a href=#133 id=133 data-nosnippet>133</a>			<span class="string">"rb" </span>=&gt; <span class="string">"text/x-ruby"</span>.to_string(),
-<a href=#134 id=134 data-nosnippet>134</a>			<span class="string">"php" </span>=&gt; <span class="string">"text/x-php"</span>.to_string(),
-<a href=#135 id=135 data-nosnippet>135</a>			<span class="string">"swift" </span>=&gt; <span class="string">"text/x-swift"</span>.to_string(),
-<a href=#136 id=136 data-nosnippet>136</a>			<span class="string">"kt" </span>| <span class="string">"kts" </span>=&gt; <span class="string">"text/x-kotlin"</span>.to_string(),
-<a href=#137 id=137 data-nosnippet>137</a>			<span class="string">"scala" </span>=&gt; <span class="string">"text/x-scala"</span>.to_string(),
-<a href=#138 id=138 data-nosnippet>138</a>			<span class="string">"cs" </span>=&gt; <span class="string">"text/x-csharp"</span>.to_string(),
-<a href=#139 id=139 data-nosnippet>139</a>			<span class="string">"vb" </span>=&gt; <span class="string">"text/x-vbnet"</span>.to_string(),
-<a href=#140 id=140 data-nosnippet>140</a>			<span class="string">"f#" </span>=&gt; <span class="string">"text/x-fsharp"</span>.to_string(),
-<a href=#141 id=141 data-nosnippet>141</a>			<span class="string">"r" </span>=&gt; <span class="string">"text/x-r"</span>.to_string(),
-<a href=#142 id=142 data-nosnippet>142</a>			<span class="string">"lua" </span>=&gt; <span class="string">"text/x-lua"</span>.to_string(),
-<a href=#143 id=143 data-nosnippet>143</a>			<span class="string">"pl" </span>=&gt; <span class="string">"text/x-perl"</span>.to_string(),
-<a href=#144 id=144 data-nosnippet>144</a>			<span class="string">"ps1" </span>=&gt; <span class="string">"text/x-powershell"</span>.to_string(),
-<a href=#145 id=145 data-nosnippet>145</a>			<span class="string">"sql" </span>=&gt; <span class="string">"text/x-sql"</span>.to_string(),
-<a href=#146 id=146 data-nosnippet>146</a>			<span class="string">"graphql" </span>| <span class="string">"gql" </span>=&gt; <span class="string">"application/graphql"</span>.to_string(),
-<a href=#147 id=147 data-nosnippet>147</a>			<span class="string">"graphqls" </span>=&gt; <span class="string">"application/graphql"</span>.to_string(),
-<a href=#148 id=148 data-nosnippet>148</a>			<span class="string">"proto" </span>=&gt; <span class="string">"text/x-protobuf"</span>.to_string(),
-<a href=#149 id=149 data-nosnippet>149</a>			<span class="string">"wasm" </span>=&gt; <span class="string">"application/wasm"</span>.to_string(),
-<a href=#150 id=150 data-nosnippet>150</a>			<span class="string">"wat" </span>=&gt; <span class="string">"text/x-wat"</span>.to_string(),
-<a href=#151 id=151 data-nosnippet>151</a>			<span class="string">"lock" </span>=&gt; <span class="string">"application/json"</span>.to_string(),
-<a href=#152 id=152 data-nosnippet>152</a>			<span class="string">"graphqlconfig" </span>=&gt; <span class="string">"application/json"</span>.to_string(),
-<a href=#153 id=153 data-nosnippet>153</a>			<span class="string">"graphqlrc" </span>=&gt; <span class="string">"application/json"</span>.to_string(),
-<a href=#154 id=154 data-nosnippet>154</a>			<span class="string">"graphqlconfig.yaml" </span>| <span class="string">"graphqlrc.yaml" </span>=&gt; <span class="string">"text/x-yaml"</span>.to_string(),
-<a href=#155 id=155 data-nosnippet>155</a>			<span class="string">"graphqlrc.yml" </span>=&gt; <span class="string">"text/x-yaml"</span>.to_string(),
-<a href=#156 id=156 data-nosnippet>156</a>			<span class="string">"graphqlconfig.json" </span>| <span class="string">"graphqlrc.json" </span>=&gt; <span class="string">"application/json"</span>.to_string(),
-<a href=#157 id=157 data-nosnippet>157</a>			<span class="string">"graphqlconfig.js" </span>| <span class="string">"graphqlrc.js" </span>=&gt; <span class="string">"text/javascript"</span>.to_string(),
-<a href=#158 id=158 data-nosnippet>158</a>			<span class="string">"graphqlconfig.ts" </span>| <span class="string">"graphqlrc.ts" </span>=&gt; <span class="string">"text/x-typescript"</span>.to_string(),
-<a href=#159 id=159 data-nosnippet>159</a>			<span class="string">"graphqlconfig.toml" </span>| <span class="string">"graphqlrc.toml" </span>=&gt; <span class="string">"text/x-toml"</span>.to_string(),
+<a href=#103 id=103 data-nosnippet>103</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.DetectMimeType.html">DetectMimeType</a>(file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, content:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
+<a href=#104 id=104 data-nosnippet>104</a>	<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(extension) = <a href="#103">file_path</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.extension">extension</a>() {
+<a href=#105 id=105 data-nosnippet>105</a>		<span class="kw">match </span><a href="#104">extension</a>.<a href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html#method.to_string_lossy">to_string_lossy</a>().<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.str.html#method.to_lowercase">to_lowercase</a>().<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.as_str">as_str</a>() {
+<a href=#106 id=106 data-nosnippet>106</a>			<span class="string">"rs" </span>=&gt; <span class="string">"text/x-rust"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#107 id=107 data-nosnippet>107</a>			<span class="string">"ts" </span>=&gt; <span class="string">"text/x-typescript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#108 id=108 data-nosnippet>108</a>			<span class="string">"tsx" </span>=&gt; <span class="string">"text/typescript-jsx"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#109 id=109 data-nosnippet>109</a>			<span class="string">"js" </span>=&gt; <span class="string">"text/javascript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#110 id=110 data-nosnippet>110</a>			<span class="string">"jsx" </span>=&gt; <span class="string">"text/javascript-jsx"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#111 id=111 data-nosnippet>111</a>			<span class="string">"mjs" </span>=&gt; <span class="string">"text/javascript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#112 id=112 data-nosnippet>112</a>			<span class="string">"cjs" </span>=&gt; <span class="string">"text/javascript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#113 id=113 data-nosnippet>113</a>			<span class="string">"json" </span>=&gt; <span class="string">"application/json"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#114 id=114 data-nosnippet>114</a>			<span class="string">"jsonc" </span>=&gt; <span class="string">"application/json+comments"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#115 id=115 data-nosnippet>115</a>			<span class="string">"toml" </span>=&gt; <span class="string">"text/x-toml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#116 id=116 data-nosnippet>116</a>			<span class="string">"yaml" </span>| <span class="string">"yml" </span>=&gt; <span class="string">"text/x-yaml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#117 id=117 data-nosnippet>117</a>			<span class="string">"md" </span>=&gt; <span class="string">"text/markdown"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#118 id=118 data-nosnippet>118</a>			<span class="string">"mdx" </span>=&gt; <span class="string">"text/markdown-jsx"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#119 id=119 data-nosnippet>119</a>			<span class="string">"txt" </span>=&gt; <span class="string">"text/plain"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#120 id=120 data-nosnippet>120</a>			<span class="string">"html" </span>| <span class="string">"htm" </span>=&gt; <span class="string">"text/html"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#121 id=121 data-nosnippet>121</a>			<span class="string">"css" </span>=&gt; <span class="string">"text/css"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#122 id=122 data-nosnippet>122</a>			<span class="string">"scss" </span>=&gt; <span class="string">"text/x-scss"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#123 id=123 data-nosnippet>123</a>			<span class="string">"sass" </span>=&gt; <span class="string">"text/x-sass"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#124 id=124 data-nosnippet>124</a>			<span class="string">"less" </span>=&gt; <span class="string">"text/x-less"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#125 id=125 data-nosnippet>125</a>			<span class="string">"xml" </span>=&gt; <span class="string">"application/xml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#126 id=126 data-nosnippet>126</a>			<span class="string">"py" </span>=&gt; <span class="string">"text/x-python"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#127 id=127 data-nosnippet>127</a>			<span class="string">"java" </span>=&gt; <span class="string">"text/x-java"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#128 id=128 data-nosnippet>128</a>			<span class="string">"go" </span>=&gt; <span class="string">"text/x-go"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#129 id=129 data-nosnippet>129</a>			<span class="string">"sh" </span>=&gt; <span class="string">"text/x-shellscript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#130 id=130 data-nosnippet>130</a>			<span class="string">"bash" </span>=&gt; <span class="string">"text/x-shellscript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#131 id=131 data-nosnippet>131</a>			<span class="string">"zsh" </span>=&gt; <span class="string">"text/x-shellscript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#132 id=132 data-nosnippet>132</a>			<span class="string">"fish" </span>=&gt; <span class="string">"text/x-shellscript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#133 id=133 data-nosnippet>133</a>			<span class="string">"rb" </span>=&gt; <span class="string">"text/x-ruby"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#134 id=134 data-nosnippet>134</a>			<span class="string">"php" </span>=&gt; <span class="string">"text/x-php"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#135 id=135 data-nosnippet>135</a>			<span class="string">"swift" </span>=&gt; <span class="string">"text/x-swift"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#136 id=136 data-nosnippet>136</a>			<span class="string">"kt" </span>| <span class="string">"kts" </span>=&gt; <span class="string">"text/x-kotlin"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#137 id=137 data-nosnippet>137</a>			<span class="string">"scala" </span>=&gt; <span class="string">"text/x-scala"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#138 id=138 data-nosnippet>138</a>			<span class="string">"cs" </span>=&gt; <span class="string">"text/x-csharp"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#139 id=139 data-nosnippet>139</a>			<span class="string">"vb" </span>=&gt; <span class="string">"text/x-vbnet"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#140 id=140 data-nosnippet>140</a>			<span class="string">"f#" </span>=&gt; <span class="string">"text/x-fsharp"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#141 id=141 data-nosnippet>141</a>			<span class="string">"r" </span>=&gt; <span class="string">"text/x-r"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#142 id=142 data-nosnippet>142</a>			<span class="string">"lua" </span>=&gt; <span class="string">"text/x-lua"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#143 id=143 data-nosnippet>143</a>			<span class="string">"pl" </span>=&gt; <span class="string">"text/x-perl"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#144 id=144 data-nosnippet>144</a>			<span class="string">"ps1" </span>=&gt; <span class="string">"text/x-powershell"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#145 id=145 data-nosnippet>145</a>			<span class="string">"sql" </span>=&gt; <span class="string">"text/x-sql"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#146 id=146 data-nosnippet>146</a>			<span class="string">"graphql" </span>| <span class="string">"gql" </span>=&gt; <span class="string">"application/graphql"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#147 id=147 data-nosnippet>147</a>			<span class="string">"graphqls" </span>=&gt; <span class="string">"application/graphql"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#148 id=148 data-nosnippet>148</a>			<span class="string">"proto" </span>=&gt; <span class="string">"text/x-protobuf"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#149 id=149 data-nosnippet>149</a>			<span class="string">"wasm" </span>=&gt; <span class="string">"application/wasm"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#150 id=150 data-nosnippet>150</a>			<span class="string">"wat" </span>=&gt; <span class="string">"text/x-wat"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#151 id=151 data-nosnippet>151</a>			<span class="string">"lock" </span>=&gt; <span class="string">"application/json"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#152 id=152 data-nosnippet>152</a>			<span class="string">"graphqlconfig" </span>=&gt; <span class="string">"application/json"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#153 id=153 data-nosnippet>153</a>			<span class="string">"graphqlrc" </span>=&gt; <span class="string">"application/json"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#154 id=154 data-nosnippet>154</a>			<span class="string">"graphqlconfig.yaml" </span>| <span class="string">"graphqlrc.yaml" </span>=&gt; <span class="string">"text/x-yaml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#155 id=155 data-nosnippet>155</a>			<span class="string">"graphqlrc.yml" </span>=&gt; <span class="string">"text/x-yaml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#156 id=156 data-nosnippet>156</a>			<span class="string">"graphqlconfig.json" </span>| <span class="string">"graphqlrc.json" </span>=&gt; <span class="string">"application/json"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#157 id=157 data-nosnippet>157</a>			<span class="string">"graphqlconfig.js" </span>| <span class="string">"graphqlrc.js" </span>=&gt; <span class="string">"text/javascript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#158 id=158 data-nosnippet>158</a>			<span class="string">"graphqlconfig.ts" </span>| <span class="string">"graphqlrc.ts" </span>=&gt; <span class="string">"text/x-typescript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#159 id=159 data-nosnippet>159</a>			<span class="string">"graphqlconfig.toml" </span>| <span class="string">"graphqlrc.toml" </span>=&gt; <span class="string">"text/x-toml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
 <a href=#160 id=160 data-nosnippet>160</a>			<span class="kw">_ </span>=&gt; {
 <a href=#161 id=161 data-nosnippet>161</a>				<span class="comment">// Use content-based detection
-<a href=#162 id=162 data-nosnippet>162</a>				</span>DetectMimeTypeFromContent(content)
+<a href=#162 id=162 data-nosnippet>162</a>				</span><a href="#172-192">DetectMimeTypeFromContent</a>(<a href="#103">content</a>)
 <a href=#163 id=163 data-nosnippet>163</a>			},
 <a href=#164 id=164 data-nosnippet>164</a>		}
 <a href=#165 id=165 data-nosnippet>165</a>	} <span class="kw">else </span>{
 <a href=#166 id=166 data-nosnippet>166</a>		<span class="comment">// No extension, try content-based detection
-<a href=#167 id=167 data-nosnippet>167</a>		</span>DetectMimeTypeFromContent(content)
+<a href=#167 id=167 data-nosnippet>167</a>		</span><a href="#172-192">DetectMimeTypeFromContent</a>(<a href="#103">content</a>)
 <a href=#168 id=168 data-nosnippet>168</a>	}
 <a href=#169 id=169 data-nosnippet>169</a>}
 <a href=#170 id=170 data-nosnippet>170</a>
 <a href=#171 id=171 data-nosnippet>171</a><span class="doccomment">/// Detect MIME type from content (magic numbers)
-<a href=#172 id=172 data-nosnippet>172</a></span><span class="kw">fn </span>DetectMimeTypeFromContent(content:<span class="kw-2">&amp;</span>[u8]) -&gt; String {
-<a href=#173 id=173 data-nosnippet>173</a>	<span class="kw">if </span>content.is_empty() {
-<a href=#174 id=174 data-nosnippet>174</a>		<span class="kw">return </span><span class="string">"application/octet-stream"</span>.to_string();
+<a href=#172 id=172 data-nosnippet>172</a></span><span class="kw">fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.DetectMimeTypeFromContent.html">DetectMimeTypeFromContent</a>(content:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
+<a href=#173 id=173 data-nosnippet>173</a>	<span class="kw">if </span><a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.is_empty">is_empty</a>() {
+<a href=#174 id=174 data-nosnippet>174</a>		<span class="kw">return </span><span class="string">"application/octet-stream"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>();
 <a href=#175 id=175 data-nosnippet>175</a>	}
 <a href=#176 id=176 data-nosnippet>176</a>
-<a href=#177 id=177 data-nosnippet>177</a>	<span class="kw">if </span>content.starts_with(<span class="string">b"{"</span>) || content.starts_with(<span class="string">b"["</span>) {
-<a href=#178 id=178 data-nosnippet>178</a>		<span class="string">"application/json"</span>.to_string()
-<a href=#179 id=179 data-nosnippet>179</a>	} <span class="kw">else if </span>content.starts_with(<span class="string">b"#!"</span>) {
-<a href=#180 id=180 data-nosnippet>180</a>		<span class="string">"text/x-shellscript"</span>.to_string()
-<a href=#181 id=181 data-nosnippet>181</a>	} <span class="kw">else if </span>content.starts_with(<span class="string">b"&lt;?xml"</span>) {
-<a href=#182 id=182 data-nosnippet>182</a>		<span class="string">"application/xml"</span>.to_string()
-<a href=#183 id=183 data-nosnippet>183</a>	} <span class="kw">else if </span>content.starts_with(<span class="string">b"&lt;!DOCTYPE"</span>) || content.starts_with(<span class="string">b"&lt;html"</span>) {
-<a href=#184 id=184 data-nosnippet>184</a>		<span class="string">"text/html"</span>.to_string()
-<a href=#185 id=185 data-nosnippet>185</a>	} <span class="kw">else if </span>content.starts_with(<span class="string">b"---"</span>) {
-<a href=#186 id=186 data-nosnippet>186</a>		<span class="string">"text/x-yaml"</span>.to_string()
-<a href=#187 id=187 data-nosnippet>187</a>	} <span class="kw">else if </span>content.is_ascii() &amp;&amp; !content.windows(<span class="number">4</span>).any(|w| w.starts_with(<span class="kw-2">&amp;</span>[<span class="number">0u8</span>])) {
-<a href=#188 id=188 data-nosnippet>188</a>		<span class="string">"text/plain"</span>.to_string()
+<a href=#177 id=177 data-nosnippet>177</a>	<span class="kw">if </span><a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="string">b"{"</span>) || <a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="string">b"["</span>) {
+<a href=#178 id=178 data-nosnippet>178</a>		<span class="string">"application/json"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
+<a href=#179 id=179 data-nosnippet>179</a>	} <span class="kw">else if </span><a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="string">b"#!"</span>) {
+<a href=#180 id=180 data-nosnippet>180</a>		<span class="string">"text/x-shellscript"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
+<a href=#181 id=181 data-nosnippet>181</a>	} <span class="kw">else if </span><a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="string">b"&lt;?xml"</span>) {
+<a href=#182 id=182 data-nosnippet>182</a>		<span class="string">"application/xml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
+<a href=#183 id=183 data-nosnippet>183</a>	} <span class="kw">else if </span><a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="string">b"&lt;!DOCTYPE"</span>) || <a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="string">b"&lt;html"</span>) {
+<a href=#184 id=184 data-nosnippet>184</a>		<span class="string">"text/html"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
+<a href=#185 id=185 data-nosnippet>185</a>	} <span class="kw">else if </span><a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="string">b"---"</span>) {
+<a href=#186 id=186 data-nosnippet>186</a>		<span class="string">"text/x-yaml"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
+<a href=#187 id=187 data-nosnippet>187</a>	} <span class="kw">else if </span><a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/slice/foreigntype.ascii.html#method.is_ascii">is_ascii</a>() &amp;&amp; !<a href="#172">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.windows">windows</a>(<span class="number">4</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.any">any</a>(|w| <a href="#187">w</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.starts_with">starts_with</a>(<span class="kw-2">&amp;</span>[<span class="number">0u8</span>])) {
+<a href=#188 id=188 data-nosnippet>188</a>		<span class="string">"text/plain"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
 <a href=#189 id=189 data-nosnippet>189</a>	} <span class="kw">else </span>{
-<a href=#190 id=190 data-nosnippet>190</a>		<span class="string">"application/octet-stream"</span>.to_string()
+<a href=#190 id=190 data-nosnippet>190</a>		<span class="string">"application/octet-stream"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
 <a href=#191 id=191 data-nosnippet>191</a>	}
 <a href=#192 id=192 data-nosnippet>192</a>}
 <a href=#193 id=193 data-nosnippet>193</a>
 <a href=#194 id=194 data-nosnippet>194</a><span class="doccomment">/// Detect programming language from file extension and shebang
-<a href=#195 id=195 data-nosnippet>195</a></span><span class="kw">pub fn </span>DetectLanguage(file_path:<span class="kw-2">&amp;</span>PathBuf) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
-<a href=#196 id=196 data-nosnippet>196</a>	<span class="kw">if let </span><span class="prelude-val">Some</span>(extension) = file_path.extension() {
-<a href=#197 id=197 data-nosnippet>197</a>		<span class="kw">let </span>lang = <span class="kw">match </span>extension.to_string_lossy().to_lowercase().as_str() {
+<a href=#195 id=195 data-nosnippet>195</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.DetectLanguage.html">DetectLanguage</a>(file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#196 id=196 data-nosnippet>196</a>	<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(extension) = <a href="#195">file_path</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.extension">extension</a>() {
+<a href=#197 id=197 data-nosnippet>197</a>		<span class="kw">let </span>lang = <span class="kw">match </span><a href="#196">extension</a>.<a href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html#method.to_string_lossy">to_string_lossy</a>().<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.str.html#method.to_lowercase">to_lowercase</a>().<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.as_str">as_str</a>() {
 <a href=#198 id=198 data-nosnippet>198</a>			<span class="string">"rs" </span>=&gt; <span class="string">"rust"</span>,
 <a href=#199 id=199 data-nosnippet>199</a>			<span class="string">"ts" </span>| <span class="string">"tsx" </span>=&gt; <span class="string">"typescript"</span>,
 <a href=#200 id=200 data-nosnippet>200</a>			<span class="string">"js" </span>| <span class="string">"jsx" </span>| <span class="string">"mjs" </span>| <span class="string">"cjs" </span>=&gt; <span class="string">"javascript"</span>,
@@ -245,17 +245,17 @@
 <a href=#245 id=245 data-nosnippet>245</a>			<span class="string">"zig" </span>=&gt; <span class="string">"zig"</span>,
 <a href=#246 id=246 data-nosnippet>246</a>			<span class="string">"odin" </span>=&gt; <span class="string">"odin"</span>,
 <a href=#247 id=247 data-nosnippet>247</a>			<span class="string">"mojo" </span>=&gt; <span class="string">"mojo"</span>,
-<a href=#248 id=248 data-nosnippet>248</a>			<span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
+<a href=#248 id=248 data-nosnippet>248</a>			<span class="kw">_ </span>=&gt; <span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
 <a href=#249 id=249 data-nosnippet>249</a>		};
-<a href=#250 id=250 data-nosnippet>250</a>		<span class="kw">return </span><span class="prelude-val">Some</span>(lang.to_string());
+<a href=#250 id=250 data-nosnippet>250</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#197">lang</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#251 id=251 data-nosnippet>251</a>	}
 <a href=#252 id=252 data-nosnippet>252</a>
 <a href=#253 id=253 data-nosnippet>253</a>	<span class="comment">// Try to detect from shebang
-<a href=#254 id=254 data-nosnippet>254</a>	</span><span class="kw">if let </span><span class="prelude-val">Ok</span>(content) = std::fs::read_to_string(file_path) {
-<a href=#255 id=255 data-nosnippet>255</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(first_line) = content.lines().next() {
-<a href=#256 id=256 data-nosnippet>256</a>			<span class="kw">if </span>first_line.starts_with(<span class="string">"#!"</span>) {
-<a href=#257 id=257 data-nosnippet>257</a>				<span class="kw">let </span>shebang_path = first_line.split_whitespace().nth(<span class="number">1</span>).unwrap_or(<span class="string">""</span>);
-<a href=#258 id=258 data-nosnippet>258</a>				<span class="kw">let </span>lang = <span class="kw">match </span>shebang_path.rsplit(<span class="string">'/'</span>).next().unwrap_or(<span class="string">""</span>) {
+<a href=#254 id=254 data-nosnippet>254</a>	</span><span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(content) = std::fs::<a href="https://doc.rust-lang.org/nightly/std/fs/fn.read_to_string.html">read_to_string</a>(<a href="#195">file_path</a>) {
+<a href=#255 id=255 data-nosnippet>255</a>		<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(first_line) = <a href="#254">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.lines">lines</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#tymethod.next">next</a>() {
+<a href=#256 id=256 data-nosnippet>256</a>			<span class="kw">if </span><a href="#255">first_line</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.starts_with">starts_with</a>(<span class="string">"#!"</span>) {
+<a href=#257 id=257 data-nosnippet>257</a>				<span class="kw">let </span>shebang_path = <a href="#255">first_line</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.split_whitespace">split_whitespace</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.nth">nth</a>(<span class="number">1</span>).<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="string">""</span>);
+<a href=#258 id=258 data-nosnippet>258</a>				<span class="kw">let </span>lang = <span class="kw">match </span><a href="#257">shebang_path</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.rsplit">rsplit</a>(<span class="string">'/'</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#tymethod.next">next</a>().<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="string">""</span>) {
 <a href=#259 id=259 data-nosnippet>259</a>					<span class="string">"bash" </span>=&gt; <span class="string">"shellscript"</span>,
 <a href=#260 id=260 data-nosnippet>260</a>					<span class="string">"sh" </span>=&gt; <span class="string">"shellscript"</span>,
 <a href=#261 id=261 data-nosnippet>261</a>					<span class="string">"zsh" </span>=&gt; <span class="string">"shellscript"</span>,
@@ -274,20 +274,20 @@
 <a href=#274 id=274 data-nosnippet>274</a>					<span class="string">"scala" </span>| <span class="string">"scalac" </span>=&gt; <span class="string">"scala"</span>,
 <a href=#275 id=275 data-nosnippet>275</a>					<span class="string">"kotlin" </span>| <span class="string">"kotlinc" </span>=&gt; <span class="string">"kotlin"</span>,
 <a href=#276 id=276 data-nosnippet>276</a>					<span class="string">"swift" </span>=&gt; <span class="string">"swift"</span>,
-<a href=#277 id=277 data-nosnippet>277</a>					<span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
+<a href=#277 id=277 data-nosnippet>277</a>					<span class="kw">_ </span>=&gt; <span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
 <a href=#278 id=278 data-nosnippet>278</a>				};
-<a href=#279 id=279 data-nosnippet>279</a>				<span class="kw">return </span><span class="prelude-val">Some</span>(lang.to_string());
+<a href=#279 id=279 data-nosnippet>279</a>				<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#258">lang</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#280 id=280 data-nosnippet>280</a>			}
 <a href=#281 id=281 data-nosnippet>281</a>		}
 <a href=#282 id=282 data-nosnippet>282</a>	}
 <a href=#283 id=283 data-nosnippet>283</a>
-<a href=#284 id=284 data-nosnippet>284</a>	<span class="prelude-val">None
-<a href=#285 id=285 data-nosnippet>285</a></span>}
+<a href=#284 id=284 data-nosnippet>284</a>	<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>
+<a href=#285 id=285 data-nosnippet>285</a>}
 <a href=#286 id=286 data-nosnippet>286</a>
 <a href=#287 id=287 data-nosnippet>287</a><span class="doccomment">/// Tokenize content for indexing with improved word boundary handling
-<a href=#288 id=288 data-nosnippet>288</a></span><span class="kw">pub fn </span>TokenizeContent(content:<span class="kw-2">&amp;</span>str) -&gt; Vec&lt;String&gt; {
-<a href=#289 id=289 data-nosnippet>289</a>	<span class="kw">let </span><span class="kw-2">mut </span>tokens = Vec::new();
-<a href=#290 id=290 data-nosnippet>290</a>	<span class="kw">let </span><span class="kw-2">mut </span>current_token = String::new();
+<a href=#288 id=288 data-nosnippet>288</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.TokenizeContent.html">TokenizeContent</a>(content:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#289 id=289 data-nosnippet>289</a>	<span class="kw">let </span><span class="kw-2">mut </span>tokens = <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.new">new</a>();
+<a href=#290 id=290 data-nosnippet>290</a>	<span class="kw">let </span><span class="kw-2">mut </span>current_token = <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.new">new</a>();
 <a href=#291 id=291 data-nosnippet>291</a>	<span class="kw">let </span><span class="kw-2">mut </span>in_token = <span class="bool-val">false</span>;
 <a href=#292 id=292 data-nosnippet>292</a>
 <a href=#293 id=293 data-nosnippet>293</a>	<span class="kw">for </span>c <span class="kw">in </span>content.chars() {
@@ -303,60 +303,60 @@
 <a href=#303 id=303 data-nosnippet>303</a>	}
 <a href=#304 id=304 data-nosnippet>304</a>
 <a href=#305 id=305 data-nosnippet>305</a>	<span class="comment">// Don't forget the last token
-<a href=#306 id=306 data-nosnippet>306</a>	</span><span class="kw">if </span>in_token {
-<a href=#307 id=307 data-nosnippet>307</a>		tokens.push(current_token.to_lowercase());
+<a href=#306 id=306 data-nosnippet>306</a>	</span><span class="kw">if </span><a href="#291">in_token</a> {
+<a href=#307 id=307 data-nosnippet>307</a>		<a href="#289">tokens</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.push">push</a>(<a href="#290">current_token</a>.<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.str.html#method.to_lowercase">to_lowercase</a>());
 <a href=#308 id=308 data-nosnippet>308</a>	}
 <a href=#309 id=309 data-nosnippet>309</a>
-<a href=#310 id=310 data-nosnippet>310</a>	tokens
+<a href=#310 id=310 data-nosnippet>310</a>	<a href="#289">tokens</a>
 <a href=#311 id=311 data-nosnippet>311</a>}
 <a href=#312 id=312 data-nosnippet>312</a>
 <a href=#313 id=313 data-nosnippet>313</a><span class="doccomment">/// Remove null bytes and control characters from content
-<a href=#314 id=314 data-nosnippet>314</a></span><span class="kw">pub fn </span>SanitizeContent(content:<span class="kw-2">&amp;</span>str) -&gt; String { content.chars().filter(|c| <span class="kw-2">*</span><span class="macro">c !</span>= <span class="string">'\0' </span>&amp;&amp; !c.is_control()).collect() }
+<a href=#314 id=314 data-nosnippet>314</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.SanitizeContent.html">SanitizeContent</a>(content:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> { <a href="#314">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.chars">chars</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|c| <span class="kw-2">*</span><a href="#314">c !</a>= <span class="string">'\0' </span>&amp;&amp; !<a href="#314">c</a>.<a href="https://doc.rust-lang.org/nightly/core/char/foreigntype.methods.html#method.is_control">is_control</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>() }
 <a href=#315 id=315 data-nosnippet>315</a>
 <a href=#316 id=316 data-nosnippet>316</a><span class="doccomment">/// Convert content to UTF-8 string with error handling
-<a href=#317 id=317 data-nosnippet>317</a></span><span class="kw">pub fn </span>ContentToString(content:<span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
-<a href=#318 id=318 data-nosnippet>318</a>	String::from_utf8(content.to_vec())
-<a href=#319 id=319 data-nosnippet>319</a>		.map_err(|e| <span class="kw">crate</span>::AirError::FileSystem(<span class="macro">format!</span>(<span class="string">"Invalid UTF-8 content: {}"</span>, e)))
+<a href=#317 id=317 data-nosnippet>317</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.ContentToString.html">ContentToString</a>(content:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a class="prelude-ty" href="../../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#318 id=318 data-nosnippet>318</a>	<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.from_utf8">from_utf8</a>(<a href="#317">content</a>.<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.slice.html#method.to_vec">to_vec</a>())
+<a href=#319 id=319 data-nosnippet>319</a>		.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#249">FileSystem</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Invalid UTF-8 content: {}"</span>, e)))
 <a href=#320 id=320 data-nosnippet>320</a>}
 <a href=#321 id=321 data-nosnippet>321</a>
 <a href=#322 id=322 data-nosnippet>322</a><span class="doccomment">/// Check if content is likely binary (contains null bytes or high ratio of
 <a href=#323 id=323 data-nosnippet>323</a>/// non-text)
-<a href=#324 id=324 data-nosnippet>324</a></span><span class="kw">pub fn </span>IsBinaryContent(content:<span class="kw-2">&amp;</span>[u8]) -&gt; bool {
-<a href=#325 id=325 data-nosnippet>325</a>	<span class="kw">const </span>MAX_NULL_BYTES:usize = <span class="number">10</span>;
-<a href=#326 id=326 data-nosnippet>326</a>	<span class="kw">const </span>BINARY_SCAN_LIMIT:usize = <span class="number">8000</span>;
+<a href=#324 id=324 data-nosnippet>324</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.IsBinaryContent.html">IsBinaryContent</a>(content:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#325 id=325 data-nosnippet>325</a>	<span class="kw">const </span>MAX_NULL_BYTES:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <span class="number">10</span>;
+<a href=#326 id=326 data-nosnippet>326</a>	<span class="kw">const </span>BINARY_SCAN_LIMIT:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <span class="number">8000</span>;
 <a href=#327 id=327 data-nosnippet>327</a>
-<a href=#328 id=328 data-nosnippet>328</a>	<span class="kw">let </span>scan_length = content.len().min(BINARY_SCAN_LIMIT);
-<a href=#329 id=329 data-nosnippet>329</a>	<span class="kw">let </span>null_count = content[..scan_length].iter().filter(|&amp;&amp;b| b == <span class="number">0</span>).count();
+<a href=#328 id=328 data-nosnippet>328</a>	<span class="kw">let </span>scan_length = <a href="#324">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.len">len</a>().<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#method.min">min</a>(<a href="#326">BINARY_SCAN_LIMIT</a>);
+<a href=#329 id=329 data-nosnippet>329</a>	<span class="kw">let </span>null_count = <a href="#324">content</a>[..scan_length].<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|&amp;&amp;b| <a href="#329">b</a> == <span class="number">0</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.count">count</a>();
 <a href=#330 id=330 data-nosnippet>330</a>
-<a href=#331 id=331 data-nosnippet>331</a>	<span class="kw">if </span>null_count &gt; MAX_NULL_BYTES {
+<a href=#331 id=331 data-nosnippet>331</a>	<span class="kw">if </span><a href="#329">null_count</a> &gt; <a href="#325">MAX_NULL_BYTES</a> {
 <a href=#332 id=332 data-nosnippet>332</a>		<span class="kw">return </span><span class="bool-val">true</span>;
 <a href=#333 id=333 data-nosnippet>333</a>	}
 <a href=#334 id=334 data-nosnippet>334</a>
 <a href=#335 id=335 data-nosnippet>335</a>	<span class="comment">// Check for high ratio of non-text bytes in first chunk
-<a href=#336 id=336 data-nosnippet>336</a>	</span><span class="kw">let </span>scan_bytes = <span class="kw-2">&amp;</span>content[..scan_length];
-<a href=#337 id=337 data-nosnippet>337</a>	<span class="kw">let </span>text_ratio = scan_bytes
-<a href=#338 id=338 data-nosnippet>338</a>		.iter()
-<a href=#339 id=339 data-nosnippet>339</a>		.filter(|&amp;&amp;b| b.is_ascii_graphic() || b.is_ascii_whitespace() || b &gt;= <span class="number">0x80</span>)
-<a href=#340 id=340 data-nosnippet>340</a>		.count() <span class="kw">as </span>f64
-<a href=#341 id=341 data-nosnippet>341</a>		/ scan_length <span class="kw">as </span>f64;
+<a href=#336 id=336 data-nosnippet>336</a>	</span><span class="kw">let </span>scan_bytes = <span class="kw-2">&amp;</span><a href="#324">content</a>[..scan_length];
+<a href=#337 id=337 data-nosnippet>337</a>	<span class="kw">let </span>text_ratio = <a href="#336">scan_bytes</a>
+<a href=#338 id=338 data-nosnippet>338</a>		.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>()
+<a href=#339 id=339 data-nosnippet>339</a>		.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|&amp;&amp;b| <a href="#339">b</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.num.html#method.is_ascii_graphic">is_ascii_graphic</a>() || <a href="#339">b</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.num.html#method.is_ascii_whitespace">is_ascii_whitespace</a>() || <a href="#339">b</a> &gt;= <span class="number">0x80</span>)
+<a href=#340 id=340 data-nosnippet>340</a>		.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.count">count</a>() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>
+<a href=#341 id=341 data-nosnippet>341</a>		/ <a href="#328">scan_length</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>;
 <a href=#342 id=342 data-nosnippet>342</a>
-<a href=#343 id=343 data-nosnippet>343</a>	text_ratio &lt; <span class="number">0.7
+<a href=#343 id=343 data-nosnippet>343</a>	<a href="#337">text_ratio</a> &lt; <span class="number">0.7
 <a href=#344 id=344 data-nosnippet>344</a></span>}
 <a href=#345 id=345 data-nosnippet>345</a>
 <a href=#346 id=346 data-nosnippet>346</a><span class="doccomment">/// Get line count from content
-<a href=#347 id=347 data-nosnippet>347</a></span><span class="kw">pub fn </span>GetLineCount(content:<span class="kw-2">&amp;</span>str) -&gt; u32 {
-<a href=#348 id=348 data-nosnippet>348</a>	<span class="kw">if </span>content.is_empty() {
+<a href=#347 id=347 data-nosnippet>347</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.GetLineCount.html">GetLineCount</a>(content:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
+<a href=#348 id=348 data-nosnippet>348</a>	<span class="kw">if </span><a href="#347">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.is_empty">is_empty</a>() {
 <a href=#349 id=349 data-nosnippet>349</a>		<span class="kw">return </span><span class="number">0</span>;
 <a href=#350 id=350 data-nosnippet>350</a>	}
-<a href=#351 id=351 data-nosnippet>351</a>	content.lines().count() <span class="kw">as </span>u32
+<a href=#351 id=351 data-nosnippet>351</a>	<a href="#347">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.lines">lines</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.count">count</a>() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
 <a href=#352 id=352 data-nosnippet>352</a>}
 <a href=#353 id=353 data-nosnippet>353</a>
 <a href=#354 id=354 data-nosnippet>354</a><span class="doccomment">/// Get char count from content
-<a href=#355 id=355 data-nosnippet>355</a></span><span class="kw">pub fn </span>GetCharCount(content:<span class="kw-2">&amp;</span>str) -&gt; usize { content.chars().count() }
+<a href=#355 id=355 data-nosnippet>355</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.GetCharCount.html">GetCharCount</a>(content:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> { <a href="#355">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.chars">chars</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.count">count</a>() }
 <a href=#356 id=356 data-nosnippet>356</a>
 <a href=#357 id=357 data-nosnippet>357</a><span class="doccomment">/// Truncate content to specified maximum size in characters
-<a href=#358 id=358 data-nosnippet>358</a></span><span class="kw">pub fn </span>TruncateContent(content:<span class="kw-2">&amp;</span>str, max_chars:usize) -&gt; String {
-<a href=#359 id=359 data-nosnippet>359</a>	<span class="kw">let </span>chars:Vec&lt;char&gt; = content.chars().take(max_chars).collect();
-<a href=#360 id=360 data-nosnippet>360</a>	chars.into_iter().collect()
+<a href=#358 id=358 data-nosnippet>358</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ProcessContent/fn.TruncateContent.html">TruncateContent</a>(content:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, max_chars:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
+<a href=#359 id=359 data-nosnippet>359</a>	<span class="kw">let </span>chars:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>&gt; = <a href="#358">content</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.chars">chars</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.take">take</a>(<a href="#358">max_chars</a>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>();
+<a href=#360 id=360 data-nosnippet>360</a>	<a href="#359">chars</a>.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter">into_iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>()
 <a href=#361 id=361 data-nosnippet>361</a>}
 </code></pre></div></section></main></body></html>

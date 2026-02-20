@@ -163,31 +163,31 @@
 <a href=#163 id=163 data-nosnippet>163</a>//! - **50054**: Reserved for future use (e.g., SideCar service)
 <a href=#164 id=164 data-nosnippet>164</a>//! - **50055**: Reserved for future metrics endpoints
 <a href=#165 id=165 data-nosnippet>165</a>
-<a href=#166 id=166 data-nosnippet>166</a></span><span class="kw">use </span>std::{env, net::SocketAddr, path::PathBuf, sync::Arc, time::Duration};
+<a href=#166 id=166 data-nosnippet>166</a></span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/core/macro.env.html">env</a>, <a href="https://doc.rust-lang.org/nightly/core/net/socket_addr/enum.SocketAddr.html">net::SocketAddr</a>, <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">path::PathBuf</a>, <a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">sync::Arc</a>, <a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">time::Duration</a>};
 <a href=#167 id=167 data-nosnippet>167</a>
-<a href=#168 id=168 data-nosnippet>168</a><span class="kw">use </span>log::{debug, error, info, warn};
+<a href=#168 id=168 data-nosnippet>168</a><span class="kw">use </span>log::{<a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug</a>, <a href="https://docs.rs/log/0.4.29/log/macro.error.html">error</a>, <a href="https://docs.rs/log/0.4.29/log/macro.info.html">info</a>, <a href="https://docs.rs/log/0.4.29/log/macro.warn.html">warn</a>};
 <a href=#169 id=169 data-nosnippet>169</a><span class="kw">use </span>tokio::{signal, time::interval};
 <a href=#170 id=170 data-nosnippet>170</a><span class="comment">// Import types from AirLibrary (the crate root)
 <a href=#171 id=171 data-nosnippet>171</a></span><span class="kw">use </span>AirLibrary::{
-<a href=#172 id=172 data-nosnippet>172</a>	AirError,
-<a href=#173 id=173 data-nosnippet>173</a>	ApplicationState::ApplicationState,
-<a href=#174 id=174 data-nosnippet>174</a>	Authentication::AuthenticationService,
-<a href=#175 id=175 data-nosnippet>175</a>	CLI::{CliParser, Command, ConfigCommand, DebugCommand, OutputFormatter},
-<a href=#176 id=176 data-nosnippet>176</a>	Configuration::{AirConfiguration, ConfigurationManager},
-<a href=#177 id=177 data-nosnippet>177</a>	Daemon::DaemonManager,
-<a href=#178 id=178 data-nosnippet>178</a>	DefaultBindAddress,
-<a href=#179 id=179 data-nosnippet>179</a>	DefaultConfigFile,
-<a href=#180 id=180 data-nosnippet>180</a>	Downloader::DownloadManager,
-<a href=#181 id=181 data-nosnippet>181</a>	HealthCheck::{HealthCheckLevel, HealthCheckManager, HealthStatistics},
-<a href=#182 id=182 data-nosnippet>182</a>	Indexing::FileIndexer,
-<a href=#183 id=183 data-nosnippet>183</a>	Logging,
-<a href=#184 id=184 data-nosnippet>184</a>	Metrics::{<span class="self">self</span>, MetricsCollector, MetricsData},
-<a href=#185 id=185 data-nosnippet>185</a>	ProtocolVersion,
-<a href=#186 id=186 data-nosnippet>186</a>	Tracing,
-<a href=#187 id=187 data-nosnippet>187</a>	Updates::UpdateManager,
-<a href=#188 id=188 data-nosnippet>188</a>	VERSION,
-<a href=#189 id=189 data-nosnippet>189</a>	Vine::Generated::air::air_service_server::AirServiceServer,
-<a href=#190 id=190 data-nosnippet>190</a>	Vine::Server::AirVinegRPCService::AirVinegRPCService,
+<a href=#172 id=172 data-nosnippet>172</a>	<a href="../../AirLibrary/enum.AirError.html">AirError</a>,
+<a href=#173 id=173 data-nosnippet>173</a>	<a href="../../AirLibrary/ApplicationState/struct.ApplicationState.html">ApplicationState::ApplicationState</a>,
+<a href=#174 id=174 data-nosnippet>174</a>	<a href="../../AirLibrary/Authentication/struct.AuthenticationService.html">Authentication::AuthenticationService</a>,
+<a href=#175 id=175 data-nosnippet>175</a>	CLI::{<a href="../../AirLibrary/CLI/struct.CliParser.html">CliParser</a>, <a href="../../AirLibrary/CLI/enum.Command.html">Command</a>, <a href="../../AirLibrary/CLI/enum.ConfigCommand.html">ConfigCommand</a>, <a href="../../AirLibrary/CLI/enum.DebugCommand.html">DebugCommand</a>, <a href="../../AirLibrary/CLI/struct.OutputFormatter.html">OutputFormatter</a>},
+<a href=#176 id=176 data-nosnippet>176</a>	Configuration::{<a href="../../AirLibrary/Configuration/struct.AirConfiguration.html">AirConfiguration</a>, <a href="../../AirLibrary/Configuration/struct.ConfigurationManager.html">ConfigurationManager</a>},
+<a href=#177 id=177 data-nosnippet>177</a>	<a href="../../AirLibrary/Daemon/struct.DaemonManager.html">Daemon::DaemonManager</a>,
+<a href=#178 id=178 data-nosnippet>178</a>	<a href="../../AirLibrary/constant.DefaultBindAddress.html">DefaultBindAddress</a>,
+<a href=#179 id=179 data-nosnippet>179</a>	<a href="../../AirLibrary/constant.DefaultConfigFile.html">DefaultConfigFile</a>,
+<a href=#180 id=180 data-nosnippet>180</a>	<a href="../../AirLibrary/Downloader/struct.DownloadManager.html">Downloader::DownloadManager</a>,
+<a href=#181 id=181 data-nosnippet>181</a>	HealthCheck::{<a href="../../AirLibrary/HealthCheck/enum.HealthCheckLevel.html">HealthCheckLevel</a>, <a href="../../AirLibrary/HealthCheck/struct.HealthCheckManager.html">HealthCheckManager</a>, <a href="../../AirLibrary/HealthCheck/struct.HealthStatistics.html">HealthStatistics</a>},
+<a href=#182 id=182 data-nosnippet>182</a>	<a href="../../AirLibrary/Indexing/struct.FileIndexer.html">Indexing::FileIndexer</a>,
+<a href=#183 id=183 data-nosnippet>183</a>	<a href="../../AirLibrary/Logging/index.html">Logging</a>,
+<a href=#184 id=184 data-nosnippet>184</a>	Metrics::{<a class="self" href="../../AirLibrary/Metrics/index.html">self</a>, <a href="../../AirLibrary/Metrics/struct.MetricsCollector.html">MetricsCollector</a>, <a href="../../AirLibrary/Metrics/struct.MetricsData.html">MetricsData</a>},
+<a href=#185 id=185 data-nosnippet>185</a>	<a href="../../AirLibrary/constant.ProtocolVersion.html">ProtocolVersion</a>,
+<a href=#186 id=186 data-nosnippet>186</a>	<a href="../../AirLibrary/Tracing/index.html">Tracing</a>,
+<a href=#187 id=187 data-nosnippet>187</a>	<a href="../../AirLibrary/Updates/struct.UpdateManager.html">Updates::UpdateManager</a>,
+<a href=#188 id=188 data-nosnippet>188</a>	<a href="../../AirLibrary/constant.VERSION.html">VERSION</a>,
+<a href=#189 id=189 data-nosnippet>189</a>	<a href="../../AirLibrary/Vine/Generated/air/air_service_server/struct.AirServiceServer.html">Vine::Generated::air::air_service_server::AirServiceServer</a>,
+<a href=#190 id=190 data-nosnippet>190</a>	<a href="../../AirLibrary/Vine/Server/AirVinegRPCService/struct.AirVinegRPCService.html">Vine::Server::AirVinegRPCService::AirVinegRPCService</a>,
 <a href=#191 id=191 data-nosnippet>191</a>};
 <a href=#192 id=192 data-nosnippet>192</a>
 <a href=#193 id=193 data-nosnippet>193</a><span class="comment">// =============================================================================
@@ -195,7 +195,7 @@
 <a href=#195 id=195 data-nosnippet>195</a>// =============================================================================
 <a href=#196 id=196 data-nosnippet>196</a>
 <a href=#197 id=197 data-nosnippet>197</a></span><span class="doccomment">/// Logs a checkpoint message at debug level with context tracking
-<a href=#198 id=198 data-nosnippet>198</a></span><span class="macro">macro_rules!</span> Trace {
+<a href=#198 id=198 data-nosnippet>198</a></span><span class="macro">macro_rules!</span> <a href="../../Air/macro.Trace.html">Trace</a> {
 <a href=#199 id=199 data-nosnippet>199</a>    ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {{
 <a href=#200 id=200 data-nosnippet>200</a>        <span class="macro">debug!</span>($(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>);
 <a href=#201 id=201 data-nosnippet>201</a>    }};
@@ -212,7 +212,7 @@
 <a href=#212 id=212 data-nosnippet>212</a>/// - Implement signal handling for SIGHUP (reload config)
 <a href=#213 id=213 data-nosnippet>213</a>/// - Add Windows-specific signal handling beyond Ctrl+C
 <a href=#214 id=214 data-nosnippet>214</a>/// - Implement graceful timeout with pending operation completion
-<a href=#215 id=215 data-nosnippet>215</a></span><span class="kw">async fn </span>WaitForShutdownSignal() {
+<a href=#215 id=215 data-nosnippet>215</a></span><span class="kw">async fn </span><a href="../../Air/fn.WaitForShutdownSignal.html">WaitForShutdownSignal</a>() {
 <a href=#216 id=216 data-nosnippet>216</a>	<span class="macro">info!</span>(<span class="string">"[Shutdown] Waiting for termination signal..."</span>);
 <a href=#217 id=217 data-nosnippet>217</a>
 <a href=#218 id=218 data-nosnippet>218</a>	<span class="kw">let </span>ctrl_c = <span class="kw">async </span>{
@@ -260,65 +260,65 @@
 <a href=#260 id=260 data-nosnippet>260</a>/// - Add structured log correlation IDs
 <a href=#261 id=261 data-nosnippet>261</a>/// - Support syslog integration on Unix
 <a href=#262 id=262 data-nosnippet>262</a>/// - Add Windows Event Log integration
-<a href=#263 id=263 data-nosnippet>263</a></span><span class="kw">fn </span>InitializeLogging() {
+<a href=#263 id=263 data-nosnippet>263</a></span><span class="kw">fn </span><a href="../../Air/fn.InitializeLogging.html">InitializeLogging</a>() {
 <a href=#264 id=264 data-nosnippet>264</a>	<span class="comment">// Validate environment variables
-<a href=#265 id=265 data-nosnippet>265</a>	</span><span class="kw">let </span>json_output = <span class="kw">match </span>std::env::var(<span class="string">"AIR_LOG_JSON"</span>) {
-<a href=#266 id=266 data-nosnippet>266</a>		<span class="prelude-val">Ok</span>(val) <span class="kw">if </span>!val.is_empty() =&gt; {
-<a href=#267 id=267 data-nosnippet>267</a>			<span class="kw">let </span>normalized = val.to_lowercase();
-<a href=#268 id=268 data-nosnippet>268</a>			<span class="kw">if </span><span class="macro">normalized !</span>= <span class="string">"true" </span>&amp;&amp; <span class="macro">normalized !</span>= <span class="string">"false" </span>{
-<a href=#269 id=269 data-nosnippet>269</a>				<span class="macro">eprintln!</span>(
+<a href=#265 id=265 data-nosnippet>265</a>	</span><span class="kw">let </span>json_output = <span class="kw">match </span>std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.var.html">var</a>(<span class="string">"AIR_LOG_JSON"</span>) {
+<a href=#266 id=266 data-nosnippet>266</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(val) <span class="kw">if </span>!<a href="#266">val</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() =&gt; {
+<a href=#267 id=267 data-nosnippet>267</a>			<span class="kw">let </span>normalized = <a href="#266">val</a>.<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.str.html#method.to_lowercase">to_lowercase</a>();
+<a href=#268 id=268 data-nosnippet>268</a>			<span class="kw">if </span><a href="#267">normalized !</a>= <span class="string">"true" </span>&amp;&amp; <a href="#267">normalized !</a>= <span class="string">"false" </span>{
+<a href=#269 id=269 data-nosnippet>269</a>				<a href="https://doc.rust-lang.org/nightly/std/macro.eprintln.html">eprintln!</a>(
 <a href=#270 id=270 data-nosnippet>270</a>					<span class="string">"Warning: Invalid AIR_LOG_JSON value '{}', expected 'true' or 'false'. Using default: false"</span>,
 <a href=#271 id=271 data-nosnippet>271</a>					val
 <a href=#272 id=272 data-nosnippet>272</a>				);
 <a href=#273 id=273 data-nosnippet>273</a>				<span class="bool-val">false
 <a href=#274 id=274 data-nosnippet>274</a>			</span>} <span class="kw">else </span>{
-<a href=#275 id=275 data-nosnippet>275</a>				normalized == <span class="string">"true"
+<a href=#275 id=275 data-nosnippet>275</a>				<a href="#267">normalized</a> == <span class="string">"true"
 <a href=#276 id=276 data-nosnippet>276</a>			</span>}
 <a href=#277 id=277 data-nosnippet>277</a>		},
-<a href=#278 id=278 data-nosnippet>278</a>		<span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
-<a href=#279 id=279 data-nosnippet>279</a>		<span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
+<a href=#278 id=278 data-nosnippet>278</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
+<a href=#279 id=279 data-nosnippet>279</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
 <a href=#280 id=280 data-nosnippet>280</a>	};
 <a href=#281 id=281 data-nosnippet>281</a>
 <a href=#282 id=282 data-nosnippet>282</a>	<span class="comment">// Validate log file path exists and is writable
-<a href=#283 id=283 data-nosnippet>283</a>	</span><span class="kw">let </span>log_file_path = std::env::var(<span class="string">"AIR_LOG_FILE"</span>).ok().and_then(|path| {
-<a href=#284 id=284 data-nosnippet>284</a>		<span class="kw">if </span>path.is_empty() {
-<a href=#285 id=285 data-nosnippet>285</a>			<span class="prelude-val">None
-<a href=#286 id=286 data-nosnippet>286</a>		</span>} <span class="kw">else </span>{
+<a href=#283 id=283 data-nosnippet>283</a>	</span><span class="kw">let </span>log_file_path = std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.var.html">var</a>(<span class="string">"AIR_LOG_FILE"</span>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>().<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.and_then">and_then</a>(|path| {
+<a href=#284 id=284 data-nosnippet>284</a>		<span class="kw">if </span><a href="#283">path</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#285 id=285 data-nosnippet>285</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>
+<a href=#286 id=286 data-nosnippet>286</a>		} <span class="kw">else </span>{
 <a href=#287 id=287 data-nosnippet>287</a>			<span class="comment">// Check if directory exists for the log file
-<a href=#288 id=288 data-nosnippet>288</a>			</span><span class="kw">if let </span><span class="prelude-val">Some</span>(parent) = std::path::PathBuf::from(<span class="kw-2">&amp;</span>path).parent() {
-<a href=#289 id=289 data-nosnippet>289</a>				<span class="kw">if </span>parent.as_os_str().is_empty() {
+<a href=#288 id=288 data-nosnippet>288</a>			</span><span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(parent) = std::path::<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from">from</a>(<span class="kw-2">&amp;</span><a href="#283">path</a>).<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.parent">parent</a>() {
+<a href=#289 id=289 data-nosnippet>289</a>				<span class="kw">if </span><a href="#288">parent</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.as_os_str">as_os_str</a>().<a href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html#method.is_empty">is_empty</a>() {
 <a href=#290 id=290 data-nosnippet>290</a>					<span class="comment">// No parent directory, use current directory
-<a href=#291 id=291 data-nosnippet>291</a>					</span><span class="prelude-val">Some</span>(path)
-<a href=#292 id=292 data-nosnippet>292</a>				} <span class="kw">else if </span>parent.exists() {
-<a href=#293 id=293 data-nosnippet>293</a>					<span class="prelude-val">Some</span>(path)
+<a href=#291 id=291 data-nosnippet>291</a>					</span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#283">path</a>)
+<a href=#292 id=292 data-nosnippet>292</a>				} <span class="kw">else if </span><a href="#288">parent</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.exists">exists</a>() {
+<a href=#293 id=293 data-nosnippet>293</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#283">path</a>)
 <a href=#294 id=294 data-nosnippet>294</a>				} <span class="kw">else </span>{
-<a href=#295 id=295 data-nosnippet>295</a>					<span class="macro">eprintln!</span>(
+<a href=#295 id=295 data-nosnippet>295</a>					<a href="https://doc.rust-lang.org/nightly/std/macro.eprintln.html">eprintln!</a>(
 <a href=#296 id=296 data-nosnippet>296</a>						<span class="string">"Warning: Log file directory does not exist: {}. Logging to stdout only."</span>,
 <a href=#297 id=297 data-nosnippet>297</a>						parent.display()
 <a href=#298 id=298 data-nosnippet>298</a>					);
-<a href=#299 id=299 data-nosnippet>299</a>					<span class="prelude-val">None
-<a href=#300 id=300 data-nosnippet>300</a>				</span>}
+<a href=#299 id=299 data-nosnippet>299</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>
+<a href=#300 id=300 data-nosnippet>300</a>				}
 <a href=#301 id=301 data-nosnippet>301</a>			} <span class="kw">else </span>{
-<a href=#302 id=302 data-nosnippet>302</a>				<span class="prelude-val">Some</span>(path)
+<a href=#302 id=302 data-nosnippet>302</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#283">path</a>)
 <a href=#303 id=303 data-nosnippet>303</a>			}
 <a href=#304 id=304 data-nosnippet>304</a>		}
 <a href=#305 id=305 data-nosnippet>305</a>	});
 <a href=#306 id=306 data-nosnippet>306</a>
 <a href=#307 id=307 data-nosnippet>307</a>	<span class="comment">// Initialize structured logging with defensive error handling
-<a href=#308 id=308 data-nosnippet>308</a>	</span><span class="kw">let </span>log_result = Logging::InitializeLogger(json_output, log_file_path.clone());
+<a href=#308 id=308 data-nosnippet>308</a>	</span><span class="kw">let </span>log_result = Logging::<a href="../../AirLibrary/Logging/fn.InitializeLogger.html">InitializeLogger</a>(<a href="#265">json_output</a>, <a href="#283">log_file_path</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>());
 <a href=#309 id=309 data-nosnippet>309</a>
-<a href=#310 id=310 data-nosnippet>310</a>	<span class="kw">match </span>log_result {
-<a href=#311 id=311 data-nosnippet>311</a>		<span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {
-<a href=#312 id=312 data-nosnippet>312</a>			<span class="kw">let </span>log_info = <span class="kw">match </span><span class="kw-2">&amp;</span>log_file_path {
-<a href=#313 id=313 data-nosnippet>313</a>				<span class="prelude-val">Some</span>(path) =&gt; <span class="macro">format!</span>(<span class="string">"file: {}"</span>, path),
-<a href=#314 id=314 data-nosnippet>314</a>				<span class="prelude-val">None </span>=&gt; <span class="string">"stdout/stderr"</span>.to_string(),
+<a href=#310 id=310 data-nosnippet>310</a>	<span class="kw">match </span><a href="#308">log_result</a> {
+<a href=#311 id=311 data-nosnippet>311</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="kw">_</span>) =&gt; {
+<a href=#312 id=312 data-nosnippet>312</a>			<span class="kw">let </span>log_info = <span class="kw">match </span><span class="kw-2">&amp;</span><a href="#283">log_file_path</a> {
+<a href=#313 id=313 data-nosnippet>313</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(path) =&gt; <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"file: {}"</span>, path),
+<a href=#314 id=314 data-nosnippet>314</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a> =&gt; <span class="string">"stdout/stderr"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
 <a href=#315 id=315 data-nosnippet>315</a>			};
-<a href=#316 id=316 data-nosnippet>316</a>			<span class="macro">info!</span>(<span class="string">"[Boot] Logging initialized - JSON: {}, Output: {}"</span>, json_output, log_info);
+<a href=#316 id=316 data-nosnippet>316</a>			<a href="https://docs.rs/log/0.4.29/log/macro.info.html">info!</a>(<span class="string">"[Boot] Logging initialized - JSON: {}, Output: {}"</span>, json_output, log_info);
 <a href=#317 id=317 data-nosnippet>317</a>		},
-<a href=#318 id=318 data-nosnippet>318</a>		<span class="prelude-val">Err</span>(e) =&gt; {
+<a href=#318 id=318 data-nosnippet>318</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
 <a href=#319 id=319 data-nosnippet>319</a>			<span class="comment">// Fallback: ensure we can at least log errors to stderr
-<a href=#320 id=320 data-nosnippet>320</a>			</span><span class="macro">eprintln!</span>(<span class="string">"[ERROR] Failed to initialize structured logging: {}"</span>, e);
-<a href=#321 id=321 data-nosnippet>321</a>			<span class="macro">eprintln!</span>(<span class="string">"[ERROR] Logging will fall back to stderr-only output"</span>);
+<a href=#320 id=320 data-nosnippet>320</a>			</span><a href="https://doc.rust-lang.org/nightly/std/macro.eprintln.html">eprintln!</a>(<span class="string">"[ERROR] Failed to initialize structured logging: {}"</span>, e);
+<a href=#321 id=321 data-nosnippet>321</a>			<a href="https://doc.rust-lang.org/nightly/std/macro.eprintln.html">eprintln!</a>(<span class="string">"[ERROR] Logging will fall back to stderr-only output"</span>);
 <a href=#322 id=322 data-nosnippet>322</a>		},
 <a href=#323 id=323 data-nosnippet>323</a>	}
 <a href=#324 id=324 data-nosnippet>324</a>}
@@ -342,14 +342,14 @@
 <a href=#342 id=342 data-nosnippet>342</a>/// - Add `--daemon` flag to force daemon mode with CLI commands
 <a href=#343 id=343 data-nosnippet>343</a>/// - Make flags case-insensitive
 <a href=#344 id=344 data-nosnippet>344</a>/// - Add --no-daemon flag for foreground operation
-<a href=#345 id=345 data-nosnippet>345</a></span><span class="kw">fn </span>ParseArguments() -&gt; (<span class="prelude-ty">Option</span>&lt;String&gt;, <span class="prelude-ty">Option</span>&lt;String&gt;, <span class="prelude-ty">Option</span>&lt;Command&gt;) {
+<a href=#345 id=345 data-nosnippet>345</a></span><span class="kw">fn </span><a href="../../Air/fn.ParseArguments.html">ParseArguments</a>() -&gt; (<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;, <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;, <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="../../AirLibrary/CLI/enum.Command.html">Command</a>&gt;) {
 <a href=#346 id=346 data-nosnippet>346</a>	<span class="comment">// Defensive: Ensure args collection is not extremely large
-<a href=#347 id=347 data-nosnippet>347</a>	</span><span class="kw">let </span>args:Vec&lt;String&gt; = std::env::args().collect();
+<a href=#347 id=347 data-nosnippet>347</a>	</span><span class="kw">let </span>args:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; = std::env::<a href="https://doc.rust-lang.org/nightly/std/env/fn.args.html">args</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>();
 <a href=#348 id=348 data-nosnippet>348</a>
 <a href=#349 id=349 data-nosnippet>349</a>	<span class="comment">// Safety: Limit argument length to prevent potential DoS
-<a href=#350 id=350 data-nosnippet>350</a>	</span><span class="kw">if </span>args.len() &gt; <span class="number">1024 </span>{
-<a href=#351 id=351 data-nosnippet>351</a>		<span class="macro">eprintln!</span>(<span class="string">"[ERROR] Too many command line arguments (max: 1024)"</span>);
-<a href=#352 id=352 data-nosnippet>352</a>		std::process::exit(<span class="number">1</span>);
+<a href=#350 id=350 data-nosnippet>350</a>	</span><span class="kw">if </span><a href="#347">args</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.len">len</a>() &gt; <span class="number">1024 </span>{
+<a href=#351 id=351 data-nosnippet>351</a>		<a href="https://doc.rust-lang.org/nightly/std/macro.eprintln.html">eprintln!</a>(<span class="string">"[ERROR] Too many command line arguments (max: 1024)"</span>);
+<a href=#352 id=352 data-nosnippet>352</a>		std::process::<a href="https://doc.rust-lang.org/nightly/std/process/fn.exit.html">exit</a>(<span class="number">1</span>);
 <a href=#353 id=353 data-nosnippet>353</a>	}
 <a href=#354 id=354 data-nosnippet>354</a>
 <a href=#355 id=355 data-nosnippet>355</a>	<span class="comment">// Safety: Validate each argument length
@@ -361,20 +361,20 @@
 <a href=#361 id=361 data-nosnippet>361</a>	}
 <a href=#362 id=362 data-nosnippet>362</a>
 <a href=#363 id=363 data-nosnippet>363</a>	<span class="comment">// Check if we're running with CLI command (first arg is a known command)
-<a href=#364 id=364 data-nosnippet>364</a>	</span><span class="kw">if </span>args.len() &gt; <span class="number">1 </span>{
-<a href=#365 id=365 data-nosnippet>365</a>		<span class="kw">match </span>args[<span class="number">1</span>].as_str() {
+<a href=#364 id=364 data-nosnippet>364</a>	</span><span class="kw">if </span><a href="#347">args</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.len">len</a>() &gt; <span class="number">1 </span>{
+<a href=#365 id=365 data-nosnippet>365</a>		<span class="kw">match </span><a href="#347">args</a>[<span class="number">1</span>].<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.as_str">as_str</a>() {
 <a href=#366 id=366 data-nosnippet>366</a>			<span class="string">"status" </span>| <span class="string">"restart" </span>| <span class="string">"config" </span>| <span class="string">"metrics" </span>| <span class="string">"logs" </span>| <span class="string">"debug" </span>| <span class="string">"help" </span>| <span class="string">"version" </span>| <span class="string">"-h" </span>| <span class="string">"--help"
 <a href=#367 id=367 data-nosnippet>367</a>			</span>| <span class="string">"-v" </span>| <span class="string">"--version" </span>=&gt; {
 <a href=#368 id=368 data-nosnippet>368</a>				<span class="comment">// Parse CLI command with error handling
-<a href=#369 id=369 data-nosnippet>369</a>				</span><span class="kw">match </span>CliParser::parse(args.clone()) {
-<a href=#370 id=370 data-nosnippet>370</a>					<span class="prelude-val">Ok</span>(cmd) =&gt; {
-<a href=#371 id=371 data-nosnippet>371</a>						<span class="macro">debug!</span>(<span class="string">"[Boot] CLI command parsed: {:?}"</span>, cmd);
-<a href=#372 id=372 data-nosnippet>372</a>						<span class="kw">return </span>(<span class="prelude-val">None</span>, <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(cmd));
+<a href=#369 id=369 data-nosnippet>369</a>				</span><span class="kw">match </span><a href="../../AirLibrary/CLI/struct.CliParser.html">CliParser</a>::<a href="../../AirLibrary/CLI/struct.CliParser.html#method.parse">parse</a>(<a href="#347">args</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()) {
+<a href=#370 id=370 data-nosnippet>370</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(cmd) =&gt; {
+<a href=#371 id=371 data-nosnippet>371</a>						<a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug!</a>(<span class="string">"[Boot] CLI command parsed: {:?}"</span>, cmd);
+<a href=#372 id=372 data-nosnippet>372</a>						<span class="kw">return </span>(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#370">cmd</a>));
 <a href=#373 id=373 data-nosnippet>373</a>					},
-<a href=#374 id=374 data-nosnippet>374</a>					<span class="prelude-val">Err</span>(e) =&gt; {
-<a href=#375 id=375 data-nosnippet>375</a>						<span class="macro">eprintln!</span>(<span class="string">"[ERROR] Error parsing CLI command: {}"</span>, e);
-<a href=#376 id=376 data-nosnippet>376</a>						<span class="macro">eprintln!</span>(<span class="string">"[ERROR] Run 'Air help' for usage information"</span>);
-<a href=#377 id=377 data-nosnippet>377</a>						std::process::exit(<span class="number">1</span>);
+<a href=#374 id=374 data-nosnippet>374</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
+<a href=#375 id=375 data-nosnippet>375</a>						<a href="https://doc.rust-lang.org/nightly/std/macro.eprintln.html">eprintln!</a>(<span class="string">"[ERROR] Error parsing CLI command: {}"</span>, e);
+<a href=#376 id=376 data-nosnippet>376</a>						<a href="https://doc.rust-lang.org/nightly/std/macro.eprintln.html">eprintln!</a>(<span class="string">"[ERROR] Run 'Air help' for usage information"</span>);
+<a href=#377 id=377 data-nosnippet>377</a>						std::process::<a href="https://doc.rust-lang.org/nightly/std/process/fn.exit.html">exit</a>(<span class="number">1</span>);
 <a href=#378 id=378 data-nosnippet>378</a>					},
 <a href=#379 id=379 data-nosnippet>379</a>				}
 <a href=#380 id=380 data-nosnippet>380</a>			},
@@ -383,8 +383,8 @@
 <a href=#383 id=383 data-nosnippet>383</a>	}
 <a href=#384 id=384 data-nosnippet>384</a>
 <a href=#385 id=385 data-nosnippet>385</a>	<span class="comment">// Parse as daemon arguments with validation
-<a href=#386 id=386 data-nosnippet>386</a>	</span><span class="kw">let </span><span class="kw-2">mut </span>config_path:<span class="prelude-ty">Option</span>&lt;String&gt; = <span class="prelude-val">None</span>;
-<a href=#387 id=387 data-nosnippet>387</a>	<span class="kw">let </span><span class="kw-2">mut </span>bind_address:<span class="prelude-ty">Option</span>&lt;String&gt; = <span class="prelude-val">None</span>;
+<a href=#386 id=386 data-nosnippet>386</a>	</span><span class="kw">let </span><span class="kw-2">mut </span>config_path:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
+<a href=#387 id=387 data-nosnippet>387</a>	<span class="kw">let </span><span class="kw-2">mut </span>bind_address:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
 <a href=#388 id=388 data-nosnippet>388</a>
 <a href=#389 id=389 data-nosnippet>389</a>	<span class="kw">let </span><span class="kw-2">mut </span>i = <span class="number">0</span>;
 <a href=#390 id=390 data-nosnippet>390</a>	<span class="kw">while </span>i &lt; args.len() {
@@ -432,9 +432,9 @@
 <a href=#432 id=432 data-nosnippet>432</a>		i += <span class="number">1</span>;
 <a href=#433 id=433 data-nosnippet>433</a>	}
 <a href=#434 id=434 data-nosnippet>434</a>
-<a href=#435 id=435 data-nosnippet>435</a>	<span class="macro">debug!</span>(<span class="string">"[Boot] Daemon mode - config: {:?}, bind: {:?}"</span>, config_path, bind_address);
+<a href=#435 id=435 data-nosnippet>435</a>	<a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug!</a>(<span class="string">"[Boot] Daemon mode - config: {:?}, bind: {:?}"</span>, config_path, bind_address);
 <a href=#436 id=436 data-nosnippet>436</a>
-<a href=#437 id=437 data-nosnippet>437</a>	(config_path, bind_address, <span class="prelude-val">None</span>)
+<a href=#437 id=437 data-nosnippet>437</a>	(<a href="#386">config_path</a>, <a href="#387">bind_address</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>)
 <a href=#438 id=438 data-nosnippet>438</a>}
 <a href=#439 id=439 data-nosnippet>439</a>
 <a href=#440 id=440 data-nosnippet>440</a><span class="doccomment">/// Handle CLI commands with comprehensive implementation
@@ -459,7 +459,7 @@
 <a href=#459 id=459 data-nosnippet>459</a>/// - Add command history/log
 <a href=#460 id=460 data-nosnippet>460</a>/// - Implement interactive mode
 <a href=#461 id=461 data-nosnippet>461</a>/// - Add tab-completion support
-<a href=#462 id=462 data-nosnippet>462</a></span><span class="kw">async fn </span>HandleCommand(cmd:Command) -&gt; <span class="prelude-ty">Result</span>&lt;(), Box&lt;<span class="kw">dyn </span>std::error::Error&gt;&gt; {
+<a href=#462 id=462 data-nosnippet>462</a></span><span class="kw">async fn </span><a href="../../Air/fn.HandleCommand.html">HandleCommand</a>(cmd:<a href="../../AirLibrary/CLI/enum.Command.html">Command</a>) -&gt; <span class="prelude-ty">Result</span>&lt;(), Box&lt;<span class="kw">dyn </span>std::error::Error&gt;&gt; {
 <a href=#463 id=463 data-nosnippet>463</a>	<span class="comment">// Validate command parameters before execution
 <a href=#464 id=464 data-nosnippet>464</a>	</span><span class="kw">let </span>validation_result = validate_command(<span class="kw-2">&amp;</span>cmd);
 <a href=#465 id=465 data-nosnippet>465</a>	<span class="kw">if let </span><span class="prelude-val">Err</span>(e) = validation_result {
@@ -1044,18 +1044,18 @@
 <a href=#1044 id=1044 data-nosnippet>1044</a>/// - Add timeout parameter validation
 <a href=#1045 id=1045 data-nosnippet>1045</a>/// - Add rate limit checks for commands
 <a href=#1046 id=1046 data-nosnippet>1046</a>/// - Implement command permission checks
-<a href=#1047 id=1047 data-nosnippet>1047</a></span><span class="kw">fn </span>validate_command(cmd:<span class="kw-2">&amp;</span>Command) -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
-<a href=#1048 id=1048 data-nosnippet>1048</a>	<span class="kw">match </span>cmd {
-<a href=#1049 id=1049 data-nosnippet>1049</a>		Command::Help { command } =&gt; {
-<a href=#1050 id=1050 data-nosnippet>1050</a>			<span class="kw">if let </span><span class="prelude-val">Some</span>(cmd) = command {
-<a href=#1051 id=1051 data-nosnippet>1051</a>				<span class="kw">if </span>cmd.len() &gt; <span class="number">128 </span>{
-<a href=#1052 id=1052 data-nosnippet>1052</a>					<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="string">"Command name too long (max: 128)"</span>.to_string());
+<a href=#1047 id=1047 data-nosnippet>1047</a></span><span class="kw">fn </span><a href="../../Air/fn.validate_command.html">validate_command</a>(cmd:<span class="kw-2">&amp;</span><a href="../../AirLibrary/CLI/enum.Command.html">Command</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html">Result</a>&lt;(), <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#1048 id=1048 data-nosnippet>1048</a>	<span class="kw">match </span><a href="#1047">cmd</a> {
+<a href=#1049 id=1049 data-nosnippet>1049</a>		Command::<a href="../../AirLibrary/CLI/enum.Command.html#variant.Help">Help</a> { command } =&gt; {
+<a href=#1050 id=1050 data-nosnippet>1050</a>			<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(cmd) = <a href="#1049">command</a> {
+<a href=#1051 id=1051 data-nosnippet>1051</a>				<span class="kw">if </span><a href="#1050">cmd</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.len">len</a>() &gt; <span class="number">128 </span>{
+<a href=#1052 id=1052 data-nosnippet>1052</a>					<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="string">"Command name too long (max: 128)"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#1053 id=1053 data-nosnippet>1053</a>				}
 <a href=#1054 id=1054 data-nosnippet>1054</a>			}
 <a href=#1055 id=1055 data-nosnippet>1055</a>		},
 <a href=#1056 id=1056 data-nosnippet>1056</a>		<span class="kw">_ </span>=&gt; {},
 <a href=#1057 id=1057 data-nosnippet>1057</a>	}
-<a href=#1058 id=1058 data-nosnippet>1058</a>	<span class="prelude-val">Ok</span>(())
+<a href=#1058 id=1058 data-nosnippet>1058</a>	<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#1059 id=1059 data-nosnippet>1059</a>}
 <a href=#1060 id=1060 data-nosnippet>1060</a>
 <a href=#1061 id=1061 data-nosnippet>1061</a><span class="doccomment">/// Attempt to connect to the running daemon
@@ -1068,7 +1068,7 @@
 <a href=#1068 id=1068 data-nosnippet>1068</a>/// - Add connection timeout configuration
 <a href=#1069 id=1069 data-nosnippet>1069</a>/// - Implement connection pooling
 <a href=#1070 id=1070 data-nosnippet>1070</a>/// - Add authentication
-<a href=#1071 id=1071 data-nosnippet>1071</a></span><span class="kw">async fn </span>attempt_daemon_connection() -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
+<a href=#1071 id=1071 data-nosnippet>1071</a></span><span class="kw">async fn </span><a href="../../Air/fn.attempt_daemon_connection.html">attempt_daemon_connection</a>() -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
 <a href=#1072 id=1072 data-nosnippet>1072</a>	<span class="kw">use </span>tokio::{
 <a href=#1073 id=1073 data-nosnippet>1073</a>		net::TcpStream,
 <a href=#1074 id=1074 data-nosnippet>1074</a>		time::{Duration, timeout},
@@ -1105,35 +1105,35 @@
 <a href=#1105 id=1105 data-nosnippet>1105</a>/// - Implement metric filtering via query parameters
 <a href=#1106 id=1106 data-nosnippet>1106</a>/// - Add histogram quantiles (p50, p95, p99)
 <a href=#1107 id=1107 data-nosnippet>1107</a>/// - Support both Prometheus and OpenMetrics formats
-<a href=#1108 id=1108 data-nosnippet>1108</a></span><span class="kw">fn </span>HandleMetricsRequest() -&gt; String {
+<a href=#1108 id=1108 data-nosnippet>1108</a></span><span class="kw">fn </span><a href="../../Air/fn.HandleMetricsRequest.html">HandleMetricsRequest</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
 <a href=#1109 id=1109 data-nosnippet>1109</a>	<span class="comment">// Defensive: Use a timeout to prevent metrics export from blocking
-<a href=#1110 id=1110 data-nosnippet>1110</a>	</span><span class="kw">let </span>timeout_duration = std::time::Duration::from_millis(<span class="number">100</span>);
+<a href=#1110 id=1110 data-nosnippet>1110</a>	</span><span class="kw">let </span>timeout_duration = std::time::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.from_millis">from_millis</a>(<span class="number">100</span>);
 <a href=#1111 id=1111 data-nosnippet>1111</a>
-<a href=#1112 id=1112 data-nosnippet>1112</a>	<span class="kw">let </span>metrics_collector = Metrics::GetMetrics();
+<a href=#1112 id=1112 data-nosnippet>1112</a>	<span class="kw">let </span>metrics_collector = Metrics::<a href="../../AirLibrary/Metrics/fn.GetMetrics.html">GetMetrics</a>();
 <a href=#1113 id=1113 data-nosnippet>1113</a>
 <a href=#1114 id=1114 data-nosnippet>1114</a>	<span class="comment">// Export metrics with error handling and timeout
-<a href=#1115 id=1115 data-nosnippet>1115</a>	</span><span class="kw">let </span>export_result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| metrics_collector.ExportMetrics()));
+<a href=#1115 id=1115 data-nosnippet>1115</a>	</span><span class="kw">let </span>export_result = std::panic::<a href="https://doc.rust-lang.org/nightly/std/panic/fn.catch_unwind.html">catch_unwind</a>(std::panic::<a href="https://doc.rust-lang.org/nightly/core/panic/unwind_safe/struct.AssertUnwindSafe.html">AssertUnwindSafe</a>(|| <a href="#1112">metrics_collector</a>.<a href="../../AirLibrary/Metrics/struct.MetricsCollector.html#method.ExportMetrics">ExportMetrics</a>()));
 <a href=#1116 id=1116 data-nosnippet>1116</a>
-<a href=#1117 id=1117 data-nosnippet>1117</a>	<span class="kw">match </span>export_result {
-<a href=#1118 id=1118 data-nosnippet>1118</a>		<span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>(metrics_text)) =&gt; {
+<a href=#1117 id=1117 data-nosnippet>1117</a>	<span class="kw">match </span><a href="#1115">export_result</a> {
+<a href=#1118 id=1118 data-nosnippet>1118</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(metrics_text)) =&gt; {
 <a href=#1119 id=1119 data-nosnippet>1119</a>			<span class="comment">// Validate metrics text is not too large
-<a href=#1120 id=1120 data-nosnippet>1120</a>			</span><span class="kw">if </span>metrics_text.len() &gt; <span class="number">10_000_000 </span>{
-<a href=#1121 id=1121 data-nosnippet>1121</a>				<span class="macro">error!</span>(
+<a href=#1120 id=1120 data-nosnippet>1120</a>			</span><span class="kw">if </span><a href="#1118">metrics_text</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.len">len</a>() &gt; <span class="number">10_000_000 </span>{
+<a href=#1121 id=1121 data-nosnippet>1121</a>				<a href="https://docs.rs/log/0.4.29/log/macro.error.html">error!</a>(
 <a href=#1122 id=1122 data-nosnippet>1122</a>					<span class="string">"[Metrics] Exported metrics unreasonably large (size: {} bytes)"</span>,
 <a href=#1123 id=1123 data-nosnippet>1123</a>					metrics_text.len()
 <a href=#1124 id=1124 data-nosnippet>1124</a>				);
-<a href=#1125 id=1125 data-nosnippet>1125</a>				<span class="macro">format!</span>(<span class="string">"# ERROR: Metrics export too large (max: 10MB)\n"</span>)
+<a href=#1125 id=1125 data-nosnippet>1125</a>				<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"# ERROR: Metrics export too large (max: 10MB)\n"</span>)
 <a href=#1126 id=1126 data-nosnippet>1126</a>			} <span class="kw">else </span>{
-<a href=#1127 id=1127 data-nosnippet>1127</a>				metrics_text
+<a href=#1127 id=1127 data-nosnippet>1127</a>				<a href="#1118">metrics_text</a>
 <a href=#1128 id=1128 data-nosnippet>1128</a>			}
 <a href=#1129 id=1129 data-nosnippet>1129</a>		},
-<a href=#1130 id=1130 data-nosnippet>1130</a>		<span class="prelude-val">Ok</span>(<span class="prelude-val">Err</span>(e)) =&gt; {
-<a href=#1131 id=1131 data-nosnippet>1131</a>			<span class="macro">error!</span>(<span class="string">"[Metrics] Failed to export metrics: {}"</span>, e);
-<a href=#1132 id=1132 data-nosnippet>1132</a>			<span class="macro">format!</span>(<span class="string">"# ERROR: Failed to export metrics: {}\n"</span>, e)
+<a href=#1130 id=1130 data-nosnippet>1130</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e)) =&gt; {
+<a href=#1131 id=1131 data-nosnippet>1131</a>			<a href="https://docs.rs/log/0.4.29/log/macro.error.html">error!</a>(<span class="string">"[Metrics] Failed to export metrics: {}"</span>, e);
+<a href=#1132 id=1132 data-nosnippet>1132</a>			<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"# ERROR: Failed to export metrics: {}\n"</span>, e)
 <a href=#1133 id=1133 data-nosnippet>1133</a>		},
-<a href=#1134 id=1134 data-nosnippet>1134</a>		<span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
-<a href=#1135 id=1135 data-nosnippet>1135</a>			<span class="macro">error!</span>(<span class="string">"[Metrics] Metrics export panicked"</span>);
-<a href=#1136 id=1136 data-nosnippet>1136</a>			<span class="macro">format!</span>(<span class="string">"# ERROR: Metrics export failed due to internal error\n"</span>)
+<a href=#1134 id=1134 data-nosnippet>1134</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">_</span>) =&gt; {
+<a href=#1135 id=1135 data-nosnippet>1135</a>			<a href="https://docs.rs/log/0.4.29/log/macro.error.html">error!</a>(<span class="string">"[Metrics] Metrics export panicked"</span>);
+<a href=#1136 id=1136 data-nosnippet>1136</a>			<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"# ERROR: Metrics export failed due to internal error\n"</span>)
 <a href=#1137 id=1137 data-nosnippet>1137</a>		},
 <a href=#1138 id=1138 data-nosnippet>1138</a>	}
 <a href=#1139 id=1139 data-nosnippet>1139</a>}
@@ -1178,7 +1178,7 @@
 <a href=#1178 id=1178 data-nosnippet>1178</a>/// - Implement crash recovery and restart
 <a href=#1179 id=1179 data-nosnippet>1179</a>/// - Add pre-flight environment checks
 <a href=#1180 id=1180 data-nosnippet>1180</a>/// - Implement feature flag system
-<a href=#1181 id=1181 data-nosnippet>1181</a></span><span class="kw">async fn </span>Main() -&gt; <span class="prelude-ty">Result</span>&lt;(), Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;&gt; {
+<a href=#1181 id=1181 data-nosnippet>1181</a></span><span class="kw">async fn </span><a href="../../Air/fn.Main.html">Main</a>() -&gt; <span class="prelude-ty">Result</span>&lt;(), Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;&gt; {
 <a href=#1182 id=1182 data-nosnippet>1182</a>	<span class="comment">// -------------------------------------------------------------------------
 <a href=#1183 id=1183 data-nosnippet>1183</a>	// [Boot] [Logging] Initialize logging system
 <a href=#1184 id=1184 data-nosnippet>1184</a>	// -------------------------------------------------------------------------
@@ -1753,7 +1753,7 @@
 <a href=#1753 id=1753 data-nosnippet>1753</a>/// - Check file system permissions
 <a href=#1754 id=1754 data-nosnippet>1754</a>/// - Verify required executables exist
 <a href=#1755 id=1755 data-nosnippet>1755</a>/// - Validate system resources (CPU, RAM)
-<a href=#1756 id=1756 data-nosnippet>1756</a></span><span class="kw">async fn </span>validate_environment() -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
+<a href=#1756 id=1756 data-nosnippet>1756</a></span><span class="kw">async fn </span><a href="../../Air/fn.validate_environment.html">validate_environment</a>() -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
 <a href=#1757 id=1757 data-nosnippet>1757</a>	<span class="comment">// Validate OS and architecture
 <a href=#1758 id=1758 data-nosnippet>1758</a>	</span><span class="macro">info!</span>(<span class="string">"[Environment] OS: {}, Arch: {}"</span>, std::env::consts::OS, std::env::consts::ARCH);
 <a href=#1759 id=1759 data-nosnippet>1759</a>
@@ -1782,12 +1782,12 @@
 <a href=#1782 id=1782 data-nosnippet>1782</a>/// - Validate timeout values
 <a href=#1783 id=1783 data-nosnippet>1783</a>/// - Validate file paths exist or are creatable
 <a href=#1784 id=1784 data-nosnippet>1784</a>/// - Validate URLs are properly formatted
-<a href=#1785 id=1785 data-nosnippet>1785</a></span><span class="kw">fn </span>validate_configuration(config:<span class="kw-2">&amp;</span>AirConfiguration) -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
+<a href=#1785 id=1785 data-nosnippet>1785</a></span><span class="kw">fn </span><a href="../../Air/fn.validate_configuration.html">validate_configuration</a>(config:<span class="kw-2">&amp;</span><a href="../../AirLibrary/Configuration/struct.AirConfiguration.html">AirConfiguration</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html">Result</a>&lt;(), <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
 <a href=#1786 id=1786 data-nosnippet>1786</a>	<span class="comment">// Add configuration validation logic here
-<a href=#1787 id=1787 data-nosnippet>1787</a>	</span><span class="macro">debug!</span>(<span class="string">"[Config] Configuration passed basic validation"</span>);
-<a href=#1788 id=1788 data-nosnippet>1788</a>	<span class="prelude-val">Ok</span>(())
+<a href=#1787 id=1787 data-nosnippet>1787</a>	</span><a href="https://docs.rs/log/0.4.29/log/macro.debug.html">debug!</a>(<span class="string">"[Config] Configuration passed basic validation"</span>);
+<a href=#1788 id=1788 data-nosnippet>1788</a>	<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#1789 id=1789 data-nosnippet>1789</a>}
 <a href=#1790 id=1790 data-nosnippet>1790</a>
 <a href=#1791 id=1791 data-nosnippet>1791</a><span class="attr">#[tokio::main]
-<a href=#1792 id=1792 data-nosnippet>1792</a></span><span class="kw">async fn </span>main() -&gt; <span class="prelude-ty">Result</span>&lt;(), Box&lt;<span class="kw">dyn </span>std::error::Error + Send + Sync&gt;&gt; { Main().<span class="kw">await </span>}
+<a href=#1792 id=1792 data-nosnippet>1792</a></span><span class="kw">async fn </span><a href="../../Air/fn.main.html">main</a>() -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html">Result</a>&lt;(), <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box</a>&lt;<span class="kw">dyn </span><a href="https://doc.rust-lang.org/nightly/core/error/trait.Error.html">std::error::Error</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a>&gt;&gt; { Main().<span class="kw">await </span>}
 </code></pre></div></section></main></body></html>

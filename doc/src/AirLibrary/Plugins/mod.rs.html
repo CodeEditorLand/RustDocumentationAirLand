@@ -81,182 +81,182 @@
 <a href=#81 id=81 data-nosnippet>81</a>//! - Plugin authentication and signing to prevent malicious plugins
 <a href=#82 id=82 data-nosnippet>82</a>//! - Filesystem and network access restrictions
 <a href=#83 id=83 data-nosnippet>83</a>
-<a href=#84 id=84 data-nosnippet>84</a></span><span class="kw">use </span>std::{collections::HashMap, sync::Arc, time::Duration};
+<a href=#84 id=84 data-nosnippet>84</a></span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">collections::HashMap</a>, <a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">sync::Arc</a>, <a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">time::Duration</a>};
 <a href=#85 id=85 data-nosnippet>85</a>
-<a href=#86 id=86 data-nosnippet>86</a><span class="kw">use </span>async_trait::async_trait;
-<a href=#87 id=87 data-nosnippet>87</a><span class="kw">use </span>serde::{Deserialize, Serialize};
+<a href=#86 id=86 data-nosnippet>86</a><span class="kw">use </span><a href="https://docs.rs/async-trait/0.1.89/async_trait/attr.async_trait.html">async_trait::async_trait</a>;
+<a href=#87 id=87 data-nosnippet>87</a><span class="kw">use </span>serde::{<a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>};
 <a href=#88 id=88 data-nosnippet>88</a><span class="kw">use </span>tokio::sync::RwLock;
-<a href=#89 id=89 data-nosnippet>89</a><span class="kw">use </span>chrono::{DateTime, Utc};
-<a href=#90 id=90 data-nosnippet>90</a><span class="kw">use </span>log::{error, info, warn};
-<a href=#91 id=91 data-nosnippet>91</a><span class="kw">use </span>uuid::Uuid;
+<a href=#89 id=89 data-nosnippet>89</a><span class="kw">use </span>chrono::{<a href="https://docs.rs/chrono/latest/chrono/datetime/struct.DateTime.html">DateTime</a>, <a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>};
+<a href=#90 id=90 data-nosnippet>90</a><span class="kw">use </span>log::{<a href="https://docs.rs/log/0.4.29/log/macro.error.html">error</a>, <a href="https://docs.rs/log/0.4.29/log/macro.info.html">info</a>, <a href="https://docs.rs/log/0.4.29/log/macro.warn.html">warn</a>};
+<a href=#91 id=91 data-nosnippet>91</a><span class="kw">use </span><a href="https://docs.rs/uuid/1.21.0/uuid/struct.Uuid.html">uuid::Uuid</a>;
 <a href=#92 id=92 data-nosnippet>92</a>
-<a href=#93 id=93 data-nosnippet>93</a><span class="kw">use </span>crate::{AirError, <span class="prelude-ty">Result</span>};
+<a href=#93 id=93 data-nosnippet>93</a><span class="kw">use </span>crate::{<a href="../Library.rs.html#238-286">AirError</a>, <a class="prelude-ty" href="../Library.rs.html#338">Result</a>};
 <a href=#94 id=94 data-nosnippet>94</a>
 <a href=#95 id=95 data-nosnippet>95</a><span class="comment">// =============================================================================
 <a href=#96 id=96 data-nosnippet>96</a>// Plugin Types and Traits
 <a href=#97 id=97 data-nosnippet>97</a>// =============================================================================
 <a href=#98 id=98 data-nosnippet>98</a>
 <a href=#99 id=99 data-nosnippet>99</a></span><span class="doccomment">/// Plugin metadata
-<a href=#100 id=100 data-nosnippet>100</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#101 id=101 data-nosnippet>101</a></span><span class="kw">pub struct </span>PluginMetadata {
-<a href=#102 id=102 data-nosnippet>102</a>	<span class="kw">pub </span>id:String,
-<a href=#103 id=103 data-nosnippet>103</a>	<span class="kw">pub </span>name:String,
-<a href=#104 id=104 data-nosnippet>104</a>	<span class="kw">pub </span>version:String,
-<a href=#105 id=105 data-nosnippet>105</a>	<span class="kw">pub </span>description:String,
-<a href=#106 id=106 data-nosnippet>106</a>	<span class="kw">pub </span>author:String,
-<a href=#107 id=107 data-nosnippet>107</a>	<span class="kw">pub </span>MinAirVersion:String,
-<a href=#108 id=108 data-nosnippet>108</a>	<span class="kw">pub </span>MaxAirVersion:<span class="prelude-ty">Option</span>&lt;String&gt;,
-<a href=#109 id=109 data-nosnippet>109</a>	<span class="kw">pub </span>dependencies:Vec&lt;PluginDependency&gt;,
-<a href=#110 id=110 data-nosnippet>110</a>	<span class="kw">pub </span>capabilities:Vec&lt;String&gt;,
+<a href=#100 id=100 data-nosnippet>100</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#101 id=101 data-nosnippet>101</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginMetadata.html">PluginMetadata</a> {
+<a href=#102 id=102 data-nosnippet>102</a>	<span class="kw">pub </span>id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#103 id=103 data-nosnippet>103</a>	<span class="kw">pub </span>name:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#104 id=104 data-nosnippet>104</a>	<span class="kw">pub </span>version:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#105 id=105 data-nosnippet>105</a>	<span class="kw">pub </span>description:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#106 id=106 data-nosnippet>106</a>	<span class="kw">pub </span>author:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#107 id=107 data-nosnippet>107</a>	<span class="kw">pub </span>MinAirVersion:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#108 id=108 data-nosnippet>108</a>	<span class="kw">pub </span>MaxAirVersion:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#109 id=109 data-nosnippet>109</a>	<span class="kw">pub </span>dependencies:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#115-120">PluginDependency</a>&gt;,
+<a href=#110 id=110 data-nosnippet>110</a>	<span class="kw">pub </span>capabilities:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#111 id=111 data-nosnippet>111</a>}
 <a href=#112 id=112 data-nosnippet>112</a>
 <a href=#113 id=113 data-nosnippet>113</a><span class="doccomment">/// Plugin dependency specification
-<a href=#114 id=114 data-nosnippet>114</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#115 id=115 data-nosnippet>115</a></span><span class="kw">pub struct </span>PluginDependency {
-<a href=#116 id=116 data-nosnippet>116</a>	<span class="kw">pub </span>PluginId:String,
-<a href=#117 id=117 data-nosnippet>117</a>	<span class="kw">pub </span>MinVersion:String,
-<a href=#118 id=118 data-nosnippet>118</a>	<span class="kw">pub </span>MaxVersion:<span class="prelude-ty">Option</span>&lt;String&gt;,
-<a href=#119 id=119 data-nosnippet>119</a>	<span class="kw">pub </span>optional:bool,
+<a href=#114 id=114 data-nosnippet>114</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#115 id=115 data-nosnippet>115</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginDependency.html">PluginDependency</a> {
+<a href=#116 id=116 data-nosnippet>116</a>	<span class="kw">pub </span>PluginId:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#117 id=117 data-nosnippet>117</a>	<span class="kw">pub </span>MinVersion:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#118 id=118 data-nosnippet>118</a>	<span class="kw">pub </span>MaxVersion:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#119 id=119 data-nosnippet>119</a>	<span class="kw">pub </span>optional:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#120 id=120 data-nosnippet>120</a>}
 <a href=#121 id=121 data-nosnippet>121</a>
 <a href=#122 id=122 data-nosnippet>122</a><span class="doccomment">/// Plugin capability and permission descriptor
-<a href=#123 id=123 data-nosnippet>123</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#124 id=124 data-nosnippet>124</a></span><span class="kw">pub struct </span>PluginCapability {
-<a href=#125 id=125 data-nosnippet>125</a>	<span class="kw">pub </span>name:String,
-<a href=#126 id=126 data-nosnippet>126</a>	<span class="kw">pub </span>description:String,
-<a href=#127 id=127 data-nosnippet>127</a>	<span class="kw">pub </span>RequiredPermissions:Vec&lt;String&gt;,
+<a href=#123 id=123 data-nosnippet>123</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#124 id=124 data-nosnippet>124</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginCapability.html">PluginCapability</a> {
+<a href=#125 id=125 data-nosnippet>125</a>	<span class="kw">pub </span>name:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#126 id=126 data-nosnippet>126</a>	<span class="kw">pub </span>description:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#127 id=127 data-nosnippet>127</a>	<span class="kw">pub </span>RequiredPermissions:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#128 id=128 data-nosnippet>128</a>}
 <a href=#129 id=129 data-nosnippet>129</a>
 <a href=#130 id=130 data-nosnippet>130</a><span class="doccomment">/// Plugin permission
-<a href=#131 id=131 data-nosnippet>131</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
-<a href=#132 id=132 data-nosnippet>132</a></span><span class="kw">pub enum </span>PluginPermission {
+<a href=#131 id=131 data-nosnippet>131</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.Eq.html">Eq</a>, <a href="https://doc.rust-lang.org/nightly/core/hash/macros/derive.Hash.html">Hash</a>)]
+<a href=#132 id=132 data-nosnippet>132</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Plugins/enum.PluginPermission.html">PluginPermission</a> {
 <a href=#133 id=133 data-nosnippet>133</a>	<span class="doccomment">/// Access filesystem
-<a href=#134 id=134 data-nosnippet>134</a>	</span>Filesystem { read:bool, write:bool, paths:Vec&lt;String&gt; },
+<a href=#134 id=134 data-nosnippet>134</a>	</span>Filesystem { read:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, write:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, paths:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; },
 <a href=#135 id=135 data-nosnippet>135</a>	<span class="doccomment">/// Access network
-<a href=#136 id=136 data-nosnippet>136</a>	</span>Network { outbound:bool, inbound:bool, hosts:Vec&lt;String&gt; },
+<a href=#136 id=136 data-nosnippet>136</a>	</span>Network { outbound:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, inbound:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, hosts:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; },
 <a href=#137 id=137 data-nosnippet>137</a>	<span class="doccomment">/// Access system resources
-<a href=#138 id=138 data-nosnippet>138</a>	</span>System { cpu:bool, memory:bool },
+<a href=#138 id=138 data-nosnippet>138</a>	</span>System { cpu:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, memory:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> },
 <a href=#139 id=139 data-nosnippet>139</a>	<span class="doccomment">/// Access other plugins
-<a href=#140 id=140 data-nosnippet>140</a>	</span>InterPlugin { plugins:Vec&lt;String&gt;, actions:Vec&lt;String&gt; },
+<a href=#140 id=140 data-nosnippet>140</a>	</span>InterPlugin { plugins:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;, actions:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; },
 <a href=#141 id=141 data-nosnippet>141</a>	<span class="doccomment">/// Custom permission
-<a href=#142 id=142 data-nosnippet>142</a>	</span>Custom(String),
+<a href=#142 id=142 data-nosnippet>142</a>	</span>Custom(<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>),
 <a href=#143 id=143 data-nosnippet>143</a>}
 <a href=#144 id=144 data-nosnippet>144</a>
 <a href=#145 id=145 data-nosnippet>145</a><span class="doccomment">/// Plugin sandbox configuration
-<a href=#146 id=146 data-nosnippet>146</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#147 id=147 data-nosnippet>147</a></span><span class="kw">pub struct </span>PluginSandboxConfig {
-<a href=#148 id=148 data-nosnippet>148</a>	<span class="kw">pub </span>enabled:bool,
-<a href=#149 id=149 data-nosnippet>149</a>	<span class="kw">pub </span>MaxMemoryMb:<span class="prelude-ty">Option</span>&lt;u64&gt;,
-<a href=#150 id=150 data-nosnippet>150</a>	<span class="kw">pub </span>MaxCPUPercent:<span class="prelude-ty">Option</span>&lt;f64&gt;,
-<a href=#151 id=151 data-nosnippet>151</a>	<span class="kw">pub </span>NetworkAllowed:bool,
-<a href=#152 id=152 data-nosnippet>152</a>	<span class="kw">pub </span>FilesystemAllowed:bool,
-<a href=#153 id=153 data-nosnippet>153</a>	<span class="kw">pub </span>AllowedPaths:Vec&lt;String&gt;,
-<a href=#154 id=154 data-nosnippet>154</a>	<span class="kw">pub </span>TimeoutSecs:<span class="prelude-ty">Option</span>&lt;u64&gt;,
+<a href=#146 id=146 data-nosnippet>146</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#147 id=147 data-nosnippet>147</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginSandboxConfig.html">PluginSandboxConfig</a> {
+<a href=#148 id=148 data-nosnippet>148</a>	<span class="kw">pub </span>enabled:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<a href=#149 id=149 data-nosnippet>149</a>	<span class="kw">pub </span>MaxMemoryMb:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
+<a href=#150 id=150 data-nosnippet>150</a>	<span class="kw">pub </span>MaxCPUPercent:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>&gt;,
+<a href=#151 id=151 data-nosnippet>151</a>	<span class="kw">pub </span>NetworkAllowed:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<a href=#152 id=152 data-nosnippet>152</a>	<span class="kw">pub </span>FilesystemAllowed:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<a href=#153 id=153 data-nosnippet>153</a>	<span class="kw">pub </span>AllowedPaths:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#154 id=154 data-nosnippet>154</a>	<span class="kw">pub </span>TimeoutSecs:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
 <a href=#155 id=155 data-nosnippet>155</a>}
 <a href=#156 id=156 data-nosnippet>156</a>
-<a href=#157 id=157 data-nosnippet>157</a><span class="kw">impl </span>Default <span class="kw">for </span>PluginSandboxConfig {
+<a href=#157 id=157 data-nosnippet>157</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#147-155">PluginSandboxConfig</a> {
 <a href=#158 id=158 data-nosnippet>158</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
 <a href=#159 id=159 data-nosnippet>159</a>		<span class="self">Self </span>{
 <a href=#160 id=160 data-nosnippet>160</a>			enabled:<span class="bool-val">true</span>,
-<a href=#161 id=161 data-nosnippet>161</a>			MaxMemoryMb:<span class="prelude-val">Some</span>(<span class="number">128</span>),
-<a href=#162 id=162 data-nosnippet>162</a>			MaxCPUPercent:<span class="prelude-val">Some</span>(<span class="number">10.0</span>),
+<a href=#161 id=161 data-nosnippet>161</a>			MaxMemoryMb:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">128</span>),
+<a href=#162 id=162 data-nosnippet>162</a>			MaxCPUPercent:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">10.0</span>),
 <a href=#163 id=163 data-nosnippet>163</a>			NetworkAllowed:<span class="bool-val">false</span>,
 <a href=#164 id=164 data-nosnippet>164</a>			FilesystemAllowed:<span class="bool-val">false</span>,
-<a href=#165 id=165 data-nosnippet>165</a>			AllowedPaths:<span class="macro">vec!</span>[],
-<a href=#166 id=166 data-nosnippet>166</a>			TimeoutSecs:<span class="prelude-val">Some</span>(<span class="number">30</span>),
+<a href=#165 id=165 data-nosnippet>165</a>			AllowedPaths:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[],
+<a href=#166 id=166 data-nosnippet>166</a>			TimeoutSecs:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">30</span>),
 <a href=#167 id=167 data-nosnippet>167</a>		}
 <a href=#168 id=168 data-nosnippet>168</a>	}
 <a href=#169 id=169 data-nosnippet>169</a>}
 <a href=#170 id=170 data-nosnippet>170</a>
 <a href=#171 id=171 data-nosnippet>171</a><span class="doccomment">/// Plugin validation result
-<a href=#172 id=172 data-nosnippet>172</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#173 id=173 data-nosnippet>173</a></span><span class="kw">pub enum </span>PluginValidationResult {
+<a href=#172 id=172 data-nosnippet>172</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#173 id=173 data-nosnippet>173</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Plugins/enum.PluginValidationResult.html">PluginValidationResult</a> {
 <a href=#174 id=174 data-nosnippet>174</a>	Valid,
-<a href=#175 id=175 data-nosnippet>175</a>	Invalid(String),
-<a href=#176 id=176 data-nosnippet>176</a>	Warning(String),
+<a href=#175 id=175 data-nosnippet>175</a>	Invalid(<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>),
+<a href=#176 id=176 data-nosnippet>176</a>	Warning(<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>),
 <a href=#177 id=177 data-nosnippet>177</a>}
 <a href=#178 id=178 data-nosnippet>178</a>
 <a href=#179 id=179 data-nosnippet>179</a><span class="doccomment">/// Plugin lifecycle hooks
 <a href=#180 id=180 data-nosnippet>180</a></span><span class="attr">#[async_trait]
-<a href=#181 id=181 data-nosnippet>181</a></span><span class="kw">pub trait </span>PluginHooks: Send + Sync {
+<a href=#181 id=181 data-nosnippet>181</a></span><span class="kw">pub trait </span><a href="../../../AirLibrary/Plugins/trait.PluginHooks.html">PluginHooks</a>: <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> {
 <a href=#182 id=182 data-nosnippet>182</a>	<span class="doccomment">/// Called when plugin is being loaded
-<a href=#183 id=183 data-nosnippet>183</a>	</span><span class="kw">async fn </span>on_load(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; { <span class="prelude-val">Ok</span>(()) }
+<a href=#183 id=183 data-nosnippet>183</a>	</span><span class="kw">async fn </span>on_load(<span class="kw-2">&amp;</span><a class="self" href="#183">self</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; { <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(()) }
 <a href=#184 id=184 data-nosnippet>184</a>
 <a href=#185 id=185 data-nosnippet>185</a>	<span class="doccomment">/// Called when plugin is starting
-<a href=#186 id=186 data-nosnippet>186</a>	</span><span class="kw">async fn </span>on_start(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; { <span class="prelude-val">Ok</span>(()) }
+<a href=#186 id=186 data-nosnippet>186</a>	</span><span class="kw">async fn </span>on_start(<span class="kw-2">&amp;</span><a class="self" href="#186">self</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; { <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(()) }
 <a href=#187 id=187 data-nosnippet>187</a>
 <a href=#188 id=188 data-nosnippet>188</a>	<span class="doccomment">/// Called when plugin is stopping
-<a href=#189 id=189 data-nosnippet>189</a>	</span><span class="kw">async fn </span>on_stop(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; { <span class="prelude-val">Ok</span>(()) }
+<a href=#189 id=189 data-nosnippet>189</a>	</span><span class="kw">async fn </span>on_stop(<span class="kw-2">&amp;</span><a class="self" href="#189">self</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; { <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(()) }
 <a href=#190 id=190 data-nosnippet>190</a>
 <a href=#191 id=191 data-nosnippet>191</a>	<span class="doccomment">/// Called when plugin is being unloaded
-<a href=#192 id=192 data-nosnippet>192</a>	</span><span class="kw">async fn </span>on_unload(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; { <span class="prelude-val">Ok</span>(()) }
+<a href=#192 id=192 data-nosnippet>192</a>	</span><span class="kw">async fn </span>on_unload(<span class="kw-2">&amp;</span><a class="self" href="#192">self</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; { <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(()) }
 <a href=#193 id=193 data-nosnippet>193</a>
 <a href=#194 id=194 data-nosnippet>194</a>	<span class="doccomment">/// Called when configuration changes
-<a href=#195 id=195 data-nosnippet>195</a>	</span><span class="kw">async fn </span>on_config_changed(<span class="kw-2">&amp;</span><span class="self">self</span>, _old:<span class="kw-2">&amp;</span>serde_json::Value, _new:<span class="kw-2">&amp;</span>serde_json::Value) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; { <span class="prelude-val">Ok</span>(()) }
+<a href=#195 id=195 data-nosnippet>195</a>	</span><span class="kw">async fn </span>on_config_changed(<span class="kw-2">&amp;</span><a class="self" href="#195">self</a>, _old:<span class="kw-2">&amp;</span>serde_json::<a href="https://docs.rs/serde_json/1.0.149/serde_json/value/enum.Value.html">Value</a>, _new:<span class="kw-2">&amp;</span>serde_json::<a href="https://docs.rs/serde_json/1.0.149/serde_json/value/enum.Value.html">Value</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; { <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(()) }
 <a href=#196 id=196 data-nosnippet>196</a>}
 <a href=#197 id=197 data-nosnippet>197</a>
 <a href=#198 id=198 data-nosnippet>198</a><span class="doccomment">/// Plugin interface trait
 <a href=#199 id=199 data-nosnippet>199</a></span><span class="attr">#[async_trait]
-<a href=#200 id=200 data-nosnippet>200</a></span><span class="kw">pub trait </span>Plugin: PluginHooks + Send + Sync {
+<a href=#200 id=200 data-nosnippet>200</a></span><span class="kw">pub trait </span><a href="../../../AirLibrary/Plugins/trait.Plugin.html">Plugin</a>: <a href="#181-196">PluginHooks</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> {
 <a href=#201 id=201 data-nosnippet>201</a>	<span class="doccomment">/// Get plugin metadata
-<a href=#202 id=202 data-nosnippet>202</a>	</span><span class="kw">fn </span>metadata(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>PluginMetadata;
+<a href=#202 id=202 data-nosnippet>202</a>	</span><span class="kw">fn </span>metadata(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a href="#101-111">PluginMetadata</a>;
 <a href=#203 id=203 data-nosnippet>203</a>
 <a href=#204 id=204 data-nosnippet>204</a>	<span class="doccomment">/// Get plugin sandbox configuration
-<a href=#205 id=205 data-nosnippet>205</a>	</span><span class="kw">fn </span>sandbox_config(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PluginSandboxConfig { PluginSandboxConfig::default() }
+<a href=#205 id=205 data-nosnippet>205</a>	</span><span class="kw">fn </span>sandbox_config(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="#147-155">PluginSandboxConfig</a> { <a href="#147-155">PluginSandboxConfig</a>::<a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">default</a>() }
 <a href=#206 id=206 data-nosnippet>206</a>
 <a href=#207 id=207 data-nosnippet>207</a>	<span class="doccomment">/// Get plugin permissions
-<a href=#208 id=208 data-nosnippet>208</a>	</span><span class="kw">fn </span>permissions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;PluginPermission&gt; { <span class="macro">vec!</span>[] }
+<a href=#208 id=208 data-nosnippet>208</a>	</span><span class="kw">fn </span>permissions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#132-143">PluginPermission</a>&gt; { <a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[] }
 <a href=#209 id=209 data-nosnippet>209</a>
 <a href=#210 id=210 data-nosnippet>210</a>	<span class="doccomment">/// Handle inter-plugin message
-<a href=#211 id=211 data-nosnippet>211</a>	</span><span class="kw">async fn </span>handle_message(<span class="kw-2">&amp;</span><span class="self">self</span>, from:<span class="kw-2">&amp;</span>str, _message:<span class="kw-2">&amp;</span>PluginMessage) -&gt; <span class="prelude-ty">Result</span>&lt;PluginMessage&gt; {
-<a href=#212 id=212 data-nosnippet>212</a>		<span class="prelude-val">Err</span>(AirError::Plugin(<span class="macro">format!</span>(<span class="string">"Plugin {} does not handle messages"</span>, from)))
+<a href=#211 id=211 data-nosnippet>211</a>	</span><span class="kw">async fn </span>handle_message(<span class="kw-2">&amp;</span><a class="self" href="#211">self</a>, from:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, _message:<span class="kw-2">&amp;</span><a href="#227-234">PluginMessage</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<a href="#227-234">PluginMessage</a>&gt; {
+<a href=#212 id=212 data-nosnippet>212</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#273">Plugin</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Plugin {} does not handle messages"</span>, from)))
 <a href=#213 id=213 data-nosnippet>213</a>	}
 <a href=#214 id=214 data-nosnippet>214</a>
 <a href=#215 id=215 data-nosnippet>215</a>	<span class="doccomment">/// Get plugin state for diagnostics
-<a href=#216 id=216 data-nosnippet>216</a>	</span><span class="kw">async fn </span>get_state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;serde_json::Value&gt; { <span class="prelude-val">Ok</span>(<span class="macro">serde_json::json!</span>({})) }
+<a href=#216 id=216 data-nosnippet>216</a>	</span><span class="kw">async fn </span>get_state(<span class="kw-2">&amp;</span><a class="self" href="#216">self</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;serde_json::<a href="https://docs.rs/serde_json/1.0.149/serde_json/value/enum.Value.html">Value</a>&gt; { <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="https://docs.rs/serde_json/1.0.149/serde_json/macro.json.html">serde_json::json!</a>({})) }
 <a href=#217 id=217 data-nosnippet>217</a>
 <a href=#218 id=218 data-nosnippet>218</a>	<span class="doccomment">/// Check if plugin has specific capability
-<a href=#219 id=219 data-nosnippet>219</a>	</span><span class="kw">fn </span>has_capability(<span class="kw-2">&amp;</span><span class="self">self</span>, _capability:<span class="kw-2">&amp;</span>str) -&gt; bool { <span class="bool-val">false </span>}
+<a href=#219 id=219 data-nosnippet>219</a>	</span><span class="kw">fn </span>has_capability(<span class="kw-2">&amp;</span><span class="self">self</span>, _capability:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { <span class="bool-val">false </span>}
 <a href=#220 id=220 data-nosnippet>220</a>
 <a href=#221 id=221 data-nosnippet>221</a>	<span class="doccomment">/// Check if plugin has specific permission
-<a href=#222 id=222 data-nosnippet>222</a>	</span><span class="kw">fn </span>has_permission(<span class="kw-2">&amp;</span><span class="self">self</span>, _permission:<span class="kw-2">&amp;</span>PluginPermission) -&gt; bool { <span class="bool-val">false </span>}
+<a href=#222 id=222 data-nosnippet>222</a>	</span><span class="kw">fn </span>has_permission(<span class="kw-2">&amp;</span><span class="self">self</span>, _permission:<span class="kw-2">&amp;</span><a href="#132-143">PluginPermission</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { <span class="bool-val">false </span>}
 <a href=#223 id=223 data-nosnippet>223</a>}
 <a href=#224 id=224 data-nosnippet>224</a>
 <a href=#225 id=225 data-nosnippet>225</a><span class="doccomment">/// Inter-plugin message
-<a href=#226 id=226 data-nosnippet>226</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#227 id=227 data-nosnippet>227</a></span><span class="kw">pub struct </span>PluginMessage {
-<a href=#228 id=228 data-nosnippet>228</a>	<span class="kw">pub </span>id:String,
-<a href=#229 id=229 data-nosnippet>229</a>	<span class="kw">pub </span>from:String,
-<a href=#230 id=230 data-nosnippet>230</a>	<span class="kw">pub </span>to:String,
-<a href=#231 id=231 data-nosnippet>231</a>	<span class="kw">pub </span>action:String,
-<a href=#232 id=232 data-nosnippet>232</a>	<span class="kw">pub </span>data:serde_json::Value,
-<a href=#233 id=233 data-nosnippet>233</a>	<span class="kw">pub </span>timestamp:DateTime&lt;Utc&gt;,
+<a href=#226 id=226 data-nosnippet>226</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#227 id=227 data-nosnippet>227</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginMessage.html">PluginMessage</a> {
+<a href=#228 id=228 data-nosnippet>228</a>	<span class="kw">pub </span>id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#229 id=229 data-nosnippet>229</a>	<span class="kw">pub </span>from:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#230 id=230 data-nosnippet>230</a>	<span class="kw">pub </span>to:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#231 id=231 data-nosnippet>231</a>	<span class="kw">pub </span>action:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#232 id=232 data-nosnippet>232</a>	<span class="kw">pub </span>data:serde_json::<a href="https://docs.rs/serde_json/1.0.149/serde_json/value/enum.Value.html">Value</a>,
+<a href=#233 id=233 data-nosnippet>233</a>	<span class="kw">pub </span>timestamp:<a href="https://docs.rs/chrono/latest/chrono/datetime/struct.DateTime.html">DateTime</a>&lt;<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>&gt;,
 <a href=#234 id=234 data-nosnippet>234</a>}
 <a href=#235 id=235 data-nosnippet>235</a>
-<a href=#236 id=236 data-nosnippet>236</a><span class="kw">impl </span>PluginMessage {
+<a href=#236 id=236 data-nosnippet>236</a><span class="kw">impl </span><a href="#227-234">PluginMessage</a> {
 <a href=#237 id=237 data-nosnippet>237</a>	<span class="doccomment">/// Create a new plugin message
-<a href=#238 id=238 data-nosnippet>238</a>	</span><span class="kw">pub fn </span>new(from:String, to:String, action:String, data:serde_json::Value) -&gt; <span class="self">Self </span>{
-<a href=#239 id=239 data-nosnippet>239</a>		<span class="self">Self </span>{ id:Uuid::new_v4().to_string(), from, to, action, data, timestamp:Utc::now() }
+<a href=#238 id=238 data-nosnippet>238</a>	</span><span class="kw">pub fn </span>new(from:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, to:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, action:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, data:serde_json::<a href="https://docs.rs/serde_json/1.0.149/serde_json/value/enum.Value.html">Value</a>) -&gt; <span class="self">Self </span>{
+<a href=#239 id=239 data-nosnippet>239</a>		<span class="self">Self </span>{ id:<a href="https://docs.rs/uuid/1.21.0/uuid/struct.Uuid.html">Uuid</a>::<a href="https://docs.rs/uuid/1.21.0/uuid/struct.Uuid.html#method.new_v4">new_v4</a>().<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(), <a href="#238">from</a>, <a href="#238">to</a>, <a href="#238">action</a>, <a href="#238">data</a>, timestamp:<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html#method.now">now</a>() }
 <a href=#240 id=240 data-nosnippet>240</a>	}
 <a href=#241 id=241 data-nosnippet>241</a>
 <a href=#242 id=242 data-nosnippet>242</a>	<span class="doccomment">/// Validate message format and content
-<a href=#243 id=243 data-nosnippet>243</a>	</span><span class="kw">pub fn </span>validate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-<a href=#244 id=244 data-nosnippet>244</a>		<span class="kw">if </span><span class="self">self</span>.id.is_empty() {
-<a href=#245 id=245 data-nosnippet>245</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Message ID cannot be empty"</span>.to_string()));
+<a href=#243 id=243 data-nosnippet>243</a>	</span><span class="kw">pub fn </span>validate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; {
+<a href=#244 id=244 data-nosnippet>244</a>		<span class="kw">if </span><a class="self" href="#243">self</a>.id.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#245 id=245 data-nosnippet>245</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Message ID cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#246 id=246 data-nosnippet>246</a>		}
-<a href=#247 id=247 data-nosnippet>247</a>		<span class="kw">if </span><span class="self">self</span>.from.is_empty() {
-<a href=#248 id=248 data-nosnippet>248</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Message sender cannot be empty"</span>.to_string()));
+<a href=#247 id=247 data-nosnippet>247</a>		<span class="kw">if </span><a class="self" href="#243">self</a>.from.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#248 id=248 data-nosnippet>248</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Message sender cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#249 id=249 data-nosnippet>249</a>		}
-<a href=#250 id=250 data-nosnippet>250</a>		<span class="kw">if </span><span class="self">self</span>.to.is_empty() {
-<a href=#251 id=251 data-nosnippet>251</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Message recipient cannot be empty"</span>.to_string()));
+<a href=#250 id=250 data-nosnippet>250</a>		<span class="kw">if </span><a class="self" href="#243">self</a>.to.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#251 id=251 data-nosnippet>251</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Message recipient cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#252 id=252 data-nosnippet>252</a>		}
-<a href=#253 id=253 data-nosnippet>253</a>		<span class="kw">if </span><span class="self">self</span>.action.is_empty() {
-<a href=#254 id=254 data-nosnippet>254</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Message action cannot be empty"</span>.to_string()));
+<a href=#253 id=253 data-nosnippet>253</a>		<span class="kw">if </span><a class="self" href="#243">self</a>.action.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#254 id=254 data-nosnippet>254</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Message action cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#255 id=255 data-nosnippet>255</a>		}
-<a href=#256 id=256 data-nosnippet>256</a>		<span class="kw">if </span><span class="self">self</span>.action.len() &gt; <span class="number">100 </span>{
-<a href=#257 id=257 data-nosnippet>257</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Message action too long"</span>.to_string()));
+<a href=#256 id=256 data-nosnippet>256</a>		<span class="kw">if </span><a class="self" href="#243">self</a>.action.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.len">len</a>() &gt; <span class="number">100 </span>{
+<a href=#257 id=257 data-nosnippet>257</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Message action too long"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#258 id=258 data-nosnippet>258</a>		}
-<a href=#259 id=259 data-nosnippet>259</a>		<span class="prelude-val">Ok</span>(())
+<a href=#259 id=259 data-nosnippet>259</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#260 id=260 data-nosnippet>260</a>	}
 <a href=#261 id=261 data-nosnippet>261</a>}
 <a href=#262 id=262 data-nosnippet>262</a>
@@ -265,8 +265,8 @@
 <a href=#265 id=265 data-nosnippet>265</a>// =============================================================================
 <a href=#266 id=266 data-nosnippet>266</a>
 <a href=#267 id=267 data-nosnippet>267</a></span><span class="doccomment">/// Plugin state tracking
-<a href=#268 id=268 data-nosnippet>268</a></span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-<a href=#269 id=269 data-nosnippet>269</a></span><span class="kw">pub enum </span>PluginState {
+<a href=#268 id=268 data-nosnippet>268</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/derive.Copy.html">Copy</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.Eq.html">Eq</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#269 id=269 data-nosnippet>269</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Plugins/enum.PluginState.html">PluginState</a> {
 <a href=#270 id=270 data-nosnippet>270</a>	<span class="attr">#[serde(rename = <span class="string">"unloaded"</span>)]
 <a href=#271 id=271 data-nosnippet>271</a>	</span>Unloaded,
 <a href=#272 id=272 data-nosnippet>272</a>	<span class="attr">#[serde(rename = <span class="string">"loaded"</span>)]
@@ -282,60 +282,60 @@
 <a href=#282 id=282 data-nosnippet>282</a>}
 <a href=#283 id=283 data-nosnippet>283</a>
 <a href=#284 id=284 data-nosnippet>284</a><span class="doccomment">/// Plugin registry entry
-<a href=#285 id=285 data-nosnippet>285</a></span><span class="kw">pub struct </span>PluginRegistry {
-<a href=#286 id=286 data-nosnippet>286</a>	<span class="kw">pub </span>plugin:Arc&lt;Box&lt;<span class="kw">dyn </span>Plugin&gt;&gt;,
-<a href=#287 id=287 data-nosnippet>287</a>	<span class="kw">pub </span>state:PluginState,
-<a href=#288 id=288 data-nosnippet>288</a>	<span class="kw">pub </span>StartedAt:<span class="prelude-ty">Option</span>&lt;DateTime&lt;Utc&gt;&gt;,
-<a href=#289 id=289 data-nosnippet>289</a>	<span class="kw">pub </span>LoadedAt:<span class="prelude-ty">Option</span>&lt;DateTime&lt;Utc&gt;&gt;,
-<a href=#290 id=290 data-nosnippet>290</a>	<span class="kw">pub </span>error:<span class="prelude-ty">Option</span>&lt;String&gt;,
-<a href=#291 id=291 data-nosnippet>291</a>	<span class="kw">pub </span>sandbox:PluginSandboxConfig,
+<a href=#285 id=285 data-nosnippet>285</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginRegistry.html">PluginRegistry</a> {
+<a href=#286 id=286 data-nosnippet>286</a>	<span class="kw">pub </span>plugin:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box</a>&lt;<span class="kw">dyn </span><a href="#200-223">Plugin</a>&gt;&gt;,
+<a href=#287 id=287 data-nosnippet>287</a>	<span class="kw">pub </span>state:<a href="#269-282">PluginState</a>,
+<a href=#288 id=288 data-nosnippet>288</a>	<span class="kw">pub </span>StartedAt:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://docs.rs/chrono/latest/chrono/datetime/struct.DateTime.html">DateTime</a>&lt;<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>&gt;&gt;,
+<a href=#289 id=289 data-nosnippet>289</a>	<span class="kw">pub </span>LoadedAt:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://docs.rs/chrono/latest/chrono/datetime/struct.DateTime.html">DateTime</a>&lt;<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>&gt;&gt;,
+<a href=#290 id=290 data-nosnippet>290</a>	<span class="kw">pub </span>error:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#291 id=291 data-nosnippet>291</a>	<span class="kw">pub </span>sandbox:<a href="#147-155">PluginSandboxConfig</a>,
 <a href=#292 id=292 data-nosnippet>292</a>}
 <a href=#293 id=293 data-nosnippet>293</a>
 <a href=#294 id=294 data-nosnippet>294</a><span class="doccomment">/// Main plugin manager
-<a href=#295 id=295 data-nosnippet>295</a></span><span class="kw">pub struct </span>PluginManager {
-<a href=#296 id=296 data-nosnippet>296</a>	plugins:Arc&lt;RwLock&lt;HashMap&lt;String, PluginRegistry&gt;&gt;&gt;,
-<a href=#297 id=297 data-nosnippet>297</a>	MessageQueue:Arc&lt;RwLock&lt;Vec&lt;PluginMessage&gt;&gt;&gt;,
-<a href=#298 id=298 data-nosnippet>298</a>	AirVersion:String,
-<a href=#299 id=299 data-nosnippet>299</a>	EnableSandbox:bool,
-<a href=#300 id=300 data-nosnippet>300</a>	StartupTimeout:Duration,
-<a href=#301 id=301 data-nosnippet>301</a>	OperationTimeout:Duration,
+<a href=#295 id=295 data-nosnippet>295</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginManager.html">PluginManager</a> {
+<a href=#296 id=296 data-nosnippet>296</a>	plugins:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#285-292">PluginRegistry</a>&gt;&gt;&gt;,
+<a href=#297 id=297 data-nosnippet>297</a>	MessageQueue:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#227-234">PluginMessage</a>&gt;&gt;&gt;,
+<a href=#298 id=298 data-nosnippet>298</a>	AirVersion:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#299 id=299 data-nosnippet>299</a>	EnableSandbox:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<a href=#300 id=300 data-nosnippet>300</a>	StartupTimeout:<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>,
+<a href=#301 id=301 data-nosnippet>301</a>	OperationTimeout:<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>,
 <a href=#302 id=302 data-nosnippet>302</a>}
 <a href=#303 id=303 data-nosnippet>303</a>
-<a href=#304 id=304 data-nosnippet>304</a><span class="kw">impl </span>PluginManager {
+<a href=#304 id=304 data-nosnippet>304</a><span class="kw">impl </span><a href="#295-302">PluginManager</a> {
 <a href=#305 id=305 data-nosnippet>305</a>	<span class="doccomment">/// Create a new plugin manager
-<a href=#306 id=306 data-nosnippet>306</a>	</span><span class="kw">pub fn </span>new(AirVersion:String) -&gt; <span class="self">Self </span>{
+<a href=#306 id=306 data-nosnippet>306</a>	</span><span class="kw">pub fn </span>new(AirVersion:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <span class="self">Self </span>{
 <a href=#307 id=307 data-nosnippet>307</a>		<span class="self">Self </span>{
-<a href=#308 id=308 data-nosnippet>308</a>			plugins:Arc::new(RwLock::new(HashMap::new())),
-<a href=#309 id=309 data-nosnippet>309</a>			MessageQueue:Arc::new(RwLock::new(Vec::new())),
-<a href=#310 id=310 data-nosnippet>310</a>			AirVersion,
+<a href=#308 id=308 data-nosnippet>308</a>			plugins:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
+<a href=#309 id=309 data-nosnippet>309</a>			MessageQueue:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.new">new</a>())),
+<a href=#310 id=310 data-nosnippet>310</a>			<a href="#306">AirVersion</a>,
 <a href=#311 id=311 data-nosnippet>311</a>			EnableSandbox:<span class="bool-val">true</span>,
-<a href=#312 id=312 data-nosnippet>312</a>			StartupTimeout:Duration::from_secs(<span class="number">30</span>),
-<a href=#313 id=313 data-nosnippet>313</a>			OperationTimeout:Duration::from_secs(<span class="number">60</span>),
+<a href=#312 id=312 data-nosnippet>312</a>			StartupTimeout:<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.from_secs">from_secs</a>(<span class="number">30</span>),
+<a href=#313 id=313 data-nosnippet>313</a>			OperationTimeout:<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.from_secs">from_secs</a>(<span class="number">60</span>),
 <a href=#314 id=314 data-nosnippet>314</a>		}
 <a href=#315 id=315 data-nosnippet>315</a>	}
 <a href=#316 id=316 data-nosnippet>316</a>
 <a href=#317 id=317 data-nosnippet>317</a>	<span class="doccomment">/// Create a new plugin manager with custom configuration
 <a href=#318 id=318 data-nosnippet>318</a>	</span><span class="kw">pub fn </span>with_config(
-<a href=#319 id=319 data-nosnippet>319</a>		AirVersion:String,
-<a href=#320 id=320 data-nosnippet>320</a>		EnableSandbox:bool,
-<a href=#321 id=321 data-nosnippet>321</a>		StartupTimeoutSecs:u64,
-<a href=#322 id=322 data-nosnippet>322</a>		OperationTimeoutSecs:u64,
+<a href=#319 id=319 data-nosnippet>319</a>		AirVersion:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#320 id=320 data-nosnippet>320</a>		EnableSandbox:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<a href=#321 id=321 data-nosnippet>321</a>		StartupTimeoutSecs:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+<a href=#322 id=322 data-nosnippet>322</a>		OperationTimeoutSecs:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
 <a href=#323 id=323 data-nosnippet>323</a>	) -&gt; <span class="self">Self </span>{
 <a href=#324 id=324 data-nosnippet>324</a>		<span class="self">Self </span>{
-<a href=#325 id=325 data-nosnippet>325</a>			plugins:Arc::new(RwLock::new(HashMap::new())),
-<a href=#326 id=326 data-nosnippet>326</a>			MessageQueue:Arc::new(RwLock::new(Vec::new())),
-<a href=#327 id=327 data-nosnippet>327</a>			AirVersion,
-<a href=#328 id=328 data-nosnippet>328</a>			EnableSandbox,
-<a href=#329 id=329 data-nosnippet>329</a>			StartupTimeout:Duration::from_secs(StartupTimeoutSecs),
-<a href=#330 id=330 data-nosnippet>330</a>			OperationTimeout:Duration::from_secs(OperationTimeoutSecs),
+<a href=#325 id=325 data-nosnippet>325</a>			plugins:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
+<a href=#326 id=326 data-nosnippet>326</a>			MessageQueue:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.new">new</a>())),
+<a href=#327 id=327 data-nosnippet>327</a>			<a href="#319">AirVersion</a>,
+<a href=#328 id=328 data-nosnippet>328</a>			<a href="#320">EnableSandbox</a>,
+<a href=#329 id=329 data-nosnippet>329</a>			StartupTimeout:<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.from_secs">from_secs</a>(<a href="#321">StartupTimeoutSecs</a>),
+<a href=#330 id=330 data-nosnippet>330</a>			OperationTimeout:<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.from_secs">from_secs</a>(<a href="#322">OperationTimeoutSecs</a>),
 <a href=#331 id=331 data-nosnippet>331</a>		}
 <a href=#332 id=332 data-nosnippet>332</a>	}
 <a href=#333 id=333 data-nosnippet>333</a>
 <a href=#334 id=334 data-nosnippet>334</a>	<span class="doccomment">/// Enable or disable sandbox mode
-<a href=#335 id=335 data-nosnippet>335</a>	</span><span class="kw">pub fn </span>set_sandbox_enabled(<span class="kw-2">&amp;mut </span><span class="self">self</span>, enabled:bool) { <span class="self">self</span>.EnableSandbox = enabled; }
+<a href=#335 id=335 data-nosnippet>335</a>	</span><span class="kw">pub fn </span>set_sandbox_enabled(<span class="kw-2">&amp;mut </span><span class="self">self</span>, enabled:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { <a class="self" href="#335">self</a>.EnableSandbox = <a href="#335">enabled</a>; }
 <a href=#336 id=336 data-nosnippet>336</a>
 <a href=#337 id=337 data-nosnippet>337</a>	<span class="doccomment">/// Discover plugins from a directory
-<a href=#338 id=338 data-nosnippet>338</a>	</span><span class="kw">pub async fn </span>discover_plugins(<span class="kw-2">&amp;</span><span class="self">self</span>, directory:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;String&gt;&gt; {
+<a href=#338 id=338 data-nosnippet>338</a>	</span><span class="kw">pub async fn </span>discover_plugins(<span class="kw-2">&amp;</span><span class="self">self</span>, directory:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;String&gt;&gt; {
 <a href=#339 id=339 data-nosnippet>339</a>		<span class="kw">let </span>Discovered = <span class="macro">vec!</span>[];
 <a href=#340 id=340 data-nosnippet>340</a>
 <a href=#341 id=341 data-nosnippet>341</a>		<span class="comment">// In production, this would scan the directory for plugin manifests
@@ -346,7 +346,7 @@
 <a href=#346 id=346 data-nosnippet>346</a>	}
 <a href=#347 id=347 data-nosnippet>347</a>
 <a href=#348 id=348 data-nosnippet>348</a>	<span class="doccomment">/// Load a plugin from a manifest file
-<a href=#349 id=349 data-nosnippet>349</a>	</span><span class="kw">pub async fn </span>load_from_manifest(<span class="kw-2">&amp;</span><span class="self">self</span>, path:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+<a href=#349 id=349 data-nosnippet>349</a>	</span><span class="kw">pub async fn </span>load_from_manifest(<span class="kw-2">&amp;</span><span class="self">self</span>, path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
 <a href=#350 id=350 data-nosnippet>350</a>		<span class="comment">// In production, this would load and parse a plugin manifest
 <a href=#351 id=351 data-nosnippet>351</a>		// For now, we return a mock plugin ID
 <a href=#352 id=352 data-nosnippet>352</a>		</span><span class="macro">info!</span>(<span class="string">"[PluginManager] Loading plugin from manifest: {}"</span>, path);
@@ -355,7 +355,7 @@
 <a href=#355 id=355 data-nosnippet>355</a>	}
 <a href=#356 id=356 data-nosnippet>356</a>
 <a href=#357 id=357 data-nosnippet>357</a>	<span class="doccomment">/// Register a plugin
-<a href=#358 id=358 data-nosnippet>358</a>	</span><span class="kw">pub async fn </span>register(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin:Arc&lt;Box&lt;<span class="kw">dyn </span>Plugin&gt;&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#358 id=358 data-nosnippet>358</a>	</span><span class="kw">pub async fn </span>register(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box</a>&lt;<span class="kw">dyn </span><a href="#200-223">Plugin</a>&gt;&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#359 id=359 data-nosnippet>359</a>		<span class="kw">let </span>metadata = plugin.metadata();
 <a href=#360 id=360 data-nosnippet>360</a>
 <a href=#361 id=361 data-nosnippet>361</a>		<span class="macro">info!</span>(<span class="string">"[PluginManager] Registering plugin: {} v{}"</span>, metadata.name, metadata.version);
@@ -413,31 +413,31 @@
 <a href=#413 id=413 data-nosnippet>413</a>	}
 <a href=#414 id=414 data-nosnippet>414</a>
 <a href=#415 id=415 data-nosnippet>415</a>	<span class="doccomment">/// Validate plugin metadata
-<a href=#416 id=416 data-nosnippet>416</a>	</span><span class="kw">pub fn </span>ValidatePluginMetadata(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata:<span class="kw-2">&amp;</span>PluginMetadata) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-<a href=#417 id=417 data-nosnippet>417</a>		<span class="kw">if </span>metadata.id.is_empty() {
-<a href=#418 id=418 data-nosnippet>418</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Plugin ID cannot be empty"</span>.to_string()));
+<a href=#416 id=416 data-nosnippet>416</a>	</span><span class="kw">pub fn </span>ValidatePluginMetadata(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata:<span class="kw-2">&amp;</span><a href="#101-111">PluginMetadata</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; {
+<a href=#417 id=417 data-nosnippet>417</a>		<span class="kw">if </span><a href="#416">metadata</a>.id.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#418 id=418 data-nosnippet>418</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Plugin ID cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#419 id=419 data-nosnippet>419</a>		}
-<a href=#420 id=420 data-nosnippet>420</a>		<span class="kw">if </span>metadata.id.len() &gt; <span class="number">100 </span>{
-<a href=#421 id=421 data-nosnippet>421</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Plugin ID too long (max 100 characters)"</span>.to_string()));
+<a href=#420 id=420 data-nosnippet>420</a>		<span class="kw">if </span><a href="#416">metadata</a>.id.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.len">len</a>() &gt; <span class="number">100 </span>{
+<a href=#421 id=421 data-nosnippet>421</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Plugin ID too long (max 100 characters)"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#422 id=422 data-nosnippet>422</a>		}
-<a href=#423 id=423 data-nosnippet>423</a>		<span class="kw">if </span>!metadata.id.chars().all(|c| c.is_alphanumeric() || c == <span class="string">'-' </span>|| c == <span class="string">'_'</span>) {
-<a href=#424 id=424 data-nosnippet>424</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Plugin ID contains invalid characters"</span>.to_string()));
+<a href=#423 id=423 data-nosnippet>423</a>		<span class="kw">if </span>!<a href="#416">metadata</a>.id.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.chars">chars</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.all">all</a>(|c| <a href="#423">c</a>.<a href="https://doc.rust-lang.org/nightly/core/char/foreigntype.methods.html#method.is_alphanumeric">is_alphanumeric</a>() || <a href="#423">c</a> == <span class="string">'-' </span>|| <a href="#423">c</a> == <span class="string">'_'</span>) {
+<a href=#424 id=424 data-nosnippet>424</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Plugin ID contains invalid characters"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#425 id=425 data-nosnippet>425</a>		}
-<a href=#426 id=426 data-nosnippet>426</a>		<span class="kw">if </span>metadata.name.is_empty() {
-<a href=#427 id=427 data-nosnippet>427</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Plugin name cannot be empty"</span>.to_string()));
+<a href=#426 id=426 data-nosnippet>426</a>		<span class="kw">if </span><a href="#416">metadata</a>.name.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#427 id=427 data-nosnippet>427</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Plugin name cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#428 id=428 data-nosnippet>428</a>		}
-<a href=#429 id=429 data-nosnippet>429</a>		<span class="kw">if </span>metadata.version.is_empty() {
-<a href=#430 id=430 data-nosnippet>430</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Plugin version cannot be empty"</span>.to_string()));
+<a href=#429 id=429 data-nosnippet>429</a>		<span class="kw">if </span><a href="#416">metadata</a>.version.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#430 id=430 data-nosnippet>430</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Plugin version cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#431 id=431 data-nosnippet>431</a>		}
-<a href=#432 id=432 data-nosnippet>432</a>		<span class="kw">if </span>metadata.author.is_empty() {
-<a href=#433 id=433 data-nosnippet>433</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Plugin author cannot be empty"</span>.to_string()));
+<a href=#432 id=432 data-nosnippet>432</a>		<span class="kw">if </span><a href="#416">metadata</a>.author.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
+<a href=#433 id=433 data-nosnippet>433</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Plugin author cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#434 id=434 data-nosnippet>434</a>		}
-<a href=#435 id=435 data-nosnippet>435</a>		<span class="prelude-val">Ok</span>(())
+<a href=#435 id=435 data-nosnippet>435</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#436 id=436 data-nosnippet>436</a>	}
 <a href=#437 id=437 data-nosnippet>437</a>
 <a href=#438 id=438 data-nosnippet>438</a>	<span class="doccomment">/// Validate plugin capabilities and permissions
-<a href=#439 id=439 data-nosnippet>439</a>	</span><span class="kw">pub fn </span>validate_capabilities_and_permissions(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin:<span class="kw-2">&amp;</span><span class="kw">dyn </span>Plugin) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-<a href=#440 id=440 data-nosnippet>440</a>		<span class="kw">let </span>permissions = plugin.permissions();
+<a href=#439 id=439 data-nosnippet>439</a>	</span><span class="kw">pub fn </span>validate_capabilities_and_permissions(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin:<span class="kw-2">&amp;</span><span class="kw">dyn </span><a href="#200-223">Plugin</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; {
+<a href=#440 id=440 data-nosnippet>440</a>		<span class="kw">let </span>permissions = <a href="#439">plugin</a>.<a href="#208">permissions</a>();
 <a href=#441 id=441 data-nosnippet>441</a>
 <a href=#442 id=442 data-nosnippet>442</a>		<span class="comment">// Check for dangerous permissions
 <a href=#443 id=443 data-nosnippet>443</a>		</span><span class="kw">for </span>permission <span class="kw">in </span><span class="kw-2">&amp;</span>permissions {
@@ -455,39 +455,39 @@
 <a href=#455 id=455 data-nosnippet>455</a>			}
 <a href=#456 id=456 data-nosnippet>456</a>		}
 <a href=#457 id=457 data-nosnippet>457</a>
-<a href=#458 id=458 data-nosnippet>458</a>		<span class="prelude-val">Ok</span>(())
+<a href=#458 id=458 data-nosnippet>458</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#459 id=459 data-nosnippet>459</a>	}
 <a href=#460 id=460 data-nosnippet>460</a>
 <a href=#461 id=461 data-nosnippet>461</a>	<span class="doccomment">/// Check Air version compatibility
-<a href=#462 id=462 data-nosnippet>462</a>	</span><span class="kw">pub fn </span>CheckAirVersionCompatibility(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata:<span class="kw-2">&amp;</span>PluginMetadata) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-<a href=#463 id=463 data-nosnippet>463</a>		<span class="kw">if </span>!<span class="self">self</span>.version_satisfies(<span class="kw-2">&amp;</span><span class="self">self</span>.AirVersion, <span class="kw-2">&amp;</span>metadata.MinAirVersion) {
-<a href=#464 id=464 data-nosnippet>464</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(AirError::Plugin(<span class="macro">format!</span>(
+<a href=#462 id=462 data-nosnippet>462</a>	</span><span class="kw">pub fn </span>CheckAirVersionCompatibility(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata:<span class="kw-2">&amp;</span><a href="#101-111">PluginMetadata</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; {
+<a href=#463 id=463 data-nosnippet>463</a>		<span class="kw">if </span>!<a class="self" href="#462">self</a>.<a href="#915-930">version_satisfies</a>(<span class="kw-2">&amp;</span><a class="self" href="#462">self</a>.AirVersion, <span class="kw-2">&amp;</span><a href="#462">metadata</a>.MinAirVersion) {
+<a href=#464 id=464 data-nosnippet>464</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#273">Plugin</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#465 id=465 data-nosnippet>465</a>				<span class="string">"Plugin requires Air version {} or higher, current: {}"</span>,
 <a href=#466 id=466 data-nosnippet>466</a>				metadata.MinAirVersion, <span class="self">self</span>.AirVersion
 <a href=#467 id=467 data-nosnippet>467</a>			)));
 <a href=#468 id=468 data-nosnippet>468</a>		}
 <a href=#469 id=469 data-nosnippet>469</a>
-<a href=#470 id=470 data-nosnippet>470</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(max_version) = <span class="kw-2">&amp;</span>metadata.MaxAirVersion {
-<a href=#471 id=471 data-nosnippet>471</a>			<span class="kw">if </span>!<span class="self">self</span>.version_satisfies(max_version, <span class="kw-2">&amp;</span><span class="self">self</span>.AirVersion) {
-<a href=#472 id=472 data-nosnippet>472</a>				<span class="kw">return </span><span class="prelude-val">Err</span>(AirError::Plugin(<span class="macro">format!</span>(
+<a href=#470 id=470 data-nosnippet>470</a>		<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(max_version) = <span class="kw-2">&amp;</span><a href="#462">metadata</a>.MaxAirVersion {
+<a href=#471 id=471 data-nosnippet>471</a>			<span class="kw">if </span>!<a class="self" href="#462">self</a>.<a href="#915-930">version_satisfies</a>(<a href="#470">max_version</a>, <span class="kw-2">&amp;</span><a class="self" href="#462">self</a>.AirVersion) {
+<a href=#472 id=472 data-nosnippet>472</a>				<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#273">Plugin</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#473 id=473 data-nosnippet>473</a>					<span class="string">"Plugin is incompatible with Air version {}, max supported: {}"</span>,
 <a href=#474 id=474 data-nosnippet>474</a>					<span class="self">self</span>.AirVersion, max_version
 <a href=#475 id=475 data-nosnippet>475</a>				)));
 <a href=#476 id=476 data-nosnippet>476</a>			}
 <a href=#477 id=477 data-nosnippet>477</a>		}
 <a href=#478 id=478 data-nosnippet>478</a>
-<a href=#479 id=479 data-nosnippet>479</a>		<span class="prelude-val">Ok</span>(())
+<a href=#479 id=479 data-nosnippet>479</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#480 id=480 data-nosnippet>480</a>	}
 <a href=#481 id=481 data-nosnippet>481</a>
 <a href=#482 id=482 data-nosnippet>482</a>	<span class="doccomment">/// Check API version compatibility
-<a href=#483 id=483 data-nosnippet>483</a>	</span><span class="kw">pub fn </span>CheckApiVersionCompatibility(<span class="kw-2">&amp;</span><span class="self">self</span>, _Metadata:<span class="kw-2">&amp;</span>PluginMetadata) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#483 id=483 data-nosnippet>483</a>	</span><span class="kw">pub fn </span>CheckApiVersionCompatibility(<span class="kw-2">&amp;</span><span class="self">self</span>, _Metadata:<span class="kw-2">&amp;</span><a href="#101-111">PluginMetadata</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; {
 <a href=#484 id=484 data-nosnippet>484</a>		<span class="comment">// Check if plugin declares compatibility with current API version
 <a href=#485 id=485 data-nosnippet>485</a>		// In production, this would check against the daemon's API version
-<a href=#486 id=486 data-nosnippet>486</a>		</span><span class="prelude-val">Ok</span>(())
+<a href=#486 id=486 data-nosnippet>486</a>		</span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#487 id=487 data-nosnippet>487</a>	}
 <a href=#488 id=488 data-nosnippet>488</a>
 <a href=#489 id=489 data-nosnippet>489</a>	<span class="doccomment">/// Check plugin dependencies
-<a href=#490 id=490 data-nosnippet>490</a>	</span><span class="kw">pub async fn </span>check_dependencies(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata:<span class="kw-2">&amp;</span>PluginMetadata) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#490 id=490 data-nosnippet>490</a>	</span><span class="kw">pub async fn </span>check_dependencies(<span class="kw-2">&amp;</span><span class="self">self</span>, metadata:<span class="kw-2">&amp;</span><a href="#101-111">PluginMetadata</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#491 id=491 data-nosnippet>491</a>		<span class="kw">let </span>plugins = <span class="self">self</span>.plugins.read().<span class="kw">await</span>;
 <a href=#492 id=492 data-nosnippet>492</a>
 <a href=#493 id=493 data-nosnippet>493</a>		<span class="kw">for </span>dep <span class="kw">in </span><span class="kw-2">&amp;</span>metadata.dependencies {
@@ -517,7 +517,7 @@
 <a href=#517 id=517 data-nosnippet>517</a>	}
 <a href=#518 id=518 data-nosnippet>518</a>
 <a href=#519 id=519 data-nosnippet>519</a>	<span class="doccomment">/// Start a plugin
-<a href=#520 id=520 data-nosnippet>520</a>	</span><span class="kw">pub async fn </span>start(<span class="kw-2">&amp;</span><span class="self">self</span>, PluginId:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#520 id=520 data-nosnippet>520</a>	</span><span class="kw">pub async fn </span>start(<span class="kw-2">&amp;</span><span class="self">self</span>, PluginId:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#521 id=521 data-nosnippet>521</a>		<span class="kw">let </span><span class="kw-2">mut </span>plugins = <span class="self">self</span>.plugins.write().<span class="kw">await</span>;
 <a href=#522 id=522 data-nosnippet>522</a>		<span class="kw">let </span>registry = plugins
 <a href=#523 id=523 data-nosnippet>523</a>			.get_mut(PluginId)
@@ -573,7 +573,7 @@
 <a href=#573 id=573 data-nosnippet>573</a>	}
 <a href=#574 id=574 data-nosnippet>574</a>
 <a href=#575 id=575 data-nosnippet>575</a>	<span class="doccomment">/// Stop a plugin
-<a href=#576 id=576 data-nosnippet>576</a>	</span><span class="kw">pub async fn </span>stop(<span class="kw-2">&amp;</span><span class="self">self</span>, PluginId:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#576 id=576 data-nosnippet>576</a>	</span><span class="kw">pub async fn </span>stop(<span class="kw-2">&amp;</span><span class="self">self</span>, PluginId:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#577 id=577 data-nosnippet>577</a>		<span class="kw">let </span><span class="kw-2">mut </span>plugins = <span class="self">self</span>.plugins.write().<span class="kw">await</span>;
 <a href=#578 id=578 data-nosnippet>578</a>		<span class="kw">let </span>registry = plugins
 <a href=#579 id=579 data-nosnippet>579</a>			.get_mut(PluginId)
@@ -653,7 +653,7 @@
 <a href=#653 id=653 data-nosnippet>653</a>	}
 <a href=#654 id=654 data-nosnippet>654</a>
 <a href=#655 id=655 data-nosnippet>655</a>	<span class="doccomment">/// Load a plugin
-<a href=#656 id=656 data-nosnippet>656</a>	</span><span class="kw">pub async fn </span>load(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#656 id=656 data-nosnippet>656</a>	</span><span class="kw">pub async fn </span>load(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#657 id=657 data-nosnippet>657</a>		<span class="kw">let </span><span class="kw-2">mut </span>plugins = <span class="self">self</span>.plugins.write().<span class="kw">await</span>;
 <a href=#658 id=658 data-nosnippet>658</a>		<span class="kw">let </span>registry = plugins
 <a href=#659 id=659 data-nosnippet>659</a>			.get_mut(plugin_id)
@@ -702,7 +702,7 @@
 <a href=#702 id=702 data-nosnippet>702</a>	}
 <a href=#703 id=703 data-nosnippet>703</a>
 <a href=#704 id=704 data-nosnippet>704</a>	<span class="doccomment">/// Unload a plugin
-<a href=#705 id=705 data-nosnippet>705</a>	</span><span class="kw">pub async fn </span>unload(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#705 id=705 data-nosnippet>705</a>	</span><span class="kw">pub async fn </span>unload(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#706 id=706 data-nosnippet>706</a>		<span class="comment">// First stop the plugin
 <a href=#707 id=707 data-nosnippet>707</a>		</span><span class="self">self</span>.stop(plugin_id).<span class="kw">await</span><span class="question-mark">?</span>;
 <a href=#708 id=708 data-nosnippet>708</a>
@@ -735,7 +735,7 @@
 <a href=#735 id=735 data-nosnippet>735</a>	}
 <a href=#736 id=736 data-nosnippet>736</a>
 <a href=#737 id=737 data-nosnippet>737</a>	<span class="doccomment">/// Send message from one plugin to another
-<a href=#738 id=738 data-nosnippet>738</a>	</span><span class="kw">pub async fn </span>send_message(<span class="kw-2">&amp;</span><span class="self">self</span>, message:PluginMessage) -&gt; <span class="prelude-ty">Result</span>&lt;PluginMessage&gt; {
+<a href=#738 id=738 data-nosnippet>738</a>	</span><span class="kw">pub async fn </span>send_message(<span class="kw-2">&amp;</span><span class="self">self</span>, message:<a href="#227-234">PluginMessage</a>) -&gt; <span class="prelude-ty">Result</span>&lt;PluginMessage&gt; {
 <a href=#739 id=739 data-nosnippet>739</a>		<span class="comment">// Validate message
 <a href=#740 id=740 data-nosnippet>740</a>		</span>message.validate()<span class="question-mark">?</span>;
 <a href=#741 id=741 data-nosnippet>741</a>
@@ -777,10 +777,10 @@
 <a href=#777 id=777 data-nosnippet>777</a>	<span class="doccomment">/// Check inter-plugin communication permission
 <a href=#778 id=778 data-nosnippet>778</a>	</span><span class="kw">fn </span>check_inter_plugin_permission(
 <a href=#779 id=779 data-nosnippet>779</a>		<span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#780 id=780 data-nosnippet>780</a>		_sender:<span class="kw-2">&amp;</span>PluginRegistry,
-<a href=#781 id=781 data-nosnippet>781</a>		_target:<span class="kw-2">&amp;</span>PluginRegistry,
-<a href=#782 id=782 data-nosnippet>782</a>		_message:<span class="kw-2">&amp;</span>PluginMessage,
-<a href=#783 id=783 data-nosnippet>783</a>	) -&gt; bool {
+<a href=#780 id=780 data-nosnippet>780</a>		_sender:<span class="kw-2">&amp;</span><a href="#285-292">PluginRegistry</a>,
+<a href=#781 id=781 data-nosnippet>781</a>		_target:<span class="kw-2">&amp;</span><a href="#285-292">PluginRegistry</a>,
+<a href=#782 id=782 data-nosnippet>782</a>		_message:<span class="kw-2">&amp;</span><a href="#227-234">PluginMessage</a>,
+<a href=#783 id=783 data-nosnippet>783</a>	) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#784 id=784 data-nosnippet>784</a>		<span class="comment">// In production, this would check if sender has permission to communicate with
 <a href=#785 id=785 data-nosnippet>785</a>		// target For now, we allow all communication
 <a href=#786 id=786 data-nosnippet>786</a>		</span><span class="bool-val">true
@@ -806,7 +806,7 @@
 <a href=#806 id=806 data-nosnippet>806</a>	}
 <a href=#807 id=807 data-nosnippet>807</a>
 <a href=#808 id=808 data-nosnippet>808</a>	<span class="doccomment">/// Get plugin state
-<a href=#809 id=809 data-nosnippet>809</a>	</span><span class="kw">pub async fn </span>get_plugin_state(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;serde_json::Value&gt; {
+<a href=#809 id=809 data-nosnippet>809</a>	</span><span class="kw">pub async fn </span>get_plugin_state(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;serde_json::Value&gt; {
 <a href=#810 id=810 data-nosnippet>810</a>		<span class="kw">let </span>plugins = <span class="self">self</span>.plugins.read().<span class="kw">await</span>;
 <a href=#811 id=811 data-nosnippet>811</a>		<span class="kw">let </span>registry = plugins
 <a href=#812 id=812 data-nosnippet>812</a>			.get(plugin_id)
@@ -816,7 +816,7 @@
 <a href=#816 id=816 data-nosnippet>816</a>	</span>}
 <a href=#817 id=817 data-nosnippet>817</a>
 <a href=#818 id=818 data-nosnippet>818</a>	<span class="doccomment">/// Get plugin permissions
-<a href=#819 id=819 data-nosnippet>819</a>	</span><span class="kw">pub async fn </span>get_plugin_permissions(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;PluginPermission&gt;&gt; {
+<a href=#819 id=819 data-nosnippet>819</a>	</span><span class="kw">pub async fn </span>get_plugin_permissions(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;PluginPermission&gt;&gt; {
 <a href=#820 id=820 data-nosnippet>820</a>		<span class="kw">let </span>plugins = <span class="self">self</span>.plugins.read().<span class="kw">await</span>;
 <a href=#821 id=821 data-nosnippet>821</a>		<span class="kw">let </span>registry = plugins
 <a href=#822 id=822 data-nosnippet>822</a>			.get(plugin_id)
@@ -839,20 +839,20 @@
 <a href=#839 id=839 data-nosnippet>839</a>	}
 <a href=#840 id=840 data-nosnippet>840</a>
 <a href=#841 id=841 data-nosnippet>841</a>	<span class="doccomment">/// Validate a single plugin
-<a href=#842 id=842 data-nosnippet>842</a>	</span><span class="kw">pub fn </span>validate_plugin(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin:<span class="kw-2">&amp;</span><span class="kw">dyn </span>Plugin) -&gt; PluginValidationResult {
-<a href=#843 id=843 data-nosnippet>843</a>		<span class="kw">let </span>metadata = plugin.metadata();
+<a href=#842 id=842 data-nosnippet>842</a>	</span><span class="kw">pub fn </span>validate_plugin(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin:<span class="kw-2">&amp;</span><span class="kw">dyn </span><a href="#200-223">Plugin</a>) -&gt; <a href="#173-177">PluginValidationResult</a> {
+<a href=#843 id=843 data-nosnippet>843</a>		<span class="kw">let </span>metadata = <a href="#842">plugin</a>.<a href="#202">metadata</a>();
 <a href=#844 id=844 data-nosnippet>844</a>
 <a href=#845 id=845 data-nosnippet>845</a>		<span class="comment">// Validate metadata
-<a href=#846 id=846 data-nosnippet>846</a>		</span><span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="self">self</span>.ValidatePluginMetadata(metadata) {
-<a href=#847 id=847 data-nosnippet>847</a>			<span class="kw">return </span>PluginValidationResult::Invalid(e.to_string());
+<a href=#846 id=846 data-nosnippet>846</a>		</span><span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) = <a class="self" href="#842">self</a>.<a href="#416-436">ValidatePluginMetadata</a>(<a href="#843">metadata</a>) {
+<a href=#847 id=847 data-nosnippet>847</a>			<span class="kw">return </span>PluginValidationResult::<a href="#175">Invalid</a>(<a href="#846">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#848 id=848 data-nosnippet>848</a>		}
 <a href=#849 id=849 data-nosnippet>849</a>
 <a href=#850 id=850 data-nosnippet>850</a>		<span class="comment">// Check version compatibility
-<a href=#851 id=851 data-nosnippet>851</a>		</span><span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="self">self</span>.CheckAirVersionCompatibility(metadata) {
-<a href=#852 id=852 data-nosnippet>852</a>			<span class="kw">return </span>PluginValidationResult::Invalid(<span class="macro">format!</span>(<span class="string">"Version compatibility error: {}"</span>, e));
+<a href=#851 id=851 data-nosnippet>851</a>		</span><span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) = <a class="self" href="#842">self</a>.<a href="#462-480">CheckAirVersionCompatibility</a>(<a href="#843">metadata</a>) {
+<a href=#852 id=852 data-nosnippet>852</a>			<span class="kw">return </span>PluginValidationResult::<a href="#175">Invalid</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Version compatibility error: {}"</span>, e));
 <a href=#853 id=853 data-nosnippet>853</a>		}
 <a href=#854 id=854 data-nosnippet>854</a>
-<a href=#855 id=855 data-nosnippet>855</a>		PluginValidationResult::Valid
+<a href=#855 id=855 data-nosnippet>855</a>		PluginValidationResult::<a href="#174">Valid</a>
 <a href=#856 id=856 data-nosnippet>856</a>	}
 <a href=#857 id=857 data-nosnippet>857</a>
 <a href=#858 id=858 data-nosnippet>858</a>	<span class="doccomment">/// Get dependency graph
@@ -887,19 +887,19 @@
 <a href=#887 id=887 data-nosnippet>887</a>	<span class="doccomment">/// Visit plugin for load order (helper function)
 <a href=#888 id=888 data-nosnippet>888</a>	</span><span class="kw">fn </span>VisitPluginForLoadOrder(
 <a href=#889 id=889 data-nosnippet>889</a>		<span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#890 id=890 data-nosnippet>890</a>		plugin_id:<span class="kw-2">&amp;</span>str,
-<a href=#891 id=891 data-nosnippet>891</a>		visited:<span class="kw-2">&amp;mut </span>std::collections::HashSet&lt;String&gt;,
-<a href=#892 id=892 data-nosnippet>892</a>		order:<span class="kw-2">&amp;mut </span>Vec&lt;String&gt;,
-<a href=#893 id=893 data-nosnippet>893</a>		plugins:<span class="kw-2">&amp;</span>HashMap&lt;String, PluginRegistry&gt;,
-<a href=#894 id=894 data-nosnippet>894</a>	) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-<a href=#895 id=895 data-nosnippet>895</a>		<span class="kw">if </span>visited.contains(plugin_id) {
-<a href=#896 id=896 data-nosnippet>896</a>			<span class="kw">return </span><span class="prelude-val">Ok</span>(());
+<a href=#890 id=890 data-nosnippet>890</a>		plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+<a href=#891 id=891 data-nosnippet>891</a>		visited:<span class="kw-2">&amp;mut </span>std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/set/struct.HashSet.html">HashSet</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#892 id=892 data-nosnippet>892</a>		order:<span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
+<a href=#893 id=893 data-nosnippet>893</a>		plugins:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#285-292">PluginRegistry</a>&gt;,
+<a href=#894 id=894 data-nosnippet>894</a>	) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;()&gt; {
+<a href=#895 id=895 data-nosnippet>895</a>		<span class="kw">if </span><a href="#891">visited</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/set/struct.HashSet.html#method.contains">contains</a>(<a href="#890">plugin_id</a>) {
+<a href=#896 id=896 data-nosnippet>896</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(());
 <a href=#897 id=897 data-nosnippet>897</a>		}
 <a href=#898 id=898 data-nosnippet>898</a>
-<a href=#899 id=899 data-nosnippet>899</a>		visited.insert(plugin_id.to_string());
+<a href=#899 id=899 data-nosnippet>899</a>		<a href="#891">visited</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/set/struct.HashSet.html#method.insert">insert</a>(<a href="#890">plugin_id</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#900 id=900 data-nosnippet>900</a>
-<a href=#901 id=901 data-nosnippet>901</a>		<span class="kw">if let </span><span class="prelude-val">Some</span>(registry) = plugins.get(plugin_id) {
-<a href=#902 id=902 data-nosnippet>902</a>			<span class="kw">let </span>metadata = registry.plugin.metadata();
+<a href=#901 id=901 data-nosnippet>901</a>		<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(registry) = <a href="#893">plugins</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.get">get</a>(<a href="#890">plugin_id</a>) {
+<a href=#902 id=902 data-nosnippet>902</a>			<span class="kw">let </span>metadata = <a href="#901">registry</a>.plugin.<a href="#202">metadata</a>();
 <a href=#903 id=903 data-nosnippet>903</a>			<span class="kw">for </span>dep <span class="kw">in </span><span class="kw-2">&amp;</span>metadata.dependencies {
 <a href=#904 id=904 data-nosnippet>904</a>				<span class="kw">if </span>!dep.optional {
 <a href=#905 id=905 data-nosnippet>905</a>					<span class="self">self</span>.VisitPluginForLoadOrder(<span class="kw-2">&amp;</span>dep.PluginId, visited, order, plugins)<span class="question-mark">?</span>;
@@ -907,14 +907,14 @@
 <a href=#907 id=907 data-nosnippet>907</a>			}
 <a href=#908 id=908 data-nosnippet>908</a>		}
 <a href=#909 id=909 data-nosnippet>909</a>
-<a href=#910 id=910 data-nosnippet>910</a>		order.push(plugin_id.to_string());
-<a href=#911 id=911 data-nosnippet>911</a>		<span class="prelude-val">Ok</span>(())
+<a href=#910 id=910 data-nosnippet>910</a>		<a href="#892">order</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.push">push</a>(<a href="#890">plugin_id</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
+<a href=#911 id=911 data-nosnippet>911</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#912 id=912 data-nosnippet>912</a>	}
 <a href=#913 id=913 data-nosnippet>913</a>
 <a href=#914 id=914 data-nosnippet>914</a>	<span class="doccomment">/// Simple version satisfaction check (X.Y.Z format)
-<a href=#915 id=915 data-nosnippet>915</a>	</span><span class="kw">fn </span>version_satisfies(<span class="kw-2">&amp;</span><span class="self">self</span>, actual:<span class="kw-2">&amp;</span>str, required:<span class="kw-2">&amp;</span>str) -&gt; bool {
-<a href=#916 id=916 data-nosnippet>916</a>		<span class="kw">let </span>ActualParts:Vec&lt;<span class="kw-2">&amp;</span>str&gt; = actual.split(<span class="string">'.'</span>).collect();
-<a href=#917 id=917 data-nosnippet>917</a>		<span class="kw">let </span>RequiredParts:Vec&lt;<span class="kw-2">&amp;</span>str&gt; = required.split(<span class="string">'.'</span>).collect();
+<a href=#915 id=915 data-nosnippet>915</a>	</span><span class="kw">fn </span>version_satisfies(<span class="kw-2">&amp;</span><span class="self">self</span>, actual:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, required:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#916 id=916 data-nosnippet>916</a>		<span class="kw">let </span>ActualParts:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; = <a href="#915">actual</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.split">split</a>(<span class="string">'.'</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>();
+<a href=#917 id=917 data-nosnippet>917</a>		<span class="kw">let </span>RequiredParts:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; = <a href="#915">required</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.split">split</a>(<span class="string">'.'</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>();
 <a href=#918 id=918 data-nosnippet>918</a>
 <a href=#919 id=919 data-nosnippet>919</a>		<span class="kw">for </span>(i, required_part) <span class="kw">in </span>RequiredParts.iter().enumerate() {
 <a href=#920 id=920 data-nosnippet>920</a>			<span class="kw">if let </span>(<span class="prelude-val">Ok</span>(a), <span class="prelude-val">Ok</span>(r)) = (ActualParts.get(i).unwrap_or(<span class="kw-2">&amp;</span><span class="string">"0"</span>).parse::&lt;u32&gt;(), required_part.parse::&lt;u32&gt;()) {
@@ -931,13 +931,13 @@
 <a href=#931 id=931 data-nosnippet>931</a>}
 <a href=#932 id=932 data-nosnippet>932</a>
 <a href=#933 id=933 data-nosnippet>933</a><span class="doccomment">/// Plugin information for listing
-<a href=#934 id=934 data-nosnippet>934</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#935 id=935 data-nosnippet>935</a></span><span class="kw">pub struct </span>PluginInfo {
-<a href=#936 id=936 data-nosnippet>936</a>	<span class="kw">pub </span>id:String,
-<a href=#937 id=937 data-nosnippet>937</a>	<span class="kw">pub </span>metadata:PluginMetadata,
-<a href=#938 id=938 data-nosnippet>938</a>	<span class="kw">pub </span>state:PluginState,
-<a href=#939 id=939 data-nosnippet>939</a>	<span class="kw">pub </span>UptimeSecs:u64,
-<a href=#940 id=940 data-nosnippet>940</a>	<span class="kw">pub </span>error:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#934 id=934 data-nosnippet>934</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#935 id=935 data-nosnippet>935</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginInfo.html">PluginInfo</a> {
+<a href=#936 id=936 data-nosnippet>936</a>	<span class="kw">pub </span>id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#937 id=937 data-nosnippet>937</a>	<span class="kw">pub </span>metadata:<a href="#101-111">PluginMetadata</a>,
+<a href=#938 id=938 data-nosnippet>938</a>	<span class="kw">pub </span>state:<a href="#269-282">PluginState</a>,
+<a href=#939 id=939 data-nosnippet>939</a>	<span class="kw">pub </span>UptimeSecs:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
+<a href=#940 id=940 data-nosnippet>940</a>	<span class="kw">pub </span>error:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#941 id=941 data-nosnippet>941</a>}
 <a href=#942 id=942 data-nosnippet>942</a>
 <a href=#943 id=943 data-nosnippet>943</a><span class="comment">// =============================================================================
@@ -945,48 +945,48 @@
 <a href=#945 id=945 data-nosnippet>945</a>// =============================================================================
 <a href=#946 id=946 data-nosnippet>946</a>
 <a href=#947 id=947 data-nosnippet>947</a></span><span class="doccomment">/// Plugin event types
-<a href=#948 id=948 data-nosnippet>948</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#949 id=949 data-nosnippet>949</a></span><span class="kw">pub enum </span>PluginEvent {
+<a href=#948 id=948 data-nosnippet>948</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#949 id=949 data-nosnippet>949</a></span><span class="kw">pub enum </span><a href="../../../AirLibrary/Plugins/enum.PluginEvent.html">PluginEvent</a> {
 <a href=#950 id=950 data-nosnippet>950</a>	<span class="doccomment">/// Plugin was loaded
-<a href=#951 id=951 data-nosnippet>951</a>	</span>Loaded { plugin_id:String },
+<a href=#951 id=951 data-nosnippet>951</a>	</span>Loaded { plugin_id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> },
 <a href=#952 id=952 data-nosnippet>952</a>	<span class="doccomment">/// Plugin was started
-<a href=#953 id=953 data-nosnippet>953</a>	</span>Started { plugin_id:String },
+<a href=#953 id=953 data-nosnippet>953</a>	</span>Started { plugin_id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> },
 <a href=#954 id=954 data-nosnippet>954</a>	<span class="doccomment">/// Plugin was stopped
-<a href=#955 id=955 data-nosnippet>955</a>	</span>Stopped { plugin_id:String },
+<a href=#955 id=955 data-nosnippet>955</a>	</span>Stopped { plugin_id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> },
 <a href=#956 id=956 data-nosnippet>956</a>	<span class="doccomment">/// Plugin was unloaded
-<a href=#957 id=957 data-nosnippet>957</a>	</span>Unloaded { plugin_id:String },
+<a href=#957 id=957 data-nosnippet>957</a>	</span>Unloaded { plugin_id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> },
 <a href=#958 id=958 data-nosnippet>958</a>	<span class="doccomment">/// Plugin encountered an error
-<a href=#959 id=959 data-nosnippet>959</a>	</span>Error { plugin_id:String, error:String },
+<a href=#959 id=959 data-nosnippet>959</a>	</span>Error { plugin_id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, error:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> },
 <a href=#960 id=960 data-nosnippet>960</a>	<span class="doccomment">/// Plugin sent a message
-<a href=#961 id=961 data-nosnippet>961</a>	</span>Message { from:String, to:String, action:String },
+<a href=#961 id=961 data-nosnippet>961</a>	</span>Message { from:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, to:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, action:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> },
 <a href=#962 id=962 data-nosnippet>962</a>	<span class="doccomment">/// Configuration changed
-<a href=#963 id=963 data-nosnippet>963</a>	</span>ConfigChanged { old:serde_json::Value, new:serde_json::Value },
+<a href=#963 id=963 data-nosnippet>963</a>	</span>ConfigChanged { old:serde_json::<a href="https://docs.rs/serde_json/1.0.149/serde_json/value/enum.Value.html">Value</a>, new:serde_json::<a href="https://docs.rs/serde_json/1.0.149/serde_json/value/enum.Value.html">Value</a> },
 <a href=#964 id=964 data-nosnippet>964</a>}
 <a href=#965 id=965 data-nosnippet>965</a>
 <a href=#966 id=966 data-nosnippet>966</a><span class="doccomment">/// Plugin event handler
 <a href=#967 id=967 data-nosnippet>967</a></span><span class="attr">#[async_trait]
-<a href=#968 id=968 data-nosnippet>968</a></span><span class="kw">pub trait </span>PluginEventHandler: Send + Sync {
+<a href=#968 id=968 data-nosnippet>968</a></span><span class="kw">pub trait </span><a href="../../../AirLibrary/Plugins/trait.PluginEventHandler.html">PluginEventHandler</a>: <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> {
 <a href=#969 id=969 data-nosnippet>969</a>	<span class="doccomment">/// Handle a plugin event
-<a href=#970 id=970 data-nosnippet>970</a>	</span><span class="kw">async fn </span>handle_event(<span class="kw-2">&amp;</span><span class="self">self</span>, event:<span class="kw-2">&amp;</span>PluginEvent) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;;
+<a href=#970 id=970 data-nosnippet>970</a>	</span><span class="kw">async fn </span>handle_event(<span class="kw-2">&amp;</span><span class="self">self</span>, event:<span class="kw-2">&amp;</span><a href="#949-964">PluginEvent</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;;
 <a href=#971 id=971 data-nosnippet>971</a>}
 <a href=#972 id=972 data-nosnippet>972</a>
 <a href=#973 id=973 data-nosnippet>973</a><span class="doccomment">/// Event bus for plugin events
-<a href=#974 id=974 data-nosnippet>974</a></span><span class="kw">pub struct </span>PluginEventBus {
-<a href=#975 id=975 data-nosnippet>975</a>	handlers:Arc&lt;RwLock&lt;Vec&lt;Box&lt;<span class="kw">dyn </span>PluginEventHandler&gt;&gt;&gt;&gt;,
+<a href=#974 id=974 data-nosnippet>974</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginEventBus.html">PluginEventBus</a> {
+<a href=#975 id=975 data-nosnippet>975</a>	handlers:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box</a>&lt;<span class="kw">dyn </span><a href="#968-971">PluginEventHandler</a>&gt;&gt;&gt;&gt;,
 <a href=#976 id=976 data-nosnippet>976</a>}
 <a href=#977 id=977 data-nosnippet>977</a>
-<a href=#978 id=978 data-nosnippet>978</a><span class="kw">impl </span>PluginEventBus {
+<a href=#978 id=978 data-nosnippet>978</a><span class="kw">impl </span><a href="#974-976">PluginEventBus</a> {
 <a href=#979 id=979 data-nosnippet>979</a>	<span class="doccomment">/// Create a new event bus
-<a href=#980 id=980 data-nosnippet>980</a>	</span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ handlers:Arc::new(RwLock::new(<span class="macro">vec!</span>[])) } }
+<a href=#980 id=980 data-nosnippet>980</a>	</span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ handlers:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[])) } }
 <a href=#981 id=981 data-nosnippet>981</a>
 <a href=#982 id=982 data-nosnippet>982</a>	<span class="doccomment">/// Register an event handler
-<a href=#983 id=983 data-nosnippet>983</a>	</span><span class="kw">pub async fn </span>register_handler(<span class="kw-2">&amp;</span><span class="self">self</span>, handler:Box&lt;<span class="kw">dyn </span>PluginEventHandler&gt;) {
+<a href=#983 id=983 data-nosnippet>983</a>	</span><span class="kw">pub async fn </span>register_handler(<span class="kw-2">&amp;</span><span class="self">self</span>, handler:<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box</a>&lt;<span class="kw">dyn </span><a href="#968-971">PluginEventHandler</a>&gt;) {
 <a href=#984 id=984 data-nosnippet>984</a>		<span class="kw">let </span><span class="kw-2">mut </span>handlers = <span class="self">self</span>.handlers.write().<span class="kw">await</span>;
 <a href=#985 id=985 data-nosnippet>985</a>		handlers.push(handler);
 <a href=#986 id=986 data-nosnippet>986</a>	}
 <a href=#987 id=987 data-nosnippet>987</a>
 <a href=#988 id=988 data-nosnippet>988</a>	<span class="doccomment">/// Emit an event to all handlers
-<a href=#989 id=989 data-nosnippet>989</a>	</span><span class="kw">pub async fn </span>emit(<span class="kw-2">&amp;</span><span class="self">self</span>, event:PluginEvent) {
+<a href=#989 id=989 data-nosnippet>989</a>	</span><span class="kw">pub async fn </span>emit(<span class="kw-2">&amp;</span><span class="self">self</span>, event:<a href="#949-964">PluginEvent</a>) {
 <a href=#990 id=990 data-nosnippet>990</a>		<span class="kw">let </span>handlers = <span class="self">self</span>.handlers.read().<span class="kw">await</span>;
 <a href=#991 id=991 data-nosnippet>991</a>		<span class="kw">for </span>handler <span class="kw">in </span>handlers.iter() {
 <a href=#992 id=992 data-nosnippet>992</a>			<span class="kw">if let </span><span class="prelude-val">Err</span>(e) = handler.handle_event(<span class="kw-2">&amp;</span>event).<span class="kw">await </span>{
@@ -996,8 +996,8 @@
 <a href=#996 id=996 data-nosnippet>996</a>	}
 <a href=#997 id=997 data-nosnippet>997</a>}
 <a href=#998 id=998 data-nosnippet>998</a>
-<a href=#999 id=999 data-nosnippet>999</a><span class="kw">impl </span>Default <span class="kw">for </span>PluginEventBus {
-<a href=#1000 id=1000 data-nosnippet>1000</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::new() }
+<a href=#999 id=999 data-nosnippet>999</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#974-976">PluginEventBus</a> {
+<a href=#1000 id=1000 data-nosnippet>1000</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::<a href="#980">new</a>() }
 <a href=#1001 id=1001 data-nosnippet>1001</a>}
 <a href=#1002 id=1002 data-nosnippet>1002</a>
 <a href=#1003 id=1003 data-nosnippet>1003</a><span class="comment">// =============================================================================
@@ -1005,32 +1005,32 @@
 <a href=#1005 id=1005 data-nosnippet>1005</a>// =============================================================================
 <a href=#1006 id=1006 data-nosnippet>1006</a>
 <a href=#1007 id=1007 data-nosnippet>1007</a></span><span class="doccomment">/// Plugin discovery result
-<a href=#1008 id=1008 data-nosnippet>1008</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#1009 id=1009 data-nosnippet>1009</a></span><span class="kw">pub struct </span>PluginDiscoveryResult {
-<a href=#1010 id=1010 data-nosnippet>1010</a>	<span class="kw">pub </span>plugin_id:String,
-<a href=#1011 id=1011 data-nosnippet>1011</a>	<span class="kw">pub </span>ManifestPath:String,
-<a href=#1012 id=1012 data-nosnippet>1012</a>	<span class="kw">pub </span>metadata:PluginMetadata,
-<a href=#1013 id=1013 data-nosnippet>1013</a>	<span class="kw">pub </span>enabled:bool,
+<a href=#1008 id=1008 data-nosnippet>1008</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#1009 id=1009 data-nosnippet>1009</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginDiscoveryResult.html">PluginDiscoveryResult</a> {
+<a href=#1010 id=1010 data-nosnippet>1010</a>	<span class="kw">pub </span>plugin_id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#1011 id=1011 data-nosnippet>1011</a>	<span class="kw">pub </span>ManifestPath:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#1012 id=1012 data-nosnippet>1012</a>	<span class="kw">pub </span>metadata:<a href="#101-111">PluginMetadata</a>,
+<a href=#1013 id=1013 data-nosnippet>1013</a>	<span class="kw">pub </span>enabled:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#1014 id=1014 data-nosnippet>1014</a>}
 <a href=#1015 id=1015 data-nosnippet>1015</a>
 <a href=#1016 id=1016 data-nosnippet>1016</a><span class="doccomment">/// Plugin manifest
-<a href=#1017 id=1017 data-nosnippet>1017</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#1018 id=1018 data-nosnippet>1018</a></span><span class="kw">pub struct </span>PluginManifest {
-<a href=#1019 id=1019 data-nosnippet>1019</a>	<span class="kw">pub </span>plugin:PluginMetadata,
-<a href=#1020 id=1020 data-nosnippet>1020</a>	<span class="kw">pub </span>main:String,
-<a href=#1021 id=1021 data-nosnippet>1021</a>	<span class="kw">pub </span>sandbox:<span class="prelude-ty">Option</span>&lt;PluginSandboxConfig&gt;,
+<a href=#1017 id=1017 data-nosnippet>1017</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>)]
+<a href=#1018 id=1018 data-nosnippet>1018</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginManifest.html">PluginManifest</a> {
+<a href=#1019 id=1019 data-nosnippet>1019</a>	<span class="kw">pub </span>plugin:<a href="#101-111">PluginMetadata</a>,
+<a href=#1020 id=1020 data-nosnippet>1020</a>	<span class="kw">pub </span>main:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#1021 id=1021 data-nosnippet>1021</a>	<span class="kw">pub </span>sandbox:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="#147-155">PluginSandboxConfig</a>&gt;,
 <a href=#1022 id=1022 data-nosnippet>1022</a>}
 <a href=#1023 id=1023 data-nosnippet>1023</a>
 <a href=#1024 id=1024 data-nosnippet>1024</a><span class="doccomment">/// Plugin loader for discovering and loading plugins
-<a href=#1025 id=1025 data-nosnippet>1025</a></span><span class="kw">pub struct </span>PluginLoader {
-<a href=#1026 id=1026 data-nosnippet>1026</a>	PluginPaths:Vec&lt;String&gt;,
+<a href=#1025 id=1025 data-nosnippet>1025</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginLoader.html">PluginLoader</a> {
+<a href=#1026 id=1026 data-nosnippet>1026</a>	PluginPaths:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#1027 id=1027 data-nosnippet>1027</a>}
 <a href=#1028 id=1028 data-nosnippet>1028</a>
-<a href=#1029 id=1029 data-nosnippet>1029</a><span class="kw">impl </span>PluginLoader {
+<a href=#1029 id=1029 data-nosnippet>1029</a><span class="kw">impl </span><a href="#1025-1027">PluginLoader</a> {
 <a href=#1030 id=1030 data-nosnippet>1030</a>	<span class="doccomment">/// Create a new plugin loader
 <a href=#1031 id=1031 data-nosnippet>1031</a>	</span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
 <a href=#1032 id=1032 data-nosnippet>1032</a>		<span class="self">Self </span>{
-<a href=#1033 id=1033 data-nosnippet>1033</a>			PluginPaths:<span class="macro">vec!</span>[
+<a href=#1033 id=1033 data-nosnippet>1033</a>			PluginPaths:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[
 <a href=#1034 id=1034 data-nosnippet>1034</a>				<span class="string">"/usr/local/lib/Air/plugins"</span>.to_string(),
 <a href=#1035 id=1035 data-nosnippet>1035</a>				<span class="string">"~/.local/share/Air/plugins"</span>.to_string(),
 <a href=#1036 id=1036 data-nosnippet>1036</a>			],
@@ -1038,7 +1038,7 @@
 <a href=#1038 id=1038 data-nosnippet>1038</a>	}
 <a href=#1039 id=1039 data-nosnippet>1039</a>
 <a href=#1040 id=1040 data-nosnippet>1040</a>	<span class="doccomment">/// Add a plugin discovery path
-<a href=#1041 id=1041 data-nosnippet>1041</a>	</span><span class="kw">pub fn </span>add_path(<span class="kw-2">&amp;mut </span><span class="self">self</span>, path:String) { <span class="self">self</span>.PluginPaths.push(path); }
+<a href=#1041 id=1041 data-nosnippet>1041</a>	</span><span class="kw">pub fn </span>add_path(<span class="kw-2">&amp;mut </span><span class="self">self</span>, path:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) { <a class="self" href="#1041">self</a>.PluginPaths.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.push">push</a>(<a href="#1041">path</a>); }
 <a href=#1042 id=1042 data-nosnippet>1042</a>
 <a href=#1043 id=1043 data-nosnippet>1043</a>	<span class="doccomment">/// Discover plugins from all configured paths
 <a href=#1044 id=1044 data-nosnippet>1044</a>	</span><span class="kw">pub async fn </span>discover_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;PluginDiscoveryResult&gt;&gt; {
@@ -1059,7 +1059,7 @@
 <a href=#1059 id=1059 data-nosnippet>1059</a>	}
 <a href=#1060 id=1060 data-nosnippet>1060</a>
 <a href=#1061 id=1061 data-nosnippet>1061</a>	<span class="doccomment">/// Discover plugins in a specific path
-<a href=#1062 id=1062 data-nosnippet>1062</a>	</span><span class="kw">pub async fn </span>discover_in_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;PluginDiscoveryResult&gt;&gt; {
+<a href=#1062 id=1062 data-nosnippet>1062</a>	</span><span class="kw">pub async fn </span>discover_in_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;PluginDiscoveryResult&gt;&gt; {
 <a href=#1063 id=1063 data-nosnippet>1063</a>		<span class="kw">let </span>Results = <span class="macro">vec!</span>[];
 <a href=#1064 id=1064 data-nosnippet>1064</a>
 <a href=#1065 id=1065 data-nosnippet>1065</a>		<span class="comment">// In production, this would scan the directory for plugin manifests
@@ -1070,7 +1070,7 @@
 <a href=#1070 id=1070 data-nosnippet>1070</a>	}
 <a href=#1071 id=1071 data-nosnippet>1071</a>
 <a href=#1072 id=1072 data-nosnippet>1072</a>	<span class="doccomment">/// Load a plugin from a discovery result
-<a href=#1073 id=1073 data-nosnippet>1073</a>	</span><span class="kw">pub async fn </span>load_from_discovery(<span class="kw-2">&amp;</span><span class="self">self</span>, discovery:<span class="kw-2">&amp;</span>PluginDiscoveryResult) -&gt; <span class="prelude-ty">Result</span>&lt;Arc&lt;Box&lt;<span class="kw">dyn </span>Plugin&gt;&gt;&gt; {
+<a href=#1073 id=1073 data-nosnippet>1073</a>	</span><span class="kw">pub async fn </span>load_from_discovery(<span class="kw-2">&amp;</span><span class="self">self</span>, discovery:<span class="kw-2">&amp;</span><a href="#1009-1014">PluginDiscoveryResult</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Arc&lt;Box&lt;<span class="kw">dyn </span>Plugin&gt;&gt;&gt; {
 <a href=#1074 id=1074 data-nosnippet>1074</a>		<span class="comment">// In production, this would load the plugin from the manifest
 <a href=#1075 id=1075 data-nosnippet>1075</a>		// For now, we return an error
 <a href=#1076 id=1076 data-nosnippet>1076</a>		</span><span class="prelude-val">Err</span>(AirError::Plugin(<span class="macro">format!</span>(
@@ -1080,8 +1080,8 @@
 <a href=#1080 id=1080 data-nosnippet>1080</a>	}
 <a href=#1081 id=1081 data-nosnippet>1081</a>}
 <a href=#1082 id=1082 data-nosnippet>1082</a>
-<a href=#1083 id=1083 data-nosnippet>1083</a><span class="kw">impl </span>Default <span class="kw">for </span>PluginLoader {
-<a href=#1084 id=1084 data-nosnippet>1084</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::new() }
+<a href=#1083 id=1083 data-nosnippet>1083</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#1025-1027">PluginLoader</a> {
+<a href=#1084 id=1084 data-nosnippet>1084</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::<a href="#1031-1038">new</a>() }
 <a href=#1085 id=1085 data-nosnippet>1085</a>}
 <a href=#1086 id=1086 data-nosnippet>1086</a>
 <a href=#1087 id=1087 data-nosnippet>1087</a><span class="comment">// =============================================================================
@@ -1089,48 +1089,48 @@
 <a href=#1089 id=1089 data-nosnippet>1089</a>// =============================================================================
 <a href=#1090 id=1090 data-nosnippet>1090</a>
 <a href=#1091 id=1091 data-nosnippet>1091</a></span><span class="doccomment">/// API version information
-<a href=#1092 id=1092 data-nosnippet>1092</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-<a href=#1093 id=1093 data-nosnippet>1093</a></span><span class="kw">pub struct </span>ApiVersion {
-<a href=#1094 id=1094 data-nosnippet>1094</a>	<span class="kw">pub </span>major:u32,
-<a href=#1095 id=1095 data-nosnippet>1095</a>	<span class="kw">pub </span>minor:u32,
-<a href=#1096 id=1096 data-nosnippet>1096</a>	<span class="kw">pub </span>patch:u32,
-<a href=#1097 id=1097 data-nosnippet>1097</a>	<span class="kw">pub </span>PreRelease:<span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#1092 id=1092 data-nosnippet>1092</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<a href=#1093 id=1093 data-nosnippet>1093</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.ApiVersion.html">ApiVersion</a> {
+<a href=#1094 id=1094 data-nosnippet>1094</a>	<span class="kw">pub </span>major:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#1095 id=1095 data-nosnippet>1095</a>	<span class="kw">pub </span>minor:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#1096 id=1096 data-nosnippet>1096</a>	<span class="kw">pub </span>patch:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#1097 id=1097 data-nosnippet>1097</a>	<span class="kw">pub </span>PreRelease:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#1098 id=1098 data-nosnippet>1098</a>}
 <a href=#1099 id=1099 data-nosnippet>1099</a>
-<a href=#1100 id=1100 data-nosnippet>1100</a><span class="kw">impl </span>ApiVersion {
+<a href=#1100 id=1100 data-nosnippet>1100</a><span class="kw">impl </span><a href="#1093-1098">ApiVersion</a> {
 <a href=#1101 id=1101 data-nosnippet>1101</a>	<span class="doccomment">/// Get the current API version
-<a href=#1102 id=1102 data-nosnippet>1102</a>	</span><span class="kw">pub fn </span>current() -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ major:<span class="number">1</span>, minor:<span class="number">0</span>, patch:<span class="number">0</span>, PreRelease:<span class="prelude-val">None </span>} }
+<a href=#1102 id=1102 data-nosnippet>1102</a>	</span><span class="kw">pub fn </span>current() -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ major:<span class="number">1</span>, minor:<span class="number">0</span>, patch:<span class="number">0</span>, PreRelease:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a> } }
 <a href=#1103 id=1103 data-nosnippet>1103</a>
 <a href=#1104 id=1104 data-nosnippet>1104</a>	<span class="doccomment">/// Parse version from string
-<a href=#1105 id=1105 data-nosnippet>1105</a>	</span><span class="kw">pub fn </span>parse(version:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
-<a href=#1106 id=1106 data-nosnippet>1106</a>		<span class="kw">let </span>parts:Vec&lt;<span class="kw-2">&amp;</span>str&gt; = version.split(<span class="string">'.'</span>).collect();
-<a href=#1107 id=1107 data-nosnippet>1107</a>		<span class="kw">if </span>parts.len() &lt; <span class="number">3 </span>{
-<a href=#1108 id=1108 data-nosnippet>1108</a>			<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="kw">crate</span>::AirError::Plugin(<span class="string">"Invalid version format"</span>.to_string()));
+<a href=#1105 id=1105 data-nosnippet>1105</a>	</span><span class="kw">pub fn </span>parse(version:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#338">Result</a>&lt;<span class="self">Self</span>&gt; {
+<a href=#1106 id=1106 data-nosnippet>1106</a>		<span class="kw">let </span>parts:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; = <a href="#1105">version</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.split">split</a>(<span class="string">'.'</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>();
+<a href=#1107 id=1107 data-nosnippet>1107</a>		<span class="kw">if </span><a href="#1106">parts</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.len">len</a>() &lt; <span class="number">3 </span>{
+<a href=#1108 id=1108 data-nosnippet>1108</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Invalid version format"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#1109 id=1109 data-nosnippet>1109</a>		}
 <a href=#1110 id=1110 data-nosnippet>1110</a>
-<a href=#1111 id=1111 data-nosnippet>1111</a>		<span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-<a href=#1112 id=1112 data-nosnippet>1112</a>			major:parts[<span class="number">0</span>]
-<a href=#1113 id=1113 data-nosnippet>1113</a>				.parse()
-<a href=#1114 id=1114 data-nosnippet>1114</a>				.map_err(|<span class="kw">_</span>| <span class="kw">crate</span>::AirError::Plugin(<span class="string">"Invalid major version"</span>.to_string()))<span class="question-mark">?</span>,
-<a href=#1115 id=1115 data-nosnippet>1115</a>			minor:parts[<span class="number">1</span>]
-<a href=#1116 id=1116 data-nosnippet>1116</a>				.parse()
-<a href=#1117 id=1117 data-nosnippet>1117</a>				.map_err(|<span class="kw">_</span>| <span class="kw">crate</span>::AirError::Plugin(<span class="string">"Invalid minor version"</span>.to_string()))<span class="question-mark">?</span>,
-<a href=#1118 id=1118 data-nosnippet>1118</a>			patch:parts[<span class="number">2</span>]
-<a href=#1119 id=1119 data-nosnippet>1119</a>				.parse()
-<a href=#1120 id=1120 data-nosnippet>1120</a>				.map_err(|<span class="kw">_</span>| <span class="kw">crate</span>::AirError::Plugin(<span class="string">"Invalid patch version"</span>.to_string()))<span class="question-mark">?</span>,
-<a href=#1121 id=1121 data-nosnippet>1121</a>			PreRelease:<span class="kw">if </span>parts.len() &gt; <span class="number">3 </span>{ <span class="prelude-val">Some</span>(parts[<span class="number">3</span>].to_string()) } <span class="kw">else </span>{ <span class="prelude-val">None </span>},
+<a href=#1111 id=1111 data-nosnippet>1111</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="self">Self </span>{
+<a href=#1112 id=1112 data-nosnippet>1112</a>			major:<a href="#1106">parts</a>[<span class="number">0</span>]
+<a href=#1113 id=1113 data-nosnippet>1113</a>				.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.parse">parse</a>()
+<a href=#1114 id=1114 data-nosnippet>1114</a>				.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|<span class="kw">_</span>| <span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Invalid major version"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>,
+<a href=#1115 id=1115 data-nosnippet>1115</a>			minor:<a href="#1106">parts</a>[<span class="number">1</span>]
+<a href=#1116 id=1116 data-nosnippet>1116</a>				.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.parse">parse</a>()
+<a href=#1117 id=1117 data-nosnippet>1117</a>				.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|<span class="kw">_</span>| <span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Invalid minor version"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>,
+<a href=#1118 id=1118 data-nosnippet>1118</a>			patch:<a href="#1106">parts</a>[<span class="number">2</span>]
+<a href=#1119 id=1119 data-nosnippet>1119</a>				.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.parse">parse</a>()
+<a href=#1120 id=1120 data-nosnippet>1120</a>				.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|<span class="kw">_</span>| <span class="kw">crate</span>::AirError::<a href="../Library.rs.html#273">Plugin</a>(<span class="string">"Invalid patch version"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>,
+<a href=#1121 id=1121 data-nosnippet>1121</a>			PreRelease:<span class="kw">if </span><a href="#1106">parts</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.len">len</a>() &gt; <span class="number">3 </span>{ <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#1106">parts</a>[<span class="number">3</span>].<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()) } <span class="kw">else </span>{ <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a> },
 <a href=#1122 id=1122 data-nosnippet>1122</a>		})
 <a href=#1123 id=1123 data-nosnippet>1123</a>	}
 <a href=#1124 id=1124 data-nosnippet>1124</a>
 <a href=#1125 id=1125 data-nosnippet>1125</a>	<span class="doccomment">/// Check if this version is compatible with another
-<a href=#1126 id=1126 data-nosnippet>1126</a>	</span><span class="kw">pub fn </span>IsCompatible(<span class="kw-2">&amp;</span><span class="self">self</span>, other:<span class="kw-2">&amp;</span>ApiVersion) -&gt; bool {
+<a href=#1126 id=1126 data-nosnippet>1126</a>	</span><span class="kw">pub fn </span>IsCompatible(<span class="kw-2">&amp;</span><span class="self">self</span>, other:<span class="kw-2">&amp;</span><a href="#1093-1098">ApiVersion</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#1127 id=1127 data-nosnippet>1127</a>		<span class="comment">// Same major version means compatible
-<a href=#1128 id=1128 data-nosnippet>1128</a>		</span><span class="kw">if </span><span class="self">self</span>.<span class="macro">major !</span>= other.major {
+<a href=#1128 id=1128 data-nosnippet>1128</a>		</span><span class="kw">if </span><a class="self" href="#1126">self</a>.<span class="macro">major !</span>= <a href="#1126">other</a>.major {
 <a href=#1129 id=1129 data-nosnippet>1129</a>			<span class="kw">return </span><span class="bool-val">false</span>;
 <a href=#1130 id=1130 data-nosnippet>1130</a>		}
 <a href=#1131 id=1131 data-nosnippet>1131</a>
 <a href=#1132 id=1132 data-nosnippet>1132</a>		<span class="comment">// If minor version is higher, it might have breaking changes
-<a href=#1133 id=1133 data-nosnippet>1133</a>		</span><span class="kw">if </span>other.minor &lt; <span class="self">self</span>.minor {
+<a href=#1133 id=1133 data-nosnippet>1133</a>		</span><span class="kw">if </span><a href="#1126">other</a>.minor &lt; <a class="self" href="#1126">self</a>.minor {
 <a href=#1134 id=1134 data-nosnippet>1134</a>			<span class="kw">return </span><span class="bool-val">false</span>;
 <a href=#1135 id=1135 data-nosnippet>1135</a>		}
 <a href=#1136 id=1136 data-nosnippet>1136</a>
@@ -1139,34 +1139,34 @@
 <a href=#1139 id=1139 data-nosnippet>1139</a>}
 <a href=#1140 id=1140 data-nosnippet>1140</a>
 <a href=#1141 id=1141 data-nosnippet>1141</a><span class="doccomment">/// API version manager
-<a href=#1142 id=1142 data-nosnippet>1142</a></span><span class="kw">pub struct </span>ApiVersionManager {
-<a href=#1143 id=1143 data-nosnippet>1143</a>	CurrentVersion:ApiVersion,
-<a href=#1144 id=1144 data-nosnippet>1144</a>	CompatibleVersions:Vec&lt;ApiVersion&gt;,
+<a href=#1142 id=1142 data-nosnippet>1142</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.ApiVersionManager.html">ApiVersionManager</a> {
+<a href=#1143 id=1143 data-nosnippet>1143</a>	CurrentVersion:<a href="#1093-1098">ApiVersion</a>,
+<a href=#1144 id=1144 data-nosnippet>1144</a>	CompatibleVersions:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#1093-1098">ApiVersion</a>&gt;,
 <a href=#1145 id=1145 data-nosnippet>1145</a>}
 <a href=#1146 id=1146 data-nosnippet>1146</a>
-<a href=#1147 id=1147 data-nosnippet>1147</a><span class="kw">impl </span>ApiVersionManager {
+<a href=#1147 id=1147 data-nosnippet>1147</a><span class="kw">impl </span><a href="#1142-1145">ApiVersionManager</a> {
 <a href=#1148 id=1148 data-nosnippet>1148</a>	<span class="doccomment">/// Create a new API version manager
 <a href=#1149 id=1149 data-nosnippet>1149</a>	</span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-<a href=#1150 id=1150 data-nosnippet>1150</a>		<span class="kw">let </span>current = ApiVersion::current();
-<a href=#1151 id=1151 data-nosnippet>1151</a>		<span class="self">Self </span>{ CurrentVersion:current.clone(), CompatibleVersions:<span class="macro">vec!</span>[current] }
+<a href=#1150 id=1150 data-nosnippet>1150</a>		<span class="kw">let </span>current = <a href="#1093-1098">ApiVersion</a>::<a href="#1102">current</a>();
+<a href=#1151 id=1151 data-nosnippet>1151</a>		<span class="self">Self </span>{ CurrentVersion:<a href="#1150">current</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), CompatibleVersions:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[current] }
 <a href=#1152 id=1152 data-nosnippet>1152</a>	}
 <a href=#1153 id=1153 data-nosnippet>1153</a>
 <a href=#1154 id=1154 data-nosnippet>1154</a>	<span class="doccomment">/// Get the current API version
-<a href=#1155 id=1155 data-nosnippet>1155</a>	</span><span class="kw">pub fn </span>current(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>ApiVersion { <span class="kw-2">&amp;</span><span class="self">self</span>.CurrentVersion }
+<a href=#1155 id=1155 data-nosnippet>1155</a>	</span><span class="kw">pub fn </span>current(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a href="#1093-1098">ApiVersion</a> { <span class="kw-2">&amp;</span><a class="self" href="#1155">self</a>.CurrentVersion }
 <a href=#1156 id=1156 data-nosnippet>1156</a>
 <a href=#1157 id=1157 data-nosnippet>1157</a>	<span class="doccomment">/// Check if a version is compatible
-<a href=#1158 id=1158 data-nosnippet>1158</a>	</span><span class="kw">pub fn </span>IsCompatible(<span class="kw-2">&amp;</span><span class="self">self</span>, version:<span class="kw-2">&amp;</span>ApiVersion) -&gt; bool { <span class="self">self</span>.CurrentVersion.IsCompatible(version) }
+<a href=#1158 id=1158 data-nosnippet>1158</a>	</span><span class="kw">pub fn </span>IsCompatible(<span class="kw-2">&amp;</span><span class="self">self</span>, version:<span class="kw-2">&amp;</span><a href="#1093-1098">ApiVersion</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { <a class="self" href="#1158">self</a>.CurrentVersion.<a href="#1126-1138">IsCompatible</a>(<a href="#1158">version</a>) }
 <a href=#1159 id=1159 data-nosnippet>1159</a>
 <a href=#1160 id=1160 data-nosnippet>1160</a>	<span class="doccomment">/// Register a compatible API version
-<a href=#1161 id=1161 data-nosnippet>1161</a>	</span><span class="kw">pub fn </span>register_compatible(<span class="kw-2">&amp;mut </span><span class="self">self</span>, version:ApiVersion) {
-<a href=#1162 id=1162 data-nosnippet>1162</a>		<span class="kw">if </span><span class="self">self</span>.IsCompatible(<span class="kw-2">&amp;</span>version) &amp;&amp; !<span class="self">self</span>.CompatibleVersions.contains(<span class="kw-2">&amp;</span>version) {
-<a href=#1163 id=1163 data-nosnippet>1163</a>			<span class="self">self</span>.CompatibleVersions.push(version);
+<a href=#1161 id=1161 data-nosnippet>1161</a>	</span><span class="kw">pub fn </span>register_compatible(<span class="kw-2">&amp;mut </span><span class="self">self</span>, version:<a href="#1093-1098">ApiVersion</a>) {
+<a href=#1162 id=1162 data-nosnippet>1162</a>		<span class="kw">if </span><a class="self" href="#1161">self</a>.<a href="#1158">IsCompatible</a>(<span class="kw-2">&amp;</span><a href="#1161">version</a>) &amp;&amp; !<a class="self" href="#1161">self</a>.CompatibleVersions.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.contains">contains</a>(<span class="kw-2">&amp;</span><a href="#1161">version</a>) {
+<a href=#1163 id=1163 data-nosnippet>1163</a>			<a class="self" href="#1161">self</a>.CompatibleVersions.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.push">push</a>(<a href="#1161">version</a>);
 <a href=#1164 id=1164 data-nosnippet>1164</a>		}
 <a href=#1165 id=1165 data-nosnippet>1165</a>	}
 <a href=#1166 id=1166 data-nosnippet>1166</a>}
 <a href=#1167 id=1167 data-nosnippet>1167</a>
-<a href=#1168 id=1168 data-nosnippet>1168</a><span class="kw">impl </span>Default <span class="kw">for </span>ApiVersionManager {
-<a href=#1169 id=1169 data-nosnippet>1169</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::new() }
+<a href=#1168 id=1168 data-nosnippet>1168</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#1142-1145">ApiVersionManager</a> {
+<a href=#1169 id=1169 data-nosnippet>1169</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::<a href="#1149-1152">new</a>() }
 <a href=#1170 id=1170 data-nosnippet>1170</a>}
 <a href=#1171 id=1171 data-nosnippet>1171</a>
 <a href=#1172 id=1172 data-nosnippet>1172</a><span class="comment">// =============================================================================
@@ -1174,42 +1174,42 @@
 <a href=#1174 id=1174 data-nosnippet>1174</a>// =============================================================================
 <a href=#1175 id=1175 data-nosnippet>1175</a>
 <a href=#1176 id=1176 data-nosnippet>1176</a></span><span class="doccomment">/// Plugin sandbox manager
-<a href=#1177 id=1177 data-nosnippet>1177</a></span><span class="kw">pub struct </span>PluginSandboxManager {
-<a href=#1178 id=1178 data-nosnippet>1178</a>	sandboxes:Arc&lt;RwLock&lt;HashMap&lt;String, PluginSandboxConfig&gt;&gt;&gt;,
+<a href=#1177 id=1177 data-nosnippet>1177</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Plugins/struct.PluginSandboxManager.html">PluginSandboxManager</a> {
+<a href=#1178 id=1178 data-nosnippet>1178</a>	sandboxes:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#147-155">PluginSandboxConfig</a>&gt;&gt;&gt;,
 <a href=#1179 id=1179 data-nosnippet>1179</a>}
 <a href=#1180 id=1180 data-nosnippet>1180</a>
-<a href=#1181 id=1181 data-nosnippet>1181</a><span class="kw">impl </span>PluginSandboxManager {
+<a href=#1181 id=1181 data-nosnippet>1181</a><span class="kw">impl </span><a href="#1177-1179">PluginSandboxManager</a> {
 <a href=#1182 id=1182 data-nosnippet>1182</a>	<span class="doccomment">/// Create a new sandbox manager
-<a href=#1183 id=1183 data-nosnippet>1183</a>	</span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ sandboxes:Arc::new(RwLock::new(HashMap::new())) } }
+<a href=#1183 id=1183 data-nosnippet>1183</a>	</span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{ <span class="self">Self </span>{ sandboxes:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())) } }
 <a href=#1184 id=1184 data-nosnippet>1184</a>
 <a href=#1185 id=1185 data-nosnippet>1185</a>	<span class="doccomment">/// Create a sandbox for a plugin
-<a href=#1186 id=1186 data-nosnippet>1186</a>	</span><span class="kw">pub async fn </span>create_sandbox(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:String, config:PluginSandboxConfig) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#1186 id=1186 data-nosnippet>1186</a>	</span><span class="kw">pub async fn </span>create_sandbox(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, config:<a href="#147-155">PluginSandboxConfig</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#1187 id=1187 data-nosnippet>1187</a>		<span class="kw">let </span><span class="kw-2">mut </span>sandboxes = <span class="self">self</span>.sandboxes.write().<span class="kw">await</span>;
 <a href=#1188 id=1188 data-nosnippet>1188</a>		sandboxes.insert(plugin_id, config);
 <a href=#1189 id=1189 data-nosnippet>1189</a>		<span class="prelude-val">Ok</span>(())
 <a href=#1190 id=1190 data-nosnippet>1190</a>	}
 <a href=#1191 id=1191 data-nosnippet>1191</a>
 <a href=#1192 id=1192 data-nosnippet>1192</a>	<span class="doccomment">/// Get sandbox configuration
-<a href=#1193 id=1193 data-nosnippet>1193</a>	</span><span class="kw">pub async fn </span>get_sandbox(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;PluginSandboxConfig&gt; {
+<a href=#1193 id=1193 data-nosnippet>1193</a>	</span><span class="kw">pub async fn </span>get_sandbox(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;PluginSandboxConfig&gt; {
 <a href=#1194 id=1194 data-nosnippet>1194</a>		<span class="kw">let </span>sandboxes = <span class="self">self</span>.sandboxes.read().<span class="kw">await</span>;
 <a href=#1195 id=1195 data-nosnippet>1195</a>		sandboxes.get(plugin_id).cloned()
 <a href=#1196 id=1196 data-nosnippet>1196</a>	}
 <a href=#1197 id=1197 data-nosnippet>1197</a>
 <a href=#1198 id=1198 data-nosnippet>1198</a>	<span class="doccomment">/// Remove a sandbox
-<a href=#1199 id=1199 data-nosnippet>1199</a>	</span><span class="kw">pub async fn </span>remove_sandbox(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span>str) {
+<a href=#1199 id=1199 data-nosnippet>1199</a>	</span><span class="kw">pub async fn </span>remove_sandbox(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
 <a href=#1200 id=1200 data-nosnippet>1200</a>		<span class="kw">let </span><span class="kw-2">mut </span>sandboxes = <span class="self">self</span>.sandboxes.write().<span class="kw">await</span>;
 <a href=#1201 id=1201 data-nosnippet>1201</a>		sandboxes.remove(plugin_id);
 <a href=#1202 id=1202 data-nosnippet>1202</a>	}
 <a href=#1203 id=1203 data-nosnippet>1203</a>
 <a href=#1204 id=1204 data-nosnippet>1204</a>	<span class="doccomment">/// Check if a plugin is running in a sandbox
-<a href=#1205 id=1205 data-nosnippet>1205</a>	</span><span class="kw">pub async fn </span>is_sandboxed(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span>str) -&gt; bool {
+<a href=#1205 id=1205 data-nosnippet>1205</a>	</span><span class="kw">pub async fn </span>is_sandboxed(<span class="kw-2">&amp;</span><span class="self">self</span>, plugin_id:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; bool {
 <a href=#1206 id=1206 data-nosnippet>1206</a>		<span class="kw">let </span>sandboxes = <span class="self">self</span>.sandboxes.read().<span class="kw">await</span>;
 <a href=#1207 id=1207 data-nosnippet>1207</a>		sandboxes.get(plugin_id).map_or(<span class="bool-val">false</span>, |s| s.enabled)
 <a href=#1208 id=1208 data-nosnippet>1208</a>	}
 <a href=#1209 id=1209 data-nosnippet>1209</a>}
 <a href=#1210 id=1210 data-nosnippet>1210</a>
-<a href=#1211 id=1211 data-nosnippet>1211</a><span class="kw">impl </span>Default <span class="kw">for </span>PluginSandboxManager {
-<a href=#1212 id=1212 data-nosnippet>1212</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::new() }
+<a href=#1211 id=1211 data-nosnippet>1211</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#1177-1179">PluginSandboxManager</a> {
+<a href=#1212 id=1212 data-nosnippet>1212</a>	<span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{ <span class="self">Self</span>::<a href="#1183">new</a>() }
 <a href=#1213 id=1213 data-nosnippet>1213</a>}
 <a href=#1214 id=1214 data-nosnippet>1214</a>
 <a href=#1215 id=1215 data-nosnippet>1215</a><span class="attr">#[cfg(test)]

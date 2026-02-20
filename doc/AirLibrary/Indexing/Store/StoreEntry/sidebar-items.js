@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["BackupCorruptedIndex","CleanupOldBackups","EnsureIndexDirectory","GetIndexFilePath","GetIndexFileSize","IndexFileExists","LoadIndex","LoadIndexWithRecovery","LoadOrCreateIndex","SaveIndex","ValidateIndexFormat"]};
+window.SIDEBAR_ITEMS = {"fn":["BackupCorruptedIndex","CleanupOldBackups","CreateNewIndex","EnsureIndexDirectory","GetIndexFilePath","GetIndexFileSize","IndexFileExists","LoadIndex","LoadIndexWithRecovery","LoadOrCreateIndex","SaveIndex","ValidateIndexFormat"]};
