@@ -1130,7 +1130,7 @@
 <a href=#1130 id=1130 data-nosnippet>1130</a>	/// - Returns update information if a newer version is available
 <a href=#1131 id=1131 data-nosnippet>1131</a>	///
 <a href=#1132 id=1132 data-nosnippet>1132</a>	/// # Returns
-<a href=#1133 id=1133 data-nosnippet>1133</a>	/// Result&lt;Option&lt;UpdateInfo&gt;&gt; - Some if update available, None if
+<a href=#1133 id=1133 data-nosnippet>1133</a>	/// Result&lt;Option&lt;`UpdateInfo`&gt;&gt; - Some if update available, None if
 <a href=#1134 id=1134 data-nosnippet>1134</a>	/// up-to-date
 <a href=#1135 id=1135 data-nosnippet>1135</a>	</span><span class="kw">async fn </span>FetchUpdateInfo(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;UpdateInfo&gt;&gt; {
 <a href=#1136 id=1136 data-nosnippet>1136</a>		<span class="kw">let </span>config = <span class="kw-2">&amp;</span><span class="self">self</span>.AppState.Configuration.Updates;
@@ -1381,7 +1381,7 @@
 <a href=#1381 id=1381 data-nosnippet>1381</a>	/// * `version` - Current version being backed up
 <a href=#1382 id=1382 data-nosnippet>1382</a>	///
 <a href=#1383 id=1383 data-nosnippet>1383</a>	/// # Returns
-<a href=#1384 id=1384 data-nosnippet>1384</a>	/// Result&lt;RollbackState&gt; containing backup information
+<a href=#1384 id=1384 data-nosnippet>1384</a>	/// Result&lt;`RollbackState`&gt; containing backup information
 <a href=#1385 id=1385 data-nosnippet>1385</a>	</span><span class="kw">async fn </span>CreateBackup(<span class="kw-2">&amp;</span><span class="self">self</span>, version:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;RollbackState&gt; {
 <a href=#1386 id=1386 data-nosnippet>1386</a>		<span class="kw">let </span>timestamp = chrono::Utc::now();
 <a href=#1387 id=1387 data-nosnippet>1387</a>		<span class="kw">let </span>backup_dir_name = <span class="macro">format!</span>(<span class="string">"backup-{}-{}"</span>, version, timestamp.format(<span class="string">"%Y%m%d_%H%M%S"</span>));
@@ -1566,7 +1566,7 @@
 <a href=#1566 id=1566 data-nosnippet>1566</a>	/// * `update_info` - Optional update info with checksums
 <a href=#1567 id=1567 data-nosnippet>1567</a>	///
 <a href=#1568 id=1568 data-nosnippet>1568</a>	/// # Returns
-<a href=#1569 id=1569 data-nosnippet>1569</a>	/// Result&lt;bool&gt; - true if valid, false if invalid
+<a href=#1569 id=1569 data-nosnippet>1569</a>	/// Result&lt;`bool`&gt; - true if valid, false if invalid
 <a href=#1570 id=1570 data-nosnippet>1570</a>	</span><span class="kw">pub async fn </span>verify_update(<span class="kw-2">&amp;</span><span class="self">self</span>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, update_info:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="#311-356">UpdateInfo</a>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
 <a href=#1571 id=1571 data-nosnippet>1571</a>		<span class="kw">let </span>path = PathBuf::from(file_path);
 <a href=#1572 id=1572 data-nosnippet>1572</a>

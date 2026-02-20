@@ -5,8 +5,8 @@
 }</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>gRPC server configuration</p>
 </div></details><h2 id="fields" class="fields section-header">Fields<a href="#fields" class="anchor">§</a></h2><span id="structfield.BindAddress" class="structfield section-header"><a href="#structfield.BindAddress" class="anchor field">§</a><code>BindAddress: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code></span><div class="docblock"><p>Bind address for gRPC server
 Validation: Must be a valid IP:port or hostname:port combination
-Format: [IPv6]:port or IPv4:port or hostname:port
-Example: “[::1]:50053”, “127.0.0.1:50053”, “localhost:50053”</p>
+Format: <code>[IPv6]</code>:port or IPv4:port or hostname:port
+Example: <code>"[::1]:50053"</code>, <code>"127.0.0.1:50053"</code>, <code>"localhost:50053"</code></p>
 </div><span id="structfield.MaxConnections" class="structfield section-header"><a href="#structfield.MaxConnections" class="anchor field">§</a><code>MaxConnections: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code></span><div class="docblock"><p>Maximum concurrent connections
 Validation: Range [10, 10000]
 Default: 100</p>

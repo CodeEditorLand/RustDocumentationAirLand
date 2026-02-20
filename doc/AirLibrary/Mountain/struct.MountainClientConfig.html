@@ -4,7 +4,7 @@
     pub request_timeout_secs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
     pub tls_config: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.TlsConfig.html" title="struct AirLibrary::Mountain::TlsConfig">TlsConfig</a>&gt;,
 }</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Configuration for connecting to Mountain.</p>
-</div></details><h2 id="fields" class="fields section-header">Fields<a href="#fields" class="anchor">§</a></h2><span id="structfield.address" class="structfield section-header"><a href="#structfield.address" class="anchor field">§</a><code>address: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code></span><div class="docblock"><p>The gRPC server address of Mountain (e.g., “[::1]:50051”)</p>
+</div></details><h2 id="fields" class="fields section-header">Fields<a href="#fields" class="anchor">§</a></h2><span id="structfield.address" class="structfield section-header"><a href="#structfield.address" class="anchor field">§</a><code>address: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code></span><div class="docblock"><p>The gRPC server address of Mountain (e.g., <code>"[::1]:50051"</code>)</p>
 </div><span id="structfield.connection_timeout_secs" class="structfield section-header"><a href="#structfield.connection_timeout_secs" class="anchor field">§</a><code>connection_timeout_secs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code></span><div class="docblock"><p>Connection timeout in seconds</p>
 </div><span id="structfield.request_timeout_secs" class="structfield section-header"><a href="#structfield.request_timeout_secs" class="anchor field">§</a><code>request_timeout_secs: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code></span><div class="docblock"><p>Request timeout in seconds</p>
 </div><span id="structfield.tls_config" class="structfield section-header"><a href="#structfield.tls_config" class="anchor field">§</a><code>tls_config: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.TlsConfig.html" title="struct AirLibrary::Mountain::TlsConfig">TlsConfig</a>&gt;</code></span><div class="docblock"><p>TLS configuration (if mtls feature is enabled)</p>
@@ -19,7 +19,7 @@
 <p>This method reads configuration from the following environment
 variables:</p>
 <ul>
-<li><code>MOUNTAIN_ADDRESS</code>: gRPC server address (default: “[::1]:50051”)</li>
+<li><code>MOUNTAIN_ADDRESS</code>: gRPC server address (default: <code>"[::1]:50051"</code>)</li>
 <li><code>MOUNTAIN_CONNECTION_TIMEOUT_SECS</code>: Connection timeout in seconds
 (default: 5)</li>
 <li><code>MOUNTAIN_REQUEST_TIMEOUT_SECS</code>: Request timeout in seconds (default:

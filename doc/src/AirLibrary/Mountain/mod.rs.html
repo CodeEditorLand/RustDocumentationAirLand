@@ -6,7 +6,7 @@
 <a href=#6 id=6 data-nosnippet>6</a>//!
 <a href=#7 id=7 data-nosnippet>7</a>//! ## Architecture
 <a href=#8 id=8 data-nosnippet>8</a>//!
-<a href=#9 id=9 data-nosnippet>9</a>//! ```
+<a href=#9 id=9 data-nosnippet>9</a>//! ```text
 <a href=#10 id=10 data-nosnippet>10</a>//! Air (Background Daemon) ──► MountainClient ──► gRPC ──► Mountain (Main App)
 <a href=#11 id=11 data-nosnippet>11</a>//! ```
 <a href=#12 id=12 data-nosnippet>12</a>//!
@@ -265,7 +265,7 @@
 <a href=#265 id=265 data-nosnippet>265</a><span class="doccomment">/// Configuration for connecting to Mountain.
 <a href=#266 id=266 data-nosnippet>266</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
 <a href=#267 id=267 data-nosnippet>267</a></span><span class="kw">pub struct </span><a href="../../../AirLibrary/Mountain/struct.MountainClientConfig.html">MountainClientConfig</a> {
-<a href=#268 id=268 data-nosnippet>268</a>	<span class="doccomment">/// The gRPC server address of Mountain (e.g., "[::1]:50051")
+<a href=#268 id=268 data-nosnippet>268</a>	<span class="doccomment">/// The gRPC server address of Mountain (e.g., `"[::1]:50051"`)
 <a href=#269 id=269 data-nosnippet>269</a>	</span><span class="kw">pub </span>address:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#270 id=270 data-nosnippet>270</a>
 <a href=#271 id=271 data-nosnippet>271</a>	<span class="doccomment">/// Connection timeout in seconds
@@ -305,7 +305,7 @@
 <a href=#305 id=305 data-nosnippet>305</a>	///
 <a href=#306 id=306 data-nosnippet>306</a>	/// This method reads configuration from the following environment
 <a href=#307 id=307 data-nosnippet>307</a>	/// variables:
-<a href=#308 id=308 data-nosnippet>308</a>	/// - `MOUNTAIN_ADDRESS`: gRPC server address (default: "[::1]:50051")
+<a href=#308 id=308 data-nosnippet>308</a>	/// - `MOUNTAIN_ADDRESS`: gRPC server address (default: `"[::1]:50051"`)
 <a href=#309 id=309 data-nosnippet>309</a>	/// - `MOUNTAIN_CONNECTION_TIMEOUT_SECS`: Connection timeout in seconds
 <a href=#310 id=310 data-nosnippet>310</a>	///   (default: 5)
 <a href=#311 id=311 data-nosnippet>311</a>	/// - `MOUNTAIN_REQUEST_TIMEOUT_SECS`: Request timeout in seconds (default:

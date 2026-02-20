@@ -2,8 +2,7 @@
 <p>This module provides the gRPC client implementation for Air to communicate
 with Mountain. Air acts as a client connecting to Mountain’s gRPC server
 for requesting status, health checks, and configuration operations.</p>
-<h3 id="architecture"><a class="doc-anchor" href="#architecture">§</a>Architecture</h3>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>Air (Background Daemon) ──► MountainClient ──► gRPC ──► Mountain (Main App)</code></pre></div><h3 id="features"><a class="doc-anchor" href="#features">§</a>Features</h3>
+<h3 id="architecture"><a class="doc-anchor" href="#architecture">§</a>Architecture</h3><div class="example-wrap"><pre class="language-text"><code>Air (Background Daemon) ──► MountainClient ──► gRPC ──► Mountain (Main App)</code></pre></div><h3 id="features"><a class="doc-anchor" href="#features">§</a>Features</h3>
 <ul>
 <li><strong>Connection Management</strong>: Establish and maintain gRPC connections to
 Mountain</li>

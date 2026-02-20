@@ -163,7 +163,7 @@
 <a href=#163 id=163 data-nosnippet>163</a>//!
 <a href=#164 id=164 data-nosnippet>164</a>//! - **VERSION**: Air daemon version from Cargo.toml
 <a href=#165 id=165 data-nosnippet>165</a>//! - **DefaultConfigFile**: Default config filename (Air.toml)
-<a href=#166 id=166 data-nosnippet>166</a>//! - **DefaultBindAddress**: gRPC bind address ([::1]:50053)
+<a href=#166 id=166 data-nosnippet>166</a>//! - **DefaultBindAddress**: gRPC bind address (`[::1]`:50053)
 <a href=#167 id=167 data-nosnippet>167</a>//! - **ProtocolVersion**: Vine protocol version (1)
 <a href=#168 id=168 data-nosnippet>168</a>
 <a href=#169 id=169 data-nosnippet>169</a></span><span class="kw">pub mod </span><a href="ApplicationState/mod.rs.html#1-834">ApplicationState</a>;
@@ -204,11 +204,11 @@
 <a href=#204 id=204 data-nosnippet>204</a>///
 <a href=#205 id=205 data-nosnippet>205</a>/// Addresses in order of preference:
 <a href=#206 id=206 data-nosnippet>206</a>/// - `--bind` flag value (if provided)
-<a href=#207 id=207 data-nosnippet>207</a>/// - DefaultBindAddress constant: [::1]:50053
+<a href=#207 id=207 data-nosnippet>207</a>/// - DefaultBindAddress constant: `[::1]`:50053
 <a href=#208 id=208 data-nosnippet>208</a>///
 <a href=#209 id=209 data-nosnippet>209</a>/// TODO: Add support for:
 <a href=#210 id=210 data-nosnippet>210</a>/// - IPv4-only binding (0.0.0.0:50053)
-<a href=#211 id=211 data-nosnippet>211</a>/// - IPv6-only binding ([::]:50053)
+<a href=#211 id=211 data-nosnippet>211</a>/// - IPv6-only binding (`[::]`:50053)
 <a href=#212 id=212 data-nosnippet>212</a>/// - Wildcard binding for all interfaces
 <a href=#213 id=213 data-nosnippet>213</a></span><span class="kw">pub const </span><a href="../../AirLibrary/constant.DefaultBindAddress.html">DefaultBindAddress</a>:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a> = <span class="string">"[::1]:50053"</span>;
 <a href=#214 id=214 data-nosnippet>214</a>

@@ -42,14 +42,13 @@ fails</li>
 <li><code>SIGUSR1</code>: Hot-reload status information</li>
 <li><code>SIGUSR2</code>: Disable/enable hot-reload monitoring</li>
 </ul>
-<h3 id="notification-flow"><a class="doc-anchor" href="#notification-flow">§</a>Notification Flow</h3>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>Config file changed → File watcher detected → Load &amp; Validate
-       ↓                                               ↓
-  Atomic swap ←- Validation passed ←-- Migration applied
-       ↓
-  Notify subscribers → Wind services update → Mountain sync
-       ↓
-  Change history logged → Rollback state updated</code></pre></div><h3 id="error-recovery"><a class="doc-anchor" href="#error-recovery">§</a>Error Recovery</h3>
+<h3 id="notification-flow"><a class="doc-anchor" href="#notification-flow">§</a>Notification Flow</h3><div class="example-wrap"><pre class="language-text"><code>Config file changed → File watcher detected → Load &amp; Validate
+↓ ↓
+Atomic swap ←- Validation passed ←-- Migration applied
+↓
+Notify subscribers → Wind services update → Mountain sync
+↓
+Change history logged → Rollback state updated</code></pre></div><h3 id="error-recovery"><a class="doc-anchor" href="#error-recovery">§</a>Error Recovery</h3>
 <p>The system implements a robust error recovery strategy:</p>
 <ul>
 <li>Validation failures: Automatic rollback to previous valid configuration</li>

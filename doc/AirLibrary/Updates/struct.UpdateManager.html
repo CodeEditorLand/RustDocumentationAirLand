@@ -68,7 +68,7 @@ metadata</li>
 <li>Returns update information if a newer version is available</li>
 </ul>
 <h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
-<p>Result&lt;Option<UpdateInfo>&gt; - Some if update available, None if
+<p>Result&lt;Option&lt;<code>UpdateInfo</code>&gt;&gt; - Some if update available, None if
 up-to-date</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.VerifyChecksum" class="method"><a class="src rightside" href="../../src/AirLibrary/Updates/mod.rs.html#1281-1299">Source</a><h4 class="code-header">async fn <a href="#method.VerifyChecksum" class="fn">VerifyChecksum</a>(
     &amp;self,
@@ -134,7 +134,7 @@ checking</p>
 <li><code>version</code> - Current version being backed up</li>
 </ul>
 <h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
-<p>Result<RollbackState> containing backup information</p>
+<p>Result&lt;<code>RollbackState</code>&gt; containing backup information</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.RollbackToBackup" class="method"><a class="src rightside" href="../../src/AirLibrary/Updates/mod.rs.html#1433-1476">Source</a><h4 class="code-header">pub async fn <a href="#method.RollbackToBackup" class="fn">RollbackToBackup</a>(&amp;self, backup_info: &amp;<a class="struct" href="struct.RollbackState.html" title="struct AirLibrary::Updates::RollbackState">RollbackState</a>) -&gt; <a class="type" href="../type.Result.html" title="type AirLibrary::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;</h4></section></summary><div class="docblock"><p>Rollback to a previous version using backup</p>
 <p>This method:</p>
 <ul>
@@ -187,7 +187,7 @@ checking</p>
 <li><code>update_info</code> - Optional update info with checksums</li>
 </ul>
 <h5 id="returns-10"><a class="doc-anchor" href="#returns-10">§</a>Returns</h5>
-<p>Result<bool> - true if valid, false if invalid</p>
+<p>Result&lt;<code>bool</code>&gt; - true if valid, false if invalid</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.ApplyWindowsUpdate" class="method"><a class="src rightside" href="../../src/AirLibrary/Updates/mod.rs.html#1618-1633">Source</a><h4 class="code-header">async fn <a href="#method.ApplyWindowsUpdate" class="fn">ApplyWindowsUpdate</a>(&amp;self, file_path: &amp;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>) -&gt; <a class="type" href="../type.Result.html" title="type AirLibrary::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;</h4></section></summary><div class="docblock"><p>Platform-specific update installation for Windows</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.ApplyMacOsUpdate" class="method"><a class="src rightside" href="../../src/AirLibrary/Updates/mod.rs.html#1636-1652">Source</a><h4 class="code-header">async fn <a href="#method.ApplyMacOsUpdate" class="fn">ApplyMacOsUpdate</a>(&amp;self, file_path: &amp;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>) -&gt; <a class="type" href="../type.Result.html" title="type AirLibrary::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;</h4></section></summary><div class="docblock"><p>Platform-specific update installation for macOS</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.ApplyLinuxAppImageUpdate" class="method"><a class="src rightside" href="../../src/AirLibrary/Updates/mod.rs.html#1655-1669">Source</a><h4 class="code-header">async fn <a href="#method.ApplyLinuxAppImageUpdate" class="fn">ApplyLinuxAppImageUpdate</a>(&amp;self, file_path: &amp;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>) -&gt; <a class="type" href="../type.Result.html" title="type AirLibrary::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;</h4></section></summary><div class="docblock"><p>Platform-specific update installation for Linux (AppImage)</p>

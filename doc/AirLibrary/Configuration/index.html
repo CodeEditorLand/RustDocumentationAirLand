@@ -41,12 +41,11 @@ config</li>
 services</li>
 <li>Profile switching (dev/staging/prod) affects entire Land ecosystem</li>
 </ul>
-<h3 id="configuration-flow"><a class="doc-anchor" href="#configuration-flow">§</a>Configuration Flow</h3>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>Mountain (User Settings) → Air config file → Wind services
-       ↓                         ↓                    ↓
- settings.json           ~/.Air/config.toml    Service-specific overrides
-       ↓                         ↓                    ↓
- Workspace settings    Environment variables    Hot-reload notifications</code></pre></div><h3 id="todo-schema-validation"><a class="doc-anchor" href="#todo-schema-validation">§</a>TODO: Schema Validation</h3>
+<h3 id="configuration-flow"><a class="doc-anchor" href="#configuration-flow">§</a>Configuration Flow</h3><div class="example-wrap"><pre class="language-text"><code>Mountain (User Settings) → Air config file → Wind services
+↓ ↓ ↓
+settings.json ~/.Air/config.toml Service-specific overrides
+↓ ↓ ↓
+Workspace settings Environment variables Hot-reload notifications</code></pre></div><h3 id="todo-schema-validation"><a class="doc-anchor" href="#todo-schema-validation">§</a>TODO: Schema Validation</h3>
 <ul>
 <li>Implement JSON Schema generation for validation</li>
 <li>Add schema versioning and migration support</li>
