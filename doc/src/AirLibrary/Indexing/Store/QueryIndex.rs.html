@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `Element/Air/Source/Indexing/Store/QueryIndex.rs`."><title>QueryIndex.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-b7b9f40b.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.96.0-nightly (b41f22de2 2026-03-08)" data-channel="nightly" data-search-js="search-63369b7b.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-5013f961.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">AirLibrary/Indexing/Store/</div>QueryIndex.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! # QueryIndex
+=======
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `Element/Air/Source/Indexing/Store/QueryIndex.rs`."><title>QueryIndex.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-77263533.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.95.0-nightly (d940e5684 2026-01-19)" data-channel="nightly" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-c38705f0.js" ><script src="../../../../static.files/storage-e2aeef58.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-7bab91a1.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-ffcac47a.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">AirLibrary/Indexing/Store/</div>QueryIndex.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! # QueryIndex
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#2 id=2 data-nosnippet>2</a>//!
 <a href=#3 id=3 data-nosnippet>3</a>//! ## File: Indexing/Store/QueryIndex.rs
 <a href=#4 id=4 data-nosnippet>4</a>//!
@@ -67,16 +71,26 @@
 <a href=#67 id=67 data-nosnippet>67</a>
 <a href=#68 id=68 data-nosnippet>68</a><span class="kw">use </span>regex::Regex;
 <a href=#69 id=69 data-nosnippet>69</a>
+<<<<<<< HEAD
 <a href=#70 id=70 data-nosnippet>70</a><span class="kw">use </span>crate::{<a href="../../Library.rs.html#229-277">AirError</a>, <a class="prelude-ty" href="../../Library.rs.html#329">Result</a>};
 <a href=#71 id=71 data-nosnippet>71</a><span class="comment">// Use the full paths to types in State::CreateState
 <a href=#72 id=72 data-nosnippet>72</a></span><span class="kw">use </span><span class="kw">crate</span>::Indexing::State::CreateState::{<a href="../State/CreateState.rs.html#167-184">FileIndex</a>, <a href="../State/CreateState.rs.html#138-163">FileMetadata</a>};
+=======
+<a href=#70 id=70 data-nosnippet>70</a><span class="kw">use </span>crate::{<a href="../../Library.rs.html#238-286">AirError</a>, <a class="prelude-ty" href="../../Library.rs.html#338">Result</a>};
+<a href=#71 id=71 data-nosnippet>71</a><span class="comment">// Use the full paths to types in State::CreateState
+<a href=#72 id=72 data-nosnippet>72</a></span><span class="kw">use </span><span class="kw">crate</span>::Indexing::State::CreateState::{<a href="../State/CreateState.rs.html#170-187">FileIndex</a>, <a href="../State/CreateState.rs.html#141-166">FileMetadata</a>};
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#73 id=73 data-nosnippet>73</a>
 <a href=#74 id=74 data-nosnippet>74</a><span class="doccomment">/// Maximum search results per query (pagination default)
 <a href=#75 id=75 data-nosnippet>75</a></span><span class="kw">pub const </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/constant.MAX_SEARCH_RESULTS_DEFAULT.html">MAX_SEARCH_RESULTS_DEFAULT</a>:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = <span class="number">100</span>;
 <a href=#76 id=76 data-nosnippet>76</a>
 <a href=#77 id=77 data-nosnippet>77</a><span class="doccomment">/// Search query with multiple modes
 <a href=#78 id=78 data-nosnippet>78</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<<<<<<< HEAD
 <a href=#79 id=79 data-nosnippet>79</a></span><span class="kw">pub struct </span><a href="#79-94">SearchQuery</a> {
+=======
+<a href=#79 id=79 data-nosnippet>79</a></span><span class="kw">pub struct </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/struct.SearchQuery.html">SearchQuery</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#80 id=80 data-nosnippet>80</a>	<span class="doccomment">/// Search text
 <a href=#81 id=81 data-nosnippet>81</a>	</span><span class="kw">pub </span>query:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#82 id=82 data-nosnippet>82</a>	<span class="doccomment">/// Query mode (regex, literal, fuzzy)
@@ -95,7 +109,11 @@
 <a href=#95 id=95 data-nosnippet>95</a>
 <a href=#96 id=96 data-nosnippet>96</a><span class="doccomment">/// Search mode
 <a href=#97 id=97 data-nosnippet>97</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>)]
+<<<<<<< HEAD
 <a href=#98 id=98 data-nosnippet>98</a></span><span class="kw">pub enum </span><a href="#98-107">SearchMode</a> {
+=======
+<a href=#98 id=98 data-nosnippet>98</a></span><span class="kw">pub enum </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/enum.SearchMode.html">SearchMode</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#99 id=99 data-nosnippet>99</a>	<span class="doccomment">/// Literal text search
 <a href=#100 id=100 data-nosnippet>100</a>	</span>Literal,
 <a href=#101 id=101 data-nosnippet>101</a>	<span class="doccomment">/// Regular expression search
@@ -108,7 +126,11 @@
 <a href=#108 id=108 data-nosnippet>108</a>
 <a href=#109 id=109 data-nosnippet>109</a><span class="doccomment">/// Search result with relevance scoring
 <a href=#110 id=110 data-nosnippet>110</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<<<<<<< HEAD
 <a href=#111 id=111 data-nosnippet>111</a></span><span class="kw">pub struct </span><a href="#111-122">SearchResult</a> {
+=======
+<a href=#111 id=111 data-nosnippet>111</a></span><span class="kw">pub struct </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/struct.SearchResult.html">SearchResult</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#112 id=112 data-nosnippet>112</a>	<span class="doccomment">/// File path
 <a href=#113 id=113 data-nosnippet>113</a>	</span><span class="kw">pub </span>path:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#114 id=114 data-nosnippet>114</a>	<span class="doccomment">/// File name
@@ -123,7 +145,11 @@
 <a href=#123 id=123 data-nosnippet>123</a>
 <a href=#124 id=124 data-nosnippet>124</a><span class="doccomment">/// Search match with full context
 <a href=#125 id=125 data-nosnippet>125</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<<<<<<< HEAD
 <a href=#126 id=126 data-nosnippet>126</a></span><span class="kw">pub struct </span><a href="#126-139">SearchMatch</a> {
+=======
+<a href=#126 id=126 data-nosnippet>126</a></span><span class="kw">pub struct </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/struct.SearchMatch.html">SearchMatch</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#127 id=127 data-nosnippet>127</a>	<span class="doccomment">/// Line number (1-indexed)
 <a href=#128 id=128 data-nosnippet>128</a>	</span><span class="kw">pub </span>line_number:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#129 id=129 data-nosnippet>129</a>	<span class="doccomment">/// Line content
@@ -140,7 +166,11 @@
 <a href=#140 id=140 data-nosnippet>140</a>
 <a href=#141 id=141 data-nosnippet>141</a><span class="doccomment">/// Paginated search results
 <a href=#142 id=142 data-nosnippet>142</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<<<<<<< HEAD
 <a href=#143 id=143 data-nosnippet>143</a></span><span class="kw">pub struct </span><a href="#143-154">PaginatedSearchResults</a> {
+=======
+<a href=#143 id=143 data-nosnippet>143</a></span><span class="kw">pub struct </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/struct.PaginatedSearchResults.html">PaginatedSearchResults</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#144 id=144 data-nosnippet>144</a>	<span class="doccomment">/// Current page of results
 <a href=#145 id=145 data-nosnippet>145</a>	</span><span class="kw">pub </span>results:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#111-122">SearchResult</a>&gt;,
 <a href=#146 id=146 data-nosnippet>146</a>	<span class="doccomment">/// Total number of results (across all pages)
@@ -179,7 +209,11 @@
 <a href=#179 id=179 data-nosnippet>179</a>/// - Relevance-based ranking
 <a href=#180 id=180 data-nosnippet>180</a>/// - Language filtering
 <a href=#181 id=181 data-nosnippet>181</a></span><span class="kw">pub async fn </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/fn.QueryIndexSearch.html">QueryIndexSearch</a>(
+<<<<<<< HEAD
 <a href=#182 id=182 data-nosnippet>182</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#167-184">FileIndex</a>,
+=======
+<a href=#182 id=182 data-nosnippet>182</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#170-187">FileIndex</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#183 id=183 data-nosnippet>183</a>	query:<a href="#79-94">SearchQuery</a>,
 <a href=#184 id=184 data-nosnippet>184</a>	path_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
 <a href=#185 id=185 data-nosnippet>185</a>	language_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
@@ -286,6 +320,7 @@
 <a href=#286 id=286 data-nosnippet>286</a>}
 <a href=#287 id=287 data-nosnippet>287</a>
 <a href=#288 id=288 data-nosnippet>288</a><span class="doccomment">/// Sanitize search query to prevent injection and invalid patterns
+<<<<<<< HEAD
 <a href=#289 id=289 data-nosnippet>289</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/fn.SanitizeSearchQuery.html">SanitizeSearchQuery</a>(query:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#329">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
 <a href=#290 id=290 data-nosnippet>290</a>	<span class="comment">// Remove null bytes and control characters
 <a href=#291 id=291 data-nosnippet>291</a>	</span><span class="kw">let </span>sanitized:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> = <a href="#289">query</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.chars">chars</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|c| <span class="kw-2">*</span><a href="#291">c</a> != <span class="string">'\0' </span>&amp;&amp; !<a href="#291">c</a>.<a href="https://doc.rust-lang.org/nightly/core/char/foreigntype.methods.html#method.is_control">is_control</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>();
@@ -293,6 +328,15 @@
 <a href=#293 id=293 data-nosnippet>293</a>	<span class="comment">// Limit query length
 <a href=#294 id=294 data-nosnippet>294</a>	</span><span class="kw">if </span><a href="#291">sanitized</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.len">len</a>() &gt; <span class="number">1000 </span>{
 <a href=#295 id=295 data-nosnippet>295</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#258">Validation</a>(
+=======
+<a href=#289 id=289 data-nosnippet>289</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/fn.SanitizeSearchQuery.html">SanitizeSearchQuery</a>(query:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#338">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#290 id=290 data-nosnippet>290</a>	<span class="comment">// Remove null bytes and control characters
+<a href=#291 id=291 data-nosnippet>291</a>	</span><span class="kw">let </span>sanitized:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> = <a href="#289">query</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.chars">chars</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|c| <span class="kw-2">*</span><a href="#291">c !</a>= <span class="string">'\0' </span>&amp;&amp; !<a href="#291">c</a>.<a href="https://doc.rust-lang.org/nightly/core/char/foreigntype.methods.html#method.is_control">is_control</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>();
+<a href=#292 id=292 data-nosnippet>292</a>
+<a href=#293 id=293 data-nosnippet>293</a>	<span class="comment">// Limit query length
+<a href=#294 id=294 data-nosnippet>294</a>	</span><span class="kw">if </span><a href="#291">sanitized</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.len">len</a>() &gt; <span class="number">1000 </span>{
+<a href=#295 id=295 data-nosnippet>295</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#267">Validation</a>(
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#296 id=296 data-nosnippet>296</a>			<span class="string">"Search query exceeds maximum length of 1000 characters"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
 <a href=#297 id=297 data-nosnippet>297</a>		));
 <a href=#298 id=298 data-nosnippet>298</a>	}
@@ -307,7 +351,11 @@
 <a href=#307 id=307 data-nosnippet>307</a>	whole_word:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#308 id=308 data-nosnippet>308</a>	path_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
 <a href=#309 id=309 data-nosnippet>309</a>	language_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+<<<<<<< HEAD
 <a href=#310 id=310 data-nosnippet>310</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#167-184">FileIndex</a>,
+=======
+<a href=#310 id=310 data-nosnippet>310</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#170-187">FileIndex</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#311 id=311 data-nosnippet>311</a>	results:<span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#111-122">SearchResult</a>&gt;,
 <a href=#312 id=312 data-nosnippet>312</a>) {
 <a href=#313 id=313 data-nosnippet>313</a>	<span class="kw">let </span>search_query = <span class="kw">if </span>case_sensitive { query.to_string() } <span class="kw">else </span>{ query.to_lowercase() };
@@ -359,7 +407,11 @@
 <a href=#359 id=359 data-nosnippet>359</a>	regex:<span class="kw-2">&amp;</span>Regex,
 <a href=#360 id=360 data-nosnippet>360</a>	path_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
 <a href=#361 id=361 data-nosnippet>361</a>	language_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+<<<<<<< HEAD
 <a href=#362 id=362 data-nosnippet>362</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#167-184">FileIndex</a>,
+=======
+<a href=#362 id=362 data-nosnippet>362</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#170-187">FileIndex</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#363 id=363 data-nosnippet>363</a>	results:<span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#111-122">SearchResult</a>&gt;,
 <a href=#364 id=364 data-nosnippet>364</a>) {
 <a href=#365 id=365 data-nosnippet>365</a>	<span class="kw">for </span>(file_path, metadata) <span class="kw">in </span><span class="kw-2">&amp;</span>index.files {
@@ -395,7 +447,11 @@
 <a href=#395 id=395 data-nosnippet>395</a>	case_sensitive:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#396 id=396 data-nosnippet>396</a>	path_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
 <a href=#397 id=397 data-nosnippet>397</a>	language_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+<<<<<<< HEAD
 <a href=#398 id=398 data-nosnippet>398</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#167-184">FileIndex</a>,
+=======
+<a href=#398 id=398 data-nosnippet>398</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#170-187">FileIndex</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#399 id=399 data-nosnippet>399</a>	results:<span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#111-122">SearchResult</a>&gt;,
 <a href=#400 id=400 data-nosnippet>400</a>) {
 <a href=#401 id=401 data-nosnippet>401</a>	<span class="kw">let </span>query_lower = query.to_lowercase();
@@ -410,8 +466,13 @@
 <a href=#410 id=410 data-nosnippet>410</a>		}
 <a href=#411 id=411 data-nosnippet>411</a>
 <a href=#412 id=412 data-nosnippet>412</a>		<span class="kw">if let </span><span class="prelude-val">Ok</span>(content) = tokio::fs::read_to_string(file_path).<span class="kw">await </span>{
+<<<<<<< HEAD
 <a href=#413 id=413 data-nosnippet>413</a>		    <span class="kw">const </span>MAX_FUZZY_DISTANCE: usize = <span class="number">2</span>;
 <a href=#414 id=414 data-nosnippet>414</a>		    <span class="kw">let </span>matches = FindFuzzyMatches(<span class="kw-2">&amp;</span>content, <span class="kw-2">&amp;</span>query_lower, case_sensitive, MAX_FUZZY_DISTANCE);
+=======
+<a href=#413 id=413 data-nosnippet>413</a>			<span class="kw">let </span>max_distance = <span class="number">2</span>; <span class="comment">// TODO: Make this configurable
+<a href=#414 id=414 data-nosnippet>414</a>			</span><span class="kw">let </span>matches = FindFuzzyMatches(<span class="kw-2">&amp;</span>content, <span class="kw-2">&amp;</span>query_lower, case_sensitive, max_distance);
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#415 id=415 data-nosnippet>415</a>
 <a href=#416 id=416 data-nosnippet>416</a>			<span class="kw">if </span>!matches.is_empty() {
 <a href=#417 id=417 data-nosnippet>417</a>				<span class="kw">let </span>relevance = CalculateRelevance(<span class="kw-2">&amp;</span>matches, metadata) * <span class="number">0.8</span>; <span class="comment">// Fuzzy matches have lower relevance
@@ -434,7 +495,11 @@
 <a href=#434 id=434 data-nosnippet>434</a>	_case_sensitive:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#435 id=435 data-nosnippet>435</a>	path_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
 <a href=#436 id=436 data-nosnippet>436</a>	language_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+<<<<<<< HEAD
 <a href=#437 id=437 data-nosnippet>437</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#167-184">FileIndex</a>,
+=======
+<a href=#437 id=437 data-nosnippet>437</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#170-187">FileIndex</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#438 id=438 data-nosnippet>438</a>	results:<span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#111-122">SearchResult</a>&gt;,
 <a href=#439 id=439 data-nosnippet>439</a>) {
 <a href=#440 id=440 data-nosnippet>440</a>	<span class="kw">for </span>(file_path, metadata) <span class="kw">in </span><span class="kw-2">&amp;</span>index.files {
@@ -470,7 +535,11 @@
 <a href=#470 id=470 data-nosnippet>470</a>	query:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
 <a href=#471 id=471 data-nosnippet>471</a>	case_sensitive:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#472 id=472 data-nosnippet>472</a>	whole_word:<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+<<<<<<< HEAD
 <a href=#473 id=473 data-nosnippet>473</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#167-184">FileIndex</a>,
+=======
+<a href=#473 id=473 data-nosnippet>473</a>	index:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#170-187">FileIndex</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#474 id=474 data-nosnippet>474</a>) -&gt; <span class="prelude-ty">Result</span>&lt;SearchResult&gt; {
 <a href=#475 id=475 data-nosnippet>475</a>	<span class="kw">let </span>content = tokio::fs::read_to_string(file_path)
 <a href=#476 id=476 data-nosnippet>476</a>		.<span class="kw">await
@@ -550,12 +619,20 @@
 <a href=#550 id=550 data-nosnippet>550</a>			</span>|| line
 <a href=#551 id=551 data-nosnippet>551</a>				.chars()
 <a href=#552 id=552 data-nosnippet>552</a>				.nth(actual_pos - <span class="number">1</span>)
+<<<<<<< HEAD
 <a href=#553 id=553 data-nosnippet>553</a>				.map_or(<span class="bool-val">true</span>, |c| !c.is_alphanumeric() &amp;&amp; c != <span class="string">'_'</span>);
+=======
+<a href=#553 id=553 data-nosnippet>553</a>				.map_or(<span class="bool-val">true</span>, |c| !c.is_alphanumeric() &amp;&amp; <span class="macro">c !</span>= <span class="string">'_'</span>);
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#554 id=554 data-nosnippet>554</a>
 <a href=#555 id=555 data-nosnippet>555</a>		<span class="comment">// Check word boundary after
 <a href=#556 id=556 data-nosnippet>556</a>		</span><span class="kw">let </span>match_end = actual_pos + word.len();
 <a href=#557 id=557 data-nosnippet>557</a>		<span class="kw">let </span>valid_after =
+<<<<<<< HEAD
 <a href=#558 id=558 data-nosnippet>558</a>			match_end == line.len() || line.chars().nth(match_end).map_or(<span class="bool-val">true</span>, |c| !c.is_alphanumeric() &amp;&amp; c != <span class="string">'_'</span>);
+=======
+<a href=#558 id=558 data-nosnippet>558</a>			match_end == line.len() || line.chars().nth(match_end).map_or(<span class="bool-val">true</span>, |c| !c.is_alphanumeric() &amp;&amp; <span class="macro">c !</span>= <span class="string">'_'</span>);
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#559 id=559 data-nosnippet>559</a>
 <a href=#560 id=560 data-nosnippet>560</a>		<span class="kw">if </span>valid_before &amp;&amp; valid_after {
 <a href=#561 id=561 data-nosnippet>561</a>			<span class="kw">return </span><span class="prelude-val">Some</span>(actual_pos);
@@ -663,7 +740,11 @@
 <a href=#663 id=663 data-nosnippet>663</a>}
 <a href=#664 id=664 data-nosnippet>664</a>
 <a href=#665 id=665 data-nosnippet>665</a><span class="doccomment">/// Calculate relevance score for search results
+<<<<<<< HEAD
 <a href=#666 id=666 data-nosnippet>666</a></span><span class="kw">fn </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/fn.CalculateRelevance.html">CalculateRelevance</a>(matches:<span class="kw-2">&amp;</span>[<a href="#126-139">SearchMatch</a>], metadata:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#138-163">FileMetadata</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+=======
+<a href=#666 id=666 data-nosnippet>666</a></span><span class="kw">fn </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/fn.CalculateRelevance.html">CalculateRelevance</a>(matches:<span class="kw-2">&amp;</span>[<a href="#126-139">SearchMatch</a>], metadata:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#141-166">FileMetadata</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#667 id=667 data-nosnippet>667</a>	<span class="kw">let </span>match_count = <a href="#666">matches</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.len">len</a>();
 <a href=#668 id=668 data-nosnippet>668</a>	<span class="kw">let </span>line_count = <a href="#666">metadata</a>.line_count.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="number">1</span>) <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>;
 <a href=#669 id=669 data-nosnippet>669</a>
@@ -685,7 +766,11 @@
 <a href=#685 id=685 data-nosnippet>685</a><span class="doccomment">/// Check if file matches filters
 <a href=#686 id=686 data-nosnippet>686</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Store/QueryIndex/fn.MatchesFilters.html">MatchesFilters</a>(
 <a href=#687 id=687 data-nosnippet>687</a>	file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>,
+<<<<<<< HEAD
 <a href=#688 id=688 data-nosnippet>688</a>	metadata:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#138-163">FileMetadata</a>,
+=======
+<a href=#688 id=688 data-nosnippet>688</a>	metadata:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#141-166">FileMetadata</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#689 id=689 data-nosnippet>689</a>	path_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
 <a href=#690 id=690 data-nosnippet>690</a>	language_filter:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
 <a href=#691 id=691 data-nosnippet>691</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {

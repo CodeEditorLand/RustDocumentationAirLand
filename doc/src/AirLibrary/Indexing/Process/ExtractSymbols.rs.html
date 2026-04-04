@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `Element/Air/Source/Indexing/Process/ExtractSymbols.rs`."><title>ExtractSymbols.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-b7b9f40b.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.96.0-nightly (b41f22de2 2026-03-08)" data-channel="nightly" data-search-js="search-63369b7b.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-5013f961.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">AirLibrary/Indexing/Process/</div>ExtractSymbols.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! # ExtractSymbols
+=======
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `Element/Air/Source/Indexing/Process/ExtractSymbols.rs`."><title>ExtractSymbols.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-77263533.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.95.0-nightly (d940e5684 2026-01-19)" data-channel="nightly" data-search-js="search-9e2438ea.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-c38705f0.js" ><script src="../../../../static.files/storage-e2aeef58.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-7bab91a1.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-ffcac47a.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">AirLibrary/Indexing/Process/</div>ExtractSymbols.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! # ExtractSymbols
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#2 id=2 data-nosnippet>2</a>//!
 <a href=#3 id=3 data-nosnippet>3</a>//! ## File: Indexing/Process/ExtractSymbols.rs
 <a href=#4 id=4 data-nosnippet>4</a>//!
@@ -66,9 +70,15 @@
 <a href=#66 id=66 data-nosnippet>66</a><span class="kw">use </span>crate::{
 <a href=#67 id=67 data-nosnippet>67</a>	Indexing::{
 <a href=#68 id=68 data-nosnippet>68</a>		Language::{<a href="../Language/ParseRust.rs.html#71-89">ParseRust::ExtractRustSymbols</a>, <a href="../Language/ParseTypeScript.rs.html#71-89">ParseTypeScript::ExtractTypeScriptSymbols</a>},
+<<<<<<< HEAD
 <a href=#69 id=69 data-nosnippet>69</a>		State::CreateState::{<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>, <a href="../State/CreateState.rs.html#96-123">SymbolKind</a>},
 <a href=#70 id=70 data-nosnippet>70</a>	},
 <a href=#71 id=71 data-nosnippet>71</a>	<a class="prelude-ty" href="../../Library.rs.html#329">Result</a>,
+=======
+<a href=#69 id=69 data-nosnippet>69</a>		State::CreateState::{<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>, <a href="../State/CreateState.rs.html#99-126">SymbolKind</a>},
+<a href=#70 id=70 data-nosnippet>70</a>	},
+<a href=#71 id=71 data-nosnippet>71</a>	<a class="prelude-ty" href="../../Library.rs.html#338">Result</a>,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#72 id=72 data-nosnippet>72</a>};
 <a href=#73 id=73 data-nosnippet>73</a>
 <a href=#74 id=74 data-nosnippet>74</a><span class="doccomment">/// Extract symbols from code for VSCode Outline View and Go to Symbol
@@ -92,7 +102,11 @@
 <a href=#92 id=92 data-nosnippet>92</a>}
 <a href=#93 id=93 data-nosnippet>93</a>
 <a href=#94 id=94 data-nosnippet>94</a><span class="doccomment">/// Group symbols by kind for organization
+<<<<<<< HEAD
 <a href=#95 id=95 data-nosnippet>95</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.GroupSymbolsByKind.html">GroupSymbolsByKind</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>]) -&gt; std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="../State/CreateState.rs.html#96-123">SymbolKind</a>, <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt;&gt; {
+=======
+<a href=#95 id=95 data-nosnippet>95</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.GroupSymbolsByKind.html">GroupSymbolsByKind</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>]) -&gt; std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="../State/CreateState.rs.html#99-126">SymbolKind</a>, <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt;&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#96 id=96 data-nosnippet>96</a>	<span class="kw">let </span><span class="kw-2">mut </span>grouped = std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>();
 <a href=#97 id=97 data-nosnippet>97</a>
 <a href=#98 id=98 data-nosnippet>98</a>	<span class="kw">for </span>symbol <span class="kw">in </span>symbols {
@@ -103,10 +117,17 @@
 <a href=#103 id=103 data-nosnippet>103</a>}
 <a href=#104 id=104 data-nosnippet>104</a>
 <a href=#105 id=105 data-nosnippet>105</a><span class="doccomment">/// Sort symbols by line number
+<<<<<<< HEAD
 <a href=#106 id=106 data-nosnippet>106</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.SortSymbolsByLine.html">SortSymbolsByLine</a>(symbols:<span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt;) { <a href="#106">symbols</a>.<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.slice.html#method.sort_by">sort_by</a>(|a, b| <a href="#106">a</a>.line.<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#tymethod.cmp">cmp</a>(<span class="kw-2">&amp;</span><a href="#106">b</a>.line)); }
 <a href=#107 id=107 data-nosnippet>107</a>
 <a href=#108 id=108 data-nosnippet>108</a><span class="doccomment">/// Filter symbols by name pattern
 <a href=#109 id=109 data-nosnippet>109</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.FilterSymbolsByName.html">FilterSymbolsByName</a>&lt;<span class="lifetime">'a</span>&gt;(symbols:<span class="kw-2">&amp;</span><span class="lifetime">'a </span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>], pattern:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt; {
+=======
+<a href=#106 id=106 data-nosnippet>106</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.SortSymbolsByLine.html">SortSymbolsByLine</a>(symbols:<span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt;) { <a href="#106">symbols</a>.<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.slice.html#method.sort_by">sort_by</a>(|a, b| <a href="#106">a</a>.line.<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#tymethod.cmp">cmp</a>(<span class="kw-2">&amp;</span><a href="#106">b</a>.line)); }
+<a href=#107 id=107 data-nosnippet>107</a>
+<a href=#108 id=108 data-nosnippet>108</a><span class="doccomment">/// Filter symbols by name pattern
+<a href=#109 id=109 data-nosnippet>109</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.FilterSymbolsByName.html">FilterSymbolsByName</a>&lt;<span class="lifetime">'a</span>&gt;(symbols:<span class="kw-2">&amp;</span><span class="lifetime">'a </span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>], pattern:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#110 id=110 data-nosnippet>110</a>	<span class="kw">let </span>pattern_lower = <a href="#109">pattern</a>.<a href="https://doc.rust-lang.org/nightly/alloc/foreigntype.str.html#method.to_lowercase">to_lowercase</a>();
 <a href=#111 id=111 data-nosnippet>111</a>	<a href="#109">symbols</a>
 <a href=#112 id=112 data-nosnippet>112</a>		.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>()
@@ -115,22 +136,38 @@
 <a href=#115 id=115 data-nosnippet>115</a>}
 <a href=#116 id=116 data-nosnippet>116</a>
 <a href=#117 id=117 data-nosnippet>117</a><span class="doccomment">/// Get symbols of a specific kind
+<<<<<<< HEAD
 <a href=#118 id=118 data-nosnippet>118</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.GetSymbolsByKind.html">GetSymbolsByKind</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>], kind:<a href="../State/CreateState.rs.html#96-123">SymbolKind</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt; {
+=======
+<a href=#118 id=118 data-nosnippet>118</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.GetSymbolsByKind.html">GetSymbolsByKind</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>], kind:<a href="../State/CreateState.rs.html#99-126">SymbolKind</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#119 id=119 data-nosnippet>119</a>	<a href="#118">symbols</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|s| <a href="#119">s</a>.kind == <a href="#118">kind</a>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>()
 <a href=#120 id=120 data-nosnippet>120</a>}
 <a href=#121 id=121 data-nosnippet>121</a>
 <a href=#122 id=122 data-nosnippet>122</a><span class="doccomment">/// Find symbol at specific line
+<<<<<<< HEAD
 <a href=#123 id=123 data-nosnippet>123</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.FindSymbolAtLine.html">FindSymbolAtLine</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>], line:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt; {
+=======
+<a href=#123 id=123 data-nosnippet>123</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.FindSymbolAtLine.html">FindSymbolAtLine</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>], line:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#124 id=124 data-nosnippet>124</a>	<a href="#123">symbols</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.find">find</a>(|s| <a href="#124">s</a>.line == <a href="#123">line</a>)
 <a href=#125 id=125 data-nosnippet>125</a>}
 <a href=#126 id=126 data-nosnippet>126</a>
 <a href=#127 id=127 data-nosnippet>127</a><span class="doccomment">/// Find symbols in line range
+<<<<<<< HEAD
 <a href=#128 id=128 data-nosnippet>128</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.FindSymbolsInRange.html">FindSymbolsInRange</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>], start_line:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, end_line:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt; {
+=======
+<a href=#128 id=128 data-nosnippet>128</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.FindSymbolsInRange.html">FindSymbolsInRange</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>], start_line:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, end_line:<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#129 id=129 data-nosnippet>129</a>	<a href="#128">symbols</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|s| <a href="#129">s</a>.line &gt;= <a href="#128">start_line</a> &amp;&amp; <a href="#129">s</a>.line &lt;= <a href="#128">end_line</a>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>()
 <a href=#130 id=130 data-nosnippet>130</a>}
 <a href=#131 id=131 data-nosnippet>131</a>
 <a href=#132 id=132 data-nosnippet>132</a><span class="doccomment">/// Create symbol summary statistics
+<<<<<<< HEAD
 <a href=#133 id=133 data-nosnippet>133</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.GetSymbolStatistics.html">GetSymbolStatistics</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>]) -&gt; <a href="#145-148">SymbolStatistics</a> {
+=======
+<a href=#133 id=133 data-nosnippet>133</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.GetSymbolStatistics.html">GetSymbolStatistics</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>]) -&gt; <a href="#145-148">SymbolStatistics</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#134 id=134 data-nosnippet>134</a>	<span class="kw">let </span><span class="kw-2">mut </span>stats = <a href="#145-148">SymbolStatistics</a> { total:<a href="#133">symbols</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.len">len</a>(), by_kind:std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>() };
 <a href=#135 id=135 data-nosnippet>135</a>
 <a href=#136 id=136 data-nosnippet>136</a>	<span class="kw">for </span>symbol <span class="kw">in </span>symbols {
@@ -142,9 +179,15 @@
 <a href=#142 id=142 data-nosnippet>142</a>
 <a href=#143 id=143 data-nosnippet>143</a><span class="doccomment">/// Symbol statistics
 <a href=#144 id=144 data-nosnippet>144</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<<<<<<< HEAD
 <a href=#145 id=145 data-nosnippet>145</a></span><span class="kw">pub struct </span><a href="#145-148">SymbolStatistics</a> {
 <a href=#146 id=146 data-nosnippet>146</a>	<span class="kw">pub </span>total:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 <a href=#147 id=147 data-nosnippet>147</a>	<span class="kw">pub </span>by_kind:std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="../State/CreateState.rs.html#96-123">SymbolKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;,
+=======
+<a href=#145 id=145 data-nosnippet>145</a></span><span class="kw">pub struct </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/struct.SymbolStatistics.html">SymbolStatistics</a> {
+<a href=#146 id=146 data-nosnippet>146</a>	<span class="kw">pub </span>total:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+<a href=#147 id=147 data-nosnippet>147</a>	<span class="kw">pub </span>by_kind:std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="../State/CreateState.rs.html#99-126">SymbolKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;,
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#148 id=148 data-nosnippet>148</a>}
 <a href=#149 id=149 data-nosnippet>149</a>
 <a href=#150 id=150 data-nosnippet>150</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">std::fmt::Display</a> <span class="kw">for </span><a href="#145-148">SymbolStatistics</a> {
@@ -158,18 +201,30 @@
 <a href=#158 id=158 data-nosnippet>158</a>}
 <a href=#159 id=159 data-nosnippet>159</a>
 <a href=#160 id=160 data-nosnippet>160</a><span class="doccomment">/// Validate symbol information
+<<<<<<< HEAD
 <a href=#161 id=161 data-nosnippet>161</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.ValidateSymbol.html">ValidateSymbol</a>(symbol:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+=======
+<a href=#161 id=161 data-nosnippet>161</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.ValidateSymbol.html">ValidateSymbol</a>(symbol:<span class="kw-2">&amp;</span><a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#162 id=162 data-nosnippet>162</a>	!<a href="#161">symbol</a>.name.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() &amp;&amp; <a href="#161">symbol</a>.line &gt; <span class="number">0 </span>&amp;&amp; !<a href="#161">symbol</a>.full_path.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>()
 <a href=#163 id=163 data-nosnippet>163</a>}
 <a href=#164 id=164 data-nosnippet>164</a>
 <a href=#165 id=165 data-nosnippet>165</a><span class="doccomment">/// Deduplicate symbols by name and line
+<<<<<<< HEAD
 <a href=#166 id=166 data-nosnippet>166</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.DeduplicateSymbols.html">DeduplicateSymbols</a>(symbols:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt; {
+=======
+<a href=#166 id=166 data-nosnippet>166</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.DeduplicateSymbols.html">DeduplicateSymbols</a>(symbols:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#167 id=167 data-nosnippet>167</a>	<span class="kw">let </span><span class="kw-2">mut </span>seen = std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/set/struct.HashSet.html">HashSet</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/set/struct.HashSet.html#method.new">new</a>();
 <a href=#168 id=168 data-nosnippet>168</a>	<a href="#166">symbols</a>.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter">into_iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|s| <a href="#167">seen</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/set/struct.HashSet.html#method.insert">insert</a>((<a href="#168">s</a>.name.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <a href="#168">s</a>.line))).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>()
 <a href=#169 id=169 data-nosnippet>169</a>}
 <a href=#170 id=170 data-nosnippet>170</a>
 <a href=#171 id=171 data-nosnippet>171</a><span class="doccomment">/// Merge symbol lists from multiple files
+<<<<<<< HEAD
 <a href=#172 id=172 data-nosnippet>172</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.MergeSymbolLists.html">MergeSymbolLists</a>(symbol_lists:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt;&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt; {
+=======
+<a href=#172 id=172 data-nosnippet>172</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.MergeSymbolLists.html">MergeSymbolLists</a>(symbol_lists:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt;&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#173 id=173 data-nosnippet>173</a>	<span class="kw">let </span><span class="kw-2">mut </span>merged = <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>::<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.new">new</a>();
 <a href=#174 id=174 data-nosnippet>174</a>	<span class="kw">for </span>symbols <span class="kw">in </span>symbol_lists {
 <a href=#175 id=175 data-nosnippet>175</a>		merged.extend(symbols);
@@ -178,12 +233,20 @@
 <a href=#178 id=178 data-nosnippet>178</a>}
 <a href=#179 id=179 data-nosnippet>179</a>
 <a href=#180 id=180 data-nosnippet>180</a><span class="doccomment">/// Deduplicate multiple symbol lists
+<<<<<<< HEAD
 <a href=#181 id=181 data-nosnippet>181</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.DeduplicateLists.html">DeduplicateLists</a>(symbol_lists:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt;&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt;&gt; {
+=======
+<a href=#181 id=181 data-nosnippet>181</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.DeduplicateLists.html">DeduplicateLists</a>(symbol_lists:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt;&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt;&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#182 id=182 data-nosnippet>182</a>	<a href="#181">symbol_lists</a>.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html#tymethod.into_iter">into_iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.map">map</a>(|list| <a href="#166-169">DeduplicateSymbols</a>(<a href="#182">list</a>)).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.collect">collect</a>()
 <a href=#183 id=183 data-nosnippet>183</a>}
 <a href=#184 id=184 data-nosnippet>184</a>
 <a href=#185 id=185 data-nosnippet>185</a><span class="doccomment">/// Create a symbol search index (name -&gt; symbols)
+<<<<<<< HEAD
 <a href=#186 id=186 data-nosnippet>186</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.CreateSymbolIndex.html">CreateSymbolIndex</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>]) -&gt; std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;&gt; {
+=======
+<a href=#186 id=186 data-nosnippet>186</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.CreateSymbolIndex.html">CreateSymbolIndex</a>(symbols:<span class="kw-2">&amp;</span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>]) -&gt; std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#187 id=187 data-nosnippet>187</a>	<span class="kw">let </span><span class="kw-2">mut </span>index = std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>();
 <a href=#188 id=188 data-nosnippet>188</a>	<span class="kw">for </span>(idx, symbol) <span class="kw">in </span>symbols.iter().enumerate() {
 <a href=#189 id=189 data-nosnippet>189</a>		index.entry(symbol.name.to_lowercase()).or_insert_with(Vec::new).push(idx);
@@ -193,11 +256,19 @@
 <a href=#193 id=193 data-nosnippet>193</a>
 <a href=#194 id=194 data-nosnippet>194</a><span class="doccomment">/// Find symbols matching multiple criteria
 <a href=#195 id=195 data-nosnippet>195</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Process/ExtractSymbols/fn.FindSymbolsMatching.html">FindSymbolsMatching</a>&lt;<span class="lifetime">'a</span>&gt;(
+<<<<<<< HEAD
 <a href=#196 id=196 data-nosnippet>196</a>	symbols:<span class="kw-2">&amp;</span><span class="lifetime">'a </span>[<a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>],
 <a href=#197 id=197 data-nosnippet>197</a>	name_pattern:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
 <a href=#198 id=198 data-nosnippet>198</a>	kind:<span class="kw-2">&amp;</span><a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="../State/CreateState.rs.html#96-123">SymbolKind</a>&gt;,
 <a href=#199 id=199 data-nosnippet>199</a>	line_range:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;(<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)&gt;,
 <a href=#200 id=200 data-nosnippet>200</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><a href="../State/CreateState.rs.html#81-92">SymbolInfo</a>&gt; {
+=======
+<a href=#196 id=196 data-nosnippet>196</a>	symbols:<span class="kw-2">&amp;</span><span class="lifetime">'a </span>[<a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>],
+<a href=#197 id=197 data-nosnippet>197</a>	name_pattern:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+<a href=#198 id=198 data-nosnippet>198</a>	kind:<span class="kw-2">&amp;</span><a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="../State/CreateState.rs.html#99-126">SymbolKind</a>&gt;,
+<a href=#199 id=199 data-nosnippet>199</a>	line_range:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;(<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)&gt;,
+<a href=#200 id=200 data-nosnippet>200</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><a href="../State/CreateState.rs.html#84-95">SymbolInfo</a>&gt; {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#201 id=201 data-nosnippet>201</a>	<a href="#196">symbols</a>
 <a href=#202 id=202 data-nosnippet>202</a>		.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.iter">iter</a>()
 <a href=#203 id=203 data-nosnippet>203</a>		.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.filter">filter</a>(|s| {
@@ -207,7 +278,11 @@
 <a href=#207 id=207 data-nosnippet>207</a>				}
 <a href=#208 id=208 data-nosnippet>208</a>			}
 <a href=#209 id=209 data-nosnippet>209</a>			<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(k) = <a href="#198">kind</a> {
+<<<<<<< HEAD
 <a href=#210 id=210 data-nosnippet>210</a>				<span class="kw">if </span><a href="#203">s</a>.kind != <span class="kw-2">*</span><a href="#209">k</a> {
+=======
+<a href=#210 id=210 data-nosnippet>210</a>				<span class="kw">if </span><a href="#203">s</a>.<span class="macro">kind !</span>= <span class="kw-2">*</span><a href="#209">k</a> {
+>>>>>>> 7329af278f539bd753e1384c04498b20fa41bee0
 <a href=#211 id=211 data-nosnippet>211</a>					<span class="kw">return </span><span class="bool-val">false</span>;
 <a href=#212 id=212 data-nosnippet>212</a>				}
 <a href=#213 id=213 data-nosnippet>213</a>			}
