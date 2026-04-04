@@ -1,0 +1,1 @@
+{"rustc":14784934374664452068,"features":"[]","declared_features":"[\"camino\"]","target":16191425577592475274,"profile":9651627433317443404,"path":16621611170450766718,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"debug/.fingerprint/pathdiff-aae2a31e7e5520a4/dep-lib-pathdiff","checksum":false}}],"rustflags":["-Zshare-generics=y"],"config":8247474407144887393,"compile_kind":0}

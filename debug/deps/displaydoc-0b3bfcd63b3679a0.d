@@ -1,0 +1,8 @@
+/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/displaydoc-0b3bfcd63b3679a0.d: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/attr.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/expand.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/fmt.rs
+
+/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/libdisplaydoc-0b3bfcd63b3679a0.dylib: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/attr.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/expand.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/fmt.rs
+
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/lib.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/attr.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/expand.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/fmt.rs:

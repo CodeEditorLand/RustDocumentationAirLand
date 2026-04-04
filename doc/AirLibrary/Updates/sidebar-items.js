@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InstallationStatus","PackageFormat","UpdateChannel"],"struct":["DownloadSession","PlatformConfig","PlatformMetadata","RollbackHistory","RollbackState","UpdateInfo","UpdateManager","UpdateStatus","UpdateTelemetry"]};

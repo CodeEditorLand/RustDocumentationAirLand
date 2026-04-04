@@ -1,0 +1,1 @@
+{"rustc":14784934374664452068,"features":"[]","declared_features":"[]","target":11187303652147478063,"profile":17177337924376996030,"path":354317107291013712,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"debug/.fingerprint/colorchoice-1c95099f4f955ed4/dep-lib-colorchoice","checksum":false}}],"rustflags":["-Zshare-generics=y"],"config":8247474407144887393,"compile_kind":0}

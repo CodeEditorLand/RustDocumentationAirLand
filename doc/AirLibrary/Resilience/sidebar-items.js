@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CircuitState","ErrorClass"],"struct":["BulkheadConfig","BulkheadExecutor","BulkheadStatistics","CircuitBreaker","CircuitBreakerConfig","CircuitEvent","CircuitStatistics","ResilienceOrchestrator","RetryBudget","RetryEvent","RetryManager","RetryPolicy","TimeoutManager"]};

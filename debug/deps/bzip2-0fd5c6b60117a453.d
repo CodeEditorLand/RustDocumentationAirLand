@@ -1,0 +1,9 @@
+/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/bzip2-0fd5c6b60117a453.d: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/mem.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/bufread.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/read.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/write.rs
+
+/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/libbzip2-0fd5c6b60117a453.rmeta: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/mem.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/bufread.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/read.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/write.rs
+
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/lib.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/mem.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/bufread.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/read.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bzip2-0.6.1/src/write.rs:

@@ -1,0 +1,8 @@
+/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/thread_local-dffdc78d82a98039.d: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/cached.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/thread_id.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/unreachable.rs
+
+/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/libthread_local-dffdc78d82a98039.rmeta: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/cached.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/thread_id.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/unreachable.rs
+
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/lib.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/cached.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/thread_id.rs:
+/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.9/src/unreachable.rs:
