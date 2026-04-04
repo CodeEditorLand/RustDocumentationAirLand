@@ -1,8 +1,0 @@
-/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/notify_types-89cf333e24f91aa3.d: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/debouncer_full.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/debouncer_mini.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/event.rs
-
-/Volumes/CORSAIR/Developer/macOS/Application/CodeEditorLand/Land/Element/Air/Documentation/Rust/debug/deps/libnotify_types-89cf333e24f91aa3.rmeta: /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/lib.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/debouncer_full.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/debouncer_mini.rs /Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/event.rs
-
-/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/lib.rs:
-/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/debouncer_full.rs:
-/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/debouncer_mini.rs:
-/Volumes/CORSAIR/Tool/macOS/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/event.rs:

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["land_resolver","secured_client","secured_client_builder","secured_client_with_timeout"],"struct":["LandDnsResolver","TokioResolver"]};
