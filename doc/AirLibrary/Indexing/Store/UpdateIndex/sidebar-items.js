@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CleanupRemovedFiles","ProcessWatcherEvent","RebuildIndex","UpdateFileContent","UpdateFilesBatch","UpdateSingleFile","ValidateAndRepairIndex"],"struct":["DebouncedUpdate","RepairResult","UpdateBatchResult","WatcherEventResult"]};

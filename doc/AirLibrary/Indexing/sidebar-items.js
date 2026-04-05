@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_PARALLEL_INDEXING"],"mod":["Background","Language","Process","Scan","State","Store","Watch"],"struct":["FileIndexer","IndexResult","IndexStatistics"]};

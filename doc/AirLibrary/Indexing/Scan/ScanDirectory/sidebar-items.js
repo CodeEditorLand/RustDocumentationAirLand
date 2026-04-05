@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CheckDirectoryPermissions","GetDefaultExcludePatterns","GetDirectoryStatistics","MatchesPattern","MatchesPatterns","ScanAndRemoveDeleted","ScanDirectoriesParallel","ScanDirectory"],"struct":["DirectoryStatistics","ScanDirectoryResult"]};
