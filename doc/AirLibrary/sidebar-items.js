@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"constant":["DefaultBindAddress","DefaultConfigFile","ProtocolVersion","VERSION"],"enum":["AirError"],"mod":["ApplicationState","Authentication","CLI","Configuration","Daemon","Downloader","HTTP","HealthCheck","Indexing","Logging","Metrics","Mountain","Plugins","Resilience","Security","Tracing","Updates","Utility","Vine"],"type":["Result"]};

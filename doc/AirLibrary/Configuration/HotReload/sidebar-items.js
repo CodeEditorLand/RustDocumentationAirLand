@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["ReloadRequest"],"struct":["AuthConfigValidator","ConfigChange","ConfigChangeEvent","ConfigChangeRecord","ConfigHotReload","DownloadConfigValidator","IndexingConfigValidator","LoggingConfigValidator","PerformanceConfigValidator","ReloadStats","UpdateConfigValidator","gRPCConfigValidator"],"trait":["ConfigValidator"]};
