@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["ScanDirectory","ScanFile"]};
+window.SIDEBAR_ITEMS = { "mod": ["ScanDirectory", "ScanFile"] };

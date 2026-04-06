@@ -1,1 +1,13 @@
-window.SIDEBAR_ITEMS = {"fn":["CalculateChecksum","FileModifiedSince","GetFileSize","GetPermissionsString","IndexFileInternal","IsBinaryFile","IsTextFile","ScanFileMetadata","ValidateFileAccess"]};
+window.SIDEBAR_ITEMS = {
+	"fn": [
+		"CalculateChecksum",
+		"FileModifiedSince",
+		"GetFileSize",
+		"GetPermissionsString",
+		"IndexFileInternal",
+		"IsBinaryFile",
+		"IsTextFile",
+		"ScanFileMetadata",
+		"ValidateFileAccess",
+	],
+};

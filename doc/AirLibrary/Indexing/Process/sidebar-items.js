@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["ExtractSymbols","ProcessContent"]};
+window.SIDEBAR_ITEMS = { "mod": ["ExtractSymbols", "ProcessContent"] };

@@ -1,1 +1,4 @@
-window.SIDEBAR_ITEMS = {"enum":["ExitCode","Platform"],"struct":["DaemonManager","DaemonStatus","PlatformInfo"]};
+window.SIDEBAR_ITEMS = {
+	"enum": ["ExitCode", "Platform"],
+	"struct": ["DaemonManager", "DaemonStatus", "PlatformInfo"],
+};

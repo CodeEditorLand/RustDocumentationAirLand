@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["StartWatcher"]};
+window.SIDEBAR_ITEMS = { "mod": ["StartWatcher"] };

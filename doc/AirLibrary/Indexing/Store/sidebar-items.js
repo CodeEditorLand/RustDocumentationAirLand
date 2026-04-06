@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["QueryIndex","StoreEntry","UpdateIndex"]};
+window.SIDEBAR_ITEMS = { "mod": ["QueryIndex", "StoreEntry", "UpdateIndex"] };

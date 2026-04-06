@@ -1,1 +1,10 @@
-window.SIDEBAR_ITEMS = {"fn":["GetMetrics","InitializeMetrics","MinMaxUpdate"],"static":["METRICS_INSTANCE"],"struct":["AggregationValidator","MetricGuard","MetricsCollector","MetricsData"]};
+window.SIDEBAR_ITEMS = {
+	"fn": ["GetMetrics", "InitializeMetrics", "MinMaxUpdate"],
+	"static": ["METRICS_INSTANCE"],
+	"struct": [
+		"AggregationValidator",
+		"MetricGuard",
+		"MetricsCollector",
+		"MetricsData",
+	],
+};

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["air"]};
+window.SIDEBAR_ITEMS = { "mod": ["air"] };

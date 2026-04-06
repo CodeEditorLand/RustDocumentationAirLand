@@ -1,1 +1,8 @@
-window.SIDEBAR_ITEMS = {"fn":["calculate_chunk_checksum","calculate_file_checksum","match_url_scheme"],"struct":["AirVinegRPCService","ConnectionMetadata"]};
+window.SIDEBAR_ITEMS = {
+	"fn": [
+		"calculate_chunk_checksum",
+		"calculate_file_checksum",
+		"match_url_scheme",
+	],
+	"struct": ["AirVinegRPCService", "ConnectionMetadata"],
+};

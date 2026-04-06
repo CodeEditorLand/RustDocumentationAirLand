@@ -1,1 +1,16 @@
-window.SIDEBAR_ITEMS = {"constant":["MAX_FILE_SIZE_BYTES"],"enum":["SymbolKind"],"fn":["CalculateIndexChecksum","CreateFileMetadata","CreateNewIndex","CreateSymbolInfo","CreateSymbolLocation","GenerateIndexVersion","GetPermissionsString","ValidateFileSize","ValidateIndexSize"],"struct":["FileIndex","FileMetadata","SymbolInfo","SymbolLocation"]};
+window.SIDEBAR_ITEMS = {
+	"constant": ["MAX_FILE_SIZE_BYTES"],
+	"enum": ["SymbolKind"],
+	"fn": [
+		"CalculateIndexChecksum",
+		"CreateFileMetadata",
+		"CreateNewIndex",
+		"CreateSymbolInfo",
+		"CreateSymbolLocation",
+		"GenerateIndexVersion",
+		"GetPermissionsString",
+		"ValidateFileSize",
+		"ValidateIndexSize",
+	],
+	"struct": ["FileIndex", "FileMetadata", "SymbolInfo", "SymbolLocation"],
+};

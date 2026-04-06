@@ -1,1 +1,15 @@
-window.SIDEBAR_ITEMS = {"fn":["ContentToString","DetectEncoding","DetectLanguage","DetectMimeType","DetectMimeTypeFromContent","GetCharCount","GetLineCount","IsBinaryContent","SanitizeContent","TokenizeContent","TruncateContent"]};
+window.SIDEBAR_ITEMS = {
+	"fn": [
+		"ContentToString",
+		"DetectEncoding",
+		"DetectLanguage",
+		"DetectMimeType",
+		"DetectMimeTypeFromContent",
+		"GetCharCount",
+		"GetLineCount",
+		"IsBinaryContent",
+		"SanitizeContent",
+		"TokenizeContent",
+		"TruncateContent",
+	],
+};

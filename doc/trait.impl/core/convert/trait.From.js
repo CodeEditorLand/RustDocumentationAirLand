@@ -1,9 +1,79 @@
-(function() {
-    const implementors = Object.fromEntries([["AirLibrary",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;&amp;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.str.html\">str</a>&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;(<a class=\"enum\" href=\"AirLibrary/HealthCheck/enum.HealthStatus.html\" title=\"enum AirLibrary::HealthCheck::HealthStatus\">HealthStatus</a>, <a class=\"enum\" href=\"https://doc.rust-lang.org/nightly/core/option/enum.Option.html\" title=\"enum core::option::Option\">Option</a>&lt;<a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/string/struct.String.html\" title=\"struct alloc::string::String\">String</a>&gt;)&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"enum\" href=\"AirLibrary/Daemon/enum.ExitCode.html\" title=\"enum AirLibrary::Daemon::ExitCode\">ExitCode</a>&gt; for <a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.i32.html\">i32</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/string/struct.String.html\" title=\"struct alloc::string::String\">String</a>&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/core/net/parser/struct.AddrParseError.html\" title=\"struct core::net::parser::AddrParseError\">AddrParseError</a>&gt; for <a class=\"enum\" href=\"AirLibrary/Vine/Error/enum.VineError.html\" title=\"enum AirLibrary::Vine::Error::VineError\">VineError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html\" title=\"struct std::io::error::Error\">Error</a>&gt; for <a class=\"enum\" href=\"AirLibrary/Vine/Error/enum.VineError.html\" title=\"enum AirLibrary::Vine::Error::VineError\">VineError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html\" title=\"struct std::io::error::Error\">Error</a>&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"struct\" href=\"https://docs.rs/serde_json/1.0.149/serde_json/error/struct.Error.html\" title=\"struct serde_json::error::Error\">Error</a>&gt; for <a class=\"enum\" href=\"AirLibrary/Vine/Error/enum.VineError.html\" title=\"enum AirLibrary::Vine::Error::VineError\">VineError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"struct\" href=\"https://docs.rs/serde_json/1.0.149/serde_json/error/struct.Error.html\" title=\"struct serde_json::error::Error\">Error</a>&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;<a class=\"struct\" href=\"https://docs.rs/uuid/1.23.0/uuid/error/struct.Error.html\" title=\"struct uuid::error::Error\">Error</a>&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;ConfigError&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;Error&gt; for <a class=\"enum\" href=\"AirLibrary/Vine/Error/enum.VineError.html\" title=\"enum AirLibrary::Vine::Error::VineError\">VineError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;Error&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;Error&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;Error&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;JoinError&gt; for <a class=\"enum\" href=\"AirLibrary/enum.AirError.html\" title=\"enum AirLibrary::AirError\">AirError</a>",0]]]]);
-    if (window.register_implementors) {
-        window.register_implementors(implementors);
-    } else {
-        window.pending_implementors = implementors;
-    }
-})()
+(function () {
+	const implementors = Object.fromEntries([
+		[
+			"AirLibrary",
+			[
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;(<a class="enum" href="AirLibrary/HealthCheck/enum.HealthStatus.html" title="enum AirLibrary::HealthCheck::HealthStatus">HealthStatus</a>, <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;)&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="enum" href="AirLibrary/Daemon/enum.ExitCode.html" title="enum AirLibrary::Daemon::ExitCode">ExitCode</a>&gt; for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/core/net/parser/struct.AddrParseError.html" title="struct core::net::parser::AddrParseError">AddrParseError</a>&gt; for <a class="enum" href="AirLibrary/Vine/Error/enum.VineError.html" title="enum AirLibrary::Vine::Error::VineError">VineError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html" title="struct std::io::error::Error">Error</a>&gt; for <a class="enum" href="AirLibrary/Vine/Error/enum.VineError.html" title="enum AirLibrary::Vine::Error::VineError">VineError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html" title="struct std::io::error::Error">Error</a>&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://docs.rs/serde_json/1.0.149/serde_json/error/struct.Error.html" title="struct serde_json::error::Error">Error</a>&gt; for <a class="enum" href="AirLibrary/Vine/Error/enum.VineError.html" title="enum AirLibrary::Vine::Error::VineError">VineError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://docs.rs/serde_json/1.0.149/serde_json/error/struct.Error.html" title="struct serde_json::error::Error">Error</a>&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://docs.rs/uuid/1.23.0/uuid/error/struct.Error.html" title="struct uuid::error::Error">Error</a>&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;ConfigError&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;Error&gt; for <a class="enum" href="AirLibrary/Vine/Error/enum.VineError.html" title="enum AirLibrary::Vine::Error::VineError">VineError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;Error&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;Error&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;Error&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+				[
+					'impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;JoinError&gt; for <a class="enum" href="AirLibrary/enum.AirError.html" title="enum AirLibrary::AirError">AirError</a>',
+					0,
+				],
+			],
+		],
+	]);
+	if (window.register_implementors) {
+		window.register_implementors(implementors);
+	} else {
+		window.pending_implementors = implementors;
+	}
+})();
 //{"start":59,"fragment_lengths":[6084]}

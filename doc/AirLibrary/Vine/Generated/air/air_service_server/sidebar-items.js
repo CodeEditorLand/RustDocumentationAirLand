@@ -1,1 +1,5 @@
-window.SIDEBAR_ITEMS = {"constant":["SERVICE_NAME"],"struct":["AirServiceServer"],"trait":["AirService"]};
+window.SIDEBAR_ITEMS = {
+	"constant": ["SERVICE_NAME"],
+	"struct": ["AirServiceServer"],
+	"trait": ["AirService"],
+};

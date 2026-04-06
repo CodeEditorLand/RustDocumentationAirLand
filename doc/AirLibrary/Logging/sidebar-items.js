@@ -1,1 +1,22 @@
-window.SIDEBAR_ITEMS = {"constant":["LOG_CONTEXT"],"enum":["LogRotation"],"fn":["ClearLogContext","GetLogContext","GetLogger","InitializeLogger","InitializeLoggerWithRotation","SetLogContext"],"static":["LOGGER_INSTANCE"],"struct":["ContextLogger","LogContext","LogManager","LogRotationConfig","SensitiveDataConfig","SensitiveDataFilter","StructuredLogEntry"]};
+window.SIDEBAR_ITEMS = {
+	"constant": ["LOG_CONTEXT"],
+	"enum": ["LogRotation"],
+	"fn": [
+		"ClearLogContext",
+		"GetLogContext",
+		"GetLogger",
+		"InitializeLogger",
+		"InitializeLoggerWithRotation",
+		"SetLogContext",
+	],
+	"static": ["LOGGER_INSTANCE"],
+	"struct": [
+		"ContextLogger",
+		"LogContext",
+		"LogManager",
+		"LogRotationConfig",
+		"SensitiveDataConfig",
+		"SensitiveDataFilter",
+		"StructuredLogEntry",
+	],
+};

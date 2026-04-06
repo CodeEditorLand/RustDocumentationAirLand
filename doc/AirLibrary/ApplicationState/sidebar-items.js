@@ -1,1 +1,11 @@
-window.SIDEBAR_ITEMS = {"enum":["ConnectionType","RequestState","ServiceStatus"],"struct":["ApplicationState","ConnectionHealthReport","ConnectionInfo","PerformanceMetrics","RequestStatus","ResourceUsage"]};
+window.SIDEBAR_ITEMS = {
+	"enum": ["ConnectionType", "RequestState", "ServiceStatus"],
+	"struct": [
+		"ApplicationState",
+		"ConnectionHealthReport",
+		"ConnectionInfo",
+		"PerformanceMetrics",
+		"RequestStatus",
+		"ResourceUsage",
+	],
+};
