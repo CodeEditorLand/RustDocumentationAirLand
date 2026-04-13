@@ -1,9 +1,1 @@
-window.SIDEBAR_ITEMS = {
-	"struct": [
-		"AuthSession",
-		"AuthenticationService",
-		"CredentialsStore",
-		"CryptoKeys",
-		"UserCredentials",
-	],
-};
+window.SIDEBAR_ITEMS = {"struct":["AuthSession","AuthenticationService","CredentialsStore","CryptoKeys","UserCredentials"]};

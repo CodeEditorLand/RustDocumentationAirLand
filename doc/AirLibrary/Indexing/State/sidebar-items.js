@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = { "mod": ["CreateState", "UpdateState"] };
+window.SIDEBAR_ITEMS = {"mod":["CreateState","UpdateState"]};

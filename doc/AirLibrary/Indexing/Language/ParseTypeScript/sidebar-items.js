@@ -1,12 +1,1 @@
-window.SIDEBAR_ITEMS = {
-	"fn": [
-		"ExtractExportModifier",
-		"ExtractGenericParameters",
-		"ExtractTypeAnnotation",
-		"ExtractTypeScriptSymbols",
-		"ExtractTypeScriptSymbolsFromLine",
-		"IsTypeScriptClass",
-		"IsTypeScriptFunction",
-		"IsTypeScriptInterface",
-	],
-};
+window.SIDEBAR_ITEMS = {"fn":["ExtractExportModifier","ExtractGenericParameters","ExtractTypeAnnotation","ExtractTypeScriptSymbols","ExtractTypeScriptSymbolsFromLine","IsTypeScriptClass","IsTypeScriptFunction","IsTypeScriptInterface"]};

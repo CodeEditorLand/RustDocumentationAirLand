@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = { "mod": ["AirVinegRPCService"] };
+window.SIDEBAR_ITEMS = {"mod":["AirVinegRPCService"]};

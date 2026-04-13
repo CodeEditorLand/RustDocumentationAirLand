@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = { "mod": ["WatchFile"] };
+window.SIDEBAR_ITEMS = {"mod":["WatchFile"]};

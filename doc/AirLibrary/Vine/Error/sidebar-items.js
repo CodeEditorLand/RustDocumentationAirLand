@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = { "enum": ["VineError"] };
+window.SIDEBAR_ITEMS = {"enum":["VineError"]};

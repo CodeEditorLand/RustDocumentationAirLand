@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = { "struct": ["AirServiceClient"] };
+window.SIDEBAR_ITEMS = {"struct":["AirServiceClient"]};

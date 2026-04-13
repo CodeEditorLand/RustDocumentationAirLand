@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = { "mod": ["ParseRust", "ParseTypeScript"] };
+window.SIDEBAR_ITEMS = {"mod":["ParseRust","ParseTypeScript"]};
