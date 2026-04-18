@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["AliasPath","AppDataPrefix","DetectAppDataPrefix","EmitOTLPSpan","EnabledTags","FlushDedup","GetTraceId","IsEnabled","IsShort","NowNano","rand_u64"],"static":["APP_DATA_PREFIX","DEDUP","ENABLED_TAGS","OTLP_AVAILABLE","OTLP_TRACE_ID","SHORT_MODE"],"struct":["DedupState"]};

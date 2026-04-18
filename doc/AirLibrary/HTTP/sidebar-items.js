@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["secured_client","secured_client_builder","secured_client_with_timeout"],"mod":["client"]};
+window.SIDEBAR_ITEMS = {"mod":["Client"]};
