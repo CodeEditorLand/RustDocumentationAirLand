@@ -137,11 +137,11 @@
 <a href=#137 id=137 data-nosnippet>137</a>
 <a href=#138 id=138 data-nosnippet>138</a><span class="doccomment">/// Update index metadata (version, timestamp, checksum)
 <a href=#139 id=139 data-nosnippet>139</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateIndexMetadata.html">UpdateIndexMetadata</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#167-184">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#330">Result</a>&lt;()&gt; {
-<a href=#140 id=140 data-nosnippet>140</a>	<span class="kw">use </span><span class="kw">crate</span>::Indexing::State::CreateState::{<a href="CreateState.rs.html#203-215">CalculateIndexChecksum</a>, <a href="CreateState.rs.html#200">GenerateIndexVersion</a>};
+<a href=#140 id=140 data-nosnippet>140</a>	<span class="kw">use </span><span class="kw">crate</span>::Indexing::State::CreateState::{<a href="CreateState.rs.html#203-217">CalculateIndexChecksum</a>, <a href="CreateState.rs.html#200">GenerateIndexVersion</a>};
 <a href=#141 id=141 data-nosnippet>141</a>
 <a href=#142 id=142 data-nosnippet>142</a>	<a href="#139">index</a>.last_updated = chrono::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html#method.now">now</a>();
 <a href=#143 id=143 data-nosnippet>143</a>	<a href="#139">index</a>.index_version = <a href="CreateState.rs.html#200">GenerateIndexVersion</a>();
-<a href=#144 id=144 data-nosnippet>144</a>	<a href="#139">index</a>.index_checksum = <a href="CreateState.rs.html#203-215">CalculateIndexChecksum</a>(<a href="#139">index</a>)<span class="question-mark">?</span>;
+<a href=#144 id=144 data-nosnippet>144</a>	<a href="#139">index</a>.index_checksum = <a href="CreateState.rs.html#203-217">CalculateIndexChecksum</a>(<a href="#139">index</a>)<span class="question-mark">?</span>;
 <a href=#145 id=145 data-nosnippet>145</a>
 <a href=#146 id=146 data-nosnippet>146</a>	<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(())
 <a href=#147 id=147 data-nosnippet>147</a>}
