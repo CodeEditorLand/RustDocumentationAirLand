@@ -207,7 +207,7 @@
 <a href=#207 id=207 data-nosnippet>207</a>	</span><span class="kw">fn </span>permissions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="#131-142">PluginPermission</a>&gt; { <a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[] }
 <a href=#208 id=208 data-nosnippet>208</a>
 <a href=#209 id=209 data-nosnippet>209</a>	<span class="doccomment">/// Handle inter-plugin message
-<a href=#210 id=210 data-nosnippet>210</a>	</span><span class="kw">async fn </span>handle_message(<span class="kw-2">&amp;</span><a class="self" href="#210">self</a>, from:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, _message:<span class="kw-2">&amp;</span><a href="#226-233">PluginMessage</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#330">Result</a>&lt;<a href="#226-233">PluginMessage</a>&gt; {
+<a href=#210 id=210 data-nosnippet>210</a>	</span><span class="kw">async fn </span>Message(<span class="kw-2">&amp;</span><a class="self" href="#210">self</a>, from:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, _message:<span class="kw-2">&amp;</span><a href="#226-233">PluginMessage</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#330">Result</a>&lt;<a href="#226-233">PluginMessage</a>&gt; {
 <a href=#211 id=211 data-nosnippet>211</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#265">Plugin</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Plugin {} does not handle messages"</span>, from)))
 <a href=#212 id=212 data-nosnippet>212</a>	}
 <a href=#213 id=213 data-nosnippet>213</a>
@@ -779,7 +779,7 @@
 <a href=#779 id=779 data-nosnippet>779</a>
 <a href=#780 id=780 data-nosnippet>780</a>		<span class="comment">// Send message with timeout
 <a href=#781 id=781 data-nosnippet>781</a>		</span><span class="kw">let </span>SendResult =
-<a href=#782 id=782 data-nosnippet>782</a>			tokio::time::timeout(<span class="self">self</span>.OperationTimeout, plugin.handle_message(<span class="kw-2">&amp;</span>message.from, <span class="kw-2">&amp;</span>message)).<span class="kw">await</span>;
+<a href=#782 id=782 data-nosnippet>782</a>			tokio::time::timeout(<span class="self">self</span>.OperationTimeout, plugin.Message(<span class="kw-2">&amp;</span>message.from, <span class="kw-2">&amp;</span>message)).<span class="kw">await</span>;
 <a href=#783 id=783 data-nosnippet>783</a>
 <a href=#784 id=784 data-nosnippet>784</a>		SendResult.map_err(|<span class="kw">_</span>| AirError::Plugin(<span class="macro">format!</span>(<span class="string">"Message send timeout: {} -&gt; {}"</span>, message.from, message.to)))<span class="question-mark">?
 <a href=#785 id=785 data-nosnippet>785</a>	</span>}
@@ -977,7 +977,7 @@
 <a href=#977 id=977 data-nosnippet>977</a></span><span class="attr">#[async_trait]
 <a href=#978 id=978 data-nosnippet>978</a></span><span class="kw">pub trait </span><a href="../../../AirLibrary/Plugins/trait.PluginEventHandler.html">PluginEventHandler</a>: <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> {
 <a href=#979 id=979 data-nosnippet>979</a>	<span class="doccomment">/// Handle a plugin event
-<a href=#980 id=980 data-nosnippet>980</a>	</span><span class="kw">async fn </span>handle_event(<span class="kw-2">&amp;</span><span class="self">self</span>, event:<span class="kw-2">&amp;</span><a href="#959-974">PluginEvent</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;;
+<a href=#980 id=980 data-nosnippet>980</a>	</span><span class="kw">async fn </span>Event(<span class="kw-2">&amp;</span><span class="self">self</span>, event:<span class="kw-2">&amp;</span><a href="#959-974">PluginEvent</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;;
 <a href=#981 id=981 data-nosnippet>981</a>}
 <a href=#982 id=982 data-nosnippet>982</a>
 <a href=#983 id=983 data-nosnippet>983</a><span class="doccomment">/// Event bus for plugin events
@@ -999,7 +999,7 @@
 <a href=#999 id=999 data-nosnippet>999</a>	</span><span class="kw">pub async fn </span>emit(<span class="kw-2">&amp;</span><span class="self">self</span>, event:<a href="#959-974">PluginEvent</a>) {
 <a href=#1000 id=1000 data-nosnippet>1000</a>		<span class="kw">let </span>handlers = <span class="self">self</span>.handlers.read().<span class="kw">await</span>;
 <a href=#1001 id=1001 data-nosnippet>1001</a>		<span class="kw">for </span>handler <span class="kw">in </span>handlers.iter() {
-<a href=#1002 id=1002 data-nosnippet>1002</a>			<span class="kw">if let </span><span class="prelude-val">Err</span>(e) = handler.handle_event(<span class="kw-2">&amp;</span>event).<span class="kw">await </span>{
+<a href=#1002 id=1002 data-nosnippet>1002</a>			<span class="kw">if let </span><span class="prelude-val">Err</span>(e) = handler.Event(<span class="kw-2">&amp;</span>event).<span class="kw">await </span>{
 <a href=#1003 id=1003 data-nosnippet>1003</a>				<span class="macro">dev_log!</span>(<span class="string">"extensions"</span>, <span class="string">"error: [PluginEventBus] Event handler error: {}"</span>, e);
 <a href=#1004 id=1004 data-nosnippet>1004</a>			}
 <a href=#1005 id=1005 data-nosnippet>1005</a>		}
