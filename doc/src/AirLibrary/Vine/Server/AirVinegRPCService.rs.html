@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `Element/Air/Source/Vine/Server/AirVinegRPCService.rs`."><title>AirVinegRPCService.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-b7b9f40b.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.96.0-nightly (b41f22de2 2026-03-08)" data-channel="nightly" data-search-js="search-63369b7b.js" data-stringdex-js="stringdex-b897f86f.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-5013f961.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">AirLibrary/Vine/Server/</div>AirVinegRPCService.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-4"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! # Air Vine gRPC Service
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `Element/Air/Source/Vine/Server/AirVinegRPCService.rs`."><title>AirVinegRPCService.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">AirLibrary/Vine/Server/</div>AirVinegRPCService.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-4"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! # Air Vine gRPC Service
 <a href=#2 id=2 data-nosnippet>2</a>//!
 <a href=#3 id=3 data-nosnippet>3</a>//! Defines the gRPC service implementation for Air. This struct handles
 <a href=#4 id=4 data-nosnippet>4</a>//! incoming RPC calls from Mountain, dispatches them to the appropriate
@@ -17,13 +17,13 @@
 <a href=#17 id=17 data-nosnippet>17</a>	<a href="../../Library.rs.html#248-296">AirError</a>,
 <a href=#18 id=18 data-nosnippet>18</a>	<a href="../../ApplicationState/mod.rs.html#102-123">ApplicationState::ApplicationState</a>,
 <a href=#19 id=19 data-nosnippet>19</a>	<a href="../../Authentication/mod.rs.html#25-40">Authentication::AuthenticationService</a>,
-<a href=#20 id=20 data-nosnippet>20</a>	<a href="../../Downloader/mod.rs.html#123-153">Downloader::DownloadManager</a>,
+<a href=#20 id=20 data-nosnippet>20</a>	<a href="../../Downloader/mod.rs.html#127-157">Downloader::DownloadManager</a>,
 <a href=#21 id=21 data-nosnippet>21</a>	Indexing::{
 <a href=#22 id=22 data-nosnippet>22</a>		<a href="../../Indexing/mod.rs.html#154-172">FileIndexer</a>,
 <a href=#23 id=23 data-nosnippet>23</a>		Store::QueryIndex::{<a href="../../Indexing/Store/QueryIndex.rs.html#104-116">SearchMode</a>, <a href="../../Indexing/Store/QueryIndex.rs.html#79-100">SearchQuery</a>},
 <a href=#24 id=24 data-nosnippet>24</a>	},
 <a href=#25 id=25 data-nosnippet>25</a>	<a class="prelude-ty" href="../../Library.rs.html#349">Result</a>,
-<a href=#26 id=26 data-nosnippet>26</a>	<a href="../../Updates/mod.rs.html#91-121">Updates::UpdateManager</a>,
+<a href=#26 id=26 data-nosnippet>26</a>	<a href="../../Updates/mod.rs.html#99-129">Updates::UpdateManager</a>,
 <a href=#27 id=27 data-nosnippet>27</a>	<a href="../../Library.rs.html#388-393">Utility::CurrentTimestamp</a>,
 <a href=#28 id=28 data-nosnippet>28</a>	Vine::Generated::{
 <a href=#29 id=29 data-nosnippet>29</a>		<a href="../Generated/mod.rs.html#3">air</a> <span class="kw">as </span>air_generated,
@@ -74,10 +74,10 @@
 <a href=#74 id=74 data-nosnippet>74</a>	</span>AuthService:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Authentication/mod.rs.html#25-40">AuthenticationService</a>&gt;,
 <a href=#75 id=75 data-nosnippet>75</a>
 <a href=#76 id=76 data-nosnippet>76</a>	<span class="doccomment">/// Update manager
-<a href=#77 id=77 data-nosnippet>77</a>	</span>UpdateManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Updates/mod.rs.html#91-121">UpdateManager</a>&gt;,
+<a href=#77 id=77 data-nosnippet>77</a>	</span>UpdateManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Updates/mod.rs.html#99-129">UpdateManager</a>&gt;,
 <a href=#78 id=78 data-nosnippet>78</a>
 <a href=#79 id=79 data-nosnippet>79</a>	<span class="doccomment">/// Download manager
-<a href=#80 id=80 data-nosnippet>80</a>	</span>DownloadManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Downloader/mod.rs.html#123-153">DownloadManager</a>&gt;,
+<a href=#80 id=80 data-nosnippet>80</a>	</span>DownloadManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Downloader/mod.rs.html#127-157">DownloadManager</a>&gt;,
 <a href=#81 id=81 data-nosnippet>81</a>
 <a href=#82 id=82 data-nosnippet>82</a>	<span class="doccomment">/// File indexer
 <a href=#83 id=83 data-nosnippet>83</a>	</span>FileIndexer:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Indexing/mod.rs.html#154-172">FileIndexer</a>&gt;,
@@ -110,9 +110,9 @@
 <a href=#110 id=110 data-nosnippet>110</a>
 <a href=#111 id=111 data-nosnippet>111</a>		AuthService:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Authentication/mod.rs.html#25-40">AuthenticationService</a>&gt;,
 <a href=#112 id=112 data-nosnippet>112</a>
-<a href=#113 id=113 data-nosnippet>113</a>		UpdateManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Updates/mod.rs.html#91-121">UpdateManager</a>&gt;,
+<a href=#113 id=113 data-nosnippet>113</a>		UpdateManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Updates/mod.rs.html#99-129">UpdateManager</a>&gt;,
 <a href=#114 id=114 data-nosnippet>114</a>
-<a href=#115 id=115 data-nosnippet>115</a>		DownloadManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Downloader/mod.rs.html#123-153">DownloadManager</a>&gt;,
+<a href=#115 id=115 data-nosnippet>115</a>		DownloadManager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Downloader/mod.rs.html#127-157">DownloadManager</a>&gt;,
 <a href=#116 id=116 data-nosnippet>116</a>
 <a href=#117 id=117 data-nosnippet>117</a>		FileIndexer:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="../../Indexing/mod.rs.html#154-172">FileIndexer</a>&gt;,
 <a href=#118 id=118 data-nosnippet>118</a>	) -&gt; <span class="self">Self </span>{
@@ -229,7 +229,7 @@
 <a href=#229 id=229 data-nosnippet>229</a>		<a href="#229">Request</a>:Request&lt;<a href="../Generated/air.rs.html#4-14">AuthenticationRequest</a>&gt;,
 <a href=#230 id=230 data-nosnippet>230</a>	) -&gt; std::result::<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html">Result</a>&lt;Response&lt;<a href="../Generated/air.rs.html#16-25">AuthenticationResponse</a>&gt;, Status&gt; {
 <a href=#231 id=231 data-nosnippet>231</a>		<span class="comment">// Track connection and validate protocol (before consuming Request)
-<a href=#232 id=232 data-nosnippet>232</a>		</span><span class="kw">let </span>ConnectionId = <a class="self" href="#227">self</a>.<a href="#137-197">TrackConnection</a>(<span class="kw-2">&amp;</span><a href="#229">Request</a>, <span class="string">"authentication"</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<a href=#232 id=232 data-nosnippet>232</a>		</span><span class="kw">let </span>ConnectionId = <span class="self">self</span>.TrackConnection(<span class="kw-2">&amp;</span>Request, <span class="string">"authentication"</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 <a href=#233 id=233 data-nosnippet>233</a>
 <a href=#234 id=234 data-nosnippet>234</a>		<span class="kw">let </span>RequestData = <a href="#229">Request</a>.into_inner();
 <a href=#235 id=235 data-nosnippet>235</a>
@@ -242,20 +242,20 @@
 <a href=#242 id=242 data-nosnippet>242</a>			ConnectionId
 <a href=#243 id=243 data-nosnippet>243</a>		);
 <a href=#244 id=244 data-nosnippet>244</a>
-<a href=#245 id=245 data-nosnippet>245</a>		<a class="self" href="#227">self</a>.AppState
-<a href=#246 id=246 data-nosnippet>246</a>			.<a href="../../ApplicationState/mod.rs.html#620-650">RegisterRequest</a>(<a href="#236">request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <span class="string">"authentication"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#245 id=245 data-nosnippet>245</a>		<span class="self">self</span>.AppState
+<a href=#246 id=246 data-nosnippet>246</a>			.RegisterRequest(request_id.clone(), <span class="string">"authentication"</span>.to_string())
 <a href=#247 id=247 data-nosnippet>247</a>			.<span class="kw">await
-<a href=#248 id=248 data-nosnippet>248</a>			</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| Status::internal(<a href="#248">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>;
+<a href=#248 id=248 data-nosnippet>248</a>			</span>.map_err(|e| Status::internal(e.to_string()))<span class="question-mark">?</span>;
 <a href=#249 id=249 data-nosnippet>249</a>
 <a href=#250 id=250 data-nosnippet>250</a>		<span class="comment">// Additional security validation
 <a href=#251 id=251 data-nosnippet>251</a>		</span><span class="kw">if </span><a href="#234">RequestData</a>.username.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() || <a href="#234">RequestData</a>.password.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() || <a href="#234">RequestData</a>.provider.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#252 id=252 data-nosnippet>252</a>			<span class="kw">let </span>ErrorMessage = <span class="string">"Invalid authentication parameters"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>();
 <a href=#253 id=253 data-nosnippet>253</a>
-<a href=#254 id=254 data-nosnippet>254</a>			<a class="self" href="#227">self</a>.AppState
-<a href=#255 id=255 data-nosnippet>255</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#256 id=256 data-nosnippet>256</a>					<span class="kw-2">&amp;</span><a href="#236">request_id</a>,
-<a href=#257 id=257 data-nosnippet>257</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#252">ErrorMessage</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#258 id=258 data-nosnippet>258</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#254 id=254 data-nosnippet>254</a>			<span class="self">self</span>.AppState
+<a href=#255 id=255 data-nosnippet>255</a>				.UpdateRequestStatus(
+<a href=#256 id=256 data-nosnippet>256</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#257 id=257 data-nosnippet>257</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(ErrorMessage.clone()),
+<a href=#258 id=258 data-nosnippet>258</a>					<span class="prelude-val">None</span>,
 <a href=#259 id=259 data-nosnippet>259</a>				)
 <a href=#260 id=260 data-nosnippet>260</a>				.<span class="kw">await
 <a href=#261 id=261 data-nosnippet>261</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -275,15 +275,15 @@
 <a href=#275 id=275 data-nosnippet>275</a>
 <a href=#276 id=276 data-nosnippet>276</a>		<span class="kw">let </span>provider = <a href="#234">RequestData</a>.provider;
 <a href=#277 id=277 data-nosnippet>277</a>
-<a href=#278 id=278 data-nosnippet>278</a>		<span class="kw">let </span>result = <a class="self" href="#227">self</a>
-<a href=#279 id=279 data-nosnippet>279</a>			.AuthService
-<a href=#280 id=280 data-nosnippet>280</a>			.<a href="../../Authentication/mod.rs.html#129-172">AuthenticateUser</a>(<a href="#234">RequestData</a>.username, <a href="#274">password</a>, <a href="#276">provider</a>)
+<a href=#278 id=278 data-nosnippet>278</a>		<span class="kw">let </span>result = <span class="self">self
+<a href=#279 id=279 data-nosnippet>279</a>			</span>.AuthService
+<a href=#280 id=280 data-nosnippet>280</a>			.AuthenticateUser(RequestData.username, password, provider)
 <a href=#281 id=281 data-nosnippet>281</a>			.<span class="kw">await</span>;
 <a href=#282 id=282 data-nosnippet>282</a>
 <a href=#283 id=283 data-nosnippet>283</a>		<span class="kw">match </span><a href="#278">result</a> {
 <a href=#284 id=284 data-nosnippet>284</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(token) =&gt; {
-<a href=#285 id=285 data-nosnippet>285</a>				<a class="self" href="#227">self</a>.AppState
-<a href=#286 id=286 data-nosnippet>286</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#236">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#160">Completed</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">100.0</span>))
+<a href=#285 id=285 data-nosnippet>285</a>				<span class="self">self</span>.AppState
+<a href=#286 id=286 data-nosnippet>286</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Completed, <span class="prelude-val">Some</span>(<span class="number">100.0</span>))
 <a href=#287 id=287 data-nosnippet>287</a>					.<span class="kw">await
 <a href=#288 id=288 data-nosnippet>288</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#289 id=289 data-nosnippet>289</a>
@@ -304,11 +304,11 @@
 <a href=#304 id=304 data-nosnippet>304</a>			},
 <a href=#305 id=305 data-nosnippet>305</a>
 <a href=#306 id=306 data-nosnippet>306</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
-<a href=#307 id=307 data-nosnippet>307</a>				<a class="self" href="#227">self</a>.AppState
-<a href=#308 id=308 data-nosnippet>308</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#309 id=309 data-nosnippet>309</a>						<span class="kw-2">&amp;</span><a href="#236">request_id</a>,
-<a href=#310 id=310 data-nosnippet>310</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#306">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#311 id=311 data-nosnippet>311</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#307 id=307 data-nosnippet>307</a>				<span class="self">self</span>.AppState
+<a href=#308 id=308 data-nosnippet>308</a>					.UpdateRequestStatus(
+<a href=#309 id=309 data-nosnippet>309</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#310 id=310 data-nosnippet>310</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.to_string()),
+<a href=#311 id=311 data-nosnippet>311</a>						<span class="prelude-val">None</span>,
 <a href=#312 id=312 data-nosnippet>312</a>					)
 <a href=#313 id=313 data-nosnippet>313</a>					.<span class="kw">await
 <a href=#314 id=314 data-nosnippet>314</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -350,20 +350,20 @@
 <a href=#350 id=350 data-nosnippet>350</a>			RequestData.channel
 <a href=#351 id=351 data-nosnippet>351</a>		);
 <a href=#352 id=352 data-nosnippet>352</a>
-<a href=#353 id=353 data-nosnippet>353</a>		<a class="self" href="#337">self</a>.AppState
-<a href=#354 id=354 data-nosnippet>354</a>			.<a href="../../ApplicationState/mod.rs.html#620-650">RegisterRequest</a>(<a href="#343">request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <span class="string">"updates"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#353 id=353 data-nosnippet>353</a>		<span class="self">self</span>.AppState
+<a href=#354 id=354 data-nosnippet>354</a>			.RegisterRequest(request_id.clone(), <span class="string">"updates"</span>.to_string())
 <a href=#355 id=355 data-nosnippet>355</a>			.<span class="kw">await
-<a href=#356 id=356 data-nosnippet>356</a>			</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| Status::internal(<a href="#356">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>;
+<a href=#356 id=356 data-nosnippet>356</a>			</span>.map_err(|e| Status::internal(e.to_string()))<span class="question-mark">?</span>;
 <a href=#357 id=357 data-nosnippet>357</a>
 <a href=#358 id=358 data-nosnippet>358</a>		<span class="comment">// Validate CurrentVersion
 <a href=#359 id=359 data-nosnippet>359</a>		</span><span class="kw">if </span><a href="#341">RequestData</a>.current_version.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#360 id=360 data-nosnippet>360</a>			<span class="kw">let </span>ErrorMessage = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#277">Validation</a>(<span class="string">"CurrentVersion cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#361 id=361 data-nosnippet>361</a>
-<a href=#362 id=362 data-nosnippet>362</a>			<a class="self" href="#337">self</a>.AppState
-<a href=#363 id=363 data-nosnippet>363</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#364 id=364 data-nosnippet>364</a>					<span class="kw-2">&amp;</span><a href="#343">request_id</a>,
-<a href=#365 id=365 data-nosnippet>365</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#360">ErrorMessage</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#366 id=366 data-nosnippet>366</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#362 id=362 data-nosnippet>362</a>			<span class="self">self</span>.AppState
+<a href=#363 id=363 data-nosnippet>363</a>				.UpdateRequestStatus(
+<a href=#364 id=364 data-nosnippet>364</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#365 id=365 data-nosnippet>365</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(ErrorMessage.to_string()),
+<a href=#366 id=366 data-nosnippet>366</a>					<span class="prelude-val">None</span>,
 <a href=#367 id=367 data-nosnippet>367</a>				)
 <a href=#368 id=368 data-nosnippet>368</a>				.<span class="kw">await
 <a href=#369 id=369 data-nosnippet>369</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -383,11 +383,11 @@
 <a href=#383 id=383 data-nosnippet>383</a>		<span class="kw">if </span>!<a href="#375">ValidChannels</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.contains">contains</a>(<span class="kw-2">&amp;</span><a href="#377">Channel</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.as_str">as_str</a>()) {
 <a href=#384 id=384 data-nosnippet>384</a>			<span class="kw">let </span>ErrorMessage = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Invalid channel: {}. Valid values are: {}"</span>, Channel, ValidChannels.join(<span class="string">", "</span>));
 <a href=#385 id=385 data-nosnippet>385</a>
-<a href=#386 id=386 data-nosnippet>386</a>			<a class="self" href="#337">self</a>.AppState
-<a href=#387 id=387 data-nosnippet>387</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#388 id=388 data-nosnippet>388</a>					<span class="kw-2">&amp;</span><a href="#343">request_id</a>,
-<a href=#389 id=389 data-nosnippet>389</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#384">ErrorMessage</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#390 id=390 data-nosnippet>390</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#386 id=386 data-nosnippet>386</a>			<span class="self">self</span>.AppState
+<a href=#387 id=387 data-nosnippet>387</a>				.UpdateRequestStatus(
+<a href=#388 id=388 data-nosnippet>388</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#389 id=389 data-nosnippet>389</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(ErrorMessage.clone()),
+<a href=#390 id=390 data-nosnippet>390</a>					<span class="prelude-val">None</span>,
 <a href=#391 id=391 data-nosnippet>391</a>				)
 <a href=#392 id=392 data-nosnippet>392</a>				.<span class="kw">await
 <a href=#393 id=393 data-nosnippet>393</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -396,12 +396,12 @@
 <a href=#396 id=396 data-nosnippet>396</a>		}
 <a href=#397 id=397 data-nosnippet>397</a>
 <a href=#398 id=398 data-nosnippet>398</a>		<span class="comment">// Check for updates using UpdateManager
-<a href=#399 id=399 data-nosnippet>399</a>		</span><span class="kw">let </span>result = <a class="self" href="#337">self</a>.UpdateManager.<a href="../../Updates/mod.rs.html#591-720">CheckForUpdates</a>().<span class="kw">await</span>;
+<a href=#399 id=399 data-nosnippet>399</a>		</span><span class="kw">let </span>result = <span class="self">self</span>.UpdateManager.CheckForUpdates().<span class="kw">await</span>;
 <a href=#400 id=400 data-nosnippet>400</a>
 <a href=#401 id=401 data-nosnippet>401</a>		<span class="kw">match </span><a href="#399">result</a> {
 <a href=#402 id=402 data-nosnippet>402</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(UpdateInfo) =&gt; {
-<a href=#403 id=403 data-nosnippet>403</a>				<a class="self" href="#337">self</a>.AppState
-<a href=#404 id=404 data-nosnippet>404</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#343">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#160">Completed</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">100.0</span>))
+<a href=#403 id=403 data-nosnippet>403</a>				<span class="self">self</span>.AppState
+<a href=#404 id=404 data-nosnippet>404</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Completed, <span class="prelude-val">Some</span>(<span class="number">100.0</span>))
 <a href=#405 id=405 data-nosnippet>405</a>					.<span class="kw">await
 <a href=#406 id=406 data-nosnippet>406</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#407 id=407 data-nosnippet>407</a>
@@ -422,8 +422,8 @@
 <a href=#422 id=422 data-nosnippet>422</a>			},
 <a href=#423 id=423 data-nosnippet>423</a>
 <a href=#424 id=424 data-nosnippet>424</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#256">Network</a>(e)) =&gt; {
-<a href=#425 id=425 data-nosnippet>425</a>				<a class="self" href="#337">self</a>.AppState
-<a href=#426 id=426 data-nosnippet>426</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#343">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#424">e</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()), <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>)
+<a href=#425 id=425 data-nosnippet>425</a>				<span class="self">self</span>.AppState
+<a href=#426 id=426 data-nosnippet>426</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.clone()), <span class="prelude-val">None</span>)
 <a href=#427 id=427 data-nosnippet>427</a>					.<span class="kw">await
 <a href=#428 id=428 data-nosnippet>428</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#429 id=429 data-nosnippet>429</a>
@@ -433,11 +433,11 @@
 <a href=#433 id=433 data-nosnippet>433</a>			},
 <a href=#434 id=434 data-nosnippet>434</a>
 <a href=#435 id=435 data-nosnippet>435</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
-<a href=#436 id=436 data-nosnippet>436</a>				<a class="self" href="#337">self</a>.AppState
-<a href=#437 id=437 data-nosnippet>437</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#438 id=438 data-nosnippet>438</a>						<span class="kw-2">&amp;</span><a href="#343">request_id</a>,
-<a href=#439 id=439 data-nosnippet>439</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#435">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#440 id=440 data-nosnippet>440</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#436 id=436 data-nosnippet>436</a>				<span class="self">self</span>.AppState
+<a href=#437 id=437 data-nosnippet>437</a>					.UpdateRequestStatus(
+<a href=#438 id=438 data-nosnippet>438</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#439 id=439 data-nosnippet>439</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.to_string()),
+<a href=#440 id=440 data-nosnippet>440</a>						<span class="prelude-val">None</span>,
 <a href=#441 id=441 data-nosnippet>441</a>					)
 <a href=#442 id=442 data-nosnippet>442</a>					.<span class="kw">await
 <a href=#443 id=443 data-nosnippet>443</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -480,20 +480,20 @@
 <a href=#480 id=480 data-nosnippet>480</a>			<a href="#467">request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()
 <a href=#481 id=481 data-nosnippet>481</a>		};
 <a href=#482 id=482 data-nosnippet>482</a>
-<a href=#483 id=483 data-nosnippet>483</a>		<a class="self" href="#461">self</a>.AppState
-<a href=#484 id=484 data-nosnippet>484</a>			.<a href="../../ApplicationState/mod.rs.html#620-650">RegisterRequest</a>(<a href="#477">download_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <span class="string">"downloader"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#483 id=483 data-nosnippet>483</a>		<span class="self">self</span>.AppState
+<a href=#484 id=484 data-nosnippet>484</a>			.RegisterRequest(download_request_id.clone(), <span class="string">"downloader"</span>.to_string())
 <a href=#485 id=485 data-nosnippet>485</a>			.<span class="kw">await
-<a href=#486 id=486 data-nosnippet>486</a>			</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| Status::internal(<a href="#486">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>;
+<a href=#486 id=486 data-nosnippet>486</a>			</span>.map_err(|e| Status::internal(e.to_string()))<span class="question-mark">?</span>;
 <a href=#487 id=487 data-nosnippet>487</a>
 <a href=#488 id=488 data-nosnippet>488</a>		<span class="comment">// Validate URL
 <a href=#489 id=489 data-nosnippet>489</a>		</span><span class="kw">if </span><a href="#465">RequestData</a>.url.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#490 id=490 data-nosnippet>490</a>			<span class="kw">let </span>error_msg = <span class="string">"URL cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>();
 <a href=#491 id=491 data-nosnippet>491</a>
-<a href=#492 id=492 data-nosnippet>492</a>			<a class="self" href="#461">self</a>.AppState
-<a href=#493 id=493 data-nosnippet>493</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#494 id=494 data-nosnippet>494</a>					<span class="kw-2">&amp;</span><a href="#477">download_request_id</a>,
-<a href=#495 id=495 data-nosnippet>495</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#490">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#496 id=496 data-nosnippet>496</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#492 id=492 data-nosnippet>492</a>			<span class="self">self</span>.AppState
+<a href=#493 id=493 data-nosnippet>493</a>				.UpdateRequestStatus(
+<a href=#494 id=494 data-nosnippet>494</a>					<span class="kw-2">&amp;</span>download_request_id,
+<a href=#495 id=495 data-nosnippet>495</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.clone()),
+<a href=#496 id=496 data-nosnippet>496</a>					<span class="prelude-val">None</span>,
 <a href=#497 id=497 data-nosnippet>497</a>				)
 <a href=#498 id=498 data-nosnippet>498</a>				.<span class="kw">await
 <a href=#499 id=499 data-nosnippet>499</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -512,11 +512,11 @@
 <a href=#512 id=512 data-nosnippet>512</a>		</span><span class="kw">if </span>!<a href="#2428-2430">match_url_scheme</a>(<span class="kw-2">&amp;</span><a href="#465">RequestData</a>.url) {
 <a href=#513 id=513 data-nosnippet>513</a>			<span class="kw">let </span>error_msg = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Invalid URL scheme: {}"</span>, RequestData.url);
 <a href=#514 id=514 data-nosnippet>514</a>
-<a href=#515 id=515 data-nosnippet>515</a>			<a class="self" href="#461">self</a>.AppState
-<a href=#516 id=516 data-nosnippet>516</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#517 id=517 data-nosnippet>517</a>					<span class="kw-2">&amp;</span><a href="#477">download_request_id</a>,
-<a href=#518 id=518 data-nosnippet>518</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#513">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#519 id=519 data-nosnippet>519</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#515 id=515 data-nosnippet>515</a>			<span class="self">self</span>.AppState
+<a href=#516 id=516 data-nosnippet>516</a>				.UpdateRequestStatus(
+<a href=#517 id=517 data-nosnippet>517</a>					<span class="kw-2">&amp;</span>download_request_id,
+<a href=#518 id=518 data-nosnippet>518</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.clone()),
+<a href=#519 id=519 data-nosnippet>519</a>					<span class="prelude-val">None</span>,
 <a href=#520 id=520 data-nosnippet>520</a>				)
 <a href=#521 id=521 data-nosnippet>521</a>				.<span class="kw">await
 <a href=#522 id=522 data-nosnippet>522</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -546,7 +546,7 @@
 <a href=#546 id=546 data-nosnippet>546</a>
 <a href=#547 id=547 data-nosnippet>547</a>		<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(parent) = <a href="#545">dest_path</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.parent">parent</a>() {
 <a href=#548 id=548 data-nosnippet>548</a>			<span class="kw">if </span>!<a href="#547">parent</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.exists">exists</a>() {
-<a href=#549 id=549 data-nosnippet>549</a>				<span class="kw">match </span>tokio::fs::create_dir_all(<a href="#547">parent</a>).<span class="kw">await </span>{
+<a href=#549 id=549 data-nosnippet>549</a>				<span class="kw">match </span>tokio::fs::create_dir_all(parent).<span class="kw">await </span>{
 <a href=#550 id=550 data-nosnippet>550</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="kw">_</span>) =&gt; {
 <a href=#551 id=551 data-nosnippet>551</a>						<a href="../../DevLog.rs.html#142-200">dev_log!</a>(
 <a href=#552 id=552 data-nosnippet>552</a>							<span class="string">"grpc"</span>,
@@ -558,11 +558,11 @@
 <a href=#558 id=558 data-nosnippet>558</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
 <a href=#559 id=559 data-nosnippet>559</a>						<span class="kw">let </span>error_msg = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to create destination directory: {}"</span>, e);
 <a href=#560 id=560 data-nosnippet>560</a>
-<a href=#561 id=561 data-nosnippet>561</a>						<a class="self" href="#461">self</a>.AppState
-<a href=#562 id=562 data-nosnippet>562</a>							.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#563 id=563 data-nosnippet>563</a>								<span class="kw-2">&amp;</span><a href="#477">download_request_id</a>,
-<a href=#564 id=564 data-nosnippet>564</a>								<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#559">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#565 id=565 data-nosnippet>565</a>								<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#561 id=561 data-nosnippet>561</a>						<span class="self">self</span>.AppState
+<a href=#562 id=562 data-nosnippet>562</a>							.UpdateRequestStatus(
+<a href=#563 id=563 data-nosnippet>563</a>								<span class="kw-2">&amp;</span>download_request_id,
+<a href=#564 id=564 data-nosnippet>564</a>								<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.clone()),
+<a href=#565 id=565 data-nosnippet>565</a>								<span class="prelude-val">None</span>,
 <a href=#566 id=566 data-nosnippet>566</a>							)
 <a href=#567 id=567 data-nosnippet>567</a>							.<span class="kw">await
 <a href=#568 id=568 data-nosnippet>568</a>							</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -593,30 +593,30 @@
 <a href=#593 id=593 data-nosnippet>593</a>			<span class="kw">let </span>id = <a href="#588">callback_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>();
 <a href=#594 id=594 data-nosnippet>594</a>
 <a href=#595 id=595 data-nosnippet>595</a>			tokio::spawn(<span class="kw">async move </span>{
-<a href=#596 id=596 data-nosnippet>596</a>				<span class="kw">let _ </span>= <a href="#591">state</a>
-<a href=#597 id=597 data-nosnippet>597</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#593">id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#158">InProgress</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#590">progress</a>))
+<a href=#596 id=596 data-nosnippet>596</a>				<span class="kw">let _ </span>= state
+<a href=#597 id=597 data-nosnippet>597</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>id, <span class="kw">crate</span>::ApplicationState::RequestState::InProgress, <span class="prelude-val">Some</span>(progress))
 <a href=#598 id=598 data-nosnippet>598</a>					.<span class="kw">await</span>;
 <a href=#599 id=599 data-nosnippet>599</a>			});
 <a href=#600 id=600 data-nosnippet>600</a>		};
 <a href=#601 id=601 data-nosnippet>601</a>
 <a href=#602 id=602 data-nosnippet>602</a>		<span class="comment">// Perform download with retry and progress tracking
-<a href=#603 id=603 data-nosnippet>603</a>		</span><span class="kw">let </span>result = <a class="self" href="#461">self</a>
-<a href=#604 id=604 data-nosnippet>604</a>			.<a href="#2207-2277">download_file_with_retry</a>(
-<a href=#605 id=605 data-nosnippet>605</a>				<span class="kw-2">&amp;</span><a href="#477">download_request_id</a>,
-<a href=#606 id=606 data-nosnippet>606</a>				<a href="#465">RequestData</a>.url.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#607 id=607 data-nosnippet>607</a>				<a href="#535">DestinationPath</a>,
-<a href=#608 id=608 data-nosnippet>608</a>				<a href="#465">RequestData</a>.checksum,
-<a href=#609 id=609 data-nosnippet>609</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">new</a>(<a href="#590">progress_callback</a>)),
+<a href=#603 id=603 data-nosnippet>603</a>		</span><span class="kw">let </span>result = <span class="self">self
+<a href=#604 id=604 data-nosnippet>604</a>			</span>.download_file_with_retry(
+<a href=#605 id=605 data-nosnippet>605</a>				<span class="kw-2">&amp;</span>download_request_id,
+<a href=#606 id=606 data-nosnippet>606</a>				RequestData.url.clone(),
+<a href=#607 id=607 data-nosnippet>607</a>				DestinationPath,
+<a href=#608 id=608 data-nosnippet>608</a>				RequestData.checksum,
+<a href=#609 id=609 data-nosnippet>609</a>				<span class="prelude-val">Some</span>(Box::new(progress_callback)),
 <a href=#610 id=610 data-nosnippet>610</a>			)
 <a href=#611 id=611 data-nosnippet>611</a>			.<span class="kw">await</span>;
 <a href=#612 id=612 data-nosnippet>612</a>
 <a href=#613 id=613 data-nosnippet>613</a>		<span class="kw">match </span><a href="#603">result</a> {
 <a href=#614 id=614 data-nosnippet>614</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(file_info) =&gt; {
-<a href=#615 id=615 data-nosnippet>615</a>				<a class="self" href="#461">self</a>.AppState
-<a href=#616 id=616 data-nosnippet>616</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#617 id=617 data-nosnippet>617</a>						<span class="kw-2">&amp;</span><a href="#477">download_request_id</a>,
-<a href=#618 id=618 data-nosnippet>618</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#160">Completed</a>,
-<a href=#619 id=619 data-nosnippet>619</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">100.0</span>),
+<a href=#615 id=615 data-nosnippet>615</a>				<span class="self">self</span>.AppState
+<a href=#616 id=616 data-nosnippet>616</a>					.UpdateRequestStatus(
+<a href=#617 id=617 data-nosnippet>617</a>						<span class="kw-2">&amp;</span>download_request_id,
+<a href=#618 id=618 data-nosnippet>618</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Completed,
+<a href=#619 id=619 data-nosnippet>619</a>						<span class="prelude-val">Some</span>(<span class="number">100.0</span>),
 <a href=#620 id=620 data-nosnippet>620</a>					)
 <a href=#621 id=621 data-nosnippet>621</a>					.<span class="kw">await
 <a href=#622 id=622 data-nosnippet>622</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -639,11 +639,11 @@
 <a href=#639 id=639 data-nosnippet>639</a>			},
 <a href=#640 id=640 data-nosnippet>640</a>
 <a href=#641 id=641 data-nosnippet>641</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
-<a href=#642 id=642 data-nosnippet>642</a>				<a class="self" href="#461">self</a>.AppState
-<a href=#643 id=643 data-nosnippet>643</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#644 id=644 data-nosnippet>644</a>						<span class="kw-2">&amp;</span><a href="#477">download_request_id</a>,
-<a href=#645 id=645 data-nosnippet>645</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#641">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#646 id=646 data-nosnippet>646</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#642 id=642 data-nosnippet>642</a>				<span class="self">self</span>.AppState
+<a href=#643 id=643 data-nosnippet>643</a>					.UpdateRequestStatus(
+<a href=#644 id=644 data-nosnippet>644</a>						<span class="kw-2">&amp;</span>download_request_id,
+<a href=#645 id=645 data-nosnippet>645</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.to_string()),
+<a href=#646 id=646 data-nosnippet>646</a>						<span class="prelude-val">None</span>,
 <a href=#647 id=647 data-nosnippet>647</a>					)
 <a href=#648 id=648 data-nosnippet>648</a>					.<span class="kw">await
 <a href=#649 id=649 data-nosnippet>649</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -680,17 +680,17 @@
 <a href=#680 id=680 data-nosnippet>680</a>			RequestData.path
 <a href=#681 id=681 data-nosnippet>681</a>		);
 <a href=#682 id=682 data-nosnippet>682</a>
-<a href=#683 id=683 data-nosnippet>683</a>		<a class="self" href="#671">self</a>.AppState
-<a href=#684 id=684 data-nosnippet>684</a>			.<a href="../../ApplicationState/mod.rs.html#620-650">RegisterRequest</a>(<a href="#674">request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <span class="string">"indexing"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#683 id=683 data-nosnippet>683</a>		<span class="self">self</span>.AppState
+<a href=#684 id=684 data-nosnippet>684</a>			.RegisterRequest(request_id.clone(), <span class="string">"indexing"</span>.to_string())
 <a href=#685 id=685 data-nosnippet>685</a>			.<span class="kw">await
-<a href=#686 id=686 data-nosnippet>686</a>			</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| Status::internal(<a href="#686">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>;
+<a href=#686 id=686 data-nosnippet>686</a>			</span>.map_err(|e| Status::internal(e.to_string()))<span class="question-mark">?</span>;
 <a href=#687 id=687 data-nosnippet>687</a>
-<a href=#688 id=688 data-nosnippet>688</a>		<span class="kw">let </span>result = <a class="self" href="#671">self</a>.FileIndexer.<a href="../../Indexing/mod.rs.html#267-392">IndexDirectory</a>(<a href="#672">RequestData</a>.path, <a href="#672">RequestData</a>.patterns).<span class="kw">await</span>;
+<a href=#688 id=688 data-nosnippet>688</a>		<span class="kw">let </span>result = <span class="self">self</span>.FileIndexer.IndexDirectory(RequestData.path, RequestData.patterns).<span class="kw">await</span>;
 <a href=#689 id=689 data-nosnippet>689</a>
 <a href=#690 id=690 data-nosnippet>690</a>		<span class="kw">match </span><a href="#688">result</a> {
 <a href=#691 id=691 data-nosnippet>691</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(index_info) =&gt; {
-<a href=#692 id=692 data-nosnippet>692</a>				<a class="self" href="#671">self</a>.AppState
-<a href=#693 id=693 data-nosnippet>693</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#674">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#160">Completed</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">100.0</span>))
+<a href=#692 id=692 data-nosnippet>692</a>				<span class="self">self</span>.AppState
+<a href=#693 id=693 data-nosnippet>693</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Completed, <span class="prelude-val">Some</span>(<span class="number">100.0</span>))
 <a href=#694 id=694 data-nosnippet>694</a>					.<span class="kw">await
 <a href=#695 id=695 data-nosnippet>695</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#696 id=696 data-nosnippet>696</a>
@@ -704,11 +704,11 @@
 <a href=#704 id=704 data-nosnippet>704</a>			},
 <a href=#705 id=705 data-nosnippet>705</a>
 <a href=#706 id=706 data-nosnippet>706</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
-<a href=#707 id=707 data-nosnippet>707</a>				<a class="self" href="#671">self</a>.AppState
-<a href=#708 id=708 data-nosnippet>708</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#709 id=709 data-nosnippet>709</a>						<span class="kw-2">&amp;</span><a href="#674">request_id</a>,
-<a href=#710 id=710 data-nosnippet>710</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#706">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#711 id=711 data-nosnippet>711</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#707 id=707 data-nosnippet>707</a>				<span class="self">self</span>.AppState
+<a href=#708 id=708 data-nosnippet>708</a>					.UpdateRequestStatus(
+<a href=#709 id=709 data-nosnippet>709</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#710 id=710 data-nosnippet>710</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.to_string()),
+<a href=#711 id=711 data-nosnippet>711</a>						<span class="prelude-val">None</span>,
 <a href=#712 id=712 data-nosnippet>712</a>					)
 <a href=#713 id=713 data-nosnippet>713</a>					.<span class="kw">await
 <a href=#714 id=714 data-nosnippet>714</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -734,9 +734,9 @@
 <a href=#734 id=734 data-nosnippet>734</a>
 <a href=#735 id=735 data-nosnippet>735</a>		<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"[AirVinegRPCService] Status request received"</span>);
 <a href=#736 id=736 data-nosnippet>736</a>
-<a href=#737 id=737 data-nosnippet>737</a>		<span class="kw">let </span>metrics = <a class="self" href="#729">self</a>.AppState.<a href="../../ApplicationState/mod.rs.html#757-761">GetMetrics</a>().<span class="kw">await</span>;
+<a href=#737 id=737 data-nosnippet>737</a>		<span class="kw">let </span>metrics = <span class="self">self</span>.AppState.GetMetrics().<span class="kw">await</span>;
 <a href=#738 id=738 data-nosnippet>738</a>
-<a href=#739 id=739 data-nosnippet>739</a>		<span class="kw">let </span>resources = <a class="self" href="#729">self</a>.AppState.<a href="../../ApplicationState/mod.rs.html#764-768">GetResourceUsage</a>().<span class="kw">await</span>;
+<a href=#739 id=739 data-nosnippet>739</a>		<span class="kw">let </span>resources = <span class="self">self</span>.AppState.GetResourceUsage().<span class="kw">await</span>;
 <a href=#740 id=740 data-nosnippet>740</a>
 <a href=#741 id=741 data-nosnippet>741</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(Response::new(air_generated::<a href="../Generated/air.rs.html#223-242">StatusResponse</a> {
 <a href=#742 id=742 data-nosnippet>742</a>			version:<span class="kw">crate</span>::<a href="../../Library.rs.html#206">VERSION</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
@@ -747,7 +747,7 @@
 <a href=#747 id=747 data-nosnippet>747</a>			average_response_time:<a href="#737">metrics</a>.AverageResponseTime,
 <a href=#748 id=748 data-nosnippet>748</a>			memory_usage_mb:<a href="#739">resources</a>.MemoryUsageMb,
 <a href=#749 id=749 data-nosnippet>749</a>			cpu_usage_percent:<a href="#739">resources</a>.CPUUsagePercent,
-<a href=#750 id=750 data-nosnippet>750</a>			active_requests:<a class="self" href="#729">self</a>.AppState.<a href="../../ApplicationState/mod.rs.html#771-775">GetActiveRequestCount</a>().<span class="kw">await as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#750 id=750 data-nosnippet>750</a>			active_requests:<span class="self">self</span>.AppState.GetActiveRequestCount().<span class="kw">await as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 <a href=#751 id=751 data-nosnippet>751</a>		}))
 <a href=#752 id=752 data-nosnippet>752</a>	}
 <a href=#753 id=753 data-nosnippet>753</a>
@@ -785,20 +785,20 @@
 <a href=#785 id=785 data-nosnippet>785</a>			RequestData.destination_path
 <a href=#786 id=786 data-nosnippet>786</a>		);
 <a href=#787 id=787 data-nosnippet>787</a>
-<a href=#788 id=788 data-nosnippet>788</a>		<a class="self" href="#772">self</a>.AppState
-<a href=#789 id=789 data-nosnippet>789</a>			.<a href="../../ApplicationState/mod.rs.html#620-650">RegisterRequest</a>(<a href="#778">request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <span class="string">"download_update"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#788 id=788 data-nosnippet>788</a>		<span class="self">self</span>.AppState
+<a href=#789 id=789 data-nosnippet>789</a>			.RegisterRequest(request_id.clone(), <span class="string">"download_update"</span>.to_string())
 <a href=#790 id=790 data-nosnippet>790</a>			.<span class="kw">await
-<a href=#791 id=791 data-nosnippet>791</a>			</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| Status::internal(<a href="#791">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>;
+<a href=#791 id=791 data-nosnippet>791</a>			</span>.map_err(|e| Status::internal(e.to_string()))<span class="question-mark">?</span>;
 <a href=#792 id=792 data-nosnippet>792</a>
 <a href=#793 id=793 data-nosnippet>793</a>		<span class="comment">// Validate URL is not empty
 <a href=#794 id=794 data-nosnippet>794</a>		</span><span class="kw">if </span><a href="#776">RequestData</a>.url.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#795 id=795 data-nosnippet>795</a>			<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#277">Validation</a>(<span class="string">"URL cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#796 id=796 data-nosnippet>796</a>
-<a href=#797 id=797 data-nosnippet>797</a>			<a class="self" href="#772">self</a>.AppState
-<a href=#798 id=798 data-nosnippet>798</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#799 id=799 data-nosnippet>799</a>					<span class="kw-2">&amp;</span><a href="#778">request_id</a>,
-<a href=#800 id=800 data-nosnippet>800</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#795">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#801 id=801 data-nosnippet>801</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#797 id=797 data-nosnippet>797</a>			<span class="self">self</span>.AppState
+<a href=#798 id=798 data-nosnippet>798</a>				.UpdateRequestStatus(
+<a href=#799 id=799 data-nosnippet>799</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#800 id=800 data-nosnippet>800</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#801 id=801 data-nosnippet>801</a>					<span class="prelude-val">None</span>,
 <a href=#802 id=802 data-nosnippet>802</a>				)
 <a href=#803 id=803 data-nosnippet>803</a>				.<span class="kw">await
 <a href=#804 id=804 data-nosnippet>804</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -810,11 +810,11 @@
 <a href=#810 id=810 data-nosnippet>810</a>		</span><span class="kw">if </span>!<a href="#776">RequestData</a>.url.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.starts_with">starts_with</a>(<span class="string">"http://"</span>) &amp;&amp; !<a href="#776">RequestData</a>.url.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.starts_with">starts_with</a>(<span class="string">"https://"</span>) {
 <a href=#811 id=811 data-nosnippet>811</a>			<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#277">Validation</a>(<span class="string">"URL must start with http:// or https://"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#812 id=812 data-nosnippet>812</a>
-<a href=#813 id=813 data-nosnippet>813</a>			<a class="self" href="#772">self</a>.AppState
-<a href=#814 id=814 data-nosnippet>814</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#815 id=815 data-nosnippet>815</a>					<span class="kw-2">&amp;</span><a href="#778">request_id</a>,
-<a href=#816 id=816 data-nosnippet>816</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#811">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#817 id=817 data-nosnippet>817</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#813 id=813 data-nosnippet>813</a>			<span class="self">self</span>.AppState
+<a href=#814 id=814 data-nosnippet>814</a>				.UpdateRequestStatus(
+<a href=#815 id=815 data-nosnippet>815</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#816 id=816 data-nosnippet>816</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#817 id=817 data-nosnippet>817</a>					<span class="prelude-val">None</span>,
 <a href=#818 id=818 data-nosnippet>818</a>				)
 <a href=#819 id=819 data-nosnippet>819</a>				.<span class="kw">await
 <a href=#820 id=820 data-nosnippet>820</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -826,7 +826,7 @@
 <a href=#826 id=826 data-nosnippet>826</a>		</span><span class="kw">let </span>destination = <span class="kw">if </span><a href="#776">RequestData</a>.destination_path.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#827 id=827 data-nosnippet>827</a>			<span class="comment">// Default to cache directory if not specified
 <a href=#828 id=828 data-nosnippet>828</a>			</span><a class="self" href="#772">self</a>.UpdateManager
-<a href=#829 id=829 data-nosnippet>829</a>				.<a href="../../Updates/mod.rs.html#2504">GetCacheDirectory</a>()
+<a href=#829 id=829 data-nosnippet>829</a>				.<a href="../../Updates/mod.rs.html#2512">GetCacheDirectory</a>()
 <a href=#830 id=830 data-nosnippet>830</a>				.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.join">join</a>(<span class="string">"update-latest.bin"</span>)
 <a href=#831 id=831 data-nosnippet>831</a>				.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.to_string_lossy">to_string_lossy</a>()
 <a href=#832 id=832 data-nosnippet>832</a>				.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
@@ -838,7 +838,7 @@
 <a href=#838 id=838 data-nosnippet>838</a>				<span class="kw">if </span><a href="#837">parent</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.as_os_str">as_os_str</a>().<a href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html#method.is_empty">is_empty</a>() {
 <a href=#839 id=839 data-nosnippet>839</a>					<span class="comment">// Relative path in cache directory
 <a href=#840 id=840 data-nosnippet>840</a>					</span><a class="self" href="#772">self</a>.UpdateManager
-<a href=#841 id=841 data-nosnippet>841</a>						.<a href="../../Updates/mod.rs.html#2504">GetCacheDirectory</a>()
+<a href=#841 id=841 data-nosnippet>841</a>						.<a href="../../Updates/mod.rs.html#2512">GetCacheDirectory</a>()
 <a href=#842 id=842 data-nosnippet>842</a>						.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.join">join</a>(<span class="kw-2">&amp;</span><a href="#776">RequestData</a>.destination_path)
 <a href=#843 id=843 data-nosnippet>843</a>						.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.to_string_lossy">to_string_lossy</a>()
 <a href=#844 id=844 data-nosnippet>844</a>						.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()
@@ -866,11 +866,11 @@
 <a href=#866 id=866 data-nosnippet>866</a>			</span><span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) = std::fs::<a href="https://doc.rust-lang.org/nightly/std/fs/fn.write.html">write</a>(<a href="#857">parent</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.join">join</a>(<span class="string">".write_test"</span>), <span class="string">""</span>) {
 <a href=#867 id=867 data-nosnippet>867</a>				<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#259">FileSystem</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Destination directory not writeable: {}"</span>, e));
 <a href=#868 id=868 data-nosnippet>868</a>
-<a href=#869 id=869 data-nosnippet>869</a>				<a class="self" href="#772">self</a>.AppState
-<a href=#870 id=870 data-nosnippet>870</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#871 id=871 data-nosnippet>871</a>						<span class="kw-2">&amp;</span><a href="#778">request_id</a>,
-<a href=#872 id=872 data-nosnippet>872</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#867">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#873 id=873 data-nosnippet>873</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#869 id=869 data-nosnippet>869</a>				<span class="self">self</span>.AppState
+<a href=#870 id=870 data-nosnippet>870</a>					.UpdateRequestStatus(
+<a href=#871 id=871 data-nosnippet>871</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#872 id=872 data-nosnippet>872</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#873 id=873 data-nosnippet>873</a>						<span class="prelude-val">None</span>,
 <a href=#874 id=874 data-nosnippet>874</a>					)
 <a href=#875 id=875 data-nosnippet>875</a>					.<span class="kw">await
 <a href=#876 id=876 data-nosnippet>876</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -884,15 +884,15 @@
 <a href=#884 id=884 data-nosnippet>884</a>
 <a href=#885 id=885 data-nosnippet>885</a>		<span class="comment">// Use download manager - includes SHA256 checksum verification, progress
 <a href=#886 id=886 data-nosnippet>886</a>		// tracking, and retry logic
-<a href=#887 id=887 data-nosnippet>887</a>		</span><span class="kw">let </span>download_result = <a class="self" href="#772">self</a>
-<a href=#888 id=888 data-nosnippet>888</a>			.DownloadManager
-<a href=#889 id=889 data-nosnippet>889</a>			.<a href="../../Downloader/mod.rs.html#510-513">DownloadFile</a>(<a href="#776">RequestData</a>.url, <a href="#826">destination</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <a href="#776">RequestData</a>.checksum)
+<a href=#887 id=887 data-nosnippet>887</a>		</span><span class="kw">let </span>download_result = <span class="self">self
+<a href=#888 id=888 data-nosnippet>888</a>			</span>.DownloadManager
+<a href=#889 id=889 data-nosnippet>889</a>			.DownloadFile(RequestData.url, destination.clone(), RequestData.checksum)
 <a href=#890 id=890 data-nosnippet>890</a>			.<span class="kw">await</span>;
 <a href=#891 id=891 data-nosnippet>891</a>
 <a href=#892 id=892 data-nosnippet>892</a>		<span class="kw">match </span><a href="#887">download_result</a> {
 <a href=#893 id=893 data-nosnippet>893</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(result) =&gt; {
-<a href=#894 id=894 data-nosnippet>894</a>				<a class="self" href="#772">self</a>.AppState
-<a href=#895 id=895 data-nosnippet>895</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#778">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#160">Completed</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">100.0</span>))
+<a href=#894 id=894 data-nosnippet>894</a>				<span class="self">self</span>.AppState
+<a href=#895 id=895 data-nosnippet>895</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Completed, <span class="prelude-val">Some</span>(<span class="number">100.0</span>))
 <a href=#896 id=896 data-nosnippet>896</a>					.<span class="kw">await
 <a href=#897 id=897 data-nosnippet>897</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#898 id=898 data-nosnippet>898</a>
@@ -915,8 +915,8 @@
 <a href=#915 id=915 data-nosnippet>915</a>			},
 <a href=#916 id=916 data-nosnippet>916</a>
 <a href=#917 id=917 data-nosnippet>917</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#256">Network</a>(e)) =&gt; {
-<a href=#918 id=918 data-nosnippet>918</a>				<a class="self" href="#772">self</a>.AppState
-<a href=#919 id=919 data-nosnippet>919</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#778">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#917">e</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()), <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>)
+<a href=#918 id=918 data-nosnippet>918</a>				<span class="self">self</span>.AppState
+<a href=#919 id=919 data-nosnippet>919</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.clone()), <span class="prelude-val">None</span>)
 <a href=#920 id=920 data-nosnippet>920</a>					.<span class="kw">await
 <a href=#921 id=921 data-nosnippet>921</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#922 id=922 data-nosnippet>922</a>
@@ -926,8 +926,8 @@
 <a href=#926 id=926 data-nosnippet>926</a>			},
 <a href=#927 id=927 data-nosnippet>927</a>
 <a href=#928 id=928 data-nosnippet>928</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#259">FileSystem</a>(e)) =&gt; {
-<a href=#929 id=929 data-nosnippet>929</a>				<a class="self" href="#772">self</a>.AppState
-<a href=#930 id=930 data-nosnippet>930</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#778">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#928">e</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()), <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>)
+<a href=#929 id=929 data-nosnippet>929</a>				<span class="self">self</span>.AppState
+<a href=#930 id=930 data-nosnippet>930</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.clone()), <span class="prelude-val">None</span>)
 <a href=#931 id=931 data-nosnippet>931</a>					.<span class="kw">await
 <a href=#932 id=932 data-nosnippet>932</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#933 id=933 data-nosnippet>933</a>
@@ -937,11 +937,11 @@
 <a href=#937 id=937 data-nosnippet>937</a>			},
 <a href=#938 id=938 data-nosnippet>938</a>
 <a href=#939 id=939 data-nosnippet>939</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
-<a href=#940 id=940 data-nosnippet>940</a>				<a class="self" href="#772">self</a>.AppState
-<a href=#941 id=941 data-nosnippet>941</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#942 id=942 data-nosnippet>942</a>						<span class="kw-2">&amp;</span><a href="#778">request_id</a>,
-<a href=#943 id=943 data-nosnippet>943</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#939">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#944 id=944 data-nosnippet>944</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#940 id=940 data-nosnippet>940</a>				<span class="self">self</span>.AppState
+<a href=#941 id=941 data-nosnippet>941</a>					.UpdateRequestStatus(
+<a href=#942 id=942 data-nosnippet>942</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#943 id=943 data-nosnippet>943</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.to_string()),
+<a href=#944 id=944 data-nosnippet>944</a>						<span class="prelude-val">None</span>,
 <a href=#945 id=945 data-nosnippet>945</a>					)
 <a href=#946 id=946 data-nosnippet>946</a>					.<span class="kw">await
 <a href=#947 id=947 data-nosnippet>947</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -978,20 +978,20 @@
 <a href=#978 id=978 data-nosnippet>978</a>			RequestData.update_path
 <a href=#979 id=979 data-nosnippet>979</a>		);
 <a href=#980 id=980 data-nosnippet>980</a>
-<a href=#981 id=981 data-nosnippet>981</a>		<a class="self" href="#965">self</a>.AppState
-<a href=#982 id=982 data-nosnippet>982</a>			.<a href="../../ApplicationState/mod.rs.html#620-650">RegisterRequest</a>(<a href="#971">request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <span class="string">"apply_update"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#981 id=981 data-nosnippet>981</a>		<span class="self">self</span>.AppState
+<a href=#982 id=982 data-nosnippet>982</a>			.RegisterRequest(request_id.clone(), <span class="string">"apply_update"</span>.to_string())
 <a href=#983 id=983 data-nosnippet>983</a>			.<span class="kw">await
-<a href=#984 id=984 data-nosnippet>984</a>			</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| Status::internal(<a href="#984">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>;
+<a href=#984 id=984 data-nosnippet>984</a>			</span>.map_err(|e| Status::internal(e.to_string()))<span class="question-mark">?</span>;
 <a href=#985 id=985 data-nosnippet>985</a>
 <a href=#986 id=986 data-nosnippet>986</a>		<span class="comment">// Validate version
 <a href=#987 id=987 data-nosnippet>987</a>		</span><span class="kw">if </span><a href="#969">RequestData</a>.version.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#988 id=988 data-nosnippet>988</a>			<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#277">Validation</a>(<span class="string">"version cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#989 id=989 data-nosnippet>989</a>
-<a href=#990 id=990 data-nosnippet>990</a>			<a class="self" href="#965">self</a>.AppState
-<a href=#991 id=991 data-nosnippet>991</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#992 id=992 data-nosnippet>992</a>					<span class="kw-2">&amp;</span><a href="#971">request_id</a>,
-<a href=#993 id=993 data-nosnippet>993</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#988">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#994 id=994 data-nosnippet>994</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#990 id=990 data-nosnippet>990</a>			<span class="self">self</span>.AppState
+<a href=#991 id=991 data-nosnippet>991</a>				.UpdateRequestStatus(
+<a href=#992 id=992 data-nosnippet>992</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#993 id=993 data-nosnippet>993</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#994 id=994 data-nosnippet>994</a>					<span class="prelude-val">None</span>,
 <a href=#995 id=995 data-nosnippet>995</a>				)
 <a href=#996 id=996 data-nosnippet>996</a>				.<span class="kw">await
 <a href=#997 id=997 data-nosnippet>997</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1003,11 +1003,11 @@
 <a href=#1003 id=1003 data-nosnippet>1003</a>		</span><span class="kw">if </span><a href="#969">RequestData</a>.update_path.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#1004 id=1004 data-nosnippet>1004</a>			<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#277">Validation</a>(<span class="string">"update_path cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#1005 id=1005 data-nosnippet>1005</a>
-<a href=#1006 id=1006 data-nosnippet>1006</a>			<a class="self" href="#965">self</a>.AppState
-<a href=#1007 id=1007 data-nosnippet>1007</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1008 id=1008 data-nosnippet>1008</a>					<span class="kw-2">&amp;</span><a href="#971">request_id</a>,
-<a href=#1009 id=1009 data-nosnippet>1009</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1004">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#1010 id=1010 data-nosnippet>1010</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1006 id=1006 data-nosnippet>1006</a>			<span class="self">self</span>.AppState
+<a href=#1007 id=1007 data-nosnippet>1007</a>				.UpdateRequestStatus(
+<a href=#1008 id=1008 data-nosnippet>1008</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#1009 id=1009 data-nosnippet>1009</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#1010 id=1010 data-nosnippet>1010</a>					<span class="prelude-val">None</span>,
 <a href=#1011 id=1011 data-nosnippet>1011</a>				)
 <a href=#1012 id=1012 data-nosnippet>1012</a>				.<span class="kw">await
 <a href=#1013 id=1013 data-nosnippet>1013</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1021,11 +1021,11 @@
 <a href=#1021 id=1021 data-nosnippet>1021</a>		</span><span class="kw">if </span>!<a href="#1018">update_path</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.exists">exists</a>() {
 <a href=#1022 id=1022 data-nosnippet>1022</a>			<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#259">FileSystem</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Update file not found: {}"</span>, RequestData.update_path));
 <a href=#1023 id=1023 data-nosnippet>1023</a>
-<a href=#1024 id=1024 data-nosnippet>1024</a>			<a class="self" href="#965">self</a>.AppState
-<a href=#1025 id=1025 data-nosnippet>1025</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1026 id=1026 data-nosnippet>1026</a>					<span class="kw-2">&amp;</span><a href="#971">request_id</a>,
-<a href=#1027 id=1027 data-nosnippet>1027</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1022">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#1028 id=1028 data-nosnippet>1028</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1024 id=1024 data-nosnippet>1024</a>			<span class="self">self</span>.AppState
+<a href=#1025 id=1025 data-nosnippet>1025</a>				.UpdateRequestStatus(
+<a href=#1026 id=1026 data-nosnippet>1026</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#1027 id=1027 data-nosnippet>1027</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#1028 id=1028 data-nosnippet>1028</a>					<span class="prelude-val">None</span>,
 <a href=#1029 id=1029 data-nosnippet>1029</a>				)
 <a href=#1030 id=1030 data-nosnippet>1030</a>				.<span class="kw">await
 <a href=#1031 id=1031 data-nosnippet>1031</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1040,11 +1040,11 @@
 <a href=#1040 id=1040 data-nosnippet>1040</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
 <a href=#1041 id=1041 data-nosnippet>1041</a>				<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#259">FileSystem</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to read update file metadata: {}"</span>, e));
 <a href=#1042 id=1042 data-nosnippet>1042</a>
-<a href=#1043 id=1043 data-nosnippet>1043</a>				<a class="self" href="#965">self</a>.AppState
-<a href=#1044 id=1044 data-nosnippet>1044</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1045 id=1045 data-nosnippet>1045</a>						<span class="kw-2">&amp;</span><a href="#971">request_id</a>,
-<a href=#1046 id=1046 data-nosnippet>1046</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1041">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#1047 id=1047 data-nosnippet>1047</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1043 id=1043 data-nosnippet>1043</a>				<span class="self">self</span>.AppState
+<a href=#1044 id=1044 data-nosnippet>1044</a>					.UpdateRequestStatus(
+<a href=#1045 id=1045 data-nosnippet>1045</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#1046 id=1046 data-nosnippet>1046</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#1047 id=1047 data-nosnippet>1047</a>						<span class="prelude-val">None</span>,
 <a href=#1048 id=1048 data-nosnippet>1048</a>					)
 <a href=#1049 id=1049 data-nosnippet>1049</a>					.<span class="kw">await
 <a href=#1050 id=1050 data-nosnippet>1050</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1056,11 +1056,11 @@
 <a href=#1056 id=1056 data-nosnippet>1056</a>		<span class="kw">if </span><a href="#1037">metadata</a>.<a href="https://doc.rust-lang.org/nightly/std/fs/struct.Metadata.html#method.len">len</a>() == <span class="number">0 </span>{
 <a href=#1057 id=1057 data-nosnippet>1057</a>			<span class="kw">let </span>error_msg = <span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#277">Validation</a>(<span class="string">"Update file is empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>());
 <a href=#1058 id=1058 data-nosnippet>1058</a>
-<a href=#1059 id=1059 data-nosnippet>1059</a>			<a class="self" href="#965">self</a>.AppState
-<a href=#1060 id=1060 data-nosnippet>1060</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1061 id=1061 data-nosnippet>1061</a>					<span class="kw-2">&amp;</span><a href="#971">request_id</a>,
-<a href=#1062 id=1062 data-nosnippet>1062</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1057">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#1063 id=1063 data-nosnippet>1063</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1059 id=1059 data-nosnippet>1059</a>			<span class="self">self</span>.AppState
+<a href=#1060 id=1060 data-nosnippet>1060</a>				.UpdateRequestStatus(
+<a href=#1061 id=1061 data-nosnippet>1061</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#1062 id=1062 data-nosnippet>1062</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.to_string()),
+<a href=#1063 id=1063 data-nosnippet>1063</a>					<span class="prelude-val">None</span>,
 <a href=#1064 id=1064 data-nosnippet>1064</a>				)
 <a href=#1065 id=1065 data-nosnippet>1065</a>				.<span class="kw">await
 <a href=#1066 id=1066 data-nosnippet>1066</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1069,7 +1069,7 @@
 <a href=#1069 id=1069 data-nosnippet>1069</a>		}
 <a href=#1070 id=1070 data-nosnippet>1070</a>
 <a href=#1071 id=1071 data-nosnippet>1071</a>		<span class="comment">// Prepare rollback capability before applying update
-<a href=#1072 id=1072 data-nosnippet>1072</a>		</span><span class="kw">let </span>rollback_backup_path = <a class="self" href="#965">self</a>.<a href="#2306-2337">prepare_rollback_backup</a>(<span class="kw-2">&amp;</span><a href="#969">RequestData</a>.version).<span class="kw">await</span>;
+<a href=#1072 id=1072 data-nosnippet>1072</a>		</span><span class="kw">let </span>rollback_backup_path = <span class="self">self</span>.prepare_rollback_backup(<span class="kw-2">&amp;</span>RequestData.version).<span class="kw">await</span>;
 <a href=#1073 id=1073 data-nosnippet>1073</a>
 <a href=#1074 id=1074 data-nosnippet>1074</a>		<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw-2">ref </span>e) = <a href="#1072">rollback_backup_path</a> {
 <a href=#1075 id=1075 data-nosnippet>1075</a>			<a href="../../DevLog.rs.html#142-200">dev_log!</a>(
@@ -1081,15 +1081,15 @@
 <a href=#1081 id=1081 data-nosnippet>1081</a>		}
 <a href=#1082 id=1082 data-nosnippet>1082</a>
 <a href=#1083 id=1083 data-nosnippet>1083</a>		<span class="comment">// Verify update file integrity (checksum check)
-<a href=#1084 id=1084 data-nosnippet>1084</a>		</span><span class="kw">match </span><a class="self" href="#965">self</a>.UpdateManager.<a href="../../Updates/mod.rs.html#1934-1980">verify_update</a>(<span class="kw-2">&amp;</span><a href="#969">RequestData</a>.update_path, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>).<span class="kw">await </span>{
+<a href=#1084 id=1084 data-nosnippet>1084</a>		</span><span class="kw">match </span><span class="self">self</span>.UpdateManager.verify_update(<span class="kw-2">&amp;</span>RequestData.update_path, <span class="prelude-val">None</span>).<span class="kw">await </span>{
 <a href=#1085 id=1085 data-nosnippet>1085</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="bool-val">true</span>) =&gt; {
 <a href=#1086 id=1086 data-nosnippet>1086</a>				<a href="../../DevLog.rs.html#142-200">dev_log!</a>(
 <a href=#1087 id=1087 data-nosnippet>1087</a>					<span class="string">"grpc"</span>,
 <a href=#1088 id=1088 data-nosnippet>1088</a>					<span class="string">"[AirVinegRPCService] Update verification successful, preparing for installation"
 <a href=#1089 id=1089 data-nosnippet>1089</a>				</span>);
 <a href=#1090 id=1090 data-nosnippet>1090</a>
-<a href=#1091 id=1091 data-nosnippet>1091</a>				<a class="self" href="#965">self</a>.AppState
-<a href=#1092 id=1092 data-nosnippet>1092</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#971">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#160">Completed</a>, <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">100.0</span>))
+<a href=#1091 id=1091 data-nosnippet>1091</a>				<span class="self">self</span>.AppState
+<a href=#1092 id=1092 data-nosnippet>1092</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Completed, <span class="prelude-val">Some</span>(<span class="number">100.0</span>))
 <a href=#1093 id=1093 data-nosnippet>1093</a>					.<span class="kw">await
 <a href=#1094 id=1094 data-nosnippet>1094</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#1095 id=1095 data-nosnippet>1095</a>
@@ -1101,7 +1101,7 @@
 <a href=#1101 id=1101 data-nosnippet>1101</a>				<span class="kw">let </span>self_clone = <a class="self" href="#965">self</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>();
 <a href=#1102 id=1102 data-nosnippet>1102</a>
 <a href=#1103 id=1103 data-nosnippet>1103</a>				tokio::spawn(<span class="kw">async move </span>{
-<a href=#1104 id=1104 data-nosnippet>1104</a>					tokio::time::sleep(tokio::time::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>::<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html#method.from_secs">from_secs</a>(<span class="number">2</span>)).<span class="kw">await</span>;
+<a href=#1104 id=1104 data-nosnippet>1104</a>					tokio::time::sleep(tokio::time::Duration::from_secs(<span class="number">2</span>)).<span class="kw">await</span>;
 <a href=#1105 id=1105 data-nosnippet>1105</a>					<a href="../../DevLog.rs.html#142-200">dev_log!</a>(
 <a href=#1106 id=1106 data-nosnippet>1106</a>						<span class="string">"grpc"</span>,
 <a href=#1107 id=1107 data-nosnippet>1107</a>						<span class="string">"[AirVinegRPCService] Initiating graceful shutdown for update version {}"</span>,
@@ -1109,7 +1109,7 @@
 <a href=#1109 id=1109 data-nosnippet>1109</a>					);
 <a href=#1110 id=1110 data-nosnippet>1110</a>
 <a href=#1111 id=1111 data-nosnippet>1111</a>					<span class="comment">// Graceful shutdown implementation
-<a href=#1112 id=1112 data-nosnippet>1112</a>					</span><span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) = <a href="#1097">AppState</a>.<a href="../../ApplicationState/mod.rs.html#571-586">StopAllBackgroundTasks</a>().<span class="kw">await </span>{
+<a href=#1112 id=1112 data-nosnippet>1112</a>					</span><span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) = AppState.StopAllBackgroundTasks().<span class="kw">await </span>{
 <a href=#1113 id=1113 data-nosnippet>1113</a>						<a href="../../DevLog.rs.html#142-200">dev_log!</a>(
 <a href=#1114 id=1114 data-nosnippet>1114</a>							<span class="string">"grpc"</span>,
 <a href=#1115 id=1115 data-nosnippet>1115</a>							<span class="string">"error: [AirVinegRPCService] Failed to initiate graceful shutdown: {}"</span>,
@@ -1120,7 +1120,7 @@
 <a href=#1120 id=1120 data-nosnippet>1120</a>							<span class="string">"grpc"</span>,
 <a href=#1121 id=1121 data-nosnippet>1121</a>							<span class="string">"warn: [AirVinegRPCService] Rollback initiated due to graceful shutdown failure"
 <a href=#1122 id=1122 data-nosnippet>1122</a>						</span>);
-<a href=#1123 id=1123 data-nosnippet>1123</a>						<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(rollback_error) = <a href="#1101">self_clone</a>.<a href="#2363-2424">perform_rollback</a>(<span class="kw-2">&amp;</span><a href="#1099">version</a>).<span class="kw">await </span>{
+<a href=#1123 id=1123 data-nosnippet>1123</a>						<span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(rollback_error) = self_clone.perform_rollback(<span class="kw-2">&amp;</span>version).<span class="kw">await </span>{
 <a href=#1124 id=1124 data-nosnippet>1124</a>							<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"error: [AirVinegRPCService] Rollback failed: {}"</span>, rollback_error);
 <a href=#1125 id=1125 data-nosnippet>1125</a>						} <span class="kw">else </span>{
 <a href=#1126 id=1126 data-nosnippet>1126</a>							<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"[AirVinegRPCService] Rollback completed successfully"</span>);
@@ -1138,11 +1138,11 @@
 <a href=#1138 id=1138 data-nosnippet>1138</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="bool-val">false</span>) =&gt; {
 <a href=#1139 id=1139 data-nosnippet>1139</a>				<span class="kw">let </span>error_msg = <span class="string">"Update verification failed: checksum mismatch"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>();
 <a href=#1140 id=1140 data-nosnippet>1140</a>
-<a href=#1141 id=1141 data-nosnippet>1141</a>				<a class="self" href="#965">self</a>.AppState
-<a href=#1142 id=1142 data-nosnippet>1142</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1143 id=1143 data-nosnippet>1143</a>						<span class="kw-2">&amp;</span><a href="#971">request_id</a>,
-<a href=#1144 id=1144 data-nosnippet>1144</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1139">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#1145 id=1145 data-nosnippet>1145</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1141 id=1141 data-nosnippet>1141</a>				<span class="self">self</span>.AppState
+<a href=#1142 id=1142 data-nosnippet>1142</a>					.UpdateRequestStatus(
+<a href=#1143 id=1143 data-nosnippet>1143</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#1144 id=1144 data-nosnippet>1144</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.clone()),
+<a href=#1145 id=1145 data-nosnippet>1145</a>						<span class="prelude-val">None</span>,
 <a href=#1146 id=1146 data-nosnippet>1146</a>					)
 <a href=#1147 id=1147 data-nosnippet>1147</a>					.<span class="kw">await
 <a href=#1148 id=1148 data-nosnippet>1148</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1150,14 +1150,14 @@
 <a href=#1150 id=1150 data-nosnippet>1150</a>				<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"error: [AirVinegRPCService] {}"</span>, error_msg);
 <a href=#1151 id=1151 data-nosnippet>1151</a>
 <a href=#1152 id=1152 data-nosnippet>1152</a>				<span class="comment">// Clean up rollback backup if verification failed
-<a href=#1153 id=1153 data-nosnippet>1153</a>				</span><span class="kw">let _ </span>= <a class="self" href="#965">self</a>.<a href="#2340-2360">cleanup_rollback_backup</a>(<span class="kw-2">&amp;</span><a href="#969">RequestData</a>.version).<span class="kw">await</span>;
+<a href=#1153 id=1153 data-nosnippet>1153</a>				</span><span class="kw">let _ </span>= <span class="self">self</span>.cleanup_rollback_backup(<span class="kw-2">&amp;</span>RequestData.version).<span class="kw">await</span>;
 <a href=#1154 id=1154 data-nosnippet>1154</a>
 <a href=#1155 id=1155 data-nosnippet>1155</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(Status::failed_precondition(<a href="#1139">error_msg</a>))
 <a href=#1156 id=1156 data-nosnippet>1156</a>			},
 <a href=#1157 id=1157 data-nosnippet>1157</a>
 <a href=#1158 id=1158 data-nosnippet>1158</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(<span class="kw">crate</span>::AirError::<a href="../../Library.rs.html#259">FileSystem</a>(e)) =&gt; {
-<a href=#1159 id=1159 data-nosnippet>1159</a>				<a class="self" href="#965">self</a>.AppState
-<a href=#1160 id=1160 data-nosnippet>1160</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(<span class="kw-2">&amp;</span><a href="#971">request_id</a>, <span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1158">e</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()), <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>)
+<a href=#1159 id=1159 data-nosnippet>1159</a>				<span class="self">self</span>.AppState
+<a href=#1160 id=1160 data-nosnippet>1160</a>					.UpdateRequestStatus(<span class="kw-2">&amp;</span>request_id, <span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.clone()), <span class="prelude-val">None</span>)
 <a href=#1161 id=1161 data-nosnippet>1161</a>					.<span class="kw">await
 <a href=#1162 id=1162 data-nosnippet>1162</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#1163 id=1163 data-nosnippet>1163</a>
@@ -1168,17 +1168,17 @@
 <a href=#1168 id=1168 data-nosnippet>1168</a>				);
 <a href=#1169 id=1169 data-nosnippet>1169</a>
 <a href=#1170 id=1170 data-nosnippet>1170</a>				<span class="comment">// Clean up rollback backup if verification failed
-<a href=#1171 id=1171 data-nosnippet>1171</a>				</span><span class="kw">let _ </span>= <a class="self" href="#965">self</a>.<a href="#2340-2360">cleanup_rollback_backup</a>(<span class="kw-2">&amp;</span><a href="#969">RequestData</a>.version).<span class="kw">await</span>;
+<a href=#1171 id=1171 data-nosnippet>1171</a>				</span><span class="kw">let _ </span>= <span class="self">self</span>.cleanup_rollback_backup(<span class="kw-2">&amp;</span>RequestData.version).<span class="kw">await</span>;
 <a href=#1172 id=1172 data-nosnippet>1172</a>
 <a href=#1173 id=1173 data-nosnippet>1173</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(Status::internal(<a href="#1158">e</a>))
 <a href=#1174 id=1174 data-nosnippet>1174</a>			},
 <a href=#1175 id=1175 data-nosnippet>1175</a>
 <a href=#1176 id=1176 data-nosnippet>1176</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
-<a href=#1177 id=1177 data-nosnippet>1177</a>				<a class="self" href="#965">self</a>.AppState
-<a href=#1178 id=1178 data-nosnippet>1178</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1179 id=1179 data-nosnippet>1179</a>						<span class="kw-2">&amp;</span><a href="#971">request_id</a>,
-<a href=#1180 id=1180 data-nosnippet>1180</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1176">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()),
-<a href=#1181 id=1181 data-nosnippet>1181</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1177 id=1177 data-nosnippet>1177</a>				<span class="self">self</span>.AppState
+<a href=#1178 id=1178 data-nosnippet>1178</a>					.UpdateRequestStatus(
+<a href=#1179 id=1179 data-nosnippet>1179</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#1180 id=1180 data-nosnippet>1180</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(e.to_string()),
+<a href=#1181 id=1181 data-nosnippet>1181</a>						<span class="prelude-val">None</span>,
 <a href=#1182 id=1182 data-nosnippet>1182</a>					)
 <a href=#1183 id=1183 data-nosnippet>1183</a>					.<span class="kw">await
 <a href=#1184 id=1184 data-nosnippet>1184</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1186,7 +1186,7 @@
 <a href=#1186 id=1186 data-nosnippet>1186</a>				<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"error: [AirVinegRPCService] Update verification error: {}"</span>, e);
 <a href=#1187 id=1187 data-nosnippet>1187</a>
 <a href=#1188 id=1188 data-nosnippet>1188</a>				<span class="comment">// Clean up rollback backup if verification failed
-<a href=#1189 id=1189 data-nosnippet>1189</a>				</span><span class="kw">let _ </span>= <a class="self" href="#965">self</a>.<a href="#2340-2360">cleanup_rollback_backup</a>(<span class="kw-2">&amp;</span><a href="#969">RequestData</a>.version).<span class="kw">await</span>;
+<a href=#1189 id=1189 data-nosnippet>1189</a>				</span><span class="kw">let _ </span>= <span class="self">self</span>.cleanup_rollback_backup(<span class="kw-2">&amp;</span>RequestData.version).<span class="kw">await</span>;
 <a href=#1190 id=1190 data-nosnippet>1190</a>
 <a href=#1191 id=1191 data-nosnippet>1191</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(Response::new(<a href="../Generated/air.rs.html#62-69">ApplyUpdateResponse</a> {
 <a href=#1192 id=1192 data-nosnippet>1192</a>					<a href="#971">request_id</a>,
@@ -1220,20 +1220,20 @@
 <a href=#1220 id=1220 data-nosnippet>1220</a>			RequestData.url
 <a href=#1221 id=1221 data-nosnippet>1221</a>		);
 <a href=#1222 id=1222 data-nosnippet>1222</a>
-<a href=#1223 id=1223 data-nosnippet>1223</a>		<a class="self" href="#1208">self</a>.AppState
-<a href=#1224 id=1224 data-nosnippet>1224</a>			.<a href="../../ApplicationState/mod.rs.html#620-650">RegisterRequest</a>(<a href="#1214">request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(), <span class="string">"downloader_stream"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>())
+<a href=#1223 id=1223 data-nosnippet>1223</a>		<span class="self">self</span>.AppState
+<a href=#1224 id=1224 data-nosnippet>1224</a>			.RegisterRequest(request_id.clone(), <span class="string">"downloader_stream"</span>.to_string())
 <a href=#1225 id=1225 data-nosnippet>1225</a>			.<span class="kw">await
-<a href=#1226 id=1226 data-nosnippet>1226</a>			</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map_err">map_err</a>(|e| Status::internal(<a href="#1226">e</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()))<span class="question-mark">?</span>;
+<a href=#1226 id=1226 data-nosnippet>1226</a>			</span>.map_err(|e| Status::internal(e.to_string()))<span class="question-mark">?</span>;
 <a href=#1227 id=1227 data-nosnippet>1227</a>
 <a href=#1228 id=1228 data-nosnippet>1228</a>		<span class="comment">// Validate URL
 <a href=#1229 id=1229 data-nosnippet>1229</a>		</span><span class="kw">if </span><a href="#1212">RequestData</a>.url.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() {
 <a href=#1230 id=1230 data-nosnippet>1230</a>			<span class="kw">let </span>error_msg = <span class="string">"URL cannot be empty"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>();
 <a href=#1231 id=1231 data-nosnippet>1231</a>
-<a href=#1232 id=1232 data-nosnippet>1232</a>			<a class="self" href="#1208">self</a>.AppState
-<a href=#1233 id=1233 data-nosnippet>1233</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1234 id=1234 data-nosnippet>1234</a>					<span class="kw-2">&amp;</span><a href="#1214">request_id</a>,
-<a href=#1235 id=1235 data-nosnippet>1235</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1230">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#1236 id=1236 data-nosnippet>1236</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1232 id=1232 data-nosnippet>1232</a>			<span class="self">self</span>.AppState
+<a href=#1233 id=1233 data-nosnippet>1233</a>				.UpdateRequestStatus(
+<a href=#1234 id=1234 data-nosnippet>1234</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#1235 id=1235 data-nosnippet>1235</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.clone()),
+<a href=#1236 id=1236 data-nosnippet>1236</a>					<span class="prelude-val">None</span>,
 <a href=#1237 id=1237 data-nosnippet>1237</a>				)
 <a href=#1238 id=1238 data-nosnippet>1238</a>				.<span class="kw">await
 <a href=#1239 id=1239 data-nosnippet>1239</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1245,11 +1245,11 @@
 <a href=#1245 id=1245 data-nosnippet>1245</a>		</span><span class="kw">if </span>!<a href="#2428-2430">match_url_scheme</a>(<span class="kw-2">&amp;</span><a href="#1212">RequestData</a>.url) {
 <a href=#1246 id=1246 data-nosnippet>1246</a>			<span class="kw">let </span>error_msg = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Invalid URL scheme: {}"</span>, RequestData.url);
 <a href=#1247 id=1247 data-nosnippet>1247</a>
-<a href=#1248 id=1248 data-nosnippet>1248</a>			<a class="self" href="#1208">self</a>.AppState
-<a href=#1249 id=1249 data-nosnippet>1249</a>				.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1250 id=1250 data-nosnippet>1250</a>					<span class="kw-2">&amp;</span><a href="#1214">request_id</a>,
-<a href=#1251 id=1251 data-nosnippet>1251</a>					<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1246">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#1252 id=1252 data-nosnippet>1252</a>					<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1248 id=1248 data-nosnippet>1248</a>			<span class="self">self</span>.AppState
+<a href=#1249 id=1249 data-nosnippet>1249</a>				.UpdateRequestStatus(
+<a href=#1250 id=1250 data-nosnippet>1250</a>					<span class="kw-2">&amp;</span>request_id,
+<a href=#1251 id=1251 data-nosnippet>1251</a>					<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.clone()),
+<a href=#1252 id=1252 data-nosnippet>1252</a>					<span class="prelude-val">None</span>,
 <a href=#1253 id=1253 data-nosnippet>1253</a>				)
 <a href=#1254 id=1254 data-nosnippet>1254</a>				.<span class="kw">await
 <a href=#1255 id=1255 data-nosnippet>1255</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1258,7 +1258,7 @@
 <a href=#1258 id=1258 data-nosnippet>1258</a>		}
 <a href=#1259 id=1259 data-nosnippet>1259</a>
 <a href=#1260 id=1260 data-nosnippet>1260</a>		<span class="comment">// Validate URL supports range headers for streaming
-<a href=#1261 id=1261 data-nosnippet>1261</a>		</span><span class="kw">match </span><a class="self" href="#1208">self</a>.<a href="#2280-2303">validate_range_support</a>(<span class="kw-2">&amp;</span><a href="#1212">RequestData</a>.url).<span class="kw">await </span>{
+<a href=#1261 id=1261 data-nosnippet>1261</a>		</span><span class="kw">match </span><span class="self">self</span>.validate_range_support(<span class="kw-2">&amp;</span>RequestData.url).<span class="kw">await </span>{
 <a href=#1262 id=1262 data-nosnippet>1262</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<span class="bool-val">true</span>) =&gt; {
 <a href=#1263 id=1263 data-nosnippet>1263</a>				<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"[AirVinegRPCService] URL supports range headers"</span>);
 <a href=#1264 id=1264 data-nosnippet>1264</a>			},
@@ -1273,11 +1273,11 @@
 <a href=#1273 id=1273 data-nosnippet>1273</a>			<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
 <a href=#1274 id=1274 data-nosnippet>1274</a>				<span class="kw">let </span>error_msg = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to validate range support: {}"</span>, e);
 <a href=#1275 id=1275 data-nosnippet>1275</a>
-<a href=#1276 id=1276 data-nosnippet>1276</a>				<a class="self" href="#1208">self</a>.AppState
-<a href=#1277 id=1277 data-nosnippet>1277</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1278 id=1278 data-nosnippet>1278</a>						<span class="kw-2">&amp;</span><a href="#1214">request_id</a>,
-<a href=#1279 id=1279 data-nosnippet>1279</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1274">error_msg</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
-<a href=#1280 id=1280 data-nosnippet>1280</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1276 id=1276 data-nosnippet>1276</a>				<span class="self">self</span>.AppState
+<a href=#1277 id=1277 data-nosnippet>1277</a>					.UpdateRequestStatus(
+<a href=#1278 id=1278 data-nosnippet>1278</a>						<span class="kw-2">&amp;</span>request_id,
+<a href=#1279 id=1279 data-nosnippet>1279</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error_msg.clone()),
+<a href=#1280 id=1280 data-nosnippet>1280</a>						<span class="prelude-val">None</span>,
 <a href=#1281 id=1281 data-nosnippet>1281</a>					)
 <a href=#1282 id=1282 data-nosnippet>1282</a>					.<span class="kw">await
 <a href=#1283 id=1283 data-nosnippet>1283</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1306,14 +1306,14 @@
 <a href=#1306 id=1306 data-nosnippet>1306</a>		<span class="comment">// Spawn streaming task
 <a href=#1307 id=1307 data-nosnippet>1307</a>		</span>tokio::spawn(<span class="kw">async move </span>{
 <a href=#1308 id=1308 data-nosnippet>1308</a>			<span class="comment">// Send initial status
-<a href=#1309 id=1309 data-nosnippet>1309</a>			</span><span class="kw">if </span><a href="#1290">tx</a>
-<a href=#1310 id=1310 data-nosnippet>1310</a>				.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="../Generated/air.rs.html#116-129">DownloadStreamResponse</a> {
-<a href=#1311 id=1311 data-nosnippet>1311</a>					request_id:<a href="#1300">download_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#1312 id=1312 data-nosnippet>1312</a>					chunk:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[].<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>(),
+<a href=#1309 id=1309 data-nosnippet>1309</a>			</span><span class="kw">if </span>tx
+<a href=#1310 id=1310 data-nosnippet>1310</a>				.send(<span class="prelude-val">Ok</span>(DownloadStreamResponse {
+<a href=#1311 id=1311 data-nosnippet>1311</a>					request_id:download_request_id.clone(),
+<a href=#1312 id=1312 data-nosnippet>1312</a>					chunk:<span class="macro">vec!</span>[].into(),
 <a href=#1313 id=1313 data-nosnippet>1313</a>					total_size:<span class="number">0</span>,
 <a href=#1314 id=1314 data-nosnippet>1314</a>					downloaded:<span class="number">0</span>,
 <a href=#1315 id=1315 data-nosnippet>1315</a>					completed:<span class="bool-val">false</span>,
-<a href=#1316 id=1316 data-nosnippet>1316</a>					error:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.new">new</a>(),
+<a href=#1316 id=1316 data-nosnippet>1316</a>					error:String::new(),
 <a href=#1317 id=1317 data-nosnippet>1317</a>				}))
 <a href=#1318 id=1318 data-nosnippet>1318</a>				.<span class="kw">await
 <a href=#1319 id=1319 data-nosnippet>1319</a>				</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.is_err">is_err</a>()
@@ -1334,21 +1334,21 @@
 <a href=#1334 id=1334 data-nosnippet>1334</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(builder) =&gt; <a href="#1334">builder</a>,
 <a href=#1335 id=1335 data-nosnippet>1335</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
 <a href=#1336 id=1336 data-nosnippet>1336</a>					<span class="kw">let </span>error = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to create HTTP client builder: {}"</span>, e);
-<a href=#1337 id=1337 data-nosnippet>1337</a>					<span class="kw">let _ </span>= <a href="#1290">tx</a>
-<a href=#1338 id=1338 data-nosnippet>1338</a>						.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="../Generated/air.rs.html#116-129">DownloadStreamResponse</a> {
-<a href=#1339 id=1339 data-nosnippet>1339</a>							request_id:<a href="#1300">download_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#1340 id=1340 data-nosnippet>1340</a>							chunk:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[].<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>(),
+<a href=#1337 id=1337 data-nosnippet>1337</a>					<span class="kw">let _ </span>= tx
+<a href=#1338 id=1338 data-nosnippet>1338</a>						.send(<span class="prelude-val">Ok</span>(DownloadStreamResponse {
+<a href=#1339 id=1339 data-nosnippet>1339</a>							request_id:download_request_id.clone(),
+<a href=#1340 id=1340 data-nosnippet>1340</a>							chunk:<span class="macro">vec!</span>[].into(),
 <a href=#1341 id=1341 data-nosnippet>1341</a>							total_size:<span class="number">0</span>,
 <a href=#1342 id=1342 data-nosnippet>1342</a>							downloaded:<span class="number">0</span>,
 <a href=#1343 id=1343 data-nosnippet>1343</a>							completed:<span class="bool-val">false</span>,
-<a href=#1344 id=1344 data-nosnippet>1344</a>							error:<a href="#1336">error</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#1344 id=1344 data-nosnippet>1344</a>							error:error.clone(),
 <a href=#1345 id=1345 data-nosnippet>1345</a>						}))
 <a href=#1346 id=1346 data-nosnippet>1346</a>						.<span class="kw">await</span>;
-<a href=#1347 id=1347 data-nosnippet>1347</a>					<a href="#1304">AppState</a>
-<a href=#1348 id=1348 data-nosnippet>1348</a>						.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1349 id=1349 data-nosnippet>1349</a>							<span class="kw-2">&amp;</span><a href="#1300">download_request_id</a>,
-<a href=#1350 id=1350 data-nosnippet>1350</a>							<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1336">error</a>),
-<a href=#1351 id=1351 data-nosnippet>1351</a>							<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1347 id=1347 data-nosnippet>1347</a>					AppState
+<a href=#1348 id=1348 data-nosnippet>1348</a>						.UpdateRequestStatus(
+<a href=#1349 id=1349 data-nosnippet>1349</a>							<span class="kw-2">&amp;</span>download_request_id,
+<a href=#1350 id=1350 data-nosnippet>1350</a>							<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error),
+<a href=#1351 id=1351 data-nosnippet>1351</a>							<span class="prelude-val">None</span>,
 <a href=#1352 id=1352 data-nosnippet>1352</a>						)
 <a href=#1353 id=1353 data-nosnippet>1353</a>						.<span class="kw">await
 <a href=#1354 id=1354 data-nosnippet>1354</a>						</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1364,21 +1364,21 @@
 <a href=#1364 id=1364 data-nosnippet>1364</a>
 <a href=#1365 id=1365 data-nosnippet>1365</a>			<span class="kw">if </span><a href="#1359">client_result</a>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.is_err">is_err</a>() {
 <a href=#1366 id=1366 data-nosnippet>1366</a>				<span class="kw">let </span>error = <a href="#1359">client_result</a>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.unwrap_err">unwrap_err</a>().<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>();
-<a href=#1367 id=1367 data-nosnippet>1367</a>				<span class="kw">let _ </span>= <a href="#1290">tx</a>
-<a href=#1368 id=1368 data-nosnippet>1368</a>					.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="../Generated/air.rs.html#116-129">DownloadStreamResponse</a> {
-<a href=#1369 id=1369 data-nosnippet>1369</a>						request_id:<a href="#1300">download_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#1370 id=1370 data-nosnippet>1370</a>						chunk:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[].<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>(),
+<a href=#1367 id=1367 data-nosnippet>1367</a>				<span class="kw">let _ </span>= tx
+<a href=#1368 id=1368 data-nosnippet>1368</a>					.send(<span class="prelude-val">Ok</span>(DownloadStreamResponse {
+<a href=#1369 id=1369 data-nosnippet>1369</a>						request_id:download_request_id.clone(),
+<a href=#1370 id=1370 data-nosnippet>1370</a>						chunk:<span class="macro">vec!</span>[].into(),
 <a href=#1371 id=1371 data-nosnippet>1371</a>						total_size:<span class="number">0</span>,
 <a href=#1372 id=1372 data-nosnippet>1372</a>						downloaded:<span class="number">0</span>,
 <a href=#1373 id=1373 data-nosnippet>1373</a>						completed:<span class="bool-val">false</span>,
-<a href=#1374 id=1374 data-nosnippet>1374</a>						error:<a href="#1366">error</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#1374 id=1374 data-nosnippet>1374</a>						error:error.clone(),
 <a href=#1375 id=1375 data-nosnippet>1375</a>					}))
 <a href=#1376 id=1376 data-nosnippet>1376</a>					.<span class="kw">await</span>;
-<a href=#1377 id=1377 data-nosnippet>1377</a>				<a href="#1304">AppState</a>
-<a href=#1378 id=1378 data-nosnippet>1378</a>					.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1379 id=1379 data-nosnippet>1379</a>						<span class="kw-2">&amp;</span><a href="#1300">download_request_id</a>,
-<a href=#1380 id=1380 data-nosnippet>1380</a>						<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1366">error</a>),
-<a href=#1381 id=1381 data-nosnippet>1381</a>						<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1377 id=1377 data-nosnippet>1377</a>				AppState
+<a href=#1378 id=1378 data-nosnippet>1378</a>					.UpdateRequestStatus(
+<a href=#1379 id=1379 data-nosnippet>1379</a>						<span class="kw-2">&amp;</span>download_request_id,
+<a href=#1380 id=1380 data-nosnippet>1380</a>						<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error),
+<a href=#1381 id=1381 data-nosnippet>1381</a>						<span class="prelude-val">None</span>,
 <a href=#1382 id=1382 data-nosnippet>1382</a>					)
 <a href=#1383 id=1383 data-nosnippet>1383</a>					.<span class="kw">await
 <a href=#1384 id=1384 data-nosnippet>1384</a>					</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1390,11 +1390,11 @@
 <a href=#1390 id=1390 data-nosnippet>1390</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(e) =&gt; {
 <a href=#1391 id=1391 data-nosnippet>1391</a>					<span class="kw">let </span>error = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Failed to create HTTP client: {}"</span>, e);
 <a href=#1392 id=1392 data-nosnippet>1392</a>					<span class="kw">let _ </span>= <a href="#1290">tx</a>.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(Status::internal(<a href="#1391">error</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>())));
-<a href=#1393 id=1393 data-nosnippet>1393</a>					<a href="#1304">AppState</a>
-<a href=#1394 id=1394 data-nosnippet>1394</a>						.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1395 id=1395 data-nosnippet>1395</a>							<span class="kw-2">&amp;</span><a href="#1300">download_request_id</a>,
-<a href=#1396 id=1396 data-nosnippet>1396</a>							<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1391">error</a>),
-<a href=#1397 id=1397 data-nosnippet>1397</a>							<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1393 id=1393 data-nosnippet>1393</a>					AppState
+<a href=#1394 id=1394 data-nosnippet>1394</a>						.UpdateRequestStatus(
+<a href=#1395 id=1395 data-nosnippet>1395</a>							<span class="kw-2">&amp;</span>download_request_id,
+<a href=#1396 id=1396 data-nosnippet>1396</a>							<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error),
+<a href=#1397 id=1397 data-nosnippet>1397</a>							<span class="prelude-val">None</span>,
 <a href=#1398 id=1398 data-nosnippet>1398</a>						)
 <a href=#1399 id=1399 data-nosnippet>1399</a>						.<span class="kw">await
 <a href=#1400 id=1400 data-nosnippet>1400</a>						</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1407,8 +1407,8 @@
 <a href=#1407 id=1407 data-nosnippet>1407</a>			</span><span class="kw">let </span><span class="kw-2">mut </span>total_size:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt; = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
 <a href=#1408 id=1408 data-nosnippet>1408</a>			<span class="kw">let </span><span class="kw-2">mut </span>total_downloaded:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a> = <span class="number">0</span>;
 <a href=#1409 id=1409 data-nosnippet>1409</a>
-<a href=#1410 id=1410 data-nosnippet>1410</a>			<span class="kw">match </span><a href="#1388">client</a>
-<a href=#1411 id=1411 data-nosnippet>1411</a>				.get(<span class="kw-2">&amp;</span><a href="#1296">url</a>)
+<a href=#1410 id=1410 data-nosnippet>1410</a>			<span class="kw">match </span>client
+<a href=#1411 id=1411 data-nosnippet>1411</a>				.get(<span class="kw-2">&amp;</span>url)
 <a href=#1412 id=1412 data-nosnippet>1412</a>				.headers({
 <a href=#1413 id=1413 data-nosnippet>1413</a>					<span class="kw">let </span><span class="kw-2">mut </span>map = reqwest::header::HeaderMap::new();
 <a href=#1414 id=1414 data-nosnippet>1414</a>					<span class="kw">for </span>(key, value) <span class="kw">in </span>headers {
@@ -1419,7 +1419,7 @@
 <a href=#1419 id=1419 data-nosnippet>1419</a>							map.insert(header_name, header_value);
 <a href=#1420 id=1420 data-nosnippet>1420</a>						}
 <a href=#1421 id=1421 data-nosnippet>1421</a>					}
-<a href=#1422 id=1422 data-nosnippet>1422</a>					<a href="#1413">map</a>
+<a href=#1422 id=1422 data-nosnippet>1422</a>					map
 <a href=#1423 id=1423 data-nosnippet>1423</a>				})
 <a href=#1424 id=1424 data-nosnippet>1424</a>				.send()
 <a href=#1425 id=1425 data-nosnippet>1425</a>				.<span class="kw">await
@@ -1427,21 +1427,21 @@
 <a href=#1427 id=1427 data-nosnippet>1427</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(response) =&gt; {
 <a href=#1428 id=1428 data-nosnippet>1428</a>					<span class="kw">if </span>!<a href="#1427">response</a>.status().is_success() {
 <a href=#1429 id=1429 data-nosnippet>1429</a>						<span class="kw">let </span>error = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"Download failed with status: {}"</span>, response.status());
-<a href=#1430 id=1430 data-nosnippet>1430</a>						<span class="kw">let _ </span>= <a href="#1290">tx</a>
-<a href=#1431 id=1431 data-nosnippet>1431</a>							.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="../Generated/air.rs.html#116-129">DownloadStreamResponse</a> {
-<a href=#1432 id=1432 data-nosnippet>1432</a>								request_id:<a href="#1300">download_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#1433 id=1433 data-nosnippet>1433</a>								chunk:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[].<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>(),
+<a href=#1430 id=1430 data-nosnippet>1430</a>						<span class="kw">let _ </span>= tx
+<a href=#1431 id=1431 data-nosnippet>1431</a>							.send(<span class="prelude-val">Ok</span>(DownloadStreamResponse {
+<a href=#1432 id=1432 data-nosnippet>1432</a>								request_id:download_request_id.clone(),
+<a href=#1433 id=1433 data-nosnippet>1433</a>								chunk:<span class="macro">vec!</span>[].into(),
 <a href=#1434 id=1434 data-nosnippet>1434</a>								total_size:<span class="number">0</span>,
 <a href=#1435 id=1435 data-nosnippet>1435</a>								downloaded:<span class="number">0</span>,
 <a href=#1436 id=1436 data-nosnippet>1436</a>								completed:<span class="bool-val">false</span>,
-<a href=#1437 id=1437 data-nosnippet>1437</a>								error:<a href="#1429">error</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#1437 id=1437 data-nosnippet>1437</a>								error:error.clone(),
 <a href=#1438 id=1438 data-nosnippet>1438</a>							}))
 <a href=#1439 id=1439 data-nosnippet>1439</a>							.<span class="kw">await</span>;
-<a href=#1440 id=1440 data-nosnippet>1440</a>						<a href="#1304">AppState</a>
-<a href=#1441 id=1441 data-nosnippet>1441</a>							.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1442 id=1442 data-nosnippet>1442</a>								<span class="kw-2">&amp;</span><a href="#1300">download_request_id</a>,
-<a href=#1443 id=1443 data-nosnippet>1443</a>								<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1429">error</a>),
-<a href=#1444 id=1444 data-nosnippet>1444</a>								<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1440 id=1440 data-nosnippet>1440</a>						AppState
+<a href=#1441 id=1441 data-nosnippet>1441</a>							.UpdateRequestStatus(
+<a href=#1442 id=1442 data-nosnippet>1442</a>								<span class="kw-2">&amp;</span>download_request_id,
+<a href=#1443 id=1443 data-nosnippet>1443</a>								<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error),
+<a href=#1444 id=1444 data-nosnippet>1444</a>								<span class="prelude-val">None</span>,
 <a href=#1445 id=1445 data-nosnippet>1445</a>							)
 <a href=#1446 id=1446 data-nosnippet>1446</a>							.<span class="kw">await
 <a href=#1447 id=1447 data-nosnippet>1447</a>							</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1583,14 +1583,14 @@
 <a href=#1583 id=1583 data-nosnippet>1583</a>					</span><span class="kw">if </span>!<a href="#1457">buffer</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.is_empty">is_empty</a>() {
 <a href=#1584 id=1584 data-nosnippet>1584</a>						<span class="kw">let </span>_chunk_checksum = <a href="#2433-2443">calculate_chunk_checksum</a>(<span class="kw-2">&amp;</span><a href="#1457">buffer</a>);
 <a href=#1585 id=1585 data-nosnippet>1585</a>
-<a href=#1586 id=1586 data-nosnippet>1586</a>						<span class="kw">if </span><a href="#1290">tx</a>
-<a href=#1587 id=1587 data-nosnippet>1587</a>							.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="../Generated/air.rs.html#116-129">DownloadStreamResponse</a> {
-<a href=#1588 id=1588 data-nosnippet>1588</a>								request_id:<a href="#1300">download_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#1589 id=1589 data-nosnippet>1589</a>								chunk:<a href="#1457">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>(),
-<a href=#1590 id=1590 data-nosnippet>1590</a>								total_size:<a href="#1407">total_size</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="number">0</span>),
-<a href=#1591 id=1591 data-nosnippet>1591</a>								downloaded:<a href="#1408">total_downloaded</a>,
+<a href=#1586 id=1586 data-nosnippet>1586</a>						<span class="kw">if </span>tx
+<a href=#1587 id=1587 data-nosnippet>1587</a>							.send(<span class="prelude-val">Ok</span>(DownloadStreamResponse {
+<a href=#1588 id=1588 data-nosnippet>1588</a>								request_id:download_request_id.clone(),
+<a href=#1589 id=1589 data-nosnippet>1589</a>								chunk:buffer.into(),
+<a href=#1590 id=1590 data-nosnippet>1590</a>								total_size:total_size.unwrap_or(<span class="number">0</span>),
+<a href=#1591 id=1591 data-nosnippet>1591</a>								downloaded:total_downloaded,
 <a href=#1592 id=1592 data-nosnippet>1592</a>								completed:<span class="bool-val">false</span>,
-<a href=#1593 id=1593 data-nosnippet>1593</a>								error:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.new">new</a>(),
+<a href=#1593 id=1593 data-nosnippet>1593</a>								error:String::new(),
 <a href=#1594 id=1594 data-nosnippet>1594</a>							}))
 <a href=#1595 id=1595 data-nosnippet>1595</a>							.<span class="kw">await
 <a href=#1596 id=1596 data-nosnippet>1596</a>							</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.is_err">is_err</a>()
@@ -1605,23 +1605,23 @@
 <a href=#1605 id=1605 data-nosnippet>1605</a>					}
 <a href=#1606 id=1606 data-nosnippet>1606</a>
 <a href=#1607 id=1607 data-nosnippet>1607</a>					<span class="comment">// Send completion signal
-<a href=#1608 id=1608 data-nosnippet>1608</a>					</span><a href="#1304">AppState</a>
-<a href=#1609 id=1609 data-nosnippet>1609</a>						.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1610 id=1610 data-nosnippet>1610</a>							<span class="kw-2">&amp;</span><a href="#1300">download_request_id</a>,
-<a href=#1611 id=1611 data-nosnippet>1611</a>							<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#160">Completed</a>,
-<a href=#1612 id=1612 data-nosnippet>1612</a>							<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<span class="number">100.0</span>),
+<a href=#1608 id=1608 data-nosnippet>1608</a>					</span>AppState
+<a href=#1609 id=1609 data-nosnippet>1609</a>						.UpdateRequestStatus(
+<a href=#1610 id=1610 data-nosnippet>1610</a>							<span class="kw-2">&amp;</span>download_request_id,
+<a href=#1611 id=1611 data-nosnippet>1611</a>							<span class="kw">crate</span>::ApplicationState::RequestState::Completed,
+<a href=#1612 id=1612 data-nosnippet>1612</a>							<span class="prelude-val">Some</span>(<span class="number">100.0</span>),
 <a href=#1613 id=1613 data-nosnippet>1613</a>						)
 <a href=#1614 id=1614 data-nosnippet>1614</a>						.<span class="kw">await
 <a href=#1615 id=1615 data-nosnippet>1615</a>						</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
 <a href=#1616 id=1616 data-nosnippet>1616</a>
-<a href=#1617 id=1617 data-nosnippet>1617</a>					<span class="kw">let _ </span>= <a href="#1290">tx</a>
-<a href=#1618 id=1618 data-nosnippet>1618</a>						.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="../Generated/air.rs.html#116-129">DownloadStreamResponse</a> {
-<a href=#1619 id=1619 data-nosnippet>1619</a>							<a href="#1214">request_id</a>,
-<a href=#1620 id=1620 data-nosnippet>1620</a>							chunk:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[].<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>(),
-<a href=#1621 id=1621 data-nosnippet>1621</a>							total_size:<a href="#1407">total_size</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(<span class="number">0</span>),
-<a href=#1622 id=1622 data-nosnippet>1622</a>							downloaded:<a href="#1408">total_downloaded</a>,
+<a href=#1617 id=1617 data-nosnippet>1617</a>					<span class="kw">let _ </span>= tx
+<a href=#1618 id=1618 data-nosnippet>1618</a>						.send(<span class="prelude-val">Ok</span>(DownloadStreamResponse {
+<a href=#1619 id=1619 data-nosnippet>1619</a>							request_id,
+<a href=#1620 id=1620 data-nosnippet>1620</a>							chunk:<span class="macro">vec!</span>[].into(),
+<a href=#1621 id=1621 data-nosnippet>1621</a>							total_size:total_size.unwrap_or(<span class="number">0</span>),
+<a href=#1622 id=1622 data-nosnippet>1622</a>							downloaded:total_downloaded,
 <a href=#1623 id=1623 data-nosnippet>1623</a>							completed:<span class="bool-val">true</span>,
-<a href=#1624 id=1624 data-nosnippet>1624</a>							error:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.new">new</a>(),
+<a href=#1624 id=1624 data-nosnippet>1624</a>							error:String::new(),
 <a href=#1625 id=1625 data-nosnippet>1625</a>						}))
 <a href=#1626 id=1626 data-nosnippet>1626</a>						.<span class="kw">await</span>;
 <a href=#1627 id=1627 data-nosnippet>1627</a>
@@ -1641,22 +1641,22 @@
 <a href=#1641 id=1641 data-nosnippet>1641</a>						error
 <a href=#1642 id=1642 data-nosnippet>1642</a>					);
 <a href=#1643 id=1643 data-nosnippet>1643</a>
-<a href=#1644 id=1644 data-nosnippet>1644</a>					<span class="kw">let _ </span>= <a href="#1290">tx</a>
-<a href=#1645 id=1645 data-nosnippet>1645</a>						.send(<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="../Generated/air.rs.html#116-129">DownloadStreamResponse</a> {
-<a href=#1646 id=1646 data-nosnippet>1646</a>							request_id:<a href="#1300">download_request_id</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#1647 id=1647 data-nosnippet>1647</a>							chunk:<a href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[].<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>(),
+<a href=#1644 id=1644 data-nosnippet>1644</a>					<span class="kw">let _ </span>= tx
+<a href=#1645 id=1645 data-nosnippet>1645</a>						.send(<span class="prelude-val">Ok</span>(DownloadStreamResponse {
+<a href=#1646 id=1646 data-nosnippet>1646</a>							request_id:download_request_id.clone(),
+<a href=#1647 id=1647 data-nosnippet>1647</a>							chunk:<span class="macro">vec!</span>[].into(),
 <a href=#1648 id=1648 data-nosnippet>1648</a>							total_size:<span class="number">0</span>,
 <a href=#1649 id=1649 data-nosnippet>1649</a>							downloaded:<span class="number">0</span>,
 <a href=#1650 id=1650 data-nosnippet>1650</a>							completed:<span class="bool-val">false</span>,
-<a href=#1651 id=1651 data-nosnippet>1651</a>							error:<a href="#1636">error</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
+<a href=#1651 id=1651 data-nosnippet>1651</a>							error:error.clone(),
 <a href=#1652 id=1652 data-nosnippet>1652</a>						}))
 <a href=#1653 id=1653 data-nosnippet>1653</a>						.<span class="kw">await</span>;
 <a href=#1654 id=1654 data-nosnippet>1654</a>
-<a href=#1655 id=1655 data-nosnippet>1655</a>					<a href="#1304">AppState</a>
-<a href=#1656 id=1656 data-nosnippet>1656</a>						.<a href="../../ApplicationState/mod.rs.html#653-676">UpdateRequestStatus</a>(
-<a href=#1657 id=1657 data-nosnippet>1657</a>							<span class="kw-2">&amp;</span><a href="#1300">download_request_id</a>,
-<a href=#1658 id=1658 data-nosnippet>1658</a>							<span class="kw">crate</span>::ApplicationState::RequestState::<a href="../../ApplicationState/mod.rs.html#162">Failed</a>(<a href="#1636">error</a>),
-<a href=#1659 id=1659 data-nosnippet>1659</a>							<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1655 id=1655 data-nosnippet>1655</a>					AppState
+<a href=#1656 id=1656 data-nosnippet>1656</a>						.UpdateRequestStatus(
+<a href=#1657 id=1657 data-nosnippet>1657</a>							<span class="kw-2">&amp;</span>download_request_id,
+<a href=#1658 id=1658 data-nosnippet>1658</a>							<span class="kw">crate</span>::ApplicationState::RequestState::Failed(error),
+<a href=#1659 id=1659 data-nosnippet>1659</a>							<span class="prelude-val">None</span>,
 <a href=#1660 id=1660 data-nosnippet>1660</a>						)
 <a href=#1661 id=1661 data-nosnippet>1661</a>						.<span class="kw">await
 <a href=#1662 id=1662 data-nosnippet>1662</a>						</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>();
@@ -1701,20 +1701,20 @@
 <a href=#1701 id=1701 data-nosnippet>1701</a>
 <a href=#1702 id=1702 data-nosnippet>1702</a>		<span class="kw">let </span>_search_path = <a href="#1700">path</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.as_deref">as_deref</a>();
 <a href=#1703 id=1703 data-nosnippet>1703</a>
-<a href=#1704 id=1704 data-nosnippet>1704</a>		<span class="kw">match </span><a class="self" href="#1674">self</a>
-<a href=#1705 id=1705 data-nosnippet>1705</a>			.FileIndexer
-<a href=#1706 id=1706 data-nosnippet>1706</a>			.<a href="../../Indexing/mod.rs.html#395-407">SearchFiles</a>(
-<a href=#1707 id=1707 data-nosnippet>1707</a>				<a href="../../Indexing/Store/QueryIndex.rs.html#79-100">SearchQuery</a> {
-<a href=#1708 id=1708 data-nosnippet>1708</a>					query:<a href="#1678">RequestData</a>.query.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>(),
-<a href=#1709 id=1709 data-nosnippet>1709</a>					mode:SearchMode::<a href="../../Indexing/Store/QueryIndex.rs.html#106">Literal</a>,
+<a href=#1704 id=1704 data-nosnippet>1704</a>		<span class="kw">match </span><span class="self">self
+<a href=#1705 id=1705 data-nosnippet>1705</a>			</span>.FileIndexer
+<a href=#1706 id=1706 data-nosnippet>1706</a>			.SearchFiles(
+<a href=#1707 id=1707 data-nosnippet>1707</a>				SearchQuery {
+<a href=#1708 id=1708 data-nosnippet>1708</a>					query:RequestData.query.clone(),
+<a href=#1709 id=1709 data-nosnippet>1709</a>					mode:SearchMode::Literal,
 <a href=#1710 id=1710 data-nosnippet>1710</a>					case_sensitive:<span class="bool-val">false</span>,
 <a href=#1711 id=1711 data-nosnippet>1711</a>					whole_word:<span class="bool-val">false</span>,
-<a href=#1712 id=1712 data-nosnippet>1712</a>					regex:<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
-<a href=#1713 id=1713 data-nosnippet>1713</a>					max_results:<a href="#1678">RequestData</a>.max_results,
+<a href=#1712 id=1712 data-nosnippet>1712</a>					regex:<span class="prelude-val">None</span>,
+<a href=#1713 id=1713 data-nosnippet>1713</a>					max_results:RequestData.max_results,
 <a href=#1714 id=1714 data-nosnippet>1714</a>					page:<span class="number">1</span>,
 <a href=#1715 id=1715 data-nosnippet>1715</a>				},
-<a href=#1716 id=1716 data-nosnippet>1716</a>				<a href="#1700">path</a>,
-<a href=#1717 id=1717 data-nosnippet>1717</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#1716 id=1716 data-nosnippet>1716</a>				path,
+<a href=#1717 id=1717 data-nosnippet>1717</a>				<span class="prelude-val">None</span>,
 <a href=#1718 id=1718 data-nosnippet>1718</a>			)
 <a href=#1719 id=1719 data-nosnippet>1719</a>			.<span class="kw">await
 <a href=#1720 id=1720 data-nosnippet>1720</a>		</span>{
@@ -1827,7 +1827,7 @@
 <a href=#1827 id=1827 data-nosnippet>1827</a>				</span><span class="kw">let </span>mime_type = <a class="self" href="#1776">self</a>.<a href="#2161-2203">detect_mime_type</a>(<a href="#1802">path</a>);
 <a href=#1828 id=1828 data-nosnippet>1828</a>
 <a href=#1829 id=1829 data-nosnippet>1829</a>				<span class="comment">// Calculate checksum lazily or on-demand
-<a href=#1830 id=1830 data-nosnippet>1830</a>				</span><span class="kw">let </span>checksum = <a href="#2446-2474">calculate_file_checksum</a>(<a href="#1802">path</a>).<span class="kw">await</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.unwrap_or_else">unwrap_or_else</a>(|e| {
+<a href=#1830 id=1830 data-nosnippet>1830</a>				</span><span class="kw">let </span>checksum = calculate_file_checksum(path).<span class="kw">await</span>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.unwrap_or_else">unwrap_or_else</a>(|e| {
 <a href=#1831 id=1831 data-nosnippet>1831</a>					<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"warn: [AirVinegRPCService] Failed to calculate checksum: {}"</span>, e);
 <a href=#1832 id=1832 data-nosnippet>1832</a>					<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>::<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.new">new</a>()
 <a href=#1833 id=1833 data-nosnippet>1833</a>				});
@@ -1877,7 +1877,7 @@
 <a href=#1877 id=1877 data-nosnippet>1877</a>			RequestData.metric_type
 <a href=#1878 id=1878 data-nosnippet>1878</a>		);
 <a href=#1879 id=1879 data-nosnippet>1879</a>
-<a href=#1880 id=1880 data-nosnippet>1880</a>		<span class="kw">let </span>metrics = <a class="self" href="#1866">self</a>.AppState.<a href="../../ApplicationState/mod.rs.html#757-761">GetMetrics</a>().<span class="kw">await</span>;
+<a href=#1880 id=1880 data-nosnippet>1880</a>		<span class="kw">let </span>metrics = <span class="self">self</span>.AppState.GetMetrics().<span class="kw">await</span>;
 <a href=#1881 id=1881 data-nosnippet>1881</a>
 <a href=#1882 id=1882 data-nosnippet>1882</a>		<span class="kw">let </span><span class="kw-2">mut </span>metrics_map = std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>();
 <a href=#1883 id=1883 data-nosnippet>1883</a>
@@ -1898,7 +1898,7 @@
 <a href=#1898 id=1898 data-nosnippet>1898</a>		</span><span class="kw">if </span><a href="#1870">RequestData</a>.metric_type.<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html#method.is_empty">is_empty</a>() || <a href="#1870">RequestData</a>.metric_type == <span class="string">"requests" </span>{
 <a href=#1899 id=1899 data-nosnippet>1899</a>			<a href="#1882">metrics_map</a>.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.insert">insert</a>(
 <a href=#1900 id=1900 data-nosnippet>1900</a>				<span class="string">"ActiveRequests"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
-<a href=#1901 id=1901 data-nosnippet>1901</a>				<a class="self" href="#1866">self</a>.AppState.<a href="../../ApplicationState/mod.rs.html#771-775">GetActiveRequestCount</a>().<span class="kw">await</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
+<a href=#1901 id=1901 data-nosnippet>1901</a>				<span class="self">self</span>.AppState.GetActiveRequestCount().<span class="kw">await</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>(),
 <a href=#1902 id=1902 data-nosnippet>1902</a>			);
 <a href=#1903 id=1903 data-nosnippet>1903</a>		}
 <a href=#1904 id=1904 data-nosnippet>1904</a>
@@ -1921,7 +1921,7 @@
 <a href=#1921 id=1921 data-nosnippet>1921</a>
 <a href=#1922 id=1922 data-nosnippet>1922</a>		<a href="../../DevLog.rs.html#142-200">dev_log!</a>(<span class="string">"grpc"</span>, <span class="string">"[AirVinegRPCService] Get resource usage request"</span>);
 <a href=#1923 id=1923 data-nosnippet>1923</a>
-<a href=#1924 id=1924 data-nosnippet>1924</a>		<span class="kw">let </span>resources = <a class="self" href="#1914">self</a>.AppState.<a href="../../ApplicationState/mod.rs.html#764-768">GetResourceUsage</a>().<span class="kw">await</span>;
+<a href=#1924 id=1924 data-nosnippet>1924</a>		<span class="kw">let </span>resources = <span class="self">self</span>.AppState.GetResourceUsage().<span class="kw">await</span>;
 <a href=#1925 id=1925 data-nosnippet>1925</a>
 <a href=#1926 id=1926 data-nosnippet>1926</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(Response::new(<a href="../Generated/air.rs.html#279-292">ResourceUsageResponse</a> {
 <a href=#1927 id=1927 data-nosnippet>1927</a>			<a href="#1920">request_id</a>,
@@ -1969,12 +1969,12 @@
 <a href=#1969 id=1969 data-nosnippet>1969</a>		}
 <a href=#1970 id=1970 data-nosnippet>1970</a>
 <a href=#1971 id=1971 data-nosnippet>1971</a>		<span class="comment">// Apply new limits via ApplicationState
-<a href=#1972 id=1972 data-nosnippet>1972</a>		</span><span class="kw">let </span>result = <a class="self" href="#1938">self</a>
-<a href=#1973 id=1973 data-nosnippet>1973</a>			.AppState
-<a href=#1974 id=1974 data-nosnippet>1974</a>			.<a href="../../ApplicationState/mod.rs.html#848-908">SetResourceLimits</a>(
-<a href=#1975 id=1975 data-nosnippet>1975</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#1942">RequestData</a>.memory_limit_mb <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>),
-<a href=#1976 id=1976 data-nosnippet>1976</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#1942">RequestData</a>.cpu_limit_percent <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>),
-<a href=#1977 id=1977 data-nosnippet>1977</a>				<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#1942">RequestData</a>.disk_limit_mb <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>),
+<a href=#1972 id=1972 data-nosnippet>1972</a>		</span><span class="kw">let </span>result = <span class="self">self
+<a href=#1973 id=1973 data-nosnippet>1973</a>			</span>.AppState
+<a href=#1974 id=1974 data-nosnippet>1974</a>			.SetResourceLimits(
+<a href=#1975 id=1975 data-nosnippet>1975</a>				<span class="prelude-val">Some</span>(RequestData.memory_limit_mb <span class="kw">as </span>u64),
+<a href=#1976 id=1976 data-nosnippet>1976</a>				<span class="prelude-val">Some</span>(RequestData.cpu_limit_percent <span class="kw">as </span>f64),
+<a href=#1977 id=1977 data-nosnippet>1977</a>				<span class="prelude-val">Some</span>(RequestData.disk_limit_mb <span class="kw">as </span>u64),
 <a href=#1978 id=1978 data-nosnippet>1978</a>			)
 <a href=#1979 id=1979 data-nosnippet>1979</a>			.<span class="kw">await</span>;
 <a href=#1980 id=1980 data-nosnippet>1980</a>
@@ -2016,7 +2016,7 @@
 <a href=#2016 id=2016 data-nosnippet>2016</a>		);
 <a href=#2017 id=2017 data-nosnippet>2017</a>
 <a href=#2018 id=2018 data-nosnippet>2018</a>		<span class="comment">// Get configuration from ApplicationState
-<a href=#2019 id=2019 data-nosnippet>2019</a>		</span><span class="kw">let </span>config = <a class="self" href="#2004">self</a>.AppState.<a href="../../ApplicationState/mod.rs.html#789">GetConfiguration</a>().<span class="kw">await</span>;
+<a href=#2019 id=2019 data-nosnippet>2019</a>		</span><span class="kw">let </span>config = <span class="self">self</span>.AppState.GetConfiguration().<span class="kw">await</span>;
 <a href=#2020 id=2020 data-nosnippet>2020</a>
 <a href=#2021 id=2021 data-nosnippet>2021</a>		<span class="kw">let </span><span class="kw-2">mut </span>config_map = std::collections::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>();
 <a href=#2022 id=2022 data-nosnippet>2022</a>
@@ -2129,9 +2129,9 @@
 <a href=#2129 id=2129 data-nosnippet>2129</a>		}
 <a href=#2130 id=2130 data-nosnippet>2130</a>
 <a href=#2131 id=2131 data-nosnippet>2131</a>		<span class="comment">// Update configuration via ApplicationState
-<a href=#2132 id=2132 data-nosnippet>2132</a>		</span><span class="kw">let </span>result = <a class="self" href="#2107">self</a>
-<a href=#2133 id=2133 data-nosnippet>2133</a>			.AppState
-<a href=#2134 id=2134 data-nosnippet>2134</a>			.<a href="../../ApplicationState/mod.rs.html#792-845">UpdateConfiguration</a>(<a href="#2111">RequestData</a>.section, <a href="#2111">RequestData</a>.updates)
+<a href=#2132 id=2132 data-nosnippet>2132</a>		</span><span class="kw">let </span>result = <span class="self">self
+<a href=#2133 id=2133 data-nosnippet>2133</a>			</span>.AppState
+<a href=#2134 id=2134 data-nosnippet>2134</a>			.UpdateConfiguration(RequestData.section, RequestData.updates)
 <a href=#2135 id=2135 data-nosnippet>2135</a>			.<span class="kw">await</span>;
 <a href=#2136 id=2136 data-nosnippet>2136</a>
 <a href=#2137 id=2137 data-nosnippet>2137</a>		<span class="kw">match </span><a href="#2132">result</a> {
