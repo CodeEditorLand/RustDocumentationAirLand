@@ -68,7 +68,7 @@
 <a href=#68 id=68 data-nosnippet>68</a>
 <a href=#69 id=69 data-nosnippet>69</a><span class="kw">use </span>tokio::sync::{Mutex, RwLock};
 <a href=#70 id=70 data-nosnippet>70</a>
-<a href=#71 id=71 data-nosnippet>71</a><span class="kw">use </span>crate::{<a href="../../Library.rs.html#248-296">AirError</a>, <a href="../../Configuration/mod.rs.html#303-338">Configuration::IndexingConfig</a>, <a href="../State/CreateState.rs.html#209-232">Indexing::State::CreateState::FileIndex</a>, <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>, <a href="../../DevLog.rs.html#142-200">dev_log</a>};
+<a href=#71 id=71 data-nosnippet>71</a><span class="kw">use </span>crate::{<a href="../../Library.rs.html#248-296">AirError</a>, <a href="../../Configuration/mod.rs.html#302-337">Configuration::IndexingConfig</a>, <a href="../State/CreateState.rs.html#209-232">Indexing::State::CreateState::FileIndex</a>, <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>, <a href="../../DevLog.rs.html#142-200">dev_log</a>};
 <a href=#72 id=72 data-nosnippet>72</a>
 <a href=#73 id=73 data-nosnippet>73</a><span class="doccomment">/// Handle file watcher event for incremental indexing
 <a href=#74 id=74 data-nosnippet>74</a>///
@@ -77,7 +77,7 @@
 <a href=#77 id=77 data-nosnippet>77</a>/// - File Created: Index the new file
 <a href=#78 id=78 data-nosnippet>78</a>/// - File Modified: Re-index the modified file
 <a href=#79 id=79 data-nosnippet>79</a>/// - File Removed: Remove from index
-<a href=#80 id=80 data-nosnippet>80</a></span><span class="kw">pub async fn </span><a href="../../../../AirLibrary/Indexing/Watch/WatchFile/fn.HandleFileEvent.html">HandleFileEvent</a>(event:notify::Event, index_arc:<span class="kw-2">&amp;</span>RwLock&lt;<a href="../State/CreateState.rs.html#209-232">FileIndex</a>&gt;, config:<span class="kw-2">&amp;</span><a href="../../Configuration/mod.rs.html#303-338">IndexingConfig</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+<a href=#80 id=80 data-nosnippet>80</a></span><span class="kw">pub async fn </span><a href="../../../../AirLibrary/Indexing/Watch/WatchFile/fn.HandleFileEvent.html">HandleFileEvent</a>(event:notify::Event, index_arc:<span class="kw-2">&amp;</span>RwLock&lt;<a href="../State/CreateState.rs.html#209-232">FileIndex</a>&gt;, config:<span class="kw-2">&amp;</span><a href="../../Configuration/mod.rs.html#302-337">IndexingConfig</a>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
 <a href=#81 id=81 data-nosnippet>81</a>	<span class="kw">match </span>event.kind {
 <a href=#82 id=82 data-nosnippet>82</a>		notify::EventKind::Create(notify::event::CreateKind::File) =&gt; {
 <a href=#83 id=83 data-nosnippet>83</a>			<span class="kw">for </span>path <span class="kw">in </span>event.paths {
@@ -216,7 +216,7 @@
 <a href=#216 id=216 data-nosnippet>216</a>
 <a href=#217 id=217 data-nosnippet>217</a>		index_arc:<span class="kw-2">&amp;</span>RwLock&lt;<a href="../State/CreateState.rs.html#209-232">FileIndex</a>&gt;,
 <a href=#218 id=218 data-nosnippet>218</a>
-<a href=#219 id=219 data-nosnippet>219</a>		config:<span class="kw-2">&amp;</span><a href="../../Configuration/mod.rs.html#303-338">IndexingConfig</a>,
+<a href=#219 id=219 data-nosnippet>219</a>		config:<span class="kw-2">&amp;</span><a href="../../Configuration/mod.rs.html#302-337">IndexingConfig</a>,
 <a href=#220 id=220 data-nosnippet>220</a>	) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;ProcessedChange&gt;&gt; {
 <a href=#221 id=221 data-nosnippet>221</a>		<span class="kw">let </span><span class="kw-2">mut </span>processed = Vec::new();
 <a href=#222 id=222 data-nosnippet>222</a>
