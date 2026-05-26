@@ -67,11 +67,11 @@
 <a href=#67 id=67 data-nosnippet>67</a>//! - Avoid including request payloads in resilience events
 <a href=#68 id=68 data-nosnippet>68</a>//! - Sanitize service names before publishing to telemetry
 <a href=#69 id=69 data-nosnippet>69</a>
-<a href=#70 id=70 data-nosnippet>70</a></span><span class="kw">pub mod </span><a href="Retry.rs.html#1-208">Retry</a>;
+<a href=#70 id=70 data-nosnippet>70</a></span><span class="kw">pub mod </span><a href="Retry.rs.html#1-268">Retry</a>;
 <a href=#71 id=71 data-nosnippet>71</a>
-<a href=#72 id=72 data-nosnippet>72</a><span class="kw">pub use </span>Retry::{<a href="Retry.rs.html#27-38">ErrorClass</a>, <a href="Retry.rs.html#105-112">RetryEvent</a>, <a href="Retry.rs.html#117-121">RetryManager</a>, <a href="Retry.rs.html#42-51">RetryPolicy</a>};
+<a href=#72 id=72 data-nosnippet>72</a><span class="kw">pub use </span>Retry::{<a href="Retry.rs.html#25-40">ErrorClass</a>, <a href="Retry.rs.html#136-148">RetryEvent</a>, <a href="Retry.rs.html#153-159">RetryManager</a>, <a href="Retry.rs.html#44-59">RetryPolicy</a>};
 <a href=#73 id=73 data-nosnippet>73</a>
-<a href=#74 id=74 data-nosnippet>74</a><span class="kw">pub mod </span><a href="Timeout.rs.html#1-109">Timeout</a>;
+<a href=#74 id=74 data-nosnippet>74</a><span class="kw">pub mod </span><a href="Timeout.rs.html#1-113">Timeout</a>;
 <a href=#75 id=75 data-nosnippet>75</a>
 <a href=#76 id=76 data-nosnippet>76</a><span class="kw">use </span>std::{
 <a href=#77 id=77 data-nosnippet>77</a>	<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">collections::HashMap</a>,
@@ -79,7 +79,7 @@
 <a href=#79 id=79 data-nosnippet>79</a>	time::{<a href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>, <a href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>},
 <a href=#80 id=80 data-nosnippet>80</a>};
 <a href=#81 id=81 data-nosnippet>81</a>
-<a href=#82 id=82 data-nosnippet>82</a><span class="kw">pub use </span><a href="Timeout.rs.html#19-22">Timeout::TimeoutManager</a>;
+<a href=#82 id=82 data-nosnippet>82</a><span class="kw">pub use </span><a href="Timeout.rs.html#17-21">Timeout::TimeoutManager</a>;
 <a href=#83 id=83 data-nosnippet>83</a><span class="kw">use </span>tokio::sync::{RwLock, broadcast};
 <a href=#84 id=84 data-nosnippet>84</a><span class="kw">use </span>serde::{<a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>};
 <a href=#85 id=85 data-nosnippet>85</a>
@@ -783,7 +783,7 @@
 <a href=#783 id=783 data-nosnippet>783</a><span class="doccomment">/// Resilience orchestrator combining all patterns
 <a href=#784 id=784 data-nosnippet>784</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>)]
 <a href=#785 id=785 data-nosnippet>785</a></span><span class="kw">pub struct </span><a href="#785-791">ResilienceOrchestrator</a> {
-<a href=#786 id=786 data-nosnippet>786</a>	retry_manager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="Retry.rs.html#117-121">RetryManager</a>&gt;,
+<a href=#786 id=786 data-nosnippet>786</a>	retry_manager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;<a href="Retry.rs.html#153-159">RetryManager</a>&gt;,
 <a href=#787 id=787 data-nosnippet>787</a>
 <a href=#788 id=788 data-nosnippet>788</a>	circuit_breakers:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;RwLock&lt;<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a href="#137-153">CircuitBreaker</a>&gt;&gt;&gt;,
 <a href=#789 id=789 data-nosnippet>789</a>
@@ -792,9 +792,9 @@
 <a href=#792 id=792 data-nosnippet>792</a>
 <a href=#793 id=793 data-nosnippet>793</a><span class="kw">impl </span><a href="#785-791">ResilienceOrchestrator</a> {
 <a href=#794 id=794 data-nosnippet>794</a>	<span class="doccomment">/// Create a new resilience orchestrator
-<a href=#795 id=795 data-nosnippet>795</a>	</span><span class="kw">pub fn </span>new(retry_policy:<a href="Retry.rs.html#42-51">RetryPolicy</a>) -&gt; <span class="self">Self </span>{
+<a href=#795 id=795 data-nosnippet>795</a>	</span><span class="kw">pub fn </span>new(retry_policy:<a href="Retry.rs.html#44-59">RetryPolicy</a>) -&gt; <span class="self">Self </span>{
 <a href=#796 id=796 data-nosnippet>796</a>		<span class="self">Self </span>{
-<a href=#797 id=797 data-nosnippet>797</a>			retry_manager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(<a href="Retry.rs.html#117-121">RetryManager</a>::<a href="Retry.rs.html#124-131">new</a>(<a href="#795">retry_policy</a>)),
+<a href=#797 id=797 data-nosnippet>797</a>			retry_manager:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(<a href="Retry.rs.html#153-159">RetryManager</a>::<a href="Retry.rs.html#162-172">new</a>(<a href="#795">retry_policy</a>)),
 <a href=#798 id=798 data-nosnippet>798</a>
 <a href=#799 id=799 data-nosnippet>799</a>			circuit_breakers:<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>::<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html#method.new">new</a>(RwLock::new(<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html">HashMap</a>::<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.new">new</a>())),
 <a href=#800 id=800 data-nosnippet>800</a>
@@ -858,7 +858,7 @@
 <a href=#858 id=858 data-nosnippet>858</a>
 <a href=#859 id=859 data-nosnippet>859</a>		service:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
 <a href=#860 id=860 data-nosnippet>860</a>
-<a href=#861 id=861 data-nosnippet>861</a>		retry_policy:<span class="kw-2">&amp;</span><a href="Retry.rs.html#42-51">RetryPolicy</a>,
+<a href=#861 id=861 data-nosnippet>861</a>		retry_policy:<span class="kw-2">&amp;</span><a href="Retry.rs.html#44-59">RetryPolicy</a>,
 <a href=#862 id=862 data-nosnippet>862</a>
 <a href=#863 id=863 data-nosnippet>863</a>		circuit_config:<a href="#105-114">CircuitBreakerConfig</a>,
 <a href=#864 id=864 data-nosnippet>864</a>
@@ -1003,7 +1003,7 @@
 <a href=#1003 id=1003 data-nosnippet>1003</a>	</span><span class="kw">pub fn </span>ValidateConfigurations(
 <a href=#1004 id=1004 data-nosnippet>1004</a>		<span class="kw-2">&amp;</span><span class="self">self</span>,
 <a href=#1005 id=1005 data-nosnippet>1005</a>
-<a href=#1006 id=1006 data-nosnippet>1006</a>		_RetryPolicy:<span class="kw-2">&amp;</span><a href="Retry.rs.html#42-51">RetryPolicy</a>,
+<a href=#1006 id=1006 data-nosnippet>1006</a>		_RetryPolicy:<span class="kw-2">&amp;</span><a href="Retry.rs.html#44-59">RetryPolicy</a>,
 <a href=#1007 id=1007 data-nosnippet>1007</a>
 <a href=#1008 id=1008 data-nosnippet>1008</a>		CircuitConfig:<span class="kw-2">&amp;</span><a href="#105-114">CircuitBreakerConfig</a>,
 <a href=#1009 id=1009 data-nosnippet>1009</a>

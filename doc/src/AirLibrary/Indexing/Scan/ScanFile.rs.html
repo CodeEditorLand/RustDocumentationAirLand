@@ -76,7 +76,7 @@
 <a href=#76 id=76 data-nosnippet>76</a><span class="doccomment">/// produce results that can be safely merged into shared state.
 <a href=#77 id=77 data-nosnippet>77</a></span><span class="kw">use </span><a href="../../DevLog.rs.html#142-200"><span class="kw">crate</span>::dev_log</a>;
 <a href=#78 id=78 data-nosnippet>78</a><span class="kw">use </span>crate::{
-<a href=#79 id=79 data-nosnippet>79</a>	<a href="../../Library.rs.html#248-296">AirError</a>,
+<a href=#79 id=79 data-nosnippet>79</a>	<a href="../../Library.rs.html#256-304">AirError</a>,
 <a href=#80 id=80 data-nosnippet>80</a>	<a href="../../Configuration/mod.rs.html#302-337">Configuration::IndexingConfig</a>,
 <a href=#81 id=81 data-nosnippet>81</a>	Indexing::{
 <a href=#82 id=82 data-nosnippet>82</a>		Process::{
@@ -85,7 +85,7 @@
 <a href=#85 id=85 data-nosnippet>85</a>		},
 <a href=#86 id=86 data-nosnippet>86</a>		State::CreateState::{<a href="../State/CreateState.rs.html#169-205">FileMetadata</a>, <a href="../State/CreateState.rs.html#81-96">SymbolInfo</a>},
 <a href=#87 id=87 data-nosnippet>87</a>	},
-<a href=#88 id=88 data-nosnippet>88</a>	<a class="prelude-ty" href="../../Library.rs.html#349">Result</a>,
+<a href=#88 id=88 data-nosnippet>88</a>	<a class="prelude-ty" href="../../Library.rs.html#357">Result</a>,
 <a href=#89 id=89 data-nosnippet>89</a>};
 <a href=#90 id=90 data-nosnippet>90</a>
 <a href=#91 id=91 data-nosnippet>91</a><span class="doccomment">/// Index a single file internally with comprehensive validation
@@ -298,7 +298,7 @@
 <a href=#298 id=298 data-nosnippet>298</a>}
 <a href=#299 id=299 data-nosnippet>299</a>
 <a href=#300 id=300 data-nosnippet>300</a><span class="doccomment">/// Check if file has been modified since last indexed
-<a href=#301 id=301 data-nosnippet>301</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Scan/ScanFile/fn.FileModifiedSince.html">FileModifiedSince</a>(file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, last_indexed:chrono::<a href="https://docs.rs/chrono/latest/chrono/datetime/struct.DateTime.html">DateTime</a>&lt;chrono::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>&gt;) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt; {
+<a href=#301 id=301 data-nosnippet>301</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/Scan/ScanFile/fn.FileModifiedSince.html">FileModifiedSince</a>(file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, last_indexed:chrono::<a href="https://docs.rs/chrono/latest/chrono/datetime/struct.DateTime.html">DateTime</a>&lt;chrono::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>&gt;) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt; {
 <a href=#302 id=302 data-nosnippet>302</a>	<span class="kw">let </span>metadata = std::fs::metadata(file_path)
 <a href=#303 id=303 data-nosnippet>303</a>		.map_err(|e| AirError::FileSystem(<span class="macro">format!</span>(<span class="string">"Failed to get file metadata: {}"</span>, e)))<span class="question-mark">?</span>;
 <a href=#304 id=304 data-nosnippet>304</a>

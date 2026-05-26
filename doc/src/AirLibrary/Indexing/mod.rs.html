@@ -83,7 +83,7 @@
 <a href=#83 id=83 data-nosnippet>83</a><span class="kw">use </span>tokio::sync::{Mutex, RwLock};
 <a href=#84 id=84 data-nosnippet>84</a>
 <a href=#85 id=85 data-nosnippet>85</a><span class="kw">use </span>crate::{
-<a href=#86 id=86 data-nosnippet>86</a>	<a href="../Library.rs.html#248-296">AirError</a>,
+<a href=#86 id=86 data-nosnippet>86</a>	<a href="../Library.rs.html#256-304">AirError</a>,
 <a href=#87 id=87 data-nosnippet>87</a>	<a href="../ApplicationState/mod.rs.html#102-123">ApplicationState::ApplicationState</a>,
 <a href=#88 id=88 data-nosnippet>88</a>	<a href="../Configuration/mod.rs.html#538-550">Configuration::ConfigurationManager</a>,
 <a href=#89 id=89 data-nosnippet>89</a>	Indexing::{
@@ -98,7 +98,7 @@
 <a href=#98 id=98 data-nosnippet>98</a>			<a href="Store/UpdateIndex.rs.html#165-195">UpdateIndex::UpdateFileContent</a>,
 <a href=#99 id=99 data-nosnippet>99</a>		},
 <a href=#100 id=100 data-nosnippet>100</a>	},
-<a href=#101 id=101 data-nosnippet>101</a>	<a class="prelude-ty" href="../Library.rs.html#349">Result</a>,
+<a href=#101 id=101 data-nosnippet>101</a>	<a class="prelude-ty" href="../Library.rs.html#357">Result</a>,
 <a href=#102 id=102 data-nosnippet>102</a>	<a href="../DevLog.rs.html#142-200">dev_log</a>,
 <a href=#103 id=103 data-nosnippet>103</a>};
 <a href=#104 id=104 data-nosnippet>104</a><span class="comment">// Import types from submodules with explicit full paths
@@ -225,14 +225,14 @@
 <a href=#225 id=225 data-nosnippet>225</a>	}
 <a href=#226 id=226 data-nosnippet>226</a>
 <a href=#227 id=227 data-nosnippet>227</a>	<span class="doccomment">/// Validate and expand path with traversal protection
-<a href=#228 id=228 data-nosnippet>228</a>	</span><span class="kw">fn </span>ValidateAndExpandPath(path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#349">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>&gt; {
+<a href=#228 id=228 data-nosnippet>228</a>	</span><span class="kw">fn </span>ValidateAndExpandPath(path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="../Library.rs.html#357">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>&gt; {
 <a href=#229 id=229 data-nosnippet>229</a>		<span class="kw">let </span>expanded = ConfigurationManager::ExpandPath(path)<span class="question-mark">?</span>;
 <a href=#230 id=230 data-nosnippet>230</a>
 <a href=#231 id=231 data-nosnippet>231</a>		<span class="comment">// Prevent path traversal attacks
 <a href=#232 id=232 data-nosnippet>232</a>		</span><span class="kw">let </span>path_str = <a href="#229">expanded</a>.<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html#method.to_string_lossy">to_string_lossy</a>();
 <a href=#233 id=233 data-nosnippet>233</a>
 <a href=#234 id=234 data-nosnippet>234</a>		<span class="kw">if </span><a href="#232">path_str</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.contains">contains</a>(<span class="string">".."</span>) {
-<a href=#235 id=235 data-nosnippet>235</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#259">FileSystem</a>(<span class="string">"Path contains invalid traversal sequence"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
+<a href=#235 id=235 data-nosnippet>235</a>			<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../Library.rs.html#267">FileSystem</a>(<span class="string">"Path contains invalid traversal sequence"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>()));
 <a href=#236 id=236 data-nosnippet>236</a>		}
 <a href=#237 id=237 data-nosnippet>237</a>
 <a href=#238 id=238 data-nosnippet>238</a>		<a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok">Ok</a>(<a href="#229">expanded</a>)

@@ -71,7 +71,7 @@
 <a href=#71 id=71 data-nosnippet>71</a><span class="kw">use </span>serde::{<a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Deserialize.html">Deserialize</a>, <a href="https://docs.rs/serde_derive/1.0.228/serde_derive/derive.Serialize.html">Serialize</a>};
 <a href=#72 id=72 data-nosnippet>72</a><span class="kw">use </span>sha2::{Digest, Sha256};
 <a href=#73 id=73 data-nosnippet>73</a>
-<a href=#74 id=74 data-nosnippet>74</a><span class="kw">use </span>crate::{<a href="../../Library.rs.html#248-296">AirError</a>, <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>};
+<a href=#74 id=74 data-nosnippet>74</a><span class="kw">use </span>crate::{<a href="../../Library.rs.html#256-304">AirError</a>, <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>};
 <a href=#75 id=75 data-nosnippet>75</a>
 <a href=#76 id=76 data-nosnippet>76</a><span class="doccomment">/// Maximum file size allowed for indexing (100MB)
 <a href=#77 id=77 data-nosnippet>77</a></span><span class="kw">pub const </span><a href="../../../../AirLibrary/Indexing/State/CreateState/constant.MAX_FILE_SIZE_BYTES.html">MAX_FILE_SIZE_BYTES</a>:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a> = <span class="number">100 </span>* <span class="number">1024 </span>* <span class="number">1024</span>;
@@ -254,7 +254,7 @@
 <a href=#254 id=254 data-nosnippet>254</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/CreateState/fn.GenerateIndexVersion.html">GenerateIndexVersion</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> { <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">"{}-{}"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), chrono::Utc::now().timestamp()) }
 <a href=#255 id=255 data-nosnippet>255</a>
 <a href=#256 id=256 data-nosnippet>256</a><span class="doccomment">/// Calculate index checksum for integrity verification
-<a href=#257 id=257 data-nosnippet>257</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/CreateState/fn.CalculateIndexChecksum.html">CalculateIndexChecksum</a>(index:<span class="kw-2">&amp;</span><a href="#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
+<a href=#257 id=257 data-nosnippet>257</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/CreateState/fn.CalculateIndexChecksum.html">CalculateIndexChecksum</a>(index:<span class="kw-2">&amp;</span><a href="#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt; {
 <a href=#258 id=258 data-nosnippet>258</a>	<span class="kw">let </span>checksum_input = <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#259 id=259 data-nosnippet>259</a>		<span class="string">"{}:{}:{}:{}"</span>,
 <a href=#260 id=260 data-nosnippet>260</a>		index.files.len(),
@@ -371,9 +371,9 @@
 <a href=#371 id=371 data-nosnippet>371</a></span><span class="kw">pub fn </span>GetPermissionsString(_metadata:<span class="kw-2">&amp;</span>std::fs::Metadata) -&gt; String { <span class="string">"--------"</span>.to_string() }
 <a href=#372 id=372 data-nosnippet>372</a>
 <a href=#373 id=373 data-nosnippet>373</a><span class="doccomment">/// Validate file size against maximum allowed
-<a href=#374 id=374 data-nosnippet>374</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/CreateState/fn.ValidateFileSize.html">ValidateFileSize</a>(size:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#374 id=374 data-nosnippet>374</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/CreateState/fn.ValidateFileSize.html">ValidateFileSize</a>(size:<a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#375 id=375 data-nosnippet>375</a>	<span class="kw">if </span><a href="#374">size</a> &gt; <a href="#77">MAX_FILE_SIZE_BYTES</a> {
-<a href=#376 id=376 data-nosnippet>376</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#259">FileSystem</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
+<a href=#376 id=376 data-nosnippet>376</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#267">FileSystem</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#377 id=377 data-nosnippet>377</a>			<span class="string">"File size {} exceeds maximum allowed size of {} bytes"</span>,
 <a href=#378 id=378 data-nosnippet>378</a>			size, MAX_FILE_SIZE_BYTES
 <a href=#379 id=379 data-nosnippet>379</a>		)));
@@ -383,13 +383,13 @@
 <a href=#383 id=383 data-nosnippet>383</a>}
 <a href=#384 id=384 data-nosnippet>384</a>
 <a href=#385 id=385 data-nosnippet>385</a><span class="doccomment">/// Check if index size is within sane limits
-<a href=#386 id=386 data-nosnippet>386</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/CreateState/fn.ValidateIndexSize.html">ValidateIndexSize</a>(index:<span class="kw-2">&amp;</span><a href="#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#386 id=386 data-nosnippet>386</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/CreateState/fn.ValidateIndexSize.html">ValidateIndexSize</a>(index:<span class="kw-2">&amp;</span><a href="#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#387 id=387 data-nosnippet>387</a>	<span class="kw">const </span>MAX_INDEXED_FILES:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <span class="number">1_000_000</span>;
 <a href=#388 id=388 data-nosnippet>388</a>
 <a href=#389 id=389 data-nosnippet>389</a>	<span class="kw">const </span>MAX_SYMBOLS:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <span class="number">10_000_000</span>;
 <a href=#390 id=390 data-nosnippet>390</a>
 <a href=#391 id=391 data-nosnippet>391</a>	<span class="kw">if </span><a href="#386">index</a>.files.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.len">len</a>() &gt; <a href="#387">MAX_INDEXED_FILES</a> {
-<a href=#392 id=392 data-nosnippet>392</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#268">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
+<a href=#392 id=392 data-nosnippet>392</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#276">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#393 id=393 data-nosnippet>393</a>			<span class="string">"Index exceeds maximum file count: {} &gt; {}"</span>,
 <a href=#394 id=394 data-nosnippet>394</a>			index.files.len(),
 <a href=#395 id=395 data-nosnippet>395</a>			MAX_INDEXED_FILES
@@ -399,7 +399,7 @@
 <a href=#399 id=399 data-nosnippet>399</a>	<span class="kw">let </span>total_symbols:<a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> = <a href="#386">index</a>.file_symbols.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.values">values</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.map">map</a>(|v| <a href="#399">v</a>.<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html#method.len">len</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html#method.sum">sum</a>();
 <a href=#400 id=400 data-nosnippet>400</a>
 <a href=#401 id=401 data-nosnippet>401</a>	<span class="kw">if </span><a href="#399">total_symbols</a> &gt; <a href="#389">MAX_SYMBOLS</a> {
-<a href=#402 id=402 data-nosnippet>402</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#268">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
+<a href=#402 id=402 data-nosnippet>402</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#276">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#403 id=403 data-nosnippet>403</a>			<span class="string">"Index exceeds maximum symbol count: {} &gt; {}"</span>,
 <a href=#404 id=404 data-nosnippet>404</a>			total_symbols, MAX_SYMBOLS
 <a href=#405 id=405 data-nosnippet>405</a>		)));

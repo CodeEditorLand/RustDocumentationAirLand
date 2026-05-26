@@ -67,9 +67,9 @@
 <a href=#67 id=67 data-nosnippet>67</a></span><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">std::path::PathBuf</a>;
 <a href=#68 id=68 data-nosnippet>68</a>
 <a href=#69 id=69 data-nosnippet>69</a><span class="kw">use </span>crate::{
-<a href=#70 id=70 data-nosnippet>70</a>	<a href="../../Library.rs.html#248-296">AirError</a>,
+<a href=#70 id=70 data-nosnippet>70</a>	<a href="../../Library.rs.html#256-304">AirError</a>,
 <a href=#71 id=71 data-nosnippet>71</a>	Indexing::State::CreateState::{<a href="CreateState.rs.html#209-232">FileIndex</a>, <a href="CreateState.rs.html#169-205">FileMetadata</a>, <a href="CreateState.rs.html#81-96">SymbolInfo</a>, <a href="CreateState.rs.html#156-165">SymbolLocation</a>},
-<a href=#72 id=72 data-nosnippet>72</a>	<a class="prelude-ty" href="../../Library.rs.html#349">Result</a>,
+<a href=#72 id=72 data-nosnippet>72</a>	<a class="prelude-ty" href="../../Library.rs.html#357">Result</a>,
 <a href=#73 id=73 data-nosnippet>73</a>};
 <a href=#74 id=74 data-nosnippet>74</a>
 <a href=#75 id=75 data-nosnippet>75</a><span class="doccomment">/// Add a file to the index with its metadata and symbols
@@ -81,7 +81,7 @@
 <a href=#81 id=81 data-nosnippet>81</a>	metadata:<a href="CreateState.rs.html#169-205">FileMetadata</a>,
 <a href=#82 id=82 data-nosnippet>82</a>
 <a href=#83 id=83 data-nosnippet>83</a>	symbols:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="CreateState.rs.html#81-96">SymbolInfo</a>&gt;,
-<a href=#84 id=84 data-nosnippet>84</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#84 id=84 data-nosnippet>84</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#85 id=85 data-nosnippet>85</a>	<span class="comment">// Check if file already exists and update accordingly
 <a href=#86 id=86 data-nosnippet>86</a>	</span><span class="kw">let </span>is_new = !<a href="#77">index</a>.files.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.contains_key">contains_key</a>(<span class="kw-2">&amp;</span><a href="#79">file_path</a>);
 <a href=#87 id=87 data-nosnippet>87</a>
@@ -110,7 +110,7 @@
 <a href=#110 id=110 data-nosnippet>110</a>}
 <a href=#111 id=111 data-nosnippet>111</a>
 <a href=#112 id=112 data-nosnippet>112</a><span class="doccomment">/// Remove a file from all indexes (content, symbols, files)
-<a href=#113 id=113 data-nosnippet>113</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.RemoveFileFromIndex.html">RemoveFileFromIndex</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#113 id=113 data-nosnippet>113</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.RemoveFileFromIndex.html">RemoveFileFromIndex</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#114 id=114 data-nosnippet>114</a>	<span class="comment">// Remove from files index
 <a href=#115 id=115 data-nosnippet>115</a>	</span><a href="#113">index</a>.files.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.remove">remove</a>(<a href="#113">file_path</a>);
 <a href=#116 id=116 data-nosnippet>116</a>
@@ -131,7 +131,7 @@
 <a href=#131 id=131 data-nosnippet>131</a>}
 <a href=#132 id=132 data-nosnippet>132</a>
 <a href=#133 id=133 data-nosnippet>133</a><span class="doccomment">/// Remove multiple files from the index in a batch operation
-<a href=#134 id=134 data-nosnippet>134</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.RemoveFilesFromIndex.html">RemoveFilesFromIndex</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_paths:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>]) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#134 id=134 data-nosnippet>134</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.RemoveFilesFromIndex.html">RemoveFilesFromIndex</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_paths:<span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>]) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#135 id=135 data-nosnippet>135</a>	<span class="kw">for </span>file_path <span class="kw">in </span>file_paths {
 <a href=#136 id=136 data-nosnippet>136</a>		RemoveFileFromIndex(index, file_path)<span class="question-mark">?</span>;
 <a href=#137 id=137 data-nosnippet>137</a>	}
@@ -140,7 +140,7 @@
 <a href=#140 id=140 data-nosnippet>140</a>}
 <a href=#141 id=141 data-nosnippet>141</a>
 <a href=#142 id=142 data-nosnippet>142</a><span class="doccomment">/// Update index metadata (version, timestamp, checksum)
-<a href=#143 id=143 data-nosnippet>143</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateIndexMetadata.html">UpdateIndexMetadata</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#143 id=143 data-nosnippet>143</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateIndexMetadata.html">UpdateIndexMetadata</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#144 id=144 data-nosnippet>144</a>	<span class="kw">use </span><span class="kw">crate</span>::Indexing::State::CreateState::{<a href="CreateState.rs.html#257-273">CalculateIndexChecksum</a>, <a href="CreateState.rs.html#254">GenerateIndexVersion</a>};
 <a href=#145 id=145 data-nosnippet>145</a>
 <a href=#146 id=146 data-nosnippet>146</a>	<a href="#143">index</a>.last_updated = chrono::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html">Utc</a>::<a href="https://docs.rs/chrono/latest/chrono/offset/utc/struct.Utc.html#method.now">now</a>();
@@ -153,9 +153,9 @@
 <a href=#153 id=153 data-nosnippet>153</a>}
 <a href=#154 id=154 data-nosnippet>154</a>
 <a href=#155 id=155 data-nosnippet>155</a><span class="doccomment">/// Update file metadata for an existing file
-<a href=#156 id=156 data-nosnippet>156</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateFileMetadata.html">UpdateFileMetadata</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, metadata:<a href="CreateState.rs.html#169-205">FileMetadata</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#156 id=156 data-nosnippet>156</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateFileMetadata.html">UpdateFileMetadata</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, metadata:<a href="CreateState.rs.html#169-205">FileMetadata</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#157 id=157 data-nosnippet>157</a>	<span class="kw">if </span>!<a href="#156">index</a>.files.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.contains_key">contains_key</a>(<a href="#156">file_path</a>) {
-<a href=#158 id=158 data-nosnippet>158</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#268">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
+<a href=#158 id=158 data-nosnippet>158</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#276">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#159 id=159 data-nosnippet>159</a>			<span class="string">"Cannot update metadata for file not in index: {}"</span>,
 <a href=#160 id=160 data-nosnippet>160</a>			file_path.display()
 <a href=#161 id=161 data-nosnippet>161</a>		)));
@@ -167,9 +167,9 @@
 <a href=#167 id=167 data-nosnippet>167</a>}
 <a href=#168 id=168 data-nosnippet>168</a>
 <a href=#169 id=169 data-nosnippet>169</a><span class="doccomment">/// Update symbols for a file
-<a href=#170 id=170 data-nosnippet>170</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateFileSymbols.html">UpdateFileSymbols</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, symbols:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="CreateState.rs.html#81-96">SymbolInfo</a>&gt;) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#170 id=170 data-nosnippet>170</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateFileSymbols.html">UpdateFileSymbols</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, symbols:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="CreateState.rs.html#81-96">SymbolInfo</a>&gt;) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#171 id=171 data-nosnippet>171</a>	<span class="kw">if </span>!<a href="#170">index</a>.files.<a href="https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html#method.contains_key">contains_key</a>(<a href="#170">file_path</a>) {
-<a href=#172 id=172 data-nosnippet>172</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#268">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
+<a href=#172 id=172 data-nosnippet>172</a>		<span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err">Err</a>(AirError::<a href="../../Library.rs.html#276">Internal</a>(<a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
 <a href=#173 id=173 data-nosnippet>173</a>			<span class="string">"Cannot update symbols for file not in index: {}"</span>,
 <a href=#174 id=174 data-nosnippet>174</a>			file_path.display()
 <a href=#175 id=175 data-nosnippet>175</a>		)));
@@ -199,7 +199,7 @@
 <a href=#199 id=199 data-nosnippet>199</a>}
 <a href=#200 id=200 data-nosnippet>200</a>
 <a href=#201 id=201 data-nosnippet>201</a><span class="doccomment">/// Update content index for a file
-<a href=#202 id=202 data-nosnippet>202</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateContentIndex.html">UpdateContentIndex</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, tokens:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#202 id=202 data-nosnippet>202</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.UpdateContentIndex.html">UpdateContentIndex</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, file_path:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, tokens:<a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#203 id=203 data-nosnippet>203</a>	<span class="comment">// Remove file from existing content index entries
 <a href=#204 id=204 data-nosnippet>204</a>	</span><span class="kw">for </span>(<span class="kw">_</span>, files) <span class="kw">in </span>index.content_index.iter_mut() {
 <a href=#205 id=205 data-nosnippet>205</a>		files.retain(|p| p != file_path);
@@ -221,7 +221,7 @@
 <a href=#221 id=221 data-nosnippet>221</a>}
 <a href=#222 id=222 data-nosnippet>222</a>
 <a href=#223 id=223 data-nosnippet>223</a><span class="doccomment">/// Clean up orphaned entries (files with no matching content/symbols)
-<a href=#224 id=224 data-nosnippet>224</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.CleanupOrphanedEntries.html">CleanupOrphanedEntries</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt; {
+<a href=#224 id=224 data-nosnippet>224</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.CleanupOrphanedEntries.html">CleanupOrphanedEntries</a>(index:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt; {
 <a href=#225 id=225 data-nosnippet>225</a>	<span class="kw">let </span><span class="kw-2">mut </span>removed_count = <span class="number">0</span>;
 <a href=#226 id=226 data-nosnippet>226</a>
 <a href=#227 id=227 data-nosnippet>227</a>	<span class="comment">// Clean up content index entries with no files
@@ -256,7 +256,7 @@
 <a href=#256 id=256 data-nosnippet>256</a>}
 <a href=#257 id=257 data-nosnippet>257</a>
 <a href=#258 id=258 data-nosnippet>258</a><span class="doccomment">/// Merge another index into this one
-<a href=#259 id=259 data-nosnippet>259</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.MergeIndexes.html">MergeIndexes</a>(target:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, source:<a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt; {
+<a href=#259 id=259 data-nosnippet>259</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.MergeIndexes.html">MergeIndexes</a>(target:<span class="kw-2">&amp;mut </span><a href="CreateState.rs.html#209-232">FileIndex</a>, source:<a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt; {
 <a href=#260 id=260 data-nosnippet>260</a>	<span class="kw">let </span><span class="kw-2">mut </span>merged_files = <span class="number">0</span>;
 <a href=#261 id=261 data-nosnippet>261</a>
 <a href=#262 id=262 data-nosnippet>262</a>	<span class="comment">// Merge files
@@ -296,7 +296,7 @@
 <a href=#296 id=296 data-nosnippet>296</a>}
 <a href=#297 id=297 data-nosnippet>297</a>
 <a href=#298 id=298 data-nosnippet>298</a><span class="doccomment">/// Validate that index is in a consistent state
-<a href=#299 id=299 data-nosnippet>299</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.ValidateIndexConsistency.html">ValidateIndexConsistency</a>(index:<span class="kw-2">&amp;</span><a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#349">Result</a>&lt;()&gt; {
+<a href=#299 id=299 data-nosnippet>299</a></span><span class="kw">pub fn </span><a href="../../../../AirLibrary/Indexing/State/UpdateState/fn.ValidateIndexConsistency.html">ValidateIndexConsistency</a>(index:<span class="kw-2">&amp;</span><a href="CreateState.rs.html#209-232">FileIndex</a>) -&gt; <a class="prelude-ty" href="../../Library.rs.html#357">Result</a>&lt;()&gt; {
 <a href=#300 id=300 data-nosnippet>300</a>	<span class="comment">// Check that all files in content_index exist in files
 <a href=#301 id=301 data-nosnippet>301</a>	</span><span class="kw">for </span>(<span class="kw">_</span>, files) <span class="kw">in </span><span class="kw-2">&amp;</span>index.content_index {
 <a href=#302 id=302 data-nosnippet>302</a>		<span class="kw">for </span>file_path <span class="kw">in </span>files {
