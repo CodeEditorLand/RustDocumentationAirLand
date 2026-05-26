@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Metrics Collection and Export Module"><title>AirLibrary::Metrics - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module Metrics</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Metrics</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#metrics-collection-and-export-module" title="Metrics Collection and Export Module">Metrics Collection and Export Module</a><ul><li><a href="#responsibilities" title="Responsibilities">Responsibilities</a></li><li><a href="#integration-with-mountain" title="Integration with Mountain">Integration with Mountain</a></li><li><a href="#vscode-telemetry-references" title="VSCode Telemetry References">VSCode Telemetry References</a></li><li><a href="#thread-safety" title="Thread Safety">Thread Safety</a></li></ul></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a><ul><li><a href="#sensitive-data-handling" title="Sensitive Data Handling">Sensitive Data Handling</a></li></ul></li></ul><h3><a href="#structs">Module Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#statics" title="Statics">Statics</a></li><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Metrics</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/Metrics/mod.rs.html#1-734">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="metrics-collection-and-export-module"><a class="doc-anchor" href="#metrics-collection-and-export-module">§</a>Metrics Collection and Export Module</h2>
+<p>Provides Prometheus-compatible metrics collection and export for the Air
+daemon. Includes request latency histograms, resource usage metrics, error
+rate tracking, thread-safe metric updates with overflow protection, and
+aggregation validation.</p>
+<h3 id="responsibilities"><a class="doc-anchor" href="#responsibilities">§</a>Responsibilities</h3><h4 id="request-metrics"><a class="doc-anchor" href="#request-metrics">§</a>Request Metrics</h4>
+<ul>
+<li>Total request count tracking with counter overflow protection</li>
+<li>Success/failure rate calculation</li>
+<li>Latency histogram with bucket aggregation</li>
+<li>Request throughput measurement</li>
+</ul>
+<h4 id="error-metrics"><a class="doc-anchor" href="#error-metrics">§</a>Error Metrics</h4>
+<ul>
+<li>Total error count with classification</li>
+<li>Error rate calculation by type</li>
+<li>Error aggregation and validation</li>
+<li>Error threshold alerting</li>
+</ul>
+<h4 id="resource-metrics"><a class="doc-anchor" href="#resource-metrics">§</a>Resource Metrics</h4>
+<ul>
+<li>Memory usage monitoring with allocation tracking</li>
+<li>CPU utilization percentage</li>
+<li>Active connection count</li>
+<li>Thread activity monitoring</li>
+<li>Resource pool utilization</li>
+</ul>
+<h4 id="service-specific-metrics"><a class="doc-anchor" href="#service-specific-metrics">§</a>Service-Specific Metrics</h4>
+<ul>
+<li>Authentication success/failure tracking</li>
+<li>Download completion rates</li>
+<li>Indexing operation metrics</li>
+<li>Update deployment statistics</li>
+</ul>
+<h3 id="integration-with-mountain"><a class="doc-anchor" href="#integration-with-mountain">§</a>Integration with Mountain</h3>
+<p>Metrics flow directly to Mountain’s telemetry UI:</p>
+<ul>
+<li>Prometheus exposition format endpoint</li>
+<li>Real-time metric streaming</li>
+<li>Historical data retention</li>
+<li>Custom dashboards and alerting</li>
+</ul>
+<h3 id="vscode-telemetry-references"><a class="doc-anchor" href="#vscode-telemetry-references">§</a>VSCode Telemetry References</h3>
+<p>Similar telemetry patterns used in VSCode for:</p>
+<ul>
+<li>Performance monitoring and profiling</li>
+<li>Usage statistics and feature adoption</li>
+<li>Error tracking and crash reporting</li>
+<li>Extension marketplace analytics</li>
+</ul>
+<p>Reference:
+vs/workbench/services/telemetry</p>
+<h3 id="thread-safety"><a class="doc-anchor" href="#thread-safety">§</a>Thread Safety</h3>
+<p>All metric updates are thread-safe using:</p>
+<ul>
+<li>Arc for shared ownership across threads</li>
+<li>Atomic operations where possible</li>
+<li>Mutex locks for complex aggregations</li>
+<li>Lock-free counters for high-frequency updates</li>
+</ul>
+<h2 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h2>
+<ul>
+<li>[DISTRIBUTED TRACING] Integrate with OpenTelemetry for distributed tracing
+metrics</li>
+<li>[CUSTOM METRICS] Add custom metric types for business KPIs</li>
+<li><code>ALERTING</code>: Implement metric-based alerting thresholds</li>
+<li><code>AGGREGATION</code>: Add time-windowed aggregations (1m, 5m, 15m)</li>
+<li><code>EXPORT</code>: Add support for external monitoring systems (Datadog, New Relic)</li>
+</ul>
+<h3 id="sensitive-data-handling"><a class="doc-anchor" href="#sensitive-data-handling">§</a>Sensitive Data Handling</h3>
+<p>Metrics aggregation ensures sensitive data is excluded:</p>
+<ul>
+<li>No request payloads in metrics</li>
+<li>No authentication tokens in labels</li>
+<li>No user-identifiable information in error classifications</li>
+<li>IP addresses and PII are aggregated, not logged individually</li>
+</ul>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.AggregationValidator.html" title="struct AirLibrary::Metrics::AggregationValidator">Aggregation<wbr>Validator</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Aggregation validation for metric integrity</dd><dt><a class="struct" href="struct.MetricGuard.html" title="struct AirLibrary::Metrics::MetricGuard">Metric<wbr>Guard</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Overflow-protected metric update helper</dd><dt><a class="struct" href="struct.MetricsCollector.html" title="struct AirLibrary::Metrics::MetricsCollector">Metrics<wbr>Collector</a></dt><dd>MetricsCollector for collecting and exporting Prometheus metrics with thread
+safety</dd><dt><a class="struct" href="struct.MetricsData.html" title="struct AirLibrary::Metrics::MetricsData">Metrics<wbr>Data</a></dt><dd>Structured metrics data for serialization</dd></dl><h2 id="statics" class="section-header">Statics<a href="#statics" class="anchor">§</a></h2><dl class="item-table"><dt><a class="static" href="static.METRICS_INSTANCE.html" title="static AirLibrary::Metrics::METRICS_INSTANCE">METRICS_<wbr>INSTANCE</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Global metrics collector instance</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.GetMetrics.html" title="fn AirLibrary::Metrics::GetMetrics">GetMetrics</a></dt><dd>Get or initialize the global metrics collector</dd><dt><a class="fn" href="fn.InitializeMetrics.html" title="fn AirLibrary::Metrics::InitializeMetrics">Initialize<wbr>Metrics</a></dt><dd>Initialize the global metrics collector</dd><dt><a class="fn" href="fn.MinMaxUpdate.html" title="fn AirLibrary::Metrics::MinMaxUpdate">MinMax<wbr>Update</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Helper function to update min/max values atomically</dd></dl></section></div></main></body></html>

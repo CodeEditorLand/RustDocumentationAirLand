@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="File Indexing and Search Service"><title>AirLibrary::Indexing - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module Indexing</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Indexing</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#file-indexing-and-search-service" title="File Indexing and Search Service">File Indexing and Search Service</a><ul><li><a href="#file-indexingmodrs" title="File: Indexing/mod.rs">File: Indexing/mod.rs</a></li><li><a href="#role-in-air-architecture" title="Role in Air Architecture">Role in Air Architecture</a></li><li><a href="#primary-responsibility" title="Primary Responsibility">Primary Responsibility</a></li><li><a href="#secondary-responsibilities" title="Secondary Responsibilities">Secondary Responsibilities</a></li><li><a href="#dependencies" title="Dependencies">Dependencies</a></li><li><a href="#dependents" title="Dependents">Dependents</a></li><li><a href="#vscode-integration" title="VSCode Integration">VSCode Integration</a></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a></li></ul></li></ul><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Indexing</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/Indexing/mod.rs.html#1-511">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="file-indexing-and-search-service"><a class="doc-anchor" href="#file-indexing-and-search-service">§</a>File Indexing and Search Service</h2><h3 id="file-indexingmodrs"><a class="doc-anchor" href="#file-indexingmodrs">§</a>File: Indexing/mod.rs</h3><h3 id="role-in-air-architecture"><a class="doc-anchor" href="#role-in-air-architecture">§</a>Role in Air Architecture</h3>
+<p>Provides comprehensive file indexing, search, and content analysis
+capabilities for the Land ecosystem, inspired by and compatible with
+Visual Studio Code’s search service.</p>
+<h3 id="primary-responsibility"><a class="doc-anchor" href="#primary-responsibility">§</a>Primary Responsibility</h3>
+<p>Facade module for the Indexing service, exposing the public API for
+file indexing, search, and symbol extraction operations.</p>
+<h3 id="secondary-responsibilities"><a class="doc-anchor" href="#secondary-responsibilities">§</a>Secondary Responsibilities</h3>
+<ul>
+<li>Re-export public types from submodule</li>
+<li>Provide unified FileIndexer API</li>
+<li>Coordinate between indexing subsystems</li>
+</ul>
+<h3 id="dependencies"><a class="doc-anchor" href="#dependencies">§</a>Dependencies</h3>
+<p><strong>External Crates:</strong></p>
+<ul>
+<li><code>regex</code> - Regular expression search patterns</li>
+<li><code>serde</code> - Serialization for index storage</li>
+<li><code>tokio</code> - Async runtime for all operations</li>
+<li><code>notify</code> - File system watching</li>
+<li><code>chrono</code> - Timestamp management</li>
+</ul>
+<p><strong>Internal Modules:</strong></p>
+<ul>
+<li><code>crate::Result</code> - Error handling type</li>
+<li><code>crate::AirError</code> - Error types</li>
+<li><code>crate::ApplicationState::ApplicationState</code> - Application state</li>
+<li><code>crate::Configuration::ConfigurationManager</code> - Configuration management</li>
+</ul>
+<h3 id="dependents"><a class="doc-anchor" href="#dependents">§</a>Dependents</h3>
+<ul>
+<li><code>Indexing::FileIndexer</code> - Main indexer implementation</li>
+<li><code>Vine::Server::AirVinegRPCService</code> - gRPC integration</li>
+</ul>
+<h3 id="vscode-integration"><a class="doc-anchor" href="#vscode-integration">§</a>VSCode Integration</h3>
+<p>This service integrates with VSCode’s search and file service architecture:</p>
+<ul>
+<li>References: vs/workbench/services/search</li>
+<li>File Service: vs/workbench/services/files</li>
+</ul>
+<p>The indexing system supports VSCode features:</p>
+<ul>
+<li><strong>Outline View</strong>: Symbol extraction for class/function navigation</li>
+<li><strong>Go to Symbol</strong>: Cross-file symbol search and lookup</li>
+<li><strong>Search Integration</strong>: File content and name search with regex support</li>
+<li><strong>Workspace Search</strong>: Multi-workspace index sharing</li>
+</ul>
+<h3 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+Implement full ripgrep integration for ultra-fast text search</li>
+<li><input disabled="" type="checkbox"/>
+Add project-level search with workspace awareness</li>
+<li><input disabled="" type="checkbox"/>
+Implement search query caching</li>
+<li><input disabled="" type="checkbox"/>
+Add fuzzy search with typos tolerance</li>
+<li><input disabled="" type="checkbox"/>
+Implement search history and recent queries</li>
+<li><input disabled="" type="checkbox"/>
+Add search result preview with context</li>
+<li><input disabled="" type="checkbox"/>
+Implement parallel indexing for large directories</li>
+</ul>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="Background/index.html" title="mod AirLibrary::Indexing::Background">Background</a></dt><dd>Background task management</dd><dt><a class="mod" href="Language/index.html" title="mod AirLibrary::Indexing::Language">Language</a></dt><dd>Language-specific parsing modules</dd><dt><a class="mod" href="Process/index.html" title="mod AirLibrary::Indexing::Process">Process</a></dt><dd>Process Module</dd><dt><a class="mod" href="Scan/index.html" title="mod AirLibrary::Indexing::Scan">Scan</a></dt><dd>Scanning functionality for file indexing</dd><dt><a class="mod" href="State/index.html" title="mod AirLibrary::Indexing::State">State</a></dt><dd>State Module</dd><dt><a class="mod" href="Store/index.html" title="mod AirLibrary::Indexing::Store">Store</a></dt><dd>Storage functionality for file indexing</dd><dt><a class="mod" href="Watch/index.html" title="mod AirLibrary::Indexing::Watch">Watch</a></dt><dd>File watching functionality</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.FileIndexer.html" title="struct AirLibrary::Indexing::FileIndexer">File<wbr>Indexer</a></dt><dd>File indexer implementation with comprehensive search capabilities</dd><dt><a class="struct" href="struct.IndexResult.html" title="struct AirLibrary::Indexing::IndexResult">Index<wbr>Result</a></dt><dd>Indexing result with statistics</dd><dt><a class="struct" href="struct.IndexStatistics.html" title="struct AirLibrary::Indexing::IndexStatistics">Index<wbr>Statistics</a></dt><dd>Index statistics</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.MAX_PARALLEL_INDEXING.html" title="constant AirLibrary::Indexing::MAX_PARALLEL_INDEXING">MAX_<wbr>PARALLEL_<wbr>INDEXING</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Maximum number of parallel indexing operations</dd></dl></section></div></main></body></html>

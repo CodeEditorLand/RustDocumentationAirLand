@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="ProcessContent"><title>AirLibrary::Indexing::Process::ProcessContent - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module ProcessContent</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Process<wbr>Content</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#processcontent" title="ProcessContent">ProcessContent</a><ul><li><a href="#file-indexingprocessprocesscontentrs" title="File: Indexing/Process/ProcessContent.rs">File: Indexing/Process/ProcessContent.rs</a></li><li><a href="#role-in-air-architecture" title="Role in Air Architecture">Role in Air Architecture</a></li><li><a href="#primary-responsibility" title="Primary Responsibility">Primary Responsibility</a></li><li><a href="#secondary-responsibilities" title="Secondary Responsibilities">Secondary Responsibilities</a></li><li><a href="#dependencies" title="Dependencies">Dependencies</a></li><li><a href="#dependents" title="Dependents">Dependents</a></li><li><a href="#vscode-pattern-reference" title="VSCode Pattern Reference">VSCode Pattern Reference</a></li><li><a href="#security-considerations" title="Security Considerations">Security Considerations</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li><li><a href="#error-handling-strategy" title="Error Handling Strategy">Error Handling Strategy</a></li><li><a href="#thread-safety" title="Thread Safety">Thread Safety</a></li></ul></li></ul><h3><a href="#functions">Module Items</a></h3><ul class="block"><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In AirLibrary::<wbr>Indexing::<wbr>Process</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../index.html">AirLibrary</a>::<wbr><a href="../../index.html">Indexing</a>::<wbr><a href="../index.html">Process</a></div><h1>Module <span>Process<wbr>Content</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../../src/AirLibrary/Indexing/Process/ProcessContent.rs.html#1-496">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="processcontent"><a class="doc-anchor" href="#processcontent">§</a>ProcessContent</h2><h3 id="file-indexingprocessprocesscontentrs"><a class="doc-anchor" href="#file-indexingprocessprocesscontentrs">§</a>File: Indexing/Process/ProcessContent.rs</h3><h3 id="role-in-air-architecture"><a class="doc-anchor" href="#role-in-air-architecture">§</a>Role in Air Architecture</h3>
+<p>Provides content processing functionality for the File Indexer service,
+handling encoding detection, MIME type detection, and content tokenization.</p>
+<h3 id="primary-responsibility"><a class="doc-anchor" href="#primary-responsibility">§</a>Primary Responsibility</h3>
+<p>Process file content for indexing by detecting encoding, mime types, and
+tokenizing text for search operations.</p>
+<h3 id="secondary-responsibilities"><a class="doc-anchor" href="#secondary-responsibilities">§</a>Secondary Responsibilities</h3>
+<ul>
+<li>File encoding detection (UTF-8, UTF-16, ASCII)</li>
+<li>MIME type detection from extensions and content</li>
+<li>Content tokenization for search indexing</li>
+<li>Language detection for code analysis</li>
+</ul>
+<h3 id="dependencies"><a class="doc-anchor" href="#dependencies">§</a>Dependencies</h3>
+<p><strong>External Crates:</strong></p>
+<ul>
+<li>None (uses std library)</li>
+</ul>
+<p><strong>Internal Modules:</strong></p>
+<ul>
+<li><code>crate::Result</code> - Error handling type</li>
+</ul>
+<h3 id="dependents"><a class="doc-anchor" href="#dependents">§</a>Dependents</h3>
+<ul>
+<li><code>Indexing::Scan::ScanFile</code> - Content processing during file scan</li>
+<li><code>Indexing::Store::StoreEntry</code> - Index storage operations</li>
+</ul>
+<h3 id="vscode-pattern-reference"><a class="doc-anchor" href="#vscode-pattern-reference">§</a>VSCode Pattern Reference</h3>
+<p>Inspired by VSCode’s content processing in
+<code>src/vs/base/node/encoding/</code></p>
+<h3 id="security-considerations"><a class="doc-anchor" href="#security-considerations">§</a>Security Considerations</h3>
+<ul>
+<li>Safe BOM marker detection</li>
+<li>Null byte filtering</li>
+<li>Length limits on processed content</li>
+</ul>
+<h3 id="performance-considerations"><a class="doc-anchor" href="#performance-considerations">§</a>Performance Considerations</h3>
+<ul>
+<li>Efficient tokenization with minimal allocations</li>
+<li>Early termination for binary files</li>
+<li>Lazy content evaluation</li>
+</ul>
+<h3 id="error-handling-strategy"><a class="doc-anchor" href="#error-handling-strategy">§</a>Error Handling Strategy</h3>
+<p>Content processing functions return Option or safe defaults when
+detection fails, rather than errors, to allow indexing to continue.</p>
+<h3 id="thread-safety"><a class="doc-anchor" href="#thread-safety">§</a>Thread Safety</h3>
+<p>Content processing functions are pure and safe to call from
+parallel indexing tasks.</p>
+</div></details><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.ContentToString.html" title="fn AirLibrary::Indexing::Process::ProcessContent::ContentToString">Content<wbr>ToString</a></dt><dd>Convert content to UTF-8 string with error handling</dd><dt><a class="fn" href="fn.DetectEncoding.html" title="fn AirLibrary::Indexing::Process::ProcessContent::DetectEncoding">Detect<wbr>Encoding</a></dt><dd>Detect file encoding (simplified detection)</dd><dt><a class="fn" href="fn.DetectLanguage.html" title="fn AirLibrary::Indexing::Process::ProcessContent::DetectLanguage">Detect<wbr>Language</a></dt><dd>Detect programming language from file extension and shebang</dd><dt><a class="fn" href="fn.DetectMimeType.html" title="fn AirLibrary::Indexing::Process::ProcessContent::DetectMimeType">Detect<wbr>Mime<wbr>Type</a></dt><dd>Detect MIME type with comprehensive file type detection</dd><dt><a class="fn" href="fn.DetectMimeTypeFromContent.html" title="fn AirLibrary::Indexing::Process::ProcessContent::DetectMimeTypeFromContent">Detect<wbr>Mime<wbr>Type<wbr>From<wbr>Content</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Detect MIME type from content (magic numbers)</dd><dt><a class="fn" href="fn.GetCharCount.html" title="fn AirLibrary::Indexing::Process::ProcessContent::GetCharCount">GetChar<wbr>Count</a></dt><dd>Get char count from content</dd><dt><a class="fn" href="fn.GetLineCount.html" title="fn AirLibrary::Indexing::Process::ProcessContent::GetLineCount">GetLine<wbr>Count</a></dt><dd>Get line count from content</dd><dt><a class="fn" href="fn.IsBinaryContent.html" title="fn AirLibrary::Indexing::Process::ProcessContent::IsBinaryContent">IsBinary<wbr>Content</a></dt><dd>Check if content is likely binary (contains null bytes or high ratio of
+non-text)</dd><dt><a class="fn" href="fn.SanitizeContent.html" title="fn AirLibrary::Indexing::Process::ProcessContent::SanitizeContent">Sanitize<wbr>Content</a></dt><dd>Remove null bytes and control characters from content</dd><dt><a class="fn" href="fn.TokenizeContent.html" title="fn AirLibrary::Indexing::Process::ProcessContent::TokenizeContent">Tokenize<wbr>Content</a></dt><dd>Tokenize content for indexing with improved word boundary handling</dd><dt><a class="fn" href="fn.TruncateContent.html" title="fn AirLibrary::Indexing::Process::ProcessContent::TruncateContent">Truncate<wbr>Content</a></dt><dd>Truncate content to specified maximum size in characters</dd></dl></section></div></main></body></html>

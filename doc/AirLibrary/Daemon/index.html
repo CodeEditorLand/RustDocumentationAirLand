@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Daemon Lifecycle Management"><title>AirLibrary::Daemon - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module Daemon</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Daemon</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#daemon-lifecycle-management" title="Daemon Lifecycle Management">Daemon Lifecycle Management</a><ul><li><a href="#architecture-overview" title="Architecture Overview">Architecture Overview</a></li><li><a href="#core-responsibilities" title="Core Responsibilities">Core Responsibilities</a></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a></li><li><a href="#platform-specific-considerations" title="Platform-Specific Considerations">Platform-Specific Considerations</a></li><li><a href="#security-considerations" title="Security Considerations">Security Considerations</a></li><li><a href="#error-handling" title="Error Handling">Error Handling</a></li></ul></li></ul><h3><a href="#structs">Module Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Daemon</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/Daemon/mod.rs.html#1-1147">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="daemon-lifecycle-management"><a class="doc-anchor" href="#daemon-lifecycle-management">§</a>Daemon Lifecycle Management</h2>
+<p>This module provides comprehensive daemon lifecycle management for the Air
+daemon service, responsible for managing background processes in the Land
+code editor ecosystem.</p>
+<h3 id="architecture-overview"><a class="doc-anchor" href="#architecture-overview">§</a>Architecture Overview</h3>
+<p>The daemon follows VSCode’s daemon architecture pattern:</p>
+<ul>
+<li>Reference: VSCode service management
+(Dependency/Microsoft/Editor/src/vs/base/node/processexitorutility)</li>
+<li>Singleton enforcement through PID file locking</li>
+<li>Platform-native service integration (systemd, launchd, Windows Service)</li>
+<li>Graceful shutdown coordination with Mountain (main editor process)</li>
+<li>Resource cleanup and state persistence across restarts</li>
+</ul>
+<h3 id="core-responsibilities"><a class="doc-anchor" href="#core-responsibilities">§</a>Core Responsibilities</h3>
+<ol>
+<li>
+<p><strong>Process Management</strong></p>
+<ul>
+<li>PID file creation, validation, and cleanup</li>
+<li>Checksum-based PID file integrity verification</li>
+<li>Process existence validation and stale detection</li>
+<li>Race condition protection for lock acquisition</li>
+<li>Timeout handling for all async operations</li>
+</ul>
+</li>
+<li>
+<p><strong>Service Installation</strong></p>
+<ul>
+<li>systemd service generation and installation (Linux)</li>
+<li>launchd plist generation and installation (macOS)</li>
+<li>Windows Service registration (Windows using winsvc)</li>
+<li>Service validation and health checks</li>
+<li>Post-installation verification</li>
+</ul>
+</li>
+<li>
+<p><strong>Lifecycle Coordination</strong></p>
+<ul>
+<li>Lock acquisition with atomic operations</li>
+<li>Graceful shutdown signals</li>
+<li>Resource cleanup on errors</li>
+<li>State persistence and recovery</li>
+</ul>
+</li>
+<li>
+<p><strong>Platform Integration</strong></p>
+<ul>
+<li>Linux: systemd socket activation support</li>
+<li>macOS: launchd session management</li>
+<li>Windows: Windows Service API integration</li>
+<li>Cross-platform log rotation</li>
+</ul>
+</li>
+</ol>
+<h3 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+Implement Windows winsvc integration for actual service registration</li>
+<li><input disabled="" type="checkbox"/>
+Add systemd socket activation support</li>
+<li><input disabled="" type="checkbox"/>
+Implement daemon auto-update notifications</li>
+<li><input disabled="" type="checkbox"/>
+Add crash recovery and state restoration</li>
+<li><input disabled="" type="checkbox"/>
+Implement daemon health monitoring with metrics</li>
+<li><input disabled="" type="checkbox"/>
+Add log rotation for daemon logs</li>
+<li><input disabled="" type="checkbox"/>
+Implement daemon upgrade path (in-place hot reload)</li>
+<li><input disabled="" type="checkbox"/>
+Add daemon configuration reloading without restart</li>
+<li><input disabled="" type="checkbox"/>
+Implement grace period for Mountain shutdown coordination</li>
+<li><input disabled="" type="checkbox"/>
+Add daemon sandbox support for security isolation</li>
+</ul>
+<h3 id="platform-specific-considerations"><a class="doc-anchor" href="#platform-specific-considerations">§</a>Platform-Specific Considerations</h3><h4 id="linux-systemd"><a class="doc-anchor" href="#linux-systemd">§</a>Linux (systemd)</h4>
+<ul>
+<li>PID file location: <code>/var/run/Air.pid</code></li>
+<li>Service file: <code>/etc/systemd/system/Air-daemon.service</code></li>
+<li>Requires root privileges for installation</li>
+<li>Supports socket activation and notify-ready</li>
+</ul>
+<h4 id="macos-launchd"><a class="doc-anchor" href="#macos-launchd">§</a>macOS (launchd)</h4>
+<ul>
+<li>PID file location: <code>/tmp/Air.pid</code></li>
+<li>Service file: <code>/Library/LaunchDaemons/Air-daemon.plist</code></li>
+<li>Requires root privileges for system daemon</li>
+<li>Supports launchctl unload/start/stop commands</li>
+</ul>
+<h4 id="windows"><a class="doc-anchor" href="#windows">§</a>Windows</h4>
+<ul>
+<li>PID file location: <code>C:\ProgramData\Air\Air.pid</code></li>
+<li>Service registration via SCManager API</li>
+<li>Requires Administrator privileges</li>
+<li>Uses winsvc crate or similar for service management</li>
+</ul>
+<h3 id="security-considerations"><a class="doc-anchor" href="#security-considerations">§</a>Security Considerations</h3>
+<ul>
+<li>PID file protected with checksum to prevent tampering</li>
+<li>Directory creation with secure permissions (0700)</li>
+<li>SUID/SGID not used for security</li>
+<li>User-level isolation for multi-user systems</li>
+</ul>
+<h3 id="error-handling"><a class="doc-anchor" href="#error-handling">§</a>Error Handling</h3>
+<p>All operations return <code>Result&lt;T&gt;</code> with comprehensive error types:</p>
+<ul>
+<li><code>ServiceUnavailable</code>: Daemon already running or unavailable</li>
+<li><code>FileSystem</code>: PID file or directory operations failed</li>
+<li><code>PermissionDenied</code>: Insufficient privileges for service operations</li>
+</ul>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.DaemonManager.html" title="struct AirLibrary::Daemon::DaemonManager">Daemon<wbr>Manager</a></dt><dd>Daemon lifecycle manager</dd><dt><a class="struct" href="struct.DaemonStatus.html" title="struct AirLibrary::Daemon::DaemonStatus">Daemon<wbr>Status</a></dt><dd>Daemon status information</dd><dt><a class="struct" href="struct.PlatformInfo.html" title="struct AirLibrary::Daemon::PlatformInfo">Platform<wbr>Info</a></dt><dd>Platform-specific daemon information</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.ExitCode.html" title="enum AirLibrary::Daemon::ExitCode">Exit<wbr>Code</a></dt><dd>Exit codes for daemon operations</dd><dt><a class="enum" href="enum.Platform.html" title="enum AirLibrary::Daemon::Platform">Platform</a></dt><dd>Platform enum</dd></dl></section></div></main></body></html>

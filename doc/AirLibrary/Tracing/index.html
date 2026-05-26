@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Distributed Tracing Module"><title>AirLibrary::Tracing - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module Tracing</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Tracing</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#distributed-tracing-module" title="Distributed Tracing Module">Distributed Tracing Module</a><ul><li><a href="#responsibilities" title="Responsibilities">Responsibilities</a></li><li><a href="#integration-with-mountain" title="Integration with Mountain">Integration with Mountain</a></li><li><a href="#vscode-debugging-references" title="VSCode Debugging References">VSCode Debugging References</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li></ul></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a><ul><li><a href="#sensitive-data-handling" title="Sensitive Data Handling">Sensitive Data Handling</a></li></ul></li></ul><h3><a href="#structs">Module Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#statics" title="Statics">Statics</a></li><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Tracing</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/Tracing/mod.rs.html#1-724">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="distributed-tracing-module"><a class="doc-anchor" href="#distributed-tracing-module">§</a>Distributed Tracing Module</h2>
+<p>Provides distributed tracing support with trace ID generation, span
+collection, correlation ID propagation, trace export capabilities, and
+sampled tracing for performance.</p>
+<h3 id="responsibilities"><a class="doc-anchor" href="#responsibilities">§</a>Responsibilities</h3><h4 id="trace-generation"><a class="doc-anchor" href="#trace-generation">§</a>Trace Generation</h4>
+<ul>
+<li>Unique trace ID generation using UUID v4</li>
+<li>Span ID generation for hierarchical tracing</li>
+<li>Distributed trace parent-child relationships</li>
+<li>Trace context propagation across service boundaries</li>
+</ul>
+<h4 id="span-management"><a class="doc-anchor" href="#span-management">§</a>Span Management</h4>
+<ul>
+<li>Span lifecycle management (started, active, completed, failed)</li>
+<li>Span attribute and event tracking</li>
+<li>Duration measurement with microsecond precision</li>
+<li>Automatic span cleanup with TTL</li>
+</ul>
+<h4 id="distributed-tracing-integration"><a class="doc-anchor" href="#distributed-tracing-integration">§</a>Distributed Tracing Integration</h4>
+<ul>
+<li>W3C Trace Context format compatibility</li>
+<li>Correlation ID propagation for request tracking</li>
+<li>OpenTelemetry integration support</li>
+<li>B3 header format support for Zipkin/Jaeger</li>
+</ul>
+<h4 id="sampled-tracing"><a class="doc-anchor" href="#sampled-tracing">§</a>Sampled Tracing</h4>
+<ul>
+<li>Trace sampling to avoid performance degradation</li>
+<li>Configurable sampling rates by endpoint</li>
+<li>Head-based sampling for high-volume requests</li>
+<li>Tail-based sampling candidate tracking</li>
+</ul>
+<h3 id="integration-with-mountain"><a class="doc-anchor" href="#integration-with-mountain">§</a>Integration with Mountain</h3>
+<p>Tracing coordinates with Wind services:</p>
+<ul>
+<li>Distributed traces across all Element daemons</li>
+<li>Wind services consume trace data for analysis
+Real-time trace visualization in Mountain UI</li>
+<li>Cross-service latency and dependency mapping</li>
+</ul>
+<h3 id="vscode-debugging-references"><a class="doc-anchor" href="#vscode-debugging-references">§</a>VSCode Debugging References</h3>
+<p>Similar tracing patterns used in VSCode for:</p>
+<ul>
+<li>Cross-process communication tracing</li>
+<li>Extension host performance profiling</li>
+<li>Language server protocol debugging</li>
+<li>IPC message flow tracking</li>
+</ul>
+<p>Reference:
+vs/base/common/errors</p>
+<h3 id="performance-considerations"><a class="doc-anchor" href="#performance-considerations">§</a>Performance Considerations</h3>
+<ul>
+<li>Trace sampling based on request volume and importance</li>
+<li>Async span storage to avoid blocking service paths</li>
+<li>Bounded span cache with automatic cleanup</li>
+<li>Lock-free where possible for high-frequency operations</li>
+</ul>
+<h2 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h2>
+<ul>
+<li><code>OPENTELEMETRY</code>: Full OpenTelemetry SDK integration</li>
+<li><code>SAMPLING</code>: Implement dynamic/tail-based sampling</li>
+<li><code>EXPORT</code>: OpenTelemetry Protocol (OTLP) export to Jaeger/Zipkin</li>
+<li><code>ANALYSIS</code>: Automatic anomaly detection in traces</li>
+<li><code>METRICS</code>: Trace-derived custom metrics</li>
+</ul>
+<h3 id="sensitive-data-handling"><a class="doc-anchor" href="#sensitive-data-handling">§</a>Sensitive Data Handling</h3>
+<p>Tracing automatically excludes sensitive data:</p>
+<ul>
+<li>No request payloads in span attributes</li>
+<li>No authentication tokens in trace headers</li>
+<li>No user-identifiable information in spans</li>
+<li>Error messages are sanitized before export</li>
+</ul>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.PropagationContext.html" title="struct AirLibrary::Tracing::PropagationContext">Propagation<wbr>Context</a></dt><dd>Context propagation information</dd><dt><a class="struct" href="struct.SamplingConfig.html" title="struct AirLibrary::Tracing::SamplingConfig">Sampling<wbr>Config</a></dt><dd>Sampling configuration for trace generation</dd><dt><a class="struct" href="struct.SpanEvent.html" title="struct AirLibrary::Tracing::SpanEvent">Span<wbr>Event</a></dt><dd>Event within a span</dd><dt><a class="struct" href="struct.TraceGenerator.html" title="struct AirLibrary::Tracing::TraceGenerator">Trace<wbr>Generator</a></dt><dd>Trace ID generator and manager with sampling support</dd><dt><a class="struct" href="struct.TraceMetadata.html" title="struct AirLibrary::Tracing::TraceMetadata">Trace<wbr>Metadata</a></dt><dd>Distributed trace metadata</dd><dt><a class="struct" href="struct.TraceSpan.html" title="struct AirLibrary::Tracing::TraceSpan">Trace<wbr>Span</a></dt><dd>A single span in a trace</dd><dt><a class="struct" href="struct.TraceStatistics.html" title="struct AirLibrary::Tracing::TraceStatistics">Trace<wbr>Statistics</a></dt><dd>Trace statistics for monitoring</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.SpanStatus.html" title="enum AirLibrary::Tracing::SpanStatus">Span<wbr>Status</a></dt><dd>Span status</dd><dt><a class="enum" href="enum.TraceStatus.html" title="enum AirLibrary::Tracing::TraceStatus">Trace<wbr>Status</a></dt><dd>Trace status</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.PROPAGATION_CONTEXT.html" title="constant AirLibrary::Tracing::PROPAGATION_CONTEXT">PROPAGATION_<wbr>CONTEXT</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="statics" class="section-header">Statics<a href="#statics" class="anchor">§</a></h2><dl class="item-table"><dt><a class="static" href="static.TRACE_GENERATOR.html" title="static AirLibrary::Tracing::TRACE_GENERATOR">TRACE_<wbr>GENERATOR</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Global trace generator instance</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.create_propagation_context.html" title="fn AirLibrary::Tracing::create_propagation_context">create_<wbr>propagation_<wbr>context</a></dt><dd>Create a propagation context from a trace span</dd><dt><a class="fn" href="fn.create_trace_context_header.html" title="fn AirLibrary::Tracing::create_trace_context_header">create_<wbr>trace_<wbr>context_<wbr>header</a></dt><dd>Create a W3C trace context header from propagation context</dd><dt><a class="fn" href="fn.get_propagation_context.html" title="fn AirLibrary::Tracing::get_propagation_context">get_<wbr>propagation_<wbr>context</a></dt><dd>Get the current propagation context</dd><dt><a class="fn" href="fn.get_trace_generator.html" title="fn AirLibrary::Tracing::get_trace_generator">get_<wbr>trace_<wbr>generator</a></dt><dd>Get or initialize the global trace generator</dd><dt><a class="fn" href="fn.initialize_tracing.html" title="fn AirLibrary::Tracing::initialize_tracing">initialize_<wbr>tracing</a></dt><dd>Initialize the global trace generator with custom sampling</dd><dt><a class="fn" href="fn.set_propagation_context.html" title="fn AirLibrary::Tracing::set_propagation_context">set_<wbr>propagation_<wbr>context</a></dt><dd>Set the propagation context for the current thread</dd></dl></section></div></main></body></html>

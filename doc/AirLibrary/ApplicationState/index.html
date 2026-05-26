@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Application State Management"><title>AirLibrary::ApplicationState - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module ApplicationState</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Application<wbr>State</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#application-state-management" title="Application State Management">Application State Management</a><ul><li><a href="#architecture-overview" title="Architecture Overview">Architecture Overview</a></li><li><a href="#core-responsibilities" title="Core Responsibilities">Core Responsibilities</a></li><li><a href="#connection-types" title="Connection Types">Connection Types</a></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a></li><li><a href="#thread-safety" title="Thread Safety">Thread Safety</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li><li><a href="#error-handling" title="Error Handling">Error Handling</a></li></ul></li></ul><h3><a href="#structs">Module Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Application<wbr>State</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/ApplicationState/mod.rs.html#1-957">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="application-state-management"><a class="doc-anchor" href="#application-state-management">§</a>Application State Management</h2>
+<p>This module provides comprehensive application state management for the Air
+daemon, including configuration, service status, resource tracking, and
+connection management.</p>
+<h3 id="architecture-overview"><a class="doc-anchor" href="#architecture-overview">§</a>Architecture Overview</h3>
+<p>The ApplicationState acts as the central coordination point for the Air
+daemon, tracking all active connections, service states, requests, and
+system resources. It follows the VSCode daemon state management pattern with
+thread-safe, async-friendly data structures.</p>
+<h3 id="core-responsibilities"><a class="doc-anchor" href="#core-responsibilities">§</a>Core Responsibilities</h3>
+<ol>
+<li>
+<p><strong>Connection Management</strong></p>
+<ul>
+<li>Track all connected clients (Mountain, Cocoon, Wind, etc.)</li>
+<li>Heartbeat monitoring and validation</li>
+<li>Connection pooling for Mountain clients</li>
+<li>Graceful disconnection handling</li>
+<li>Stale connection cleanup</li>
+</ul>
+</li>
+<li>
+<p><strong>Service Status Tracking</strong></p>
+<ul>
+<li>Monitor authentication service</li>
+<li>Track update service state</li>
+<li>Monitor indexing service</li>
+<li>Track downloader service</li>
+<li>gRPC service status</li>
+</ul>
+</li>
+<li>
+<p><strong>Request Management</strong></p>
+<ul>
+<li>Active request tracking</li>
+<li>Request lifecycle management</li>
+<li>Progress monitoring</li>
+<li>Request cancellation support</li>
+</ul>
+</li>
+<li>
+<p><strong>Resource Monitoring</strong></p>
+<ul>
+<li>Memory usage tracking</li>
+<li>CPU usage monitoring</li>
+<li>Disk usage tracking</li>
+<li>Network usage monitoring</li>
+<li>Resource limit enforcement</li>
+</ul>
+</li>
+<li>
+<p><strong>Performance Metrics</strong></p>
+<ul>
+<li>Request count tracking</li>
+<li>Success/failure rates</li>
+<li>Average response time calculation</li>
+<li>Uptime tracking</li>
+</ul>
+</li>
+</ol>
+<h3 id="connection-types"><a class="doc-anchor" href="#connection-types">§</a>Connection Types</h3>
+<ul>
+<li><strong>MountainMain</strong>: Main editor process connection</li>
+<li><strong>MountainWorker</strong>: Background worker processes</li>
+<li><strong>Cocoon</strong>: Deployment and build system</li>
+<li><strong>Wind</strong>: Communication layer</li>
+<li><strong>External</strong>: Third-party integrations</li>
+</ul>
+<h3 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+Implement connection pooling for Mountain clients with load balancing</li>
+<li><input disabled="" type="checkbox"/>
+Add connection encryption and authentication</li>
+<li><input disabled="" type="checkbox"/>
+Implement connection rate limiting</li>
+<li><input disabled="" type="checkbox"/>
+Add connection-based resource quotas</li>
+<li><input disabled="" type="checkbox"/>
+Implement connection health checks with automatic recovery</li>
+<li><input disabled="" type="checkbox"/>
+Add connection-based feature flags</li>
+<li><input disabled="" type="checkbox"/>
+Implement connection audit logging</li>
+<li><input disabled="" type="checkbox"/>
+Add connection-based request prioritization</li>
+<li><input disabled="" type="checkbox"/>
+Implement connection state persistence across restarts</li>
+<li><input disabled="" type="checkbox"/>
+Add distributed connection support for multi-node deployments</li>
+</ul>
+<h3 id="thread-safety"><a class="doc-anchor" href="#thread-safety">§</a>Thread Safety</h3>
+<p>All state access is protected by async-friendly locks:</p>
+<ul>
+<li><code>RwLock&lt;T&gt;</code> for read-heavy data (configuration, metrics, connections)</li>
+<li><code>Mutex&lt;T&gt;</code> for write-heavy data (active requests, background tasks)</li>
+</ul>
+<p>This ensures concurrent access from multiple async tasks and threads
+is safe and efficient.</p>
+<h3 id="performance-considerations"><a class="doc-anchor" href="#performance-considerations">§</a>Performance Considerations</h3>
+<ul>
+<li>Use read locks where possible to allow concurrent access</li>
+<li>Minimize lock duration</li>
+<li>Use async-friendly lock types to avoid blocking runtime</li>
+<li>Consider lock-free alternatives for high-frequency updates</li>
+</ul>
+<h3 id="error-handling"><a class="doc-anchor" href="#error-handling">§</a>Error Handling</h3>
+<p>All methods return <code>Result&lt;T&gt;</code> with comprehensive error types:</p>
+<ul>
+<li><code>Configuration</code>: Invalid configuration values</li>
+<li><code>ResourceLimit</code>: Resource limits exceeded</li>
+<li><code>Internal</code>: Internal state inconsistencies</li>
+</ul>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.ApplicationState.html" title="struct AirLibrary::ApplicationState::ApplicationState">Application<wbr>State</a></dt><dd>Application state structure</dd><dt><a class="struct" href="struct.ConnectionHealthReport.html" title="struct AirLibrary::ApplicationState::ConnectionHealthReport">Connection<wbr>Health<wbr>Report</a></dt><dd>Connection health report</dd><dt><a class="struct" href="struct.ConnectionInfo.html" title="struct AirLibrary::ApplicationState::ConnectionInfo">Connection<wbr>Info</a></dt><dd>Connection information for Mountain clients</dd><dt><a class="struct" href="struct.PerformanceMetrics.html" title="struct AirLibrary::ApplicationState::PerformanceMetrics">Performance<wbr>Metrics</a></dt><dd>Performance metrics</dd><dt><a class="struct" href="struct.RequestStatus.html" title="struct AirLibrary::ApplicationState::RequestStatus">Request<wbr>Status</a></dt><dd>Request status tracking</dd><dt><a class="struct" href="struct.ResourceUsage.html" title="struct AirLibrary::ApplicationState::ResourceUsage">Resource<wbr>Usage</a></dt><dd>Resource usage tracking</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.ConnectionType.html" title="enum AirLibrary::ApplicationState::ConnectionType">Connection<wbr>Type</a></dt><dd>Connection type enum</dd><dt><a class="enum" href="enum.RequestState.html" title="enum AirLibrary::ApplicationState::RequestState">Request<wbr>State</a></dt><dd>Request state enum</dd><dt><a class="enum" href="enum.ServiceStatus.html" title="enum AirLibrary::ApplicationState::ServiceStatus">Service<wbr>Status</a></dt><dd>Service status enum</dd></dl></section></div></main></body></html>

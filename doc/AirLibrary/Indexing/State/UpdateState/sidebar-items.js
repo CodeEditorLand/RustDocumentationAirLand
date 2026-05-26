@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["AddFileToIndex","CleanupOrphanedEntries","GetIndexSizeEstimate","MergeIndexes","NeedsUpdate","RemoveFileFromIndex","RemoveFilesFromIndex","UpdateContentIndex","UpdateFileMetadata","UpdateFileSymbols","UpdateIndexMetadata","ValidateIndexConsistency"]};

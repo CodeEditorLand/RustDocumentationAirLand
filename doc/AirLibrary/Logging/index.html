@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Structured Logging Module"><title>AirLibrary::Logging - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module Logging</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Logging</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#structured-logging-module" title="Structured Logging Module">Structured Logging Module</a><ul><li><a href="#responsibilities" title="Responsibilities">Responsibilities</a></li><li><a href="#integration-with-mountain" title="Integration with Mountain">Integration with Mountain</a></li><li><a href="#vscode-debugging-references" title="VSCode Debugging References">VSCode Debugging References</a></li></ul></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a><ul><li><a href="#sensitive-data-handling-1" title="Sensitive Data Handling">Sensitive Data Handling</a></li></ul></li></ul><h3><a href="#structs">Module Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#statics" title="Statics">Statics</a></li><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Logging</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/Logging/mod.rs.html#1-800">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="structured-logging-module"><a class="doc-anchor" href="#structured-logging-module">§</a>Structured Logging Module</h2>
+<p>Provides comprehensive structured logging with JSON output, request ID
+propagation, context-aware logging, log rotation, sensitive data filtering,
+and validation.</p>
+<h3 id="responsibilities"><a class="doc-anchor" href="#responsibilities">§</a>Responsibilities</h3><h4 id="structured-logging"><a class="doc-anchor" href="#structured-logging">§</a>Structured Logging</h4>
+<ul>
+<li>JSON output format for machine parsing and analysis</li>
+<li>Request ID and trace ID propagation across log entries</li>
+<li>Context-aware logging with operation tracking</li>
+<li>Log level filtering (TRACE, DEBUG, INFO, WARN, ERROR)</li>
+</ul>
+<h4 id="log-rotation"><a class="doc-anchor" href="#log-rotation">§</a>Log Rotation</h4>
+<ul>
+<li>Size-based log rotation to prevent disk exhaustion</li>
+<li>Time-based rotation (daily) for archival</li>
+<li>Automatic cleanup of old log files</li>
+<li>Compressed log file storage for space efficiency</li>
+</ul>
+<h4 id="context-management"><a class="doc-anchor" href="#context-management">§</a>Context Management</h4>
+<ul>
+<li>Thread-local context storage for async operations</li>
+<li>Automatic context propagation across await points</li>
+<li>Correlation ID linking distributed requests</li>
+<li>User and session tracking</li>
+</ul>
+<h4 id="sensitive-data-handling"><a class="doc-anchor" href="#sensitive-data-handling">§</a>Sensitive Data Handling</h4>
+<ul>
+<li>Automatic redaction of sensitive fields</li>
+<li>Configurable sensitive patterns</li>
+<li>Sanitization of error messages</li>
+<li>Audit logging for security events</li>
+</ul>
+<h4 id="log-validation"><a class="doc-anchor" href="#log-validation">§</a>Log Validation</h4>
+<ul>
+<li>Structured log data validation before output</li>
+<li>Schema enforcement for consistent format</li>
+<li>Size limits on log messages</li>
+<li>Malformed log rejection</li>
+</ul>
+<h3 id="integration-with-mountain"><a class="doc-anchor" href="#integration-with-mountain">§</a>Integration with Mountain</h3>
+<p>Logs flow to Mountain’s debugging infrastructure:</p>
+<ul>
+<li>Real-time log streaming to debug console</li>
+<li>Historical log search and filtering</li>
+<li>Error aggregation and alerting</li>
+<li>Performance profiling logs</li>
+</ul>
+<h3 id="vscode-debugging-references"><a class="doc-anchor" href="#vscode-debugging-references">§</a>VSCode Debugging References</h3>
+<p>Similar logging patterns used in VSCode for:</p>
+<ul>
+<li>Exception and error tracking</li>
+<li>Debug output for extension development</li>
+<li>Performance profiling traces</li>
+<li>Cross-process communication logging</li>
+</ul>
+<p>Reference:
+vs/base/common/errors</p>
+<h2 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h2>
+<ul>
+<li>[DISTRIBUTED TRACING] Tighter integration with Tracing module</li>
+<li><code>ELASTICSEARCH</code>: Direct log export to Elasticsearch/Logstash</li>
+<li>[LOG ANALYSIS] Automatic anomaly detection in logs</li>
+<li><code>KIBANA</code>: Pre-built Kibana dashboards</li>
+<li>[LOG PARSING] Support for custom log formats</li>
+</ul>
+<h3 id="sensitive-data-handling-1"><a class="doc-anchor" href="#sensitive-data-handling-1">§</a>Sensitive Data Handling</h3>
+<p>All logs are automatically sanitized:</p>
+<ul>
+<li>Passwords, tokens, and secrets are redacted</li>
+<li>User-identifiable information is masked</li>
+<li>API keys and secrets are removed</li>
+<li>Error messages are parsed for sensitive patterns</li>
+</ul>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.ContextLogger.html" title="struct AirLibrary::Logging::ContextLogger">Context<wbr>Logger</a></dt><dd>Context-aware logger for structured logging</dd><dt><a class="struct" href="struct.LogContext.html" title="struct AirLibrary::Logging::LogContext">LogContext</a></dt><dd>Context for structured logging with request IDs and metadata</dd><dt><a class="struct" href="struct.LogManager.html" title="struct AirLibrary::Logging::LogManager">LogManager</a></dt><dd>Log file manager for rotation and cleanup</dd><dt><a class="struct" href="struct.LogRotationConfig.html" title="struct AirLibrary::Logging::LogRotationConfig">LogRotation<wbr>Config</a></dt><dd>Configuration for log rotation and management</dd><dt><a class="struct" href="struct.SensitiveDataConfig.html" title="struct AirLibrary::Logging::SensitiveDataConfig">Sensitive<wbr>Data<wbr>Config</a></dt><dd>Sensitive data patterns for redaction</dd><dt><a class="struct" href="struct.SensitiveDataFilter.html" title="struct AirLibrary::Logging::SensitiveDataFilter">Sensitive<wbr>Data<wbr>Filter</a></dt><dd>Sensitive data filter for log sanitization</dd><dt><a class="struct" href="struct.StructuredLogEntry.html" title="struct AirLibrary::Logging::StructuredLogEntry">Structured<wbr>LogEntry</a></dt><dd>Structured log entry for validation</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.LogRotation.html" title="enum AirLibrary::Logging::LogRotation">LogRotation</a></dt><dd>Log rotation strategies</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.LOG_CONTEXT.html" title="constant AirLibrary::Logging::LOG_CONTEXT">LOG_<wbr>CONTEXT</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="statics" class="section-header">Statics<a href="#statics" class="anchor">§</a></h2><dl class="item-table"><dt><a class="static" href="static.LOGGER_INSTANCE.html" title="static AirLibrary::Logging::LOGGER_INSTANCE">LOGGER_<wbr>INSTANCE</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Global context logger instance</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.ClearLogContext.html" title="fn AirLibrary::Logging::ClearLogContext">Clear<wbr>LogContext</a></dt><dd>Clear the log context for the current thread</dd><dt><a class="fn" href="fn.GetLogContext.html" title="fn AirLibrary::Logging::GetLogContext">GetLog<wbr>Context</a></dt><dd>Get the current log context</dd><dt><a class="fn" href="fn.GetLogger.html" title="fn AirLibrary::Logging::GetLogger">GetLogger</a></dt><dd>Get the global context logger</dd><dt><a class="fn" href="fn.InitializeLogger.html" title="fn AirLibrary::Logging::InitializeLogger">Initialize<wbr>Logger</a></dt><dd>Initialize the global context logger</dd><dt><a class="fn" href="fn.InitializeLoggerWithRotation.html" title="fn AirLibrary::Logging::InitializeLoggerWithRotation">Initialize<wbr>Logger<wbr>With<wbr>Rotation</a></dt><dd>Initialize the global context logger with rotation</dd><dt><a class="fn" href="fn.SetLogContext.html" title="fn AirLibrary::Logging::SetLogContext">SetLog<wbr>Context</a></dt><dd>Set the log context for the current thread</dd></dl></section></div></main></body></html>

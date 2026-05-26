@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="ScanFile"><title>AirLibrary::Indexing::Scan::ScanFile - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module ScanFile</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Scan<wbr>File</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#scanfile" title="ScanFile">ScanFile</a><ul><li><a href="#file-indexingscanscanfilers" title="File: Indexing/Scan/ScanFile.rs">File: Indexing/Scan/ScanFile.rs</a></li><li><a href="#role-in-air-architecture" title="Role in Air Architecture">Role in Air Architecture</a></li><li><a href="#primary-responsibility" title="Primary Responsibility">Primary Responsibility</a></li><li><a href="#secondary-responsibilities" title="Secondary Responsibilities">Secondary Responsibilities</a></li><li><a href="#dependencies" title="Dependencies">Dependencies</a></li><li><a href="#dependents" title="Dependents">Dependents</a></li><li><a href="#vscode-pattern-reference" title="VSCode Pattern Reference">VSCode Pattern Reference</a></li><li><a href="#security-considerations" title="Security Considerations">Security Considerations</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li><li><a href="#error-handling-strategy" title="Error Handling Strategy">Error Handling Strategy</a></li><li><a href="#thread-safety" title="Thread Safety">Thread Safety</a></li></ul></li></ul><h3><a href="#functions">Module Items</a></h3><ul class="block"><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In AirLibrary::<wbr>Indexing::<wbr>Scan</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../index.html">AirLibrary</a>::<wbr><a href="../../index.html">Indexing</a>::<wbr><a href="../index.html">Scan</a></div><h1>Module <span>Scan<wbr>File</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../../src/AirLibrary/Indexing/Scan/ScanFile.rs.html#1-345">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="scanfile"><a class="doc-anchor" href="#scanfile">§</a>ScanFile</h2><h3 id="file-indexingscanscanfilers"><a class="doc-anchor" href="#file-indexingscanscanfilers">§</a>File: Indexing/Scan/ScanFile.rs</h3><h3 id="role-in-air-architecture"><a class="doc-anchor" href="#role-in-air-architecture">§</a>Role in Air Architecture</h3>
+<p>Provides individual file scanning functionality for the File Indexer
+service, handling reading, metadata extraction, and categorization of files
+for indexing.</p>
+<h3 id="primary-responsibility"><a class="doc-anchor" href="#primary-responsibility">§</a>Primary Responsibility</h3>
+<p>Scan individual files to extract metadata, content, and prepare them for
+indexing operations.</p>
+<h3 id="secondary-responsibilities"><a class="doc-anchor" href="#secondary-responsibilities">§</a>Secondary Responsibilities</h3>
+<ul>
+<li>File access validation and permission checking</li>
+<li>Encoding detection for text files</li>
+<li>Language detection for code files</li>
+<li>File size validation</li>
+<li>Symbolic link detection</li>
+</ul>
+<h3 id="dependencies"><a class="doc-anchor" href="#dependencies">§</a>Dependencies</h3>
+<p><strong>External Crates:</strong></p>
+<ul>
+<li><code>tokio</code> - Async file I/O operations</li>
+<li><code>sha2</code> - Checksum calculation for file integrity</li>
+</ul>
+<p><strong>Internal Modules:</strong></p>
+<ul>
+<li><code>crate::Result</code> - Error handling type</li>
+<li><code>crate::AirError</code> - Error types</li>
+<li><code>crate::Configuration::IndexingConfig</code> - Indexing configuration</li>
+<li><code>super::super::State::CreateState</code> - State structure definitions</li>
+<li><code>super::Process::ProcessContent</code> - Content processing operations</li>
+</ul>
+<h3 id="dependents"><a class="doc-anchor" href="#dependents">§</a>Dependents</h3>
+<ul>
+<li><code>Indexing::Scan::ScanDirectory</code> - Batch file processing</li>
+<li><code>Indexing::Watch::WatchFile</code> - Individual file change handling</li>
+<li><code>Indexing::mod::FileIndexer</code> - Main file indexer implementation</li>
+</ul>
+<h3 id="vscode-pattern-reference"><a class="doc-anchor" href="#vscode-pattern-reference">§</a>VSCode Pattern Reference</h3>
+<p>Inspired by VSCode’s file scanning in
+<code>src/vs/workbench/services/files/</code></p>
+<h3 id="security-considerations"><a class="doc-anchor" href="#security-considerations">§</a>Security Considerations</h3>
+<ul>
+<li>Path canonicalization before access</li>
+<li>File size limits enforced</li>
+<li>Timeout protection for I/O operations</li>
+<li>Permission checking before reads</li>
+</ul>
+<h3 id="performance-considerations"><a class="doc-anchor" href="#performance-considerations">§</a>Performance Considerations</h3>
+<ul>
+<li>Asynchronous file reading</li>
+<li>Batch processing operations</li>
+<li>Memory-efficient streaming for large files</li>
+<li>Cached metadata when available</li>
+</ul>
+<h3 id="error-handling-strategy"><a class="doc-anchor" href="#error-handling-strategy">§</a>Error Handling Strategy</h3>
+<p>File scanning returns Results with detailed error messages about
+why a file cannot be scanned or accessed. Errors are logged and
+individual file failures don’t halt batch operations.</p>
+<h3 id="thread-safety"><a class="doc-anchor" href="#thread-safety">§</a>Thread Safety</h3>
+<p>File scanning operations are designed for parallel execution and</p>
+</div></details><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.CalculateChecksum.html" title="fn AirLibrary::Indexing::Scan::ScanFile::CalculateChecksum">Calculate<wbr>Checksum</a></dt><dd>Calculate SHA-256 checksum for file content</dd><dt><a class="fn" href="fn.FileModifiedSince.html" title="fn AirLibrary::Indexing::Scan::ScanFile::FileModifiedSince">File<wbr>Modified<wbr>Since</a></dt><dd>Check if file has been modified since last indexed</dd><dt><a class="fn" href="fn.GetFileSize.html" title="fn AirLibrary::Indexing::Scan::ScanFile::GetFileSize">GetFile<wbr>Size</a></dt><dd>Get file size with error handling</dd><dt><a class="fn" href="fn.GetPermissionsString.html" title="fn AirLibrary::Indexing::Scan::ScanFile::GetPermissionsString">GetPermissions<wbr>String</a></dt><dd>Get file permissions as string</dd><dt><a class="fn" href="fn.IndexFileInternal.html" title="fn AirLibrary::Indexing::Scan::ScanFile::IndexFileInternal">Index<wbr>File<wbr>Internal</a></dt><dd>Index a single file internally with comprehensive validation</dd><dt><a class="fn" href="fn.IsBinaryFile.html" title="fn AirLibrary::Indexing::Scan::ScanFile::IsBinaryFile">IsBinary<wbr>File</a></dt><dd>Check if file is binary (not suitable for indexing)</dd><dt><a class="fn" href="fn.IsTextFile.html" title="fn AirLibrary::Indexing::Scan::ScanFile::IsTextFile">IsText<wbr>File</a></dt><dd>Check if file is text-based (likely to be code or documentation)</dd><dt><a class="fn" href="fn.ScanFileMetadata.html" title="fn AirLibrary::Indexing::Scan::ScanFile::ScanFileMetadata">Scan<wbr>File<wbr>Metadata</a></dt><dd>Scan file and return just the metadata (without symbols)</dd><dt><a class="fn" href="fn.ValidateFileAccess.html" title="fn AirLibrary::Indexing::Scan::ScanFile::ValidateFileAccess">Validate<wbr>File<wbr>Access</a></dt><dd>Validate file access and permissions before scanning</dd></dl></section></div></main></body></html>

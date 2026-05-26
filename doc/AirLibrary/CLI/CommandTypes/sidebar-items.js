@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Command","ConfigCommand","DebugCommand","DiagnosticLevel","PermissionLevel","ValidationResult"]};

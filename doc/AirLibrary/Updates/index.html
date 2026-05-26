@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Update Management Service"><title>AirLibrary::Updates - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module Updates</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Updates</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#update-management-service" title="Update Management Service">Update Management Service</a></li><li><a href="#vscode-update-system-references" title="VSCode Update System References">VSCode Update System References</a></li><li><a href="#architecture" title="Architecture">Architecture</a></li><li><a href="#connection-to-vscodes-update-download-service-architecture" title="Connection to VSCode’s Update Download Service Architecture">Connection to VSCode’s Update Download Service Architecture</a><ul><li><a href="#vscode-update-system-reference" title="VSCode Update System Reference">VSCode Update System Reference</a></li></ul></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a></li></ul><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Updates</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/Updates/mod.rs.html#1-2659">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="update-management-service"><a class="doc-anchor" href="#update-management-service">§</a>Update Management Service</h2>
+<p>Comprehensive update management for the Land ecosystem with full lifecycle
+support:</p>
+<ul>
+<li>Version availability checking against update servers</li>
+<li>Secure download with cryptographic signature verification</li>
+<li>Multi-checksum integrity validation (SHA256, MD5, CRC32)</li>
+<li>Staged installation with atomic application</li>
+<li>Automatic rollback on installation failure</li>
+<li>Platform-specific update packages (macOS dmg, Windows exe, Linux AppImage)</li>
+<li>Update channel management (stable, insiders, preview)</li>
+<li>Delta updates for reduced download size</li>
+<li>Network interruption recovery with resume capability</li>
+<li>Disk space validation before download</li>
+<li>Backup creation before applying updates</li>
+</ul>
+<h2 id="vscode-update-system-references"><a class="doc-anchor" href="#vscode-update-system-references">§</a>VSCode Update System References</h2>
+<p>This implementation draws inspiration from VSCode’s update architecture:</p>
+<ul>
+<li>Background update checking without interrupting user workflow</li>
+<li>Deferred installation at application restart</li>
+<li>Update verification with multiple checksums</li>
+<li>Telemetry for update success/failure tracking</li>
+<li>Circuit breakers for update server resilience</li>
+</ul>
+<h2 id="architecture"><a class="doc-anchor" href="#architecture">§</a>Architecture</h2>
+<p>The update manager coordinates with:</p>
+<ul>
+<li>Mountain: Provides frontend notification of available updates</li>
+<li>The entire Land ecosystem: Updates can apply to multiple components</li>
+<li>Update servers: REST API endpoints for version checks and downloads</li>
+</ul>
+<h2 id="connection-to-vscodes-update-download-service-architecture"><a class="doc-anchor" href="#connection-to-vscodes-update-download-service-architecture">§</a>Connection to VSCode’s Update Download Service Architecture</h2>
+<p>The Air update manager draws inspiration from VSCode’s update system:</p>
+<ol>
+<li><strong>Separate Update Process</strong>: Like VSCode, Air runs updates in the
+background</li>
+<li><strong>Deferred Installation</strong>: Updates are downloaded and staged, then
+applied on restart</li>
+<li><strong>Progress Reporting</strong>: Updates report progress to the frontend
+(Mountain)</li>
+<li><strong>Resilient Downloads</strong>: Support for resume after interruption</li>
+<li><strong>Multiple Integrity Checks</strong>: SHA256, MD5, and cryptographic signatures</li>
+<li><strong>Automatic Rollback</strong>: Like VSCode’s safe mode, Air can roll back on
+failure</li>
+</ol>
+<p>Air handles updates for the entire Land ecosystem:</p>
+<ul>
+<li><strong>Air daemon</strong>: The background service itself</li>
+<li><strong>Mountain</strong>: The frontend Electron application</li>
+<li><strong>Other elements</strong>: Can update other Land components if needed</li>
+</ul>
+<p>Update coordination with Mountain:</p>
+<ul>
+<li>When an update is available, Air notifies Mountain via event bus</li>
+<li>Mountain displays update notification to the user</li>
+<li>User selects whether to download/install/update</li>
+<li>Mountain can request status, cancel downloads, or initiate installation</li>
+</ul>
+<h3 id="vscode-update-system-reference"><a class="doc-anchor" href="#vscode-update-system-reference">§</a>VSCode Update System Reference</h3>
+<p>VSCode’s update system (similar to Atom’s) uses:</p>
+<ul>
+<li>Electron’s auto-updater module for Windows/macOS AppImages</li>
+<li>Native Linux package managers for deb/rpm</li>
+<li>Background update checking without interrupting user</li>
+<li>Deferred installation on application restart</li>
+<li>Multi-channel support (stable, insiders, exploration)</li>
+</ul>
+<h2 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h2>
+<ul>
+<li>Delta update support: Download only changed files between versions</li>
+<li>Rollback system: Automatic and manual rollback to previous versions</li>
+<li>Staged installations: Pre-verify updates before user prompt</li>
+<li>Update signatures: Ed25519 or PGP signature verification</li>
+<li>Update package format: Custom package format for cross-platform support</li>
+</ul>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="ChecksumUtil/index.html" title="mod AirLibrary::Updates::ChecksumUtil">Checksum<wbr>Util</a></dt><dd>Standalone checksum calculation helpers for update integrity verification.</dd><dt><a class="mod" href="PlatformDetect/index.html" title="mod AirLibrary::Updates::PlatformDetect">Platform<wbr>Detect</a></dt><dd>Compile-time platform/architecture detection for update packaging.</dd><dt><a class="mod" href="Types/index.html" title="mod AirLibrary::Updates::Types">Types</a></dt><dd>Value types for the update lifecycle: channels, status, installation
+states, update manifests, platform metadata, and telemetry records.</dd><dt><a class="mod" href="VersionCompare/index.html" title="mod AirLibrary::Updates::VersionCompare">Version<wbr>Compare</a></dt><dd>Semantic version comparison utility.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.DownloadSession.html" title="struct AirLibrary::Updates::DownloadSession">Download<wbr>Session</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Download session for resumable downloads</dd><dt><a class="struct" href="struct.PlatformConfig.html" title="struct AirLibrary::Updates::PlatformConfig">Platform<wbr>Config</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Platform-specific update configuration</dd><dt><a class="struct" href="struct.PlatformMetadata.html" title="struct AirLibrary::Updates::PlatformMetadata">Platform<wbr>Metadata</a></dt><dd>Platform-specific update metadata</dd><dt><a class="struct" href="struct.RollbackHistory.html" title="struct AirLibrary::Updates::RollbackHistory">Rollback<wbr>History</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Rollback history for automatic and manual rollback</dd><dt><a class="struct" href="struct.RollbackState.html" title="struct AirLibrary::Updates::RollbackState">Rollback<wbr>State</a></dt><dt><a class="struct" href="struct.UpdateInfo.html" title="struct AirLibrary::Updates::UpdateInfo">Update<wbr>Info</a></dt><dd>Update information with comprehensive metadata</dd><dt><a class="struct" href="struct.UpdateManager.html" title="struct AirLibrary::Updates::UpdateManager">Update<wbr>Manager</a></dt><dd>Update manager implementation with full lifecycle support</dd><dt><a class="struct" href="struct.UpdateStatus.html" title="struct AirLibrary::Updates::UpdateStatus">Update<wbr>Status</a></dt><dd>Update status with comprehensive state tracking</dd><dt><a class="struct" href="struct.UpdateTelemetry.html" title="struct AirLibrary::Updates::UpdateTelemetry">Update<wbr>Telemetry</a></dt><dd>Update telemetry data for analytics</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.InstallationStatus.html" title="enum AirLibrary::Updates::InstallationStatus">Installation<wbr>Status</a></dt><dd>Installation status with detailed state tracking</dd><dt><a class="enum" href="enum.PackageFormat.html" title="enum AirLibrary::Updates::PackageFormat">Package<wbr>Format</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Supported package formats by platform</dd><dt><a class="enum" href="enum.UpdateChannel.html" title="enum AirLibrary::Updates::UpdateChannel">Update<wbr>Channel</a></dt><dd>Update channel configuration</dd></dl></section></div></main></body></html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="UpdateState"><title>AirLibrary::Indexing::State::UpdateState - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module UpdateState</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Update<wbr>State</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#updatestate" title="UpdateState">UpdateState</a><ul><li><a href="#file-indexingstateupdatestaters" title="File: Indexing/State/UpdateState.rs">File: Indexing/State/UpdateState.rs</a></li><li><a href="#role-in-air-architecture" title="Role in Air Architecture">Role in Air Architecture</a></li><li><a href="#primary-responsibility" title="Primary Responsibility">Primary Responsibility</a></li><li><a href="#secondary-responsibilities" title="Secondary Responsibilities">Secondary Responsibilities</a></li><li><a href="#dependencies" title="Dependencies">Dependencies</a></li><li><a href="#dependents" title="Dependents">Dependents</a></li><li><a href="#vscode-pattern-reference" title="VSCode Pattern Reference">VSCode Pattern Reference</a></li><li><a href="#security-considerations" title="Security Considerations">Security Considerations</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li><li><a href="#error-handling-strategy" title="Error Handling Strategy">Error Handling Strategy</a></li><li><a href="#thread-safety" title="Thread Safety">Thread Safety</a></li></ul></li></ul><h3><a href="#functions">Module Items</a></h3><ul class="block"><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In AirLibrary::<wbr>Indexing::<wbr>State</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../index.html">AirLibrary</a>::<wbr><a href="../../index.html">Indexing</a>::<wbr><a href="../index.html">State</a></div><h1>Module <span>Update<wbr>State</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../../src/AirLibrary/Indexing/State/UpdateState.rs.html#1-377">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="updatestate"><a class="doc-anchor" href="#updatestate">§</a>UpdateState</h2><h3 id="file-indexingstateupdatestaters"><a class="doc-anchor" href="#file-indexingstateupdatestaters">§</a>File: Indexing/State/UpdateState.rs</h3><h3 id="role-in-air-architecture"><a class="doc-anchor" href="#role-in-air-architecture">§</a>Role in Air Architecture</h3>
+<p>Provides state update operations for the File Indexer service, handling
+modification of index structures including adding, removing, and updating
+entries in the file index.</p>
+<h3 id="primary-responsibility"><a class="doc-anchor" href="#primary-responsibility">§</a>Primary Responsibility</h3>
+<p>Update file index state by adding/removing files, symbols, and content
+entries in a thread-safe manner.</p>
+<h3 id="secondary-responsibilities"><a class="doc-anchor" href="#secondary-responsibilities">§</a>Secondary Responsibilities</h3>
+<ul>
+<li>Remove deleted files from all indexes</li>
+<li>Update symbol index with new symbol locations</li>
+<li>Update content index with new file paths</li>
+<li>Maintain index version and checksum on updates</li>
+</ul>
+<h3 id="dependencies"><a class="doc-anchor" href="#dependencies">§</a>Dependencies</h3>
+<p><strong>External Crates:</strong></p>
+<ul>
+<li><code>tokio</code> - Async runtime for update operations</li>
+</ul>
+<p><strong>Internal Modules:</strong></p>
+<ul>
+<li><code>crate::Result</code> - Error handling type</li>
+<li><code>crate::AirError</code> - Error types</li>
+<li><code>super::CreateState</code> - State structure definitions</li>
+</ul>
+<h3 id="dependents"><a class="doc-anchor" href="#dependents">§</a>Dependents</h3>
+<ul>
+<li><code>Indexing::Scan::ScanDirectory</code> - Updates index after directory scan</li>
+<li><code>Indexing::Scan::ScanFile</code> - Updates index after file scan</li>
+<li><code>Indexing::Store::UpdateIndex</code> - Incremental index updates</li>
+<li><code>Indexing::Watch::WatchFile</code> - Updates index on file changes</li>
+</ul>
+<h3 id="vscode-pattern-reference"><a class="doc-anchor" href="#vscode-pattern-reference">§</a>VSCode Pattern Reference</h3>
+<p>Inspired by VSCode’s index update operations in
+<code>src/vs/workbench/services/search/common/</code></p>
+<h3 id="security-considerations"><a class="doc-anchor" href="#security-considerations">§</a>Security Considerations</h3>
+<ul>
+<li>Thread-safe updates prevent race conditions</li>
+<li>Path validation before state updates</li>
+<li>Size limits enforced on all update operations</li>
+</ul>
+<h3 id="performance-considerations"><a class="doc-anchor" href="#performance-considerations">§</a>Performance Considerations</h3>
+<ul>
+<li>Incremental updates minimize reindexing</li>
+<li>Batch updates for multiple files</li>
+<li>Efficient hash lookups for O(1) updates</li>
+</ul>
+<h3 id="error-handling-strategy"><a class="doc-anchor" href="#error-handling-strategy">§</a>Error Handling Strategy</h3>
+<p>Update operations silently fail on missing keys (idempotent) and
+propagate errors for I/O failures or invalid state transitions.</p>
+<h3 id="thread-safety"><a class="doc-anchor" href="#thread-safety">§</a>Thread Safety</h3>
+<p>All update operations are designed to work within RwLock write
+guards and should be called while holding appropriate locks.</p>
+</div></details><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.AddFileToIndex.html" title="fn AirLibrary::Indexing::State::UpdateState::AddFileToIndex">AddFile<wbr>ToIndex</a></dt><dd>Add a file to the index with its metadata and symbols</dd><dt><a class="fn" href="fn.CleanupOrphanedEntries.html" title="fn AirLibrary::Indexing::State::UpdateState::CleanupOrphanedEntries">Cleanup<wbr>Orphaned<wbr>Entries</a></dt><dd>Clean up orphaned entries (files with no matching content/symbols)</dd><dt><a class="fn" href="fn.GetIndexSizeEstimate.html" title="fn AirLibrary::Indexing::State::UpdateState::GetIndexSizeEstimate">GetIndex<wbr>Size<wbr>Estimate</a></dt><dd>Get index size estimate in bytes</dd><dt><a class="fn" href="fn.MergeIndexes.html" title="fn AirLibrary::Indexing::State::UpdateState::MergeIndexes">Merge<wbr>Indexes</a></dt><dd>Merge another index into this one</dd><dt><a class="fn" href="fn.NeedsUpdate.html" title="fn AirLibrary::Indexing::State::UpdateState::NeedsUpdate">Needs<wbr>Update</a></dt><dd>Check if periodic update is needed based on age</dd><dt><a class="fn" href="fn.RemoveFileFromIndex.html" title="fn AirLibrary::Indexing::State::UpdateState::RemoveFileFromIndex">Remove<wbr>File<wbr>From<wbr>Index</a></dt><dd>Remove a file from all indexes (content, symbols, files)</dd><dt><a class="fn" href="fn.RemoveFilesFromIndex.html" title="fn AirLibrary::Indexing::State::UpdateState::RemoveFilesFromIndex">Remove<wbr>Files<wbr>From<wbr>Index</a></dt><dd>Remove multiple files from the index in a batch operation</dd><dt><a class="fn" href="fn.UpdateContentIndex.html" title="fn AirLibrary::Indexing::State::UpdateState::UpdateContentIndex">Update<wbr>Content<wbr>Index</a></dt><dd>Update content index for a file</dd><dt><a class="fn" href="fn.UpdateFileMetadata.html" title="fn AirLibrary::Indexing::State::UpdateState::UpdateFileMetadata">Update<wbr>File<wbr>Metadata</a></dt><dd>Update file metadata for an existing file</dd><dt><a class="fn" href="fn.UpdateFileSymbols.html" title="fn AirLibrary::Indexing::State::UpdateState::UpdateFileSymbols">Update<wbr>File<wbr>Symbols</a></dt><dd>Update symbols for a file</dd><dt><a class="fn" href="fn.UpdateIndexMetadata.html" title="fn AirLibrary::Indexing::State::UpdateState::UpdateIndexMetadata">Update<wbr>Index<wbr>Metadata</a></dt><dd>Update index metadata (version, timestamp, checksum)</dd><dt><a class="fn" href="fn.ValidateIndexConsistency.html" title="fn AirLibrary::Indexing::State::UpdateState::ValidateIndexConsistency">Validate<wbr>Index<wbr>Consistency</a></dt><dd>Validate that index is in a consistent state</dd></dl></section></div></main></body></html>

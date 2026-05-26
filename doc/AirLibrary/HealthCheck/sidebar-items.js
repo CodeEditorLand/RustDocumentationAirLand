@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DegradationLevel","HealthCheckLevel","HealthStatus","RecoveryActionType","RecoveryTrigger","ResourceWarningType","WarningSeverity"],"struct":["HealthCheckConfig","HealthCheckManager","HealthCheckRecord","HealthCheckResponse","HealthStatistics","PerformanceIndicators","RecoveryAction","ResourceWarning","ServiceHealth"]};

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Plugin Architecture"><title>AirLibrary::Plugins - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.0-nightly (d3cd04068 2026-05-16)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module Plugins</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../AirLibrary/index.html">AirLibrary</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module Plugins</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#plugin-architecture" title="Plugin Architecture">Plugin Architecture</a><ul><li><a href="#responsibilities" title="Responsibilities">Responsibilities</a></li><li><a href="#vscode-extension-architecture-patterns" title="VSCode Extension Architecture Patterns">VSCode Extension Architecture Patterns</a></li><li><a href="#integration-with-cocoon-extension-host" title="Integration with Cocoon Extension Host">Integration with Cocoon Extension Host</a></li><li><a href="#future-enhancements" title="FUTURE Enhancements">FUTURE Enhancements</a></li><li><a href="#security-and-isolation" title="Security and Isolation">Security and Isolation</a></li></ul></li></ul><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate Air<wbr>Library</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">AirLibrary</a></div><h1>Module <span>Plugins</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/AirLibrary/Plugins/mod.rs.html#1-1495">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="plugin-architecture"><a class="doc-anchor" href="#plugin-architecture">§</a>Plugin Architecture</h2><h3 id="responsibilities"><a class="doc-anchor" href="#responsibilities">§</a>Responsibilities</h3>
+<p>This module provides a comprehensive plugin system for the Air daemon,
+enabling extensibility through dynamically loaded plugins that can enhance
+daemon functionality. The plugin system is responsible for:</p>
+<ul>
+<li><strong>Plugin Discovery</strong>: Automatically discovering available plugins from
+configured directories</li>
+<li><strong>Plugin Loading</strong>: Dynamically loading plugins into the daemon runtime</li>
+<li><strong>Plugin Validation</strong>: Validating plugin metadata, dependencies, and
+compatibility</li>
+<li><strong>Sandboxing</strong>: Isolating plugins to prevent crashes and security issues</li>
+<li><strong>Lifecycle Management</strong>: Managing plugin states (load, start, stop,
+unload) with proper hooks</li>
+<li><strong>API Registration</strong>: Extending the daemon API through plugin-provided
+commands and handlers</li>
+<li><strong>Inter-Plugin Communication Enabling</strong>: plugins to communicate with each
+other via message passing</li>
+<li><strong>Permission Management</strong>: Enforcing fine-grained permissions and
+capabilities for plugins</li>
+<li><strong>Version Compatibility</strong>: Ensuring plugins are compatible with the daemon
+version</li>
+<li><strong>Dependency Resolution</strong>: Resolving and validating plugin dependencies</li>
+</ul>
+<h3 id="vscode-extension-architecture-patterns"><a class="doc-anchor" href="#vscode-extension-architecture-patterns">§</a>VSCode Extension Architecture Patterns</h3>
+<p>This implementation draws inspiration from VSCode’s extension architecture:</p>
+<ul>
+<li>Reference: vs/platform/extensions/common/ extensionHostStarter.ts</li>
+<li>Reference: vs/server/node/ extensionHostConnection.ts</li>
+<li>Reference: vs/platform/remote/common/ remoteAgentConnection.ts</li>
+</ul>
+<p>Patterns adopted from VSCode extensions:</p>
+<ul>
+<li>Separate extension host process for isolation and crash protection</li>
+<li>Activation events to trigger extension loading on-demand</li>
+<li>Contribution points for extending functionality</li>
+<li>Message-based communication between host and extensions</li>
+<li>State management and lifecycle hooks</li>
+<li>API versioning for backward compatibility</li>
+<li>Permission and capability descriptors</li>
+</ul>
+<h3 id="integration-with-cocoon-extension-host"><a class="doc-anchor" href="#integration-with-cocoon-extension-host">§</a>Integration with Cocoon Extension Host</h3>
+<p>The plugin system is designed to integrate with the Cocoon Extension Host
+(similar to VSCode’s extension host architecture). This provides:</p>
+<ul>
+<li>Isolated execution environments for plugins</li>
+<li>Crash recovery and resilience</li>
+<li>Resource management and limits</li>
+<li>Communication via IPC channels</li>
+<li>Hot reload capability without daemon restart</li>
+</ul>
+<h3 id="future-enhancements"><a class="doc-anchor" href="#future-enhancements">§</a>FUTURE Enhancements</h3>
+<ul>
+<li><strong>Plugin Marketplace</strong>: Implement a central plugin marketplace for
+discovery and installation (similar to VSCode’s extension marketplace)</li>
+<li><strong>Hot Reload Support</strong>: Implement live reloading of plugins without daemon
+restart</li>
+<li><strong>Advanced Sandboxing</strong>: Add more sophisticated sandboxing with resource
+quotas, network isolation, and filesystem access controls</li>
+<li><strong>Plugin Distribution</strong>: Implement plugin packaging, signing, and
+distribution mechanisms</li>
+<li><strong>Automatic Updates</strong>: Add automatic plugin update checking and
+installation</li>
+<li><strong>Telemetry Integration</strong>: Add plugin usage telemetry and reporting</li>
+<li><strong>Plugin Profiles</strong>: Support multiple plugin configurations for different
+environments</li>
+<li><strong>Security Audit</strong>: Implement comprehensive security audit and
+vulnerability scanning for plugins</li>
+<li><strong>Performance Monitoring</strong>: Add detailed performance monitoring and
+profiling for plugins</li>
+<li><strong>Plugin Debugging</strong>: Provide debugging tools and interfaces for plugin
+developers</li>
+</ul>
+<h3 id="security-and-isolation"><a class="doc-anchor" href="#security-and-isolation">§</a>Security and Isolation</h3>
+<ul>
+<li>Plugins run in isolated processes to prevent daemon crashes</li>
+<li>Fine-grained permission system controls plugin capabilities</li>
+<li>API version compatibility checks prevent breaking changes</li>
+<li>Resource limits prevent plugin exhaustion attacks</li>
+<li>Plugin authentication and signing to prevent malicious plugins</li>
+<li>Filesystem and network access restrictions</li>
+</ul>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="ApiVersion/index.html" title="mod AirLibrary::Plugins::ApiVersion">ApiVersion</a></dt><dd>API version compatibility management for the plugin system.</dd><dt><a class="mod" href="EventBus/index.html" title="mod AirLibrary::Plugins::EventBus">Event<wbr>Bus</a></dt><dd>Plugin event bus: publish/subscribe channel for plugin lifecycle events.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.PluginCapability.html" title="struct AirLibrary::Plugins::PluginCapability">Plugin<wbr>Capability</a></dt><dd>Plugin capability and permission descriptor</dd><dt><a class="struct" href="struct.PluginDependency.html" title="struct AirLibrary::Plugins::PluginDependency">Plugin<wbr>Dependency</a></dt><dd>Plugin dependency specification</dd><dt><a class="struct" href="struct.PluginDiscoveryResult.html" title="struct AirLibrary::Plugins::PluginDiscoveryResult">Plugin<wbr>Discovery<wbr>Result</a></dt><dd>Plugin discovery result</dd><dt><a class="struct" href="struct.PluginEventBus.html" title="struct AirLibrary::Plugins::PluginEventBus">Plugin<wbr>Event<wbr>Bus</a></dt><dd>Event bus for plugin events</dd><dt><a class="struct" href="struct.PluginInfo.html" title="struct AirLibrary::Plugins::PluginInfo">Plugin<wbr>Info</a></dt><dd>Plugin information for listing</dd><dt><a class="struct" href="struct.PluginLoader.html" title="struct AirLibrary::Plugins::PluginLoader">Plugin<wbr>Loader</a></dt><dd>Plugin loader for discovering and loading plugins</dd><dt><a class="struct" href="struct.PluginManager.html" title="struct AirLibrary::Plugins::PluginManager">Plugin<wbr>Manager</a></dt><dd>Main plugin manager</dd><dt><a class="struct" href="struct.PluginManifest.html" title="struct AirLibrary::Plugins::PluginManifest">Plugin<wbr>Manifest</a></dt><dd>Plugin manifest</dd><dt><a class="struct" href="struct.PluginMessage.html" title="struct AirLibrary::Plugins::PluginMessage">Plugin<wbr>Message</a></dt><dd>Inter-plugin message</dd><dt><a class="struct" href="struct.PluginMetadata.html" title="struct AirLibrary::Plugins::PluginMetadata">Plugin<wbr>Metadata</a></dt><dd>Plugin metadata</dd><dt><a class="struct" href="struct.PluginRegistry.html" title="struct AirLibrary::Plugins::PluginRegistry">Plugin<wbr>Registry</a></dt><dd>Plugin registry entry</dd><dt><a class="struct" href="struct.PluginSandboxConfig.html" title="struct AirLibrary::Plugins::PluginSandboxConfig">Plugin<wbr>Sandbox<wbr>Config</a></dt><dd>Plugin sandbox configuration</dd><dt><a class="struct" href="struct.PluginSandboxManager.html" title="struct AirLibrary::Plugins::PluginSandboxManager">Plugin<wbr>Sandbox<wbr>Manager</a></dt><dd>Plugin sandbox manager</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.PluginEvent.html" title="enum AirLibrary::Plugins::PluginEvent">Plugin<wbr>Event</a></dt><dd>Plugin event types</dd><dt><a class="enum" href="enum.PluginPermission.html" title="enum AirLibrary::Plugins::PluginPermission">Plugin<wbr>Permission</a></dt><dd>Plugin permission</dd><dt><a class="enum" href="enum.PluginState.html" title="enum AirLibrary::Plugins::PluginState">Plugin<wbr>State</a></dt><dd>Plugin state tracking</dd><dt><a class="enum" href="enum.PluginValidationResult.html" title="enum AirLibrary::Plugins::PluginValidationResult">Plugin<wbr>Validation<wbr>Result</a></dt><dd>Plugin validation result</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.Plugin.html" title="trait AirLibrary::Plugins::Plugin">Plugin</a></dt><dd>Plugin interface trait</dd><dt><a class="trait" href="trait.PluginEventHandler.html" title="trait AirLibrary::Plugins::PluginEventHandler">Plugin<wbr>Event<wbr>Handler</a></dt><dd>Plugin event handler</dd><dt><a class="trait" href="trait.PluginHooks.html" title="trait AirLibrary::Plugins::PluginHooks">Plugin<wbr>Hooks</a></dt><dd>Plugin lifecycle hooks</dd></dl></section></div></main></body></html>
