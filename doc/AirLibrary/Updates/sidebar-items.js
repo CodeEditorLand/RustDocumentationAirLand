@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["InstallationStatus","PackageFormat","UpdateChannel"],"mod":["ChecksumUtil","PlatformDetect","Types","VersionCompare"],"struct":["DownloadSession","PlatformConfig","PlatformMetadata","RollbackHistory","RollbackState","UpdateInfo","UpdateManager","UpdateStatus","UpdateTelemetry"]};

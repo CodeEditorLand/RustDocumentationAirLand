@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["PackageFormat"],"fn":["detect_platform"],"struct":["PlatformInfo"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["DownloadPriority","DownloadState"],"fn":["ExpectedChecksumFromConfig"],"mod":["RateLimit","Types"],"struct":["ChunkInfo","DownloadConfig","DownloadManager","DownloadResult","DownloadStatistics","DownloadStatus","ParallelDownloadResult","QueuedDownload","TokenBucket"],"type":["ProgressCallback"]};
