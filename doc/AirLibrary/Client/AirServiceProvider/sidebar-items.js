@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ApplyUpdate","Authenticate","CheckForUpdates","DownloadFile","DownloadStream","DownloadUpdate","GetConfiguration","GetFileInfo","GetMetrics","GetResourceUsage","GetStatus","IndexFiles","SearchFiles","SetResourceLimits","UpdateConfiguration"],"struct":["AirServiceProvider"]};

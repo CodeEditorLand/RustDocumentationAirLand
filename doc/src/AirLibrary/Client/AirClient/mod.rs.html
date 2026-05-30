@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `Element/Air/Source/Client/AirClient/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="AirLibrary" data-themes="" data-resource-suffix="" data-rustdoc-version="1.98.0-nightly (cced03bfd 2026-05-28)" data-channel="nightly" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">AirLibrary/Client/AirClient/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! # Air::Client::AirClient
+<a href=#2 id=2 data-nosnippet>2</a>//!
+<a href=#3 id=3 data-nosnippet>3</a>//! gRPC client wrapper for the Air daemon service. Callers reach Air
+<a href=#4 id=4 data-nosnippet>4</a>//! through this façade for update management, authentication, file
+<a href=#5 id=5 data-nosnippet>5</a>//! indexing, and system monitoring.
+<a href=#6 id=6 data-nosnippet>6</a>//!
+<a href=#7 id=7 data-nosnippet>7</a>//! ## Layout
+<a href=#8 id=8 data-nosnippet>8</a>//!
+<a href=#9 id=9 data-nosnippet>9</a>//! Per-message DTOs live one-per-file under this module; each declares a
+<a href=#10 id=10 data-nosnippet>10</a>//! single `pub struct Struct` to match the file name:
+<a href=#11 id=11 data-nosnippet>11</a>//!
+<a href=#12 id=12 data-nosnippet>12</a>//! - [`AirMetrics`] - daemon resource snapshot
+<a href=#13 id=13 data-nosnippet>13</a>//! - [`AirStatus`] - daemon uptime / request totals
+<a href=#14 id=14 data-nosnippet>14</a>//! - [`DownloadStreamChunk`] - one streaming download frame
+<a href=#15 id=15 data-nosnippet>15</a>//! - [`ExtendedFileInfo`] - file metadata for index queries
+<a href=#16 id=16 data-nosnippet>16</a>//! - [`FileInfo`] - downloaded-file metadata
+<a href=#17 id=17 data-nosnippet>17</a>//! - [`FileResult`] - file-search hit
+<a href=#18 id=18 data-nosnippet>18</a>//! - [`IndexInfo`] - indexing-progress snapshot
+<a href=#19 id=19 data-nosnippet>19</a>//! - [`ResourceUsage`] - process resource counts
+<a href=#20 id=20 data-nosnippet>20</a>//! - [`UpdateInfo`] - available-update metadata
+<a href=#21 id=21 data-nosnippet>21</a>//! - [`DownloadStream`] - wraps `tonic::Streaming` to yield
+<a href=#22 id=22 data-nosnippet>22</a>//!   [`DownloadStreamChunk::Struct`] items via `.next().await`.
+<a href=#23 id=23 data-nosnippet>23</a>//!
+<a href=#24 id=24 data-nosnippet>24</a>//! ## Client core
+<a href=#25 id=25 data-nosnippet>25</a>//!
+<a href=#26 id=26 data-nosnippet>26</a>//! - [`AirClient`] struct - thread-safe gRPC client over `Arc&lt;Mutex&lt;…&gt;&gt;`
+<a href=#27 id=27 data-nosnippet>27</a>//! - [`AirClient::new`] - async connect with parsed tonic `Endpoint`
+<a href=#28 id=28 data-nosnippet>28</a>//! - [`AirClient::is_connected`] / [`AirClient::address`] accessors
+<a href=#29 id=29 data-nosnippet>29</a>//! - [`Debug`] impl
+<a href=#30 id=30 data-nosnippet>30</a>//! - [`IntoRequestExt`] - blanket helper to wrap any value as
+<a href=#31 id=31 data-nosnippet>31</a>//!   `tonic::Request&lt;T&gt;` with one method call
+<a href=#32 id=32 data-nosnippet>32</a>//! - [`DEFAULT_AIR_SERVER_ADDRESS`] constant (`"[::1]:50053"`)
+<a href=#33 id=33 data-nosnippet>33</a>
+<a href=#34 id=34 data-nosnippet>34</a></span><span class="comment">// --- DTO submodules ---
+<a href=#35 id=35 data-nosnippet>35</a>
+<a href=#36 id=36 data-nosnippet>36</a></span><span class="kw">pub mod </span><a href="AirMetrics.rs.html#1-14">AirMetrics</a>;
+<a href=#37 id=37 data-nosnippet>37</a>
+<a href=#38 id=38 data-nosnippet>38</a><span class="kw">pub mod </span><a href="AirStatus.rs.html#1-22">AirStatus</a>;
+<a href=#39 id=39 data-nosnippet>39</a>
+<a href=#40 id=40 data-nosnippet>40</a><span class="kw">pub mod </span><a href="DownloadStream.rs.html#1-38">DownloadStream</a>;
+<a href=#41 id=41 data-nosnippet>41</a>
+<a href=#42 id=42 data-nosnippet>42</a><span class="kw">pub mod </span><a href="DownloadStreamChunk.rs.html#1-15">DownloadStreamChunk</a>;
+<a href=#43 id=43 data-nosnippet>43</a>
+<a href=#44 id=44 data-nosnippet>44</a><span class="kw">pub mod </span><a href="ExtendedFileInfo.rs.html#1-14">ExtendedFileInfo</a>;
+<a href=#45 id=45 data-nosnippet>45</a>
+<a href=#46 id=46 data-nosnippet>46</a><span class="kw">pub mod </span><a href="FileInfo.rs.html#1-10">FileInfo</a>;
+<a href=#47 id=47 data-nosnippet>47</a>
+<a href=#48 id=48 data-nosnippet>48</a><span class="kw">pub mod </span><a href="FileResult.rs.html#1-12">FileResult</a>;
+<a href=#49 id=49 data-nosnippet>49</a>
+<a href=#50 id=50 data-nosnippet>50</a><span class="kw">pub mod </span><a href="IndexInfo.rs.html#1-8">IndexInfo</a>;
+<a href=#51 id=51 data-nosnippet>51</a>
+<a href=#52 id=52 data-nosnippet>52</a><span class="kw">pub mod </span><a href="ResourceUsage.rs.html#1-16">ResourceUsage</a>;
+<a href=#53 id=53 data-nosnippet>53</a>
+<a href=#54 id=54 data-nosnippet>54</a><span class="kw">pub mod </span><a href="UpdateInfo.rs.html#1-12">UpdateInfo</a>;
+<a href=#55 id=55 data-nosnippet>55</a>
+<a href=#56 id=56 data-nosnippet>56</a><span class="comment">// --- Per-domain method impls (each declares its own `impl AirClient` block)
+<a href=#57 id=57 data-nosnippet>57</a>// ---
+<a href=#58 id=58 data-nosnippet>58</a>
+<a href=#59 id=59 data-nosnippet>59</a>// Authentication
+<a href=#60 id=60 data-nosnippet>60</a></span><span class="kw">pub mod </span><a href="Authenticate.rs.html#1-89">Authenticate</a>;
+<a href=#61 id=61 data-nosnippet>61</a>
+<a href=#62 id=62 data-nosnippet>62</a><span class="comment">// Updates
+<a href=#63 id=63 data-nosnippet>63</a></span><span class="kw">pub mod </span><a href="ApplyUpdate.rs.html#1-53">ApplyUpdate</a>;
+<a href=#64 id=64 data-nosnippet>64</a>
+<a href=#65 id=65 data-nosnippet>65</a><span class="kw">pub mod </span><a href="CheckForUpdates.rs.html#1-68">CheckForUpdates</a>;
+<a href=#66 id=66 data-nosnippet>66</a>
+<a href=#67 id=67 data-nosnippet>67</a><span class="kw">pub mod </span><a href="DownloadUpdate.rs.html#1-77">DownloadUpdate</a>;
+<a href=#68 id=68 data-nosnippet>68</a>
+<a href=#69 id=69 data-nosnippet>69</a><span class="comment">// Downloads
+<a href=#70 id=70 data-nosnippet>70</a></span><span class="kw">pub mod </span><a href="DownloadFile.rs.html#1-79">DownloadFile</a>;
+<a href=#71 id=71 data-nosnippet>71</a>
+<a href=#72 id=72 data-nosnippet>72</a><span class="kw">pub mod </span><a href="DownloadStreamRpc.rs.html#1-64">DownloadStreamRpc</a>;
+<a href=#73 id=73 data-nosnippet>73</a>
+<a href=#74 id=74 data-nosnippet>74</a><span class="comment">// Indexing
+<a href=#75 id=75 data-nosnippet>75</a></span><span class="kw">pub mod </span><a href="GetFileInfo.rs.html#1-57">GetFileInfo</a>;
+<a href=#76 id=76 data-nosnippet>76</a>
+<a href=#77 id=77 data-nosnippet>77</a><span class="kw">pub mod </span><a href="IndexFiles.rs.html#1-69">IndexFiles</a>;
+<a href=#78 id=78 data-nosnippet>78</a>
+<a href=#79 id=79 data-nosnippet>79</a><span class="kw">pub mod </span><a href="SearchFiles.rs.html#1-64">SearchFiles</a>;
+<a href=#80 id=80 data-nosnippet>80</a>
+<a href=#81 id=81 data-nosnippet>81</a><span class="comment">// Status + monitoring
+<a href=#82 id=82 data-nosnippet>82</a></span><span class="kw">pub mod </span><a href="GetMetrics.rs.html#1-89">GetMetrics</a>;
+<a href=#83 id=83 data-nosnippet>83</a>
+<a href=#84 id=84 data-nosnippet>84</a><span class="kw">pub mod </span><a href="GetResourceUsage.rs.html#1-53">GetResourceUsage</a>;
+<a href=#85 id=85 data-nosnippet>85</a>
+<a href=#86 id=86 data-nosnippet>86</a><span class="kw">pub mod </span><a href="GetStatus.rs.html#1-59">GetStatus</a>;
+<a href=#87 id=87 data-nosnippet>87</a>
+<a href=#88 id=88 data-nosnippet>88</a><span class="kw">pub mod </span><a href="HealthCheck.rs.html#1-38">HealthCheck</a>;
+<a href=#89 id=89 data-nosnippet>89</a>
+<a href=#90 id=90 data-nosnippet>90</a><span class="kw">pub mod </span><a href="SetResourceLimits.rs.html#1-67">SetResourceLimits</a>;
+<a href=#91 id=91 data-nosnippet>91</a>
+<a href=#92 id=92 data-nosnippet>92</a><span class="comment">// Configuration
+<a href=#93 id=93 data-nosnippet>93</a></span><span class="kw">pub mod </span><a href="GetConfiguration.rs.html#1-56">GetConfiguration</a>;
+<a href=#94 id=94 data-nosnippet>94</a>
+<a href=#95 id=95 data-nosnippet>95</a><span class="kw">pub mod </span><a href="UpdateConfiguration.rs.html#1-65">UpdateConfiguration</a>;
+<a href=#96 id=96 data-nosnippet>96</a>
+<a href=#97 id=97 data-nosnippet>97</a><span class="comment">// --- Client core ---
+<a href=#98 id=98 data-nosnippet>98</a>
+<a href=#99 id=99 data-nosnippet>99</a></span><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">std::sync::Arc</a>;
+<a href=#100 id=100 data-nosnippet>100</a>
+<a href=#101 id=101 data-nosnippet>101</a><span class="kw">use </span>tokio::sync::Mutex;
+<a href=#102 id=102 data-nosnippet>102</a><span class="kw">use </span>tonic::transport::Channel;
+<a href=#103 id=103 data-nosnippet>103</a>
+<a href=#104 id=104 data-nosnippet>104</a><span class="kw">use crate</span>::{<a href="../../Library.rs.html#254-302">AirError</a>, <a href="../../Vine/Generated/air.rs.html#368-370">Vine::Generated::air::air_service_client::AirServiceClient</a>, <a href="../../DevLog.rs.html#142-200">dev_log</a>};
+<a href=#105 id=105 data-nosnippet>105</a>
+<a href=#106 id=106 data-nosnippet>106</a><span class="doccomment">/// Default gRPC server address for the Air daemon.
+<a href=#107 id=107 data-nosnippet>107</a>///
+<a href=#108 id=108 data-nosnippet>108</a>/// Port allocation:
+<a href=#109 id=109 data-nosnippet>109</a>///
+<a href=#110 id=110 data-nosnippet>110</a>/// - `50051` - Mountain Vine server
+<a href=#111 id=111 data-nosnippet>111</a>/// - `50052` - Cocoon Vine server
+<a href=#112 id=112 data-nosnippet>112</a>/// - `50053` - Air Vine server (this constant)
+<a href=#113 id=113 data-nosnippet>113</a></span><span class="kw">pub const </span><a href="../../../../AirLibrary/Client/AirClient/constant.DEFAULT_AIR_SERVER_ADDRESS.html">DEFAULT_AIR_SERVER_ADDRESS</a>:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a> = <span class="string">"[::1]:50053"</span>;
+<a href=#114 id=114 data-nosnippet>114</a>
+<a href=#115 id=115 data-nosnippet>115</a><span class="doccomment">/// Air gRPC client wrapper.
+<a href=#116 id=116 data-nosnippet>116</a>///
+<a href=#117 id=117 data-nosnippet>117</a>/// Thread-safe via `Arc&lt;Mutex&lt;…&gt;&gt;`. Clones share the same underlying
+<a href=#118 id=118 data-nosnippet>118</a>/// channel - clone is cheap (Arc ref-count bump). The `address` field is
+<a href=#119 id=119 data-nosnippet>119</a>/// kept as the string the caller passed in so logs / `Debug` see the
+<a href=#120 id=120 data-nosnippet>120</a>/// original form (`http://[::1]:50053`, etc.).
+<a href=#121 id=121 data-nosnippet>121</a></span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
+<a href=#122 id=122 data-nosnippet>122</a></span><span class="kw">pub struct </span><a href="#122-129">AirClient</a> {
+<a href=#123 id=123 data-nosnippet>123</a>	<span class="doccomment">/// Underlying tonic gRPC client wrapped in `Arc&lt;Mutex&lt;&gt;&gt;` for shared,
+<a href=#124 id=124 data-nosnippet>124</a>	/// thread-safe access from multiple call sites.
+<a href=#125 id=125 data-nosnippet>125</a>	</span>client:<a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;Mutex&lt;<a href="../../Vine/Generated/air.rs.html#368-370">AirServiceClient</a>&lt;Channel&gt;&gt;&gt;&gt;,
+<a href=#126 id=126 data-nosnippet>126</a>
+<a href=#127 id=127 data-nosnippet>127</a>	<span class="doccomment">/// Address of the Air daemon.
+<a href=#128 id=128 data-nosnippet>128</a>	</span>address:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+<a href=#129 id=129 data-nosnippet>129</a>}
+<a href=#130 id=130 data-nosnippet>130</a>
+<a href=#131 id=131 data-nosnippet>131</a><span class="kw">impl </span><a href="#122-129">AirClient</a> {
+<a href=#132 id=132 data-nosnippet>132</a>	<span class="doccomment">/// Connects to the Air daemon at `address` and returns a ready-to-use
+<a href=#133 id=133 data-nosnippet>133</a>	/// client.
+<a href=#134 id=134 data-nosnippet>134</a>	///
+<a href=#135 id=135 data-nosnippet>135</a>	/// # Arguments
+<a href=#136 id=136 data-nosnippet>136</a>	///
+<a href=#137 id=137 data-nosnippet>137</a>	/// * `address` - gRPC server address (e.g. `"http://[::1]:50053"`).
+<a href=#138 id=138 data-nosnippet>138</a>	///
+<a href=#139 id=139 data-nosnippet>139</a>	/// # Errors
+<a href=#140 id=140 data-nosnippet>140</a>	///
+<a href=#141 id=141 data-nosnippet>141</a>	/// - [`AirError::Network`] if the address parses as a tonic `Endpoint` but
+<a href=#142 id=142 data-nosnippet>142</a>	///   the underlying connection attempt fails.
+<a href=#143 id=143 data-nosnippet>143</a>	/// - [`AirError::Validation`] if the address string is malformed.
+<a href=#144 id=144 data-nosnippet>144</a>	</span><span class="kw">pub async fn </span>new(address:<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, AirError&gt; {
+<a href=#145 id=145 data-nosnippet>145</a>		<span class="macro">dev_log!</span>(<span class="string">"grpc"</span>, <span class="string">"[AirClient] Connecting to Air daemon at: {}"</span>, address);
+<a href=#146 id=146 data-nosnippet>146</a>
+<a href=#147 id=147 data-nosnippet>147</a>		<span class="kw">let </span>Endpoint = address.parse::&lt;tonic::transport::Endpoint&gt;().map_err(|E| {
+<a href=#148 id=148 data-nosnippet>148</a>			<span class="macro">dev_log!</span>(<span class="string">"grpc"</span>, <span class="string">"error: [AirClient] Failed to parse address '{}': {}"</span>, address, E);
+<a href=#149 id=149 data-nosnippet>149</a>
+<a href=#150 id=150 data-nosnippet>150</a>			AirError::Validation(<span class="macro">format!</span>(<span class="string">"Invalid address '{}': {}"</span>, address, E))
+<a href=#151 id=151 data-nosnippet>151</a>		})<span class="question-mark">?</span>;
+<a href=#152 id=152 data-nosnippet>152</a>
+<a href=#153 id=153 data-nosnippet>153</a>		<span class="kw">let </span>Channel = Endpoint.connect().<span class="kw">await</span>.map_err(|E| {
+<a href=#154 id=154 data-nosnippet>154</a>			<span class="macro">dev_log!</span>(<span class="string">"grpc"</span>, <span class="string">"error: [AirClient] Failed to connect to Air daemon: {}"</span>, E);
+<a href=#155 id=155 data-nosnippet>155</a>
+<a href=#156 id=156 data-nosnippet>156</a>			AirError::Network(<span class="macro">format!</span>(<span class="string">"Connection failed: {}"</span>, E))
+<a href=#157 id=157 data-nosnippet>157</a>		})<span class="question-mark">?</span>;
+<a href=#158 id=158 data-nosnippet>158</a>
+<a href=#159 id=159 data-nosnippet>159</a>		<span class="macro">dev_log!</span>(<span class="string">"grpc"</span>, <span class="string">"[AirClient] Successfully connected to Air daemon at: {}"</span>, address);
+<a href=#160 id=160 data-nosnippet>160</a>
+<a href=#161 id=161 data-nosnippet>161</a>		<span class="kw">let </span>Client = Arc::new(Mutex::new(AirServiceClient::new(Channel)));
+<a href=#162 id=162 data-nosnippet>162</a>
+<a href=#163 id=163 data-nosnippet>163</a>		<span class="prelude-val">Ok</span>(<span class="self">Self </span>{ client:<span class="prelude-val">Some</span>(Client), address:address.to_string() })
+<a href=#164 id=164 data-nosnippet>164</a>	}
+<a href=#165 id=165 data-nosnippet>165</a>
+<a href=#166 id=166 data-nosnippet>166</a>	<span class="doccomment">/// Whether the client is connected to the Air daemon.
+<a href=#167 id=167 data-nosnippet>167</a>	</span><span class="kw">pub fn </span>is_connected(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { <a class="self" href="#167">self</a>.client.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.is_some">is_some</a>() }
+<a href=#168 id=168 data-nosnippet>168</a>
+<a href=#169 id=169 data-nosnippet>169</a>	<span class="doccomment">/// Address of the Air daemon.
+<a href=#170 id=170 data-nosnippet>170</a>	</span><span class="kw">pub fn </span>address(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a> { <span class="kw-2">&amp;</span><a class="self" href="#170">self</a>.address }
+<a href=#171 id=171 data-nosnippet>171</a>
+<a href=#172 id=172 data-nosnippet>172</a>	<span class="doccomment">/// Borrow the underlying tonic client for issuing RPCs. Returns
+<a href=#173 id=173 data-nosnippet>173</a>	/// `None` when the client is disconnected. Per-domain method impls
+<a href=#174 id=174 data-nosnippet>174</a>	/// call this and then `.lock().await` to obtain the mutex guard
+<a href=#175 id=175 data-nosnippet>175</a>	/// before issuing the RPC.
+<a href=#176 id=176 data-nosnippet>176</a>	</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>Client(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">Arc</a>&lt;Mutex&lt;<a href="../../Vine/Generated/air.rs.html#368-370">AirServiceClient</a>&lt;Channel&gt;&gt;&gt;&gt; { <a class="self" href="#176">self</a>.client.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.as_ref">as_ref</a>() }
+<a href=#177 id=177 data-nosnippet>177</a>}
+<a href=#178 id=178 data-nosnippet>178</a>
+<a href=#179 id=179 data-nosnippet>179</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">std::fmt::Debug</a> <span class="kw">for </span><a href="#122-129">AirClient</a> {
+<a href=#180 id=180 data-nosnippet>180</a>	<span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f:<span class="kw-2">&amp;mut </span>std::fmt::<a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">Formatter</a>&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::<a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">Result</a> { <a href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<a href="#180">f</a>, <span class="string">"AirClient({})"</span>, <span class="self">self</span>.address) }
+<a href=#181 id=181 data-nosnippet>181</a>}
+<a href=#182 id=182 data-nosnippet>182</a>
+<a href=#183 id=183 data-nosnippet>183</a><span class="comment">// ============================================================================
+<a href=#184 id=184 data-nosnippet>184</a>// tonic::Request Helper
+<a href=#185 id=185 data-nosnippet>185</a>// ============================================================================
+<a href=#186 id=186 data-nosnippet>186</a>
+<a href=#187 id=187 data-nosnippet>187</a></span><span class="doccomment">/// Helper trait for converting any value into a `tonic::Request&lt;T&gt;`.
+<a href=#188 id=188 data-nosnippet>188</a>///
+<a href=#189 id=189 data-nosnippet>189</a>/// Implemented for every `T` via the blanket impl below. Per-domain method
+<a href=#190 id=190 data-nosnippet>190</a>/// impls use `payload.into_request()` instead of
+<a href=#191 id=191 data-nosnippet>191</a>/// `tonic::Request::new(payload)`.
+<a href=#192 id=192 data-nosnippet>192</a></span><span class="kw">pub trait </span><a href="../../../../AirLibrary/Client/AirClient/trait.IntoRequestExt.html">IntoRequestExt</a> {
+<a href=#193 id=193 data-nosnippet>193</a>	<span class="kw">fn </span>into_request(<span class="self">self</span>) -&gt; tonic::Request&lt;<span class="self">Self</span>&gt;
+<a href=#194 id=194 data-nosnippet>194</a>	<span class="kw">where
+<a href=#195 id=195 data-nosnippet>195</a>		</span><span class="self">Self</span>: <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>, {
+<a href=#196 id=196 data-nosnippet>196</a>		tonic::Request::new(<a class="self" href="#193">self</a>)
+<a href=#197 id=197 data-nosnippet>197</a>	}
+<a href=#198 id=198 data-nosnippet>198</a>}
+<a href=#199 id=199 data-nosnippet>199</a>
+<a href=#200 id=200 data-nosnippet>200</a><span class="kw">impl</span>&lt;T&gt; <a href="#192-198">IntoRequestExt</a> <span class="kw">for </span>T {}
+</code></pre></div></section></main></body></html>
