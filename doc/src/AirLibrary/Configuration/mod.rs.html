@@ -223,7 +223,7 @@
 <a href=#223 id=223 data-nosnippet>223</a>	<span class="doccomment">/// Update server URL
 <a href=#224 id=224 data-nosnippet>224</a>	/// Validation: Must be a valid HTTPS URL
 <a href=#225 id=225 data-nosnippet>225</a>	/// Security: HTTPS required for security
-<a href=#226 id=226 data-nosnippet>226</a>	/// Default: &lt;https://updates.land.playform.cloud&gt;
+<a href=#226 id=226 data-nosnippet>226</a>	/// Default: &lt;https://updates.editor.land&gt;
 <a href=#227 id=227 data-nosnippet>227</a>	</span><span class="attr">#[serde(default = <span class="string">"default_update_server_url"</span>)]
 <a href=#228 id=228 data-nosnippet>228</a>	</span><span class="kw">pub </span>UpdateServerUrl:<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
 <a href=#229 id=229 data-nosnippet>229</a>
@@ -247,7 +247,7 @@
 <a href=#247 id=247 data-nosnippet>247</a>
 <a href=#248 id=248 data-nosnippet>248</a><span class="kw">fn </span><a href="../../../AirLibrary/Configuration/fn.default_update_check_interval.html">default_update_check_interval</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> { <span class="number">6 </span>}
 <a href=#249 id=249 data-nosnippet>249</a>
-<a href=#250 id=250 data-nosnippet>250</a><span class="kw">fn </span><a href="../../../AirLibrary/Configuration/fn.default_update_server_url.html">default_update_server_url</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> { <span class="string">"https://updates.land.playform.cloud"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>() }
+<a href=#250 id=250 data-nosnippet>250</a><span class="kw">fn </span><a href="../../../AirLibrary/Configuration/fn.default_update_server_url.html">default_update_server_url</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> { <span class="string">"https://updates.editor.land"</span>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">to_string</a>() }
 <a href=#251 id=251 data-nosnippet>251</a>
 <a href=#252 id=252 data-nosnippet>252</a><span class="kw">fn </span><a href="../../../AirLibrary/Configuration/fn.default_update_auto_download.html">default_update_auto_download</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { <span class="bool-val">true </span>}
 <a href=#253 id=253 data-nosnippet>253</a>
@@ -1673,7 +1673,7 @@
 <a href=#1673 id=1673 data-nosnippet>1673</a>	</span><span class="kw">fn </span>test_url_validation() {
 <a href=#1674 id=1674 data-nosnippet>1674</a>		<span class="macro">assert!</span>(ConfigurationManager::IsValidUrl(<span class="string">"https://example.com"</span>));
 <a href=#1675 id=1675 data-nosnippet>1675</a>
-<a href=#1676 id=1676 data-nosnippet>1676</a>		<span class="macro">assert!</span>(ConfigurationManager::IsValidUrl(<span class="string">"https://updates.land.playform.cloud"</span>));
+<a href=#1676 id=1676 data-nosnippet>1676</a>		<span class="macro">assert!</span>(ConfigurationManager::IsValidUrl(<span class="string">"https://updates.editor.land"</span>));
 <a href=#1677 id=1677 data-nosnippet>1677</a>
 <a href=#1678 id=1678 data-nosnippet>1678</a>		<span class="macro">assert!</span>(!ConfigurationManager::IsValidUrl(<span class="string">"not-a-url"</span>));
 <a href=#1679 id=1679 data-nosnippet>1679</a>
