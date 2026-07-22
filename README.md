@@ -11,4 +11,4 @@
 > This Element supports the Land deep-shim interception system. The shim
 > intercepts VS Code engine events at both the JavaScript prototype level (🟠 orange)
 > and the application service level (🔵 blue). Gated behind `TierShim` env var
-> (default: `None` - zero overhead). See the [Shim documentation](/doc/low-level-shim).
+> (default: `None` - zero overhead). See the [Shim documentation](https://github.com/CodeEditorLand/Land/tree/Current/Documentation/GitHub/Shim.md).
